@@ -229,7 +229,7 @@ function update(dt) {
   const heroLift = heroT * (narrowView ? -0.62 : -1.0);
   const heroShift = 0;
   const storyLift = mobileView ? smoothstep(PH.problem[0], PH.final[0], p) * (1 - settle) * 0.24 : 0;
-  const finalShift = settle * (narrowView ? -2.75 : -5.0);
+  const finalShift = settle * (mobileView ? 0 : (narrowView ? -2.75 : -5.0));
   device.group.position.x = heroShift + finalShift;
   device.group.position.y = floatY + heroLift + storyLift + lerp(0, -0.2, explode * (1 - settle));
   const heroScale = narrowView ? 0.44 : 0.52;
@@ -246,6 +246,7 @@ function update(dt) {
   camera.position.y = lerp(camera.position.y, lerp(2.5, 2.3, settle), Math.min(1, dt * 4));
   camera.lookAt(device.group.position.x * 0.5, 0, 0);
 
+  canvas.style.opacity = (1 - smoothstep(0.992, 1, p) * 0.9).toFixed(3);
   renderer.render(scene, camera);
 }
 
