@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Hardware - OpenPulse</title>
 <meta name="description" content="OpenPulse hardware status: working main PCB, two skin-side sensor slots, one outward-facing slot and sensor pucks in active development." />
-<link rel="stylesheet" href="css/styles.css?v=39" />
+<link rel="stylesheet" href="css/styles.css?v=41" />
 <script type="importmap">
 {
   "imports": {
@@ -150,6 +150,22 @@
     </div>
   </section>
 
+  <section class="page-section muted">
+    <div class="wrap risk-board">
+      <div class="section-head compact">
+        <div class="eyebrow">Engineering risks</div>
+        <h2>The credibility is in the gates.</h2>
+        <p>OpenPulse should look premium, but the page also needs to show where the hard work still is.</p>
+      </div>
+      <div class="risk-list">
+        <div><span>Mechanical</span><strong>Do the round pucks seat and contact reliably?</strong><em>Fit, pressure, replacement cycles, skin-side placement.</em></div>
+        <div><span>Electrical</span><strong>Do pins, pads, voltages and pullups behave as designed?</strong><em>Bring-up and continuity before meaningful data claims.</em></div>
+        <div><span>Assembly</span><strong>Can the small boards be reflowed without tombstoning?</strong><em>Repeatable process matters before scaling prototypes.</em></div>
+        <div><span>Signal</span><strong>Is the real body/environment data useful enough?</strong><em>Validation before accuracy, safety or medical language.</em></div>
+      </div>
+    </div>
+  </section>
+
   <section class="quote-band">
     <div class="wrap">
       <p>OpenPulse can communicate strong architecture, modularity and data ownership. It should not claim validated sensor quality, medical accuracy or a finished safety product yet.</p>
@@ -174,7 +190,7 @@
   </div>
   <div class="footer-bottom"><span>&copy; 2026 OpenPulse. Prototype platform in active validation.</span><span class="mono">Privacy / Terms / Imprint</span></div>
 </footer>
-<script type="module" src="js/site.js?v=22"></script>
+<script type="module" src="js/site.js?v=23"></script>
 <script type="module" src="js/hardware-viewer.js?v=13"></script>
 </body>
 </html>

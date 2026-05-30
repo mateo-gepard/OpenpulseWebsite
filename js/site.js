@@ -66,6 +66,29 @@ if (configsSection) {
   }
 }
 
+const configStudio = document.querySelector('[data-config-studio]');
+if (configStudio) {
+  const tabs = [...configStudio.querySelectorAll('[data-config-tab]')];
+  const panels = [...configStudio.querySelectorAll('[data-config-panel]')];
+  const canvases = [...configStudio.querySelectorAll('[data-config]')];
+  const readout = configStudio.querySelector('[data-studio-title]');
+
+  const setActiveConfig = (key) => {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.configTab === key;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', String(active));
+      if (active && readout) readout.textContent = tab.textContent.trim();
+    });
+    panels.forEach((panel) => panel.classList.toggle('is-active', panel.dataset.configPanel === key));
+    canvases.forEach((canvas) => canvas.classList.toggle('is-active', canvas.dataset.config === key));
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => setActiveConfig(tab.dataset.configTab));
+  });
+}
+
 document.querySelectorAll('[data-youtube-id]').forEach((button) => {
   button.addEventListener('click', () => {
     const id = button.dataset.youtubeId;

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>OpenPulse - Modular biosensing for companies</title>
 <meta name="description" content="OpenPulse is a modular biosensor wearable platform for companies building their own health, safety, research or performance experiences." />
-<link rel="stylesheet" href="css/styles.css?v=39" />
+<link rel="stylesheet" href="css/styles.css?v=41" />
 <script type="importmap">
 {
   "imports": {
@@ -47,12 +47,12 @@
   <div class="sticky">
     <canvas id="scene"></canvas>
 
-    <div class="overlay ov-hero-top" data-range="-0.05,-0.04,0.07,0.095">
+    <div class="overlay ov-hero-top" data-frame-range="0,1,20,26">
       <div class="eyebrow">Modular biosensor platform</div>
       <h1>Not another wearable.<br><span class="grad">A platform.</span></h1>
     </div>
 
-    <div class="overlay ov-hero-bottom" data-range="-0.05,-0.04,0.07,0.095">
+    <div class="overlay ov-hero-bottom" data-frame-range="0,1,20,26">
       <p>Configurable sensor hardware, open data access and flexible integration, built around replaceable sensor pucks.</p>
       <div class="btn-row center">
         <a class="btn btn-primary" href="hardware.html">Explore hardware</a>
@@ -60,12 +60,7 @@
       </div>
     </div>
 
-    <div class="scroll-hint" data-range="-0.05,-0.04,0.04,0.065">
-      <span>Scroll to explore</span>
-      <svg width="14" height="22" viewBox="0 0 14 22" fill="none"><rect x="1" y="1" width="12" height="20" rx="6" stroke="#8b909b" stroke-width="1.3"/><circle cx="7" cy="6.5" r="1.7" fill="#8b909b"/></svg>
-    </div>
-
-    <div class="overlay ov-problem" id="platform" data-range="0.10,0.125,0.175,0.20">
+    <div class="overlay ov-problem" id="platform" data-frame-range="20,26,70,76">
       <div class="eyebrow">The problem</div>
       <h2>Most wearables are closed by design.</h2>
       <div class="fail-list">
@@ -75,76 +70,61 @@
       </div>
     </div>
 
-    <div class="overlay ov-reveal" data-range="0.205,0.225,0.275,0.30">
+    <div class="overlay ov-reveal" data-frame-range="70,72,76,80">
       <div class="eyebrow">The platform inside</div>
       <h2>OpenPulse is different.</h2>
       <p>A reusable wearable base. Replaceable sensor pucks. Customer-controlled data. Integration into your own systems.</p>
     </div>
 
-    <div class="overlay ov-anatomy left" data-range="0.440,0.452,0.482,0.494">
+    <div class="overlay ov-anatomy left" data-frame-range="82,84,92,94">
       <div class="card">
-        <div class="idx">01 - Main PCB</div>
+        <div class="idx">01 - Platform architecture</div>
+        <h3>One base. Three sensing positions.</h3>
+        <p>The opened view shows the reusable wearable base, two body-facing directions and one outward-facing sensing position.</p>
+        <div class="biz">The architecture is the product.</div>
+      </div>
+    </div>
+
+    <div class="overlay ov-anatomy right" data-frame-range="94,96,114,129">
+      <div class="card">
+        <div class="idx">02 - Main PCB</div>
         <h3>The reusable core</h3>
         <p>Compute, wireless, power management and the interface between sensor modules and software.</p>
         <div class="biz">The base stays. The configuration changes.</div>
       </div>
     </div>
 
-    <div class="overlay ov-anatomy right" data-range="0.494,0.506,0.537,0.549">
+    <div class="overlay ov-anatomy left" data-frame-range="128,130,145,158">
       <div class="card">
-        <div class="idx">02 - Skin-side slots</div>
-        <h3>Signals from the body</h3>
-        <p>Skin-facing slots designed for future biosignal modules such as optical, electrical or thermal sensing.</p>
-      </div>
-    </div>
-
-    <div class="overlay ov-anatomy left" data-range="0.549,0.561,0.591,0.603">
-      <div class="card">
-        <div class="idx">03 - Outward-facing slot</div>
-        <h3>The world around the wearer</h3>
-        <p>Not every useful signal comes from the body. OpenPulse leaves room for environment-facing sensing.</p>
-      </div>
-    </div>
-
-    <div class="overlay ov-anatomy right" data-range="0.603,0.615,0.645,0.657">
-      <div class="card">
-        <div class="idx">04 - Sensor pucks</div>
+        <div class="idx">03 - Sensor pucks</div>
         <h3>Configure around the use case</h3>
-        <p>Pucks make OpenPulse configurable. Partners define what to measure; the hardware can evolve around it.</p>
+        <p>Pucks make OpenPulse configurable. Partners define what needs to be measured; the hardware can evolve around that use case.</p>
         <div class="biz">The puck is the business model.</div>
       </div>
     </div>
 
-    <div class="overlay ov-anatomy left" data-range="0.657,0.669,0.700,0.712">
+    <div class="overlay ov-anatomy right" data-frame-range="160,162,175,189">
       <div class="card">
-        <div class="idx">05 - Software and API</div>
-        <h3>Built to integrate</h3>
-        <p>Designed to connect sensor data to apps, dashboards, research tools, safety workflows or partner platforms.</p>
+        <div class="idx">04 - Titanium case</div>
+        <h3>The structural shell</h3>
+        <p>The case gives the platform its physical language: a precise metallic body around the reusable core and modular puck system.</p>
+        <div class="biz">Premium outside. Configurable inside.</div>
       </div>
     </div>
 
-    <div class="overlay ov-anatomy right" data-range="0.712,0.724,0.754,0.766">
+    <div class="overlay ov-anatomy left" data-frame-range="189,193,200,204">
       <div class="card">
-        <div class="idx">06 - Data ownership</div>
-        <h3>Your data flow, not ours</h3>
-        <p>Built around the idea that companies and users should understand and control how biosensor data is captured and integrated.</p>
-      </div>
-    </div>
-
-    <div class="overlay ov-anatomy left" data-range="0.766,0.778,0.808,0.820">
-      <div class="card">
-        <div class="idx">07 - Built to evolve</div>
-        <h3>Repairable and upgradeable</h3>
-        <p>Replaceable modules do not only create more use cases. They make hardware easier to repair, upgrade and adapt over time.</p>
+        <div class="idx">05 - Integration layer</div>
+        <h3>Hardware becomes a data path</h3>
+        <p>The goal is not only a wearable. It is configurable sensing, open data access and integration into partner systems.</p>
       </div>
     </div>
 
     <div id="anatomy-progress">
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
     </div>
 
-    <div class="overlay ov-final" data-range="0.90,0.93,1.05,1.10">
+    <div class="overlay ov-final" data-frame-range="206,208,216,222">
       <div class="eyebrow">From modules to solutions</div>
       <h2>Configure biosensing around your product.</h2>
       <p>OpenPulse lets partners combine wearable hardware, sensor modules and software integration into a system that fits their use case.</p>
@@ -156,62 +136,50 @@
   </div>
 </section>
 
-<section class="proof-strip" aria-label="OpenPulse status">
+<section class="proof-strip evidence-strip" aria-label="OpenPulse status">
   <div class="proof-item">
-    <span>Stage</span>
-    <strong>Prototype platform in active validation</strong>
+    <span>Prototype state</span>
+    <strong>Main PCB online</strong>
+    <small>Designed, assembled and tested.</small>
   </div>
   <div class="proof-item">
-    <span>Hardware</span>
-    <strong>Working main PCB, puck boards in development</strong>
+    <span>Puck system</span>
+    <strong>Boards and parts ready</strong>
+    <small>Assembly, reflow and signal validation next.</small>
   </div>
   <div class="proof-item">
-    <span>Focus</span>
-    <strong>B2B pilots with concrete sensor and data needs</strong>
+    <span>Platform focus</span>
+    <strong>B2B-first configuration</strong>
+    <small>Sensor stack and data path shaped around partner use cases.</small>
+  </div>
+  <div class="proof-item">
+    <span>Current ask</span>
+    <strong>Concrete pilot problems</strong>
+    <small>Clear signal need, owner, workflow and integration target.</small>
   </div>
 </section>
 
-<section class="block platform-snapshot">
+<section class="block platform-snapshot product-film-section">
   <div class="wrap">
-    <div class="section-head wide">
-      <div class="eyebrow">Platform thesis</div>
-      <h2>A wearable foundation companies can configure instead of reinventing.</h2>
-      <p>OpenPulse separates the wearable into reusable platform hardware, swappable sensing modules and software integration. The goal is not to sell one fixed device. The goal is to help partners build their own biosensing product layer.</p>
-    </div>
-    <div class="snapshot-grid">
-      <div class="architecture-panel">
-        <div class="arch-row">
-          <span>Partner product</span>
-          <strong>App, dashboard, workflow</strong>
-        </div>
-        <div class="arch-row">
-          <span>OpenPulse software</span>
-          <strong>API, export, integration layer</strong>
-        </div>
-        <div class="arch-row">
-          <span>Wearable base</span>
-          <strong>Main PCB, wireless, power, firmware</strong>
-        </div>
-        <div class="arch-row">
-          <span>Sensor pucks</span>
-          <strong>Use-case-specific sensing modules</strong>
-        </div>
+    <div class="architecture-scene">
+      <div class="section-head wide">
+        <div class="eyebrow">Platform architecture</div>
+        <h2>The wearable is only the visible part of the system.</h2>
+        <p>OpenPulse links a reusable base, replaceable pucks and a partner-controlled data path. The product logic is not one sealed sensor stack. It is a configurable hardware and integration layer.</p>
       </div>
-      <div class="decision-list">
-        <div>
-          <span class="num">01</span>
-          <h3>Configure the sensor stack</h3>
-          <p>Pick the sensing direction around a partner use case: body-facing, environment-facing or experimental developer modules.</p>
+      <div class="architecture-theater" aria-label="OpenPulse platform architecture">
+        <div class="platform-stack-visual">
+          <div class="stack-layer partner-layer"><span>Partner product</span><strong>App / dashboard / workflow</strong></div>
+          <div class="stack-layer data-layer"><span>OpenPulse data layer</span><strong>API concept / export / quality state</strong></div>
+          <div class="stack-layer base-layer"><span>Reusable wearable base</span><strong>Main PCB / power / wireless / firmware</strong></div>
+          <div class="stack-layer puck-layer"><span>Replaceable pucks</span><strong>Skin-side and environment-facing modules</strong></div>
         </div>
-        <div>
-          <span class="num">02</span>
-          <h3>Own the data path</h3>
-          <p>Design the data flow around the partner system instead of locking it inside someone else's app.</p>
-        </div>
-        <div>
-          <span class="num">03</span>
-          <h3>Validate honestly</h3>
-          <p>Main PCB works. Sensor pucks exist as PCBs and components, with assembly and signal validation next.</p>
+        <div class="platform-console">
+          <div class="console-status-row"><span>Use-case input</span><strong>What needs to be sensed?</strong></div>
+          <div class="console-status-row"><span>Hardware decision</span><strong>Which puck direction fits?</strong></div>
+          <div class="console-status-row"><span>Data decision</span><strong>Where should samples go?</strong></div>
+          <div class="console-status-row warning"><span>Validation gate</span><strong>What must be proven before claims?</strong></div>
+          <div class="signal-thread" aria-hidden="true"><i></i><i></i><i></i></div>
         </div>
       </div>
     </div>
@@ -220,11 +188,11 @@
 
 <div id="anatomy-anchor"></div>
 
-<section class="block stats-band">
+<section class="block stats-band precision-band">
   <div class="wrap">
     <div class="stats-head">
-      <div class="eyebrow">The platform, by design</div>
-      <h2>Built modular from the first board.</h2>
+      <div class="eyebrow">Built as a platform</div>
+      <h2>Every piece has a job.</h2>
     </div>
     <div class="stats-grid">
       <div class="stat">
@@ -251,76 +219,89 @@
   </div>
 </section>
 
-<section class="block" id="configs">
+<section class="block configuration-section" id="configs">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head wide">
       <div class="eyebrow">Example configurations</div>
-      <h2>One architecture. Multiple directions.</h2>
-      <p>The same foundation, configured around different signals and use cases. These are candidate directions, not finished product lines.</p>
+      <h2>A configuration studio, not a product catalog.</h2>
+      <p>These are candidate directions for conversations with partners. They show how one hardware foundation can point toward different sensing, data and integration needs without pretending the pucks are already validated products.</p>
     </div>
 
-    <div class="configs-grid">
-      <article class="config-card">
-        <canvas class="config-canvas" data-config="human"></canvas>
-        <div class="config-body">
-          <div class="tag">Human Signals</div>
-          <h3>Body-data experiences</h3>
-          <p>Skin-facing biosignal modules for research, fitness platforms, biofeedback and corporate wellness.</p>
-          <div class="config-meta"><span class="chip">Optical</span><span class="chip">Thermal</span><span class="chip">Electrical</span></div>
+    <div class="config-studio" data-config-studio>
+      <div class="studio-preview" aria-label="OpenPulse configuration previews">
+        <div class="studio-canvas-stack">
+          <canvas class="config-canvas is-active" data-config="human"></canvas>
+          <canvas class="config-canvas" data-config="safety"></canvas>
+          <canvas class="config-canvas" data-config="dev"></canvas>
         </div>
-      </article>
-
-      <article class="config-card">
-        <canvas class="config-canvas" data-config="safety"></canvas>
-        <div class="config-body">
-          <div class="tag">Safety / Environment</div>
-          <h3>Context awareness</h3>
-          <p>Environment-facing modules for workplace and safety-related contexts such as heat, air and surroundings.</p>
-          <div class="config-meta"><span class="chip">Temperature</span><span class="chip">Air quality</span><span class="chip">UV / heat</span></div>
+        <div class="studio-readout">
+          <span>Active direction</span>
+          <strong data-studio-title>Human signals</strong>
         </div>
-      </article>
-
-      <article class="config-card">
-        <canvas class="config-canvas" data-config="dev"></canvas>
-        <div class="config-body">
-          <div class="tag">Developer / Open</div>
-          <h3>Room to experiment</h3>
-          <p>For teams who want deeper access, transparent data flows and the freedom to build their own thing.</p>
-          <div class="config-meta"><span class="chip">Open API</span><span class="chip">Data export</span><span class="chip">SDK vision</span></div>
+      </div>
+      <div class="studio-control">
+        <div class="studio-tabs" role="tablist" aria-label="Configuration directions">
+          <button class="is-active" type="button" data-config-tab="human" role="tab" aria-selected="true">Human signals</button>
+          <button type="button" data-config-tab="safety" role="tab" aria-selected="false">Environment</button>
+          <button type="button" data-config-tab="dev" role="tab" aria-selected="false">Developer</button>
         </div>
-      </article>
+        <div class="studio-panels">
+          <article class="studio-panel is-active" data-config-panel="human">
+            <div class="tag">Human Signals Kit</div>
+            <h3>Body-data experiences for partner platforms.</h3>
+            <p>Skin-facing module directions for research, fitness platforms, biofeedback-adjacent experiences and corporate wellness workflows.</p>
+            <div class="config-meta"><span class="chip">Optical direction</span><span class="chip">Thermal path</span><span class="chip">Electrical candidate</span></div>
+          </article>
+          <article class="studio-panel" data-config-panel="safety">
+            <div class="tag">Safety / Environment Kit</div>
+            <h3>Context signals around the wearer.</h3>
+            <p>Environment-facing module directions for workplace, heat, air-quality or context-aware applications, without making finished safety claims.</p>
+            <div class="config-meta"><span class="chip">Temperature</span><span class="chip">Air quality</span><span class="chip">Context data</span></div>
+          </article>
+          <article class="studio-panel" data-config-panel="dev">
+            <div class="tag">Developer / Open Kit</div>
+            <h3>Access for teams who want to build deeper.</h3>
+            <p>A secondary path for developers, research teams and quantified-self users who care about transparent data and room to experiment.</p>
+            <div class="config-meta"><span class="chip">Open API concept</span><span class="chip">Data export</span><span class="chip">SDK vision</span></div>
+          </article>
+        </div>
+      </div>
     </div>
 
     <div class="candidate-note">OpenPulse is currently looking for concrete B2B use cases and pilot partners.</div>
   </div>
 </section>
 
-<section class="block quiet-band">
+<section class="block quiet-band partner-workflow-section">
   <div class="wrap">
     <div class="section-head wide">
-      <div class="eyebrow">Partner motion</div>
+      <div class="eyebrow">Pilot workflow</div>
       <h2>From use-case question to configured prototype.</h2>
     </div>
-    <div class="process-grid">
+    <div class="partner-path">
       <div class="process-step">
         <span>01</span>
         <h3>Define the signal problem</h3>
         <p>What needs to be sensed, in what context, by whom, and how often?</p>
+        <strong>Output: sensor/data brief</strong>
       </div>
       <div class="process-step">
         <span>02</span>
         <h3>Select a sensing direction</h3>
         <p>Skin-facing, environment-facing or a custom puck concept around the partner need.</p>
+        <strong>Output: puck direction</strong>
       </div>
       <div class="process-step">
         <span>03</span>
         <h3>Shape the data path</h3>
         <p>Define export, API, dashboard or integration requirements before pretending the hardware is finished.</p>
+        <strong>Output: integration path</strong>
       </div>
       <div class="process-step">
         <span>04</span>
         <h3>Build and validate</h3>
         <p>Prototype, test signal quality, verify mechanical fit and decide whether a pilot makes sense.</p>
+        <strong>Output: validation decision</strong>
       </div>
     </div>
   </div>
@@ -425,7 +406,7 @@
   </div>
 </footer>
 
-<script type="module" src="js/site.js?v=22"></script>
-<script type="module" src="js/stage.js?v=32"></script>
+<script type="module" src="js/site.js?v=23"></script>
+<script type="module" src="js/stage.js?v=48"></script>
 </body>
 </html>

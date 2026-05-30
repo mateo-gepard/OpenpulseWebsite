@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Developers - OpenPulse</title>
 <meta name="description" content="OpenPulse developer concept: transparent data access, API direction, export paths and open-source-inspired hardware/software control." />
-<link rel="stylesheet" href="css/styles.css?v=39" />
+<link rel="stylesheet" href="css/styles.css?v=41" />
 </head>
 <body data-page="developers">
 <header class="nav" id="nav">
@@ -109,6 +109,21 @@ stream.pipe({
   </section>
 
   <section class="page-section muted">
+    <div class="wrap ownership-flow">
+      <div class="section-head compact">
+        <div class="eyebrow">Data ownership flow</div>
+        <h2>The customer should understand the path.</h2>
+      </div>
+      <div class="ownership-lane" aria-label="OpenPulse data ownership flow">
+        <div><span>Capture</span><strong>Puck module</strong><em>Candidate signal with module identity.</em></div>
+        <div><span>Route</span><strong>OpenPulse base</strong><em>Firmware and wireless transport.</em></div>
+        <div><span>Structure</span><strong>API / export</strong><em>Timestamps, quality state and owner scope.</em></div>
+        <div><span>Control</span><strong>Partner system</strong><em>Dashboard, app, workflow or research archive.</em></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section muted">
     <div class="wrap">
       <div class="section-head">
         <div class="eyebrow">Code examples</div>
@@ -181,6 +196,6 @@ stream.pipe({
   </div>
   <div class="footer-bottom"><span>&copy; 2026 OpenPulse. Prototype platform in active validation.</span><span class="mono">Privacy / Terms / Imprint</span></div>
 </footer>
-<script type="module" src="js/site.js?v=22"></script>
+<script type="module" src="js/site.js?v=23"></script>
 </body>
 </html>
