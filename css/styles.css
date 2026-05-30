@@ -249,6 +249,49 @@ body:not([data-page="home"]) .nav {
   font-size: 18px;
   margin: 0 auto 28px;
 }
+.stage-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(26px, 5vh, 54px);
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  opacity: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+  color: var(--ink-3);
+  font-size: 11px;
+  font-weight: 820;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.stage-scroll-cue i {
+  position: relative;
+  width: 1px;
+  height: 42px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.stage-scroll-cue i::after {
+  content: "";
+  position: absolute;
+  top: -45%;
+  left: 0;
+  width: 100%;
+  height: 45%;
+  border-radius: inherit;
+  background: var(--accent);
+  animation: scroll-cue-drop 1.45s var(--ease) infinite;
+}
+@keyframes scroll-cue-drop {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(320%); opacity: 0; }
+}
 .ov-problem { top: 50%; left: 0; transform: translateY(-50%); }
 .ov-problem h2,
 .ov-reveal h2,
@@ -2278,6 +2321,20 @@ footer {
     min-height: 46px;
     padding-inline: 10px;
   }
+  .stage-scroll-cue {
+    left: auto;
+    right: 10px;
+    bottom: calc(212px + env(safe-area-inset-bottom));
+    transform: none;
+    gap: 7px;
+    font-size: 9px;
+  }
+  .stage-scroll-cue i {
+    height: 22px;
+  }
+  .stage-scroll-cue span {
+    display: none;
+  }
   .ov-problem,
   .ov-reveal,
   .ov-final {
@@ -3972,6 +4029,21 @@ footer {
     transition: opacity .35s var(--ease);
   }
 
+  .stage-scroll-cue {
+    left: auto;
+    right: 10px;
+    bottom: calc(212px + env(safe-area-inset-bottom));
+    transform: none;
+    font-size: 9px;
+  }
+
+  .stage-scroll-cue i {
+    height: 22px;
+  }
+  .stage-scroll-cue span {
+    display: none;
+  }
+
   .overlay {
     will-change: opacity;
   }
@@ -4023,9 +4095,16 @@ footer {
 
   .ov-anatomy,
   .ov-anatomy.left,
-  .ov-anatomy.right {
+  .ov-anatomy.right,
+  .ov-final {
     bottom: calc(88px + env(safe-area-inset-bottom));
     width: calc(100vw - 24px);
+  }
+
+  .ov-final {
+    top: auto;
+    transform: translateX(-50%);
+    max-height: min(29dvh, 220px);
   }
 
   .ov-anatomy .card {
@@ -4063,5 +4142,13 @@ footer {
 
   .ov-anatomy .card {
     max-height: min(27dvh, 168px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-scroll-cue i::after {
+    animation: none;
+    transform: translateY(150%);
+    opacity: .75;
   }
 }

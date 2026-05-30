@@ -6,7 +6,8 @@ const FRAME_COUNT = 215;
 const FIRST_FRAME = 1;
 const LAST_FRAME = 215;
 const IMAGE_START_NUMBER = 0;
-const FRAME_PATH = 'Photos/stage-frames-webp/openpulse_';
+const DESKTOP_FRAME_PATH = 'Photos/stage-frames-webp/openpulse_';
+const MOBILE_FRAME_PATH = 'Photos/stage-frames-mobile/openpulse_';
 const FRAME_EXT = 'webp';
 const KEY_STEPS = [
   { start: 76, end: 100 },
@@ -18,11 +19,10 @@ const KEY_STEPS = [
 const KEEP_FRAMES = new Set([1, 20, 70, 96, 114, 130, 145, 158, 162, 175, 189, 200, 215]);
 const MAX_CACHE_DESKTOP = FRAME_COUNT;
 const MAX_CACHE_MOBILE = 64;
-const FRAME_SCROLL_PX = 104;
+const DESKTOP_FRAME_SCROLL_PX = 64;
+const MOBILE_FRAME_SCROLL_PX = 42;
 const PRELOAD_BATCH_SIZE = 18;
-const SNAP_FRAMES = [1, 24, 74, 88, 96, 130, 162, 193, 211];
-const SNAP_DELAY_MS = 190;
-const SNAP_WINDOW_FRAMES = 7;
+const ENABLE_STAGE_SNAP = false;
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const smoothstep = (edge0, edge1, value) => {
@@ -30,7 +30,8 @@ const smoothstep = (edge0, edge1, value) => {
   return t * t * (3 - 2 * t);
 };
 const band = (p, a, b, c, d) => smoothstep(a, b, p) * (1 - smoothstep(c, d, p));
-const frameName = (frame) => `${FRAME_PATH}${String(frame + IMAGE_START_NUMBER).padStart(4, '0')}.${FRAME_EXT}`;
+const framePath = () => (isMobileStage() ? MOBILE_FRAME_PATH : DESKTOP_FRAME_PATH);
+const frameName = (frame) => `${framePath()}${String(frame + IMAGE_START_NUMBER).padStart(4, '0')}.${FRAME_EXT}`;
 
 const images = new Map();
 const requested = new Set();
@@ -57,6 +58,10 @@ function isMobileStage() {
 
 function maxCacheSize() {
   return isMobileStage() ? MAX_CACHE_MOBILE : MAX_CACHE_DESKTOP;
+}
+
+function frameScrollPx() {
+  return isMobileStage() ? MOBILE_FRAME_SCROLL_PX : DESKTOP_FRAME_SCROLL_PX;
 }
 
 function requestFrame(frame, priority = 'lazy') {
@@ -158,11 +163,31 @@ function drawImage(img) {
   ctx.clearRect(0, 0, width, height);
 
   const mobile = width < 820;
-  const scale = Math.min(width / img.naturalWidth, height / img.naturalHeight) * (mobile ? 0.98 : 1.04);
+  if (mobile) {
+    const storyFrame = currentFrame > 26;
+    const topPopupFrame = currentFrame >= 20 && currentFrame < 84;
+    const topReserved = topPopupFrame ? Math.min(305, Math.max(250, height * 0.31)) : (storyFrame ? 96 : 118);
+    const bottomReserved = topPopupFrame
+      ? Math.min(160, Math.max(108, height * 0.14))
+      : (storyFrame
+        ? Math.min(320, Math.max(236, height * 0.34))
+        : Math.min(310, Math.max(230, height * 0.29)));
+    const availableHeight = Math.max(260, height - topReserved - bottomReserved);
+    const maxWidth = width * 0.9;
+    const scale = Math.min(maxWidth / img.naturalWidth, availableHeight / img.naturalHeight);
+    const drawWidth = img.naturalWidth * scale;
+    const drawHeight = img.naturalHeight * scale;
+    const x = (width - drawWidth) / 2;
+    const y = topReserved + (availableHeight - drawHeight) * (topPopupFrame ? 0.12 : (storyFrame ? 0.34 : 0.44));
+    ctx.drawImage(img, x, y, drawWidth, drawHeight);
+    return;
+  }
+
+  const scale = Math.min(width / img.naturalWidth, height / img.naturalHeight) * 1.04;
   const drawWidth = img.naturalWidth * scale;
   const drawHeight = img.naturalHeight * scale;
   const x = (width - drawWidth) / 2;
-  const y = (height - drawHeight) / 2 + (mobile ? 42 : 28);
+  const y = (height - drawHeight) / 2 + 28;
   ctx.drawImage(img, x, y, drawWidth, drawHeight);
 }
 
@@ -182,41 +207,18 @@ function scheduleDraw(force = false) {
   });
 }
 
-function nearestSnapFrame(frame) {
-  return SNAP_FRAMES.reduce((nearest, snapFrame) => (
-    Math.abs(snapFrame - frame) < Math.abs(nearest - frame) ? snapFrame : nearest
-  ), SNAP_FRAMES[0]);
-}
-
 function scheduleStageSnap() {
+  if (!ENABLE_STAGE_SNAP) return;
   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
   if (isMobileStage()) return;
   if (isSnapScrolling) return;
   window.clearTimeout(snapTimer);
-  snapTimer = window.setTimeout(() => {
-    const scrollY = window.scrollY;
-    const stageActive = scrollY > stageTop - window.innerHeight * 0.55
-      && scrollY < stageTop + stageScrollTotal + window.innerHeight * 0.45;
-    if (!stageActive) return;
-
-    const snapFrame = nearestSnapFrame(targetFrame);
-    if (Math.abs(snapFrame - targetFrame) > SNAP_WINDOW_FRAMES) return;
-
-    const snapTop = stageTop + (snapFrame - FIRST_FRAME) * FRAME_SCROLL_PX;
-    isSnapScrolling = true;
-    window.scrollTo({ top: snapTop, behavior: 'smooth' });
-    window.setTimeout(() => {
-      isSnapScrolling = false;
-      onScroll();
-      requestStageTick();
-    }, 460);
-  }, SNAP_DELAY_MS);
 }
 
 function onScroll(shouldSnap = false) {
   const scrolled = clamp(window.scrollY - stageTop, 0, stageScrollTotal);
   targetProgress = scrolled / stageScrollTotal;
-  targetFrame = clamp(FIRST_FRAME + Math.floor(scrolled / FRAME_SCROLL_PX), FIRST_FRAME, LAST_FRAME);
+  targetFrame = clamp(FIRST_FRAME + Math.floor(scrolled / frameScrollPx()), FIRST_FRAME, LAST_FRAME);
   progress = targetProgress;
   if (shouldSnap) scheduleStageSnap();
   requestStageTick();
@@ -226,6 +228,7 @@ const overlays = [...document.querySelectorAll('[data-frame-range]')].map((el) =
   const [a, b, c, d] = el.dataset.frameRange.split(',').map(Number);
   return { el, a, b, c, d };
 });
+const heroOverlayClasses = ['ov-hero-top', 'ov-hero-bottom', 'stage-scroll-cue'];
 
 function updateOverlays(frame) {
   const mobile = isMobileStage();
@@ -236,7 +239,7 @@ function updateOverlays(frame) {
 
   if (mobile) {
     const story = visibilities.filter(({ overlay }) => (
-      !overlay.el.classList.contains('ov-hero-top') && !overlay.el.classList.contains('ov-hero-bottom')
+      !heroOverlayClasses.some((className) => overlay.el.classList.contains(className))
     ));
     const activeStory = story.reduce((active, item) => (
       item.visibility > active.visibility ? item : active
@@ -309,7 +312,7 @@ function requestStageTick() {
 
 if (canvas && stage && ctx) {
   canvas.classList.add('sequence-stage');
-  stage.style.height = `calc(100vh + ${(FRAME_COUNT - 1) * FRAME_SCROLL_PX}px)`;
+  stage.style.height = `calc(100vh + ${(FRAME_COUNT - 1) * frameScrollPx()}px)`;
   requestFrame(FIRST_FRAME, 'eager');
   [2, 3, 4, 5, 10, 20, 70, 96, 114, 130, 145, 158, 162, 175, 189, 200, 215].forEach((id) => requestFrame(id, 'eager'));
   preloadIdleFrames();
