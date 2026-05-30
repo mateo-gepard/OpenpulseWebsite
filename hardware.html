@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Hardware - OpenPulse</title>
 <meta name="description" content="OpenPulse hardware status: working main PCB, two skin-side sensor slots, one outward-facing slot and sensor pucks in active development." />
-<link rel="stylesheet" href="css/styles.css?v=47" />
+<link rel="stylesheet" href="css/styles.css?v=48" />
 <script type="importmap">
 {
   "imports": {
@@ -39,20 +39,34 @@
 </header>
 
 <main class="page-main">
-  <section class="page-hero hardware-hero">
-    <div class="wrap page-hero-grid">
-      <div>
+  <section class="page-hero hardware-hero hardware-workbench-hero">
+    <div class="wrap hardware-hero-layout">
+      <div class="hardware-hero-copy">
         <div class="eyebrow">Hardware</div>
-        <h1>Real boards, clear next steps.</h1>
-        <p>OpenPulse is a working early-stage hardware platform, not a finished commercial product. The main PCB is assembled and tested; the sensor-puck system is the next validation frontier.</p>
-        <div class="btn-row"><a class="btn btn-primary" href="#viewer">Inspect the architecture</a><a class="btn btn-ghost" href="#roadmap">Validation roadmap</a></div>
+        <h1>Real boards, laid out for inspection.</h1>
+        <p>OpenPulse is shown here as electronics on a bench: the reusable main PCB plus one puck PCB viewed from the top and one puck PCB viewed from the bottom. No assembled casing, no product mockup.</p>
+        <div class="btn-row"><a class="btn btn-primary" href="#viewer">Inspect the bench</a><a class="btn btn-ghost" href="#roadmap">Validation roadmap</a></div>
       </div>
-      <div class="hardware-visual" id="viewer" aria-label="OpenPulse hardware inspection view">
-        <canvas id="hardware-viewer"></canvas>
-        <div class="hardware-label label-top"><span>01</span> Titanium case shell</div>
-        <div class="hardware-label label-core"><span>02</span> Main PCB and interface</div>
-        <div class="hardware-label label-pucks"><span>03</span> Replaceable sensor pucks</div>
-        <div class="hardware-rail"><i></i><i></i><i></i></div>
+      <div class="hardware-visual hardware-bench" id="viewer" aria-label="Top-down OpenPulse hardware component bench">
+        <div class="bench-canvas-wrap">
+          <canvas id="hardware-viewer"></canvas>
+          <div class="bench-canvas-caption"><span>PCB laydown</span><strong>Main board, puck top and puck bottom.</strong></div>
+        </div>
+        <aside class="bench-inspector" aria-live="polite">
+          <span class="bench-eyebrow" data-bench-eyebrow>01 / Reusable core</span>
+          <h2 data-bench-title>Main PCB</h2>
+          <p data-bench-copy>The main board is the reusable foundation: compute, wireless communication, power management and the interface between sensor modules and software.</p>
+          <dl class="bench-specs">
+            <div><dt>Role</dt><dd data-bench-role>Core electronics</dd></div>
+            <div><dt>Status</dt><dd data-bench-status>Designed, assembled and tested</dd></div>
+            <div><dt>Next check</dt><dd data-bench-question>Firmware, module interface and longer bring-up</dd></div>
+          </dl>
+          <div class="bench-actions" aria-label="Component selector">
+            <button type="button" class="is-active" data-bench-part="main-pcb" aria-pressed="true">Main PCB</button>
+            <button type="button" data-bench-part="puck-top" aria-pressed="false">Puck top</button>
+            <button type="button" data-bench-part="puck-bottom" aria-pressed="false">Puck bottom</button>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
@@ -191,6 +205,6 @@
   <div class="footer-bottom"><span>&copy; 2026 OpenPulse. Prototype platform in active validation.</span><span class="mono">Privacy / Terms / Imprint</span></div>
 </footer>
 <script type="module" src="js/site.js?v=23"></script>
-<script type="module" src="js/hardware-viewer.js?v=13"></script>
+<script type="module" src="js/hardware-viewer.js?v=15"></script>
 </body>
 </html>

@@ -358,6 +358,7 @@ export async function buildDevice(variant = 'full', options = {}) {
   const assembly = new THREE.Group();
   const layerMap = makeLayerMap();
   const initial = options.initial || 'full';
+  const requestedPartIds = options.partIds ? new Set(options.partIds) : null;
   const initialPartIds = initial === 'shell' ? SHELL_PART_IDS : null;
   const loadedPartIds = new Set();
   let fullLoadPromise = null;
@@ -373,7 +374,9 @@ export async function buildDevice(variant = 'full', options = {}) {
     return object;
   }
 
-  const firstParts = initialPartIds
+  const firstParts = requestedPartIds
+    ? PARTS.filter((part) => requestedPartIds.has(part.id))
+    : initialPartIds
     ? PARTS.filter((part) => initialPartIds.has(part.id))
     : PARTS;
 

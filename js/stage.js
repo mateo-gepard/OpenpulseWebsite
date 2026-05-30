@@ -20,7 +20,7 @@ const KEEP_FRAMES = new Set([1, 20, 70, 96, 114, 130, 145, 158, 162, 175, 189, 2
 const MAX_CACHE_DESKTOP = FRAME_COUNT;
 const MAX_CACHE_MOBILE = 64;
 const DESKTOP_FRAME_SCROLL_PX = 64;
-const MOBILE_FRAME_SCROLL_PX = 42;
+const MOBILE_FRAME_SCROLL_PX = 30;
 const PRELOAD_BATCH_SIZE = 18;
 const ENABLE_STAGE_SNAP = false;
 
@@ -187,7 +187,8 @@ function drawImage(img) {
   const drawWidth = img.naturalWidth * scale;
   const drawHeight = img.naturalHeight * scale;
   const x = (width - drawWidth) / 2;
-  const y = (height - drawHeight) / 2 + 28;
+  const introLowering = 36 * (1 - smoothstep(18, 58, currentFrame));
+  const y = (height - drawHeight) / 2 + 28 + introLowering;
   ctx.drawImage(img, x, y, drawWidth, drawHeight);
 }
 
@@ -228,10 +229,11 @@ const overlays = [...document.querySelectorAll('[data-frame-range]')].map((el) =
   const [a, b, c, d] = el.dataset.frameRange.split(',').map(Number);
   return { el, a, b, c, d };
 });
-const heroOverlayClasses = ['ov-hero-top', 'ov-hero-bottom', 'stage-scroll-cue'];
+const heroOverlayClasses = ['ov-hero-top', 'ov-hero-bottom'];
 
 function updateOverlays(frame) {
   const mobile = isMobileStage();
+  stage.classList.toggle('is-hero-front', !mobile && frame <= 28);
   const visibilities = overlays.map((overlay) => ({
     overlay,
     visibility: band(frame, overlay.a, overlay.b, overlay.c, overlay.d),
