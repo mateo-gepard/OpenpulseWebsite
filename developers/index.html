@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Developers - OpenPulse</title>
+<meta name="description" content="OpenPulse developer concept: transparent data access, API direction, export paths and open-source-inspired hardware/software control." />
+<link rel="stylesheet" href="../css/styles.css?v=47" />
+</head>
+<body data-page="developers">
+<header class="nav" id="nav">
+  <a class="brand" href="../#top" aria-label="OpenPulse"><span class="brand-o" aria-hidden="true">
+  <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle class="brand-o-ring" cx="21" cy="21" r="17.5"/>
+    <path class="brand-o-trace" d="M15.8 15.4L27.2 15.1L30 25.8L15.2 27.4L15.8 15.4Z"/>
+    <circle class="brand-o-puck" cx="15.8" cy="15.4" r="4.6"/>
+    <circle class="brand-o-puck" cx="30" cy="25.8" r="4.6"/>
+    <circle class="brand-o-puck" cx="15.2" cy="27.4" r="4.6"/>
+  </svg>
+</span><span class="brand-rest">penPulse</span></a>
+  <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-menu-toggle><span></span><span></span></button>
+  <nav class="nav-links" data-nav-links>
+    <a href="../">Home</a>
+    <a href="../hardware/">Hardware</a>
+    <a href="../use-cases/">Use Cases</a>
+    <a href="../competitions/">Competitions</a>
+    <a href="../team/">Team</a>
+    <a class="active" href="../developers/">Developers</a>
+  </nav>
+  <a class="nav-cta" href="../pilot/">Become a Pilot Partner</a>
+</header>
+
+<main class="page-main">
+  <section class="page-hero">
+    <div class="wrap page-hero-grid">
+      <div>
+        <div class="eyebrow">Developers</div>
+        <h1>Data access should be a feature, not an afterthought.</h1>
+        <p>OpenPulse is open-source-inspired: transparent data flows, controllable exports and APIs designed for teams building their own apps, dashboards or experiments.</p>
+        <div class="btn-row"><a class="btn btn-primary" href="#waitlist">Join waitlist</a><a class="btn btn-ghost" href="../hardware/">Hardware status</a></div>
+      </div>
+      <div class="dev-console" aria-label="Developer integration concept">
+        <div class="console-top"><span></span><span></span><span></span><strong>openpulse-sdk</strong></div>
+        <div class="console-diagram">
+          <div class="console-node">Puck</div>
+          <i></i>
+          <div class="console-node">Core</div>
+          <i></i>
+          <div class="console-node active">API</div>
+          <i></i>
+          <div class="console-node">Partner app</div>
+        </div>
+        <pre><code>const stream = await openpulse.connect({
+  device: "pilot-band-01",
+  modules: ["skin.puck.1", "environment.puck"],
+});
+
+stream.pipe({
+  sampleRate: partnerDefined,
+  ownership: "customer-controlled",
+  destination: partnerSystem,
+});</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" id="data">
+    <div class="wrap">
+      <div class="section-head wide">
+        <div class="eyebrow">Data flow</div>
+        <h2>From puck signal to partner workflow.</h2>
+        <p>The developer story should make the data path visible. OpenPulse is not claiming finished SDKs yet; this is the integration direction the platform is being built around.</p>
+      </div>
+      <div class="developer-flow">
+        <article><span>01</span><h3>Capture</h3><p>Sensor modules generate candidate body or environment data.</p></article>
+        <article><span>02</span><h3>Transport</h3><p>The base board handles firmware, power, wireless and module routing.</p></article>
+        <article><span>03</span><h3>Normalize</h3><p>Data becomes structured enough for export, dashboards or partner APIs.</p></article>
+        <article><span>04</span><h3>Integrate</h3><p>The customer decides where the data goes and how it is used.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section dev-workbench-section">
+    <div class="wrap dev-workbench">
+      <div class="dev-rail">
+        <span class="active">/devices</span>
+        <span>/modules</span>
+        <span>/streams</span>
+        <span>/exports</span>
+      </div>
+      <div class="stream-panel">
+        <div class="panel-kicker">Live stream mock</div>
+        <div class="stream-table">
+          <div><span>module</span><span>signal</span><span>quality</span><span>destination</span></div>
+          <div><strong>skin.puck.1</strong><strong>candidate_biosignal</strong><strong>pilot</strong><strong>partner.app</strong></div>
+          <div><strong>skin.puck.2</strong><strong>temperature_path</strong><strong>pilot</strong><strong>research.csv</strong></div>
+          <div><strong>environment.puck</strong><strong>context_signal</strong><strong>planned</strong><strong>workflow.api</strong></div>
+        </div>
+      </div>
+      <div class="schema-panel">
+        <div class="panel-kicker">Schema shape</div>
+        <div class="schema-chip">timestamp</div>
+        <div class="schema-chip">module_id</div>
+        <div class="schema-chip">sample_value</div>
+        <div class="schema-chip">quality_state</div>
+        <div class="schema-chip">owner_scope</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section muted">
+    <div class="wrap ownership-flow">
+      <div class="section-head compact">
+        <div class="eyebrow">Data ownership flow</div>
+        <h2>The customer should understand the path.</h2>
+      </div>
+      <div class="ownership-lane" aria-label="OpenPulse data ownership flow">
+        <div><span>Capture</span><strong>Puck module</strong><em>Candidate signal with module identity.</em></div>
+        <div><span>Route</span><strong>OpenPulse base</strong><em>Firmware and wireless transport.</em></div>
+        <div><span>Structure</span><strong>API / export</strong><em>Timestamps, quality state and owner scope.</em></div>
+        <div><span>Control</span><strong>Partner system</strong><em>Dashboard, app, workflow or research archive.</em></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section muted">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Code examples</div>
+        <h2>Readable by product teams, useful for engineers.</h2>
+      </div>
+      <div class="api-example-grid">
+        <article class="api-card">
+          <span>Connect</span>
+          <pre><code>await openpulse.device("pilot-01")
+  .modules(["skin.puck.1", "skin.puck.2"])
+  .authorize(partnerToken);</code></pre>
+        </article>
+        <article class="api-card">
+          <span>Sample payload</span>
+          <pre><code>{
+  "module": "skin.puck.1",
+  "signal": "candidate_biosignal",
+  "timestamp": 1780147200000,
+  "quality": "pilot"
+}</code></pre>
+        </article>
+        <article class="api-card">
+          <span>Export</span>
+          <pre><code>stream.on("sample", sample => {
+  partner.dashboard.write(sample);
+  partner.archive.append(sample);
+});</code></pre>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="wrap split-section">
+      <div class="section-head compact">
+        <div class="eyebrow">Developer principles</div>
+        <h2>Open enough to build with. Careful enough for sensitive data.</h2>
+      </div>
+      <div class="module-table">
+        <div><strong>Transparent capture</strong><span>Partners should understand what is captured, how it is processed and where it is sent.</span></div>
+        <div><strong>No unnecessary lock-in</strong><span>The long-term direction is export and integration, not forcing every use case into one consumer app.</span></div>
+        <div><strong>Structured data</strong><span>Candidate APIs should make module identity, timestamps and quality states explicit.</span></div>
+        <div><strong>Developer kit path</strong><span>Developer access remains a secondary direction for technical users, research and experimentation.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" id="waitlist">
+    <div class="wrap cta-panel">
+      <div><div class="eyebrow">Developer waitlist</div><h2>Want deeper access when the hardware is ready?</h2><p>Join the technical interest list for API concepts, hardware updates and developer kit availability.</p></div>
+      <a class="btn btn-primary" href="../pilot/">Join through pilot form</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand"><a class="brand" href="../#top" aria-label="OpenPulse"><span class="brand-o" aria-hidden="true">
+  <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle class="brand-o-ring" cx="21" cy="21" r="17.5"/>
+    <path class="brand-o-trace" d="M15.8 15.4L27.2 15.1L30 25.8L15.2 27.4L15.8 15.4Z"/>
+    <circle class="brand-o-puck" cx="15.8" cy="15.4" r="4.6"/>
+    <circle class="brand-o-puck" cx="30" cy="25.8" r="4.6"/>
+    <circle class="brand-o-puck" cx="15.2" cy="27.4" r="4.6"/>
+  </svg>
+</span><span class="brand-rest">penPulse</span></a><p>Modular biosensing for companies building their own wearable experiences.</p></div>
+    <div class="footer-col"><h5>Platform</h5><a href="../platform/">Overview</a><a href="../hardware/">Hardware</a><a href="../use-cases/">Use cases</a><a href="../competitions/">Competitions</a></div>
+    <div class="footer-col"><h5>Developers</h5><a href="../developers/">API concept</a><a href="../developers/#data">Data access</a><a href="../developers/#waitlist">Developer waitlist</a></div>
+    <div class="footer-col"><h5>Company</h5><a href="../company/">About</a><a href="../team/">Meet the team</a><a href="../pilot/">Contact</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 OpenPulse. Prototype platform in active validation.</span><span class="mono">Privacy / Terms / Imprint</span></div>
+</footer>
+<script type="module" src="../js/site.js?v=24"></script>
+</body>
+</html>
+

@@ -2,12 +2,17 @@ const nav = document.getElementById('nav');
 const toggle = document.querySelector('[data-menu-toggle]');
 const links = document.querySelector('[data-nav-links]');
 const page = document.body.dataset.page || 'home';
+const cleanPages = new Set(['hardware', 'use-cases', 'competitions', 'team', 'developers', 'pilot', 'platform', 'company']);
+const pathSegments = window.location.pathname.split('/').filter(Boolean);
+const lastSegment = pathSegments[pathSegments.length - 1] || '';
+const parentSegment = pathSegments[pathSegments.length - 2] || '';
+const rootPrefix = cleanPages.has(lastSegment) || (lastSegment === 'index.html' && cleanPages.has(parentSegment)) ? '../' : '';
 
 const dockItems = [
-  { page: 'home', href: 'index.html#top', label: 'Home', icon: '<path d="M4 10.5 12 4l8 6.5V20h-5v-6H9v6H4v-9.5Z"/>' },
-  { page: 'hardware', href: 'hardware.html', label: 'Hardware', icon: '<path d="M6 8h12v8H6z"/><path d="M9 5v3M15 5v3M9 16v3M15 16v3M3 11h3M18 11h3"/>' },
-  { page: 'use-cases', href: 'use-cases.html', label: 'Use', icon: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 5v3M19 12h-3M12 19v-3M5 12h3"/>' },
-  { page: 'pilot', href: 'pilot.html', label: 'Pilot', icon: '<path d="M5 12h4l2-6 3 12 2-6h3"/>' },
+  { page: 'home', href: `${rootPrefix}#top`, label: 'Home', icon: '<path d="M4 10.5 12 4l8 6.5V20h-5v-6H9v6H4v-9.5Z"/>' },
+  { page: 'hardware', href: `${rootPrefix}hardware/`, label: 'Hardware', icon: '<path d="M6 8h12v8H6z"/><path d="M9 5v3M15 5v3M9 16v3M15 16v3M3 11h3M18 11h3"/>' },
+  { page: 'use-cases', href: `${rootPrefix}use-cases/`, label: 'Use', icon: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 5v3M19 12h-3M12 19v-3M5 12h3"/>' },
+  { page: 'pilot', href: `${rootPrefix}pilot/`, label: 'Pilot', icon: '<path d="M5 12h4l2-6 3 12 2-6h3"/>' },
 ];
 
 function updateNavState() {
