@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hardware - OpenPulse</title>
+<meta name="description" content="OpenPulse hardware status: working main PCB, two skin-side sensor slots, one outward-facing slot and sensor pucks in active development." />
+<link rel="stylesheet" href="css/styles.css?v=35" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body data-page="hardware">
+<header class="nav" id="nav">
+  <a class="brand" href="index.html#top" aria-label="OpenPulse"><span class="brand-o" aria-hidden="true">
+  <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle class="brand-o-ring" cx="21" cy="21" r="17.5"/>
+    <path class="brand-o-trace" d="M15.8 15.4L27.2 15.1L30 25.8L15.2 27.4L15.8 15.4Z"/>
+    <circle class="brand-o-puck" cx="15.8" cy="15.4" r="4.6"/>
+    <circle class="brand-o-puck" cx="30" cy="25.8" r="4.6"/>
+    <circle class="brand-o-puck" cx="15.2" cy="27.4" r="4.6"/>
+  </svg>
+</span><span class="brand-rest">penPulse</span></a>
+  <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-menu-toggle><span></span><span></span></button>
+  <nav class="nav-links" data-nav-links>
+    <a href="index.html">Home</a>
+    <a class="active" href="hardware.html">Hardware</a>
+    <a href="use-cases.html">Use Cases</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="team.html">Team</a>
+    <a href="developers.html">Developers</a>
+  </nav>
+  <a class="nav-cta" href="pilot.html">Become a Pilot Partner</a>
+</header>
+
+<main class="page-main">
+  <section class="page-hero hardware-hero">
+    <div class="wrap page-hero-grid">
+      <div>
+        <div class="eyebrow">Hardware</div>
+        <h1>Real boards, clear next steps.</h1>
+        <p>OpenPulse is a working early-stage hardware platform, not a finished commercial product. The main PCB is assembled and tested; the sensor-puck system is the next validation frontier.</p>
+        <div class="btn-row"><a class="btn btn-primary" href="#viewer">Inspect the architecture</a><a class="btn btn-ghost" href="#roadmap">Validation roadmap</a></div>
+      </div>
+      <div class="hardware-visual" id="viewer" aria-label="OpenPulse hardware inspection view">
+        <canvas id="hardware-viewer"></canvas>
+        <div class="hardware-label label-top"><span>01</span> Titanium case shell</div>
+        <div class="hardware-label label-core"><span>02</span> Main PCB and interface</div>
+        <div class="hardware-label label-pucks"><span>03</span> Replaceable sensor pucks</div>
+        <div class="hardware-rail"><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section hardware-lab">
+    <div class="wrap hardware-lab-grid">
+      <article class="lab-panel lab-state">
+        <div class="panel-kicker">Prototype state</div>
+        <div class="lab-readout">Main PCB online</div>
+        <div class="lab-led-row">
+          <span class="on">Designed</span>
+          <span class="on">Assembled</span>
+          <span class="on">Tested</span>
+          <span>Commercial</span>
+        </div>
+        <div class="readout-line"><span>Core board</span><strong>Working</strong></div>
+        <div class="readout-line"><span>Puck PCBs</span><strong>Present</strong></div>
+        <div class="readout-line"><span>Puck validation</span><strong>Next</strong></div>
+      </article>
+
+      <article class="lab-panel lab-exploded">
+        <div class="panel-kicker">Layer view</div>
+        <div class="mini-layer-stack" aria-hidden="true">
+          <i class="shell"></i>
+          <i class="slot top-slot"></i>
+          <i class="pcb-line"></i>
+          <i class="slot skin-one"></i>
+          <i class="slot skin-two"></i>
+          <i class="base-line"></i>
+        </div>
+        <div class="stack-caption"><strong>Case / PCB / puck stack</strong><span>Public architecture view without overexposing CAD details.</span></div>
+      </article>
+
+      <article class="lab-panel lab-gates">
+        <div class="panel-kicker">Validation gates</div>
+        <div class="gate-meter"><span>Assembly</span><i style="--p:72%"></i></div>
+        <div class="gate-meter"><span>Electrical bring-up</span><i style="--p:46%"></i></div>
+        <div class="gate-meter"><span>Mechanical contact</span><i style="--p:38%"></i></div>
+        <div class="gate-meter"><span>Signal quality</span><i style="--p:18%"></i></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="page-section muted">
+    <div class="wrap split-section slot-section">
+      <div class="section-head compact">
+        <div class="eyebrow">Architecture</div>
+        <h2>Two body-facing slots. One environment-facing slot.</h2>
+        <p>The current architecture moved beyond the older three-skin-puck idea. It now separates body signals and environment context.</p>
+      </div>
+      <div class="slot-card">
+        <div class="slot-device">
+          <span class="slot-chip main">Main PCB</span>
+          <span class="slot-chip outward">Outward slot</span>
+          <span class="slot-chip skin skin-a">Skin slot A</span>
+          <span class="slot-chip skin skin-b">Skin slot B</span>
+        </div>
+        <div class="slot-notes">
+          <div><strong>Core</strong><span>Seeed XIAO nRF52840 Sense based board.</span></div>
+          <div><strong>Body side</strong><span>Two lower positions for future biosignal puck directions.</span></div>
+          <div><strong>Outer side</strong><span>One top-facing position for environment or context sensing.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section hardware-system">
+    <div class="wrap">
+      <div class="section-head wide">
+        <div class="eyebrow">System map</div>
+        <h2>The wearable is a stack, not one sealed sensor block.</h2>
+        <p>The public hardware story focuses on the architecture: reusable core electronics, separated sensing positions and a puck interface that still needs honest validation.</p>
+      </div>
+      <div class="hardware-map">
+        <div class="map-node base"><span>Reusable base</span><strong>Power, compute, wireless, module interface</strong></div>
+        <div class="map-node skin"><span>Skin-side slots</span><strong>Two body-facing puck positions for future biosignal modules</strong></div>
+        <div class="map-node world"><span>Outward slot</span><strong>One environment-facing position for context sensing directions</strong></div>
+        <div class="map-node software"><span>Software path</span><strong>Firmware, data export and partner integration layer</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" id="roadmap">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Validation roadmap</div>
+        <h2>What has to be proven before product claims.</h2>
+      </div>
+      <div class="validation-board">
+        <div class="validation-row"><span>01</span><strong>Reflow and assembly</strong><i class="pending"></i><em>Populate small round PCBs reliably.</em></div>
+        <div class="validation-row"><span>02</span><strong>Electrical bring-up</strong><i class="pending"></i><em>Check pins, pads, pullups, voltages and puck connection.</em></div>
+        <div class="validation-row"><span>03</span><strong>Mechanical fit</strong><i class="pending"></i><em>Confirm seating, pressure and repeatable replacement.</em></div>
+        <div class="validation-row"><span>04</span><strong>Signal quality</strong><i></i><em>Generate useful pilot-grade data before making claims.</em></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-band">
+    <div class="wrap">
+      <p>OpenPulse can communicate strong architecture, modularity and data ownership. It should not claim validated sensor quality, medical accuracy or a finished safety product yet.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand"><a class="brand" href="index.html#top" aria-label="OpenPulse"><span class="brand-o" aria-hidden="true">
+  <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle class="brand-o-ring" cx="21" cy="21" r="17.5"/>
+    <path class="brand-o-trace" d="M15.8 15.4L27.2 15.1L30 25.8L15.2 27.4L15.8 15.4Z"/>
+    <circle class="brand-o-puck" cx="15.8" cy="15.4" r="4.6"/>
+    <circle class="brand-o-puck" cx="30" cy="25.8" r="4.6"/>
+    <circle class="brand-o-puck" cx="15.2" cy="27.4" r="4.6"/>
+  </svg>
+</span><span class="brand-rest">penPulse</span></a><p>Modular biosensing for companies building their own wearable experiences.</p></div>
+    <div class="footer-col"><h5>Platform</h5><a href="platform.html">Overview</a><a href="hardware.html">Hardware</a><a href="use-cases.html">Use cases</a><a href="competitions.html">Competitions</a></div>
+    <div class="footer-col"><h5>Developers</h5><a href="developers.html">API concept</a><a href="developers.html#data">Data access</a><a href="developers.html#waitlist">Developer waitlist</a></div>
+    <div class="footer-col"><h5>Company</h5><a href="company.html">About</a><a href="team.html">Meet the team</a><a href="pilot.html">Contact</a></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 OpenPulse. Prototype platform in active validation.</span><span class="mono">Privacy / Terms / Imprint</span></div>
+</footer>
+<script type="module" src="js/site.js?v=21"></script>
+<script type="module" src="js/hardware-viewer.js?v=12"></script>
+</body>
+</html>

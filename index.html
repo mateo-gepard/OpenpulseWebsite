@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OpenPulse - Modular biosensing for companies</title>
+<meta name="description" content="OpenPulse is a modular biosensor wearable platform for companies building their own health, safety, research or performance experiences." />
+<link rel="stylesheet" href="css/styles.css?v=35" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body data-page="home">
+
+<header class="nav" id="nav">
+  <a class="brand" href="index.html#top" aria-label="OpenPulse"><span class="brand-o" aria-hidden="true">
+  <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle class="brand-o-ring" cx="21" cy="21" r="17.5"/>
+    <path class="brand-o-trace" d="M15.8 15.4L27.2 15.1L30 25.8L15.2 27.4L15.8 15.4Z"/>
+    <circle class="brand-o-puck" cx="15.8" cy="15.4" r="4.6"/>
+    <circle class="brand-o-puck" cx="30" cy="25.8" r="4.6"/>
+    <circle class="brand-o-puck" cx="15.2" cy="27.4" r="4.6"/>
+  </svg>
+</span><span class="brand-rest">penPulse</span></a>
+  <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-menu-toggle>
+    <span></span><span></span>
+  </button>
+  <nav class="nav-links" data-nav-links>
+    <a class="active" href="index.html">Home</a>
+    <a href="hardware.html">Hardware</a>
+    <a href="use-cases.html">Use Cases</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="team.html">Team</a>
+    <a href="developers.html">Developers</a>
+  </nav>
+  <a class="nav-cta" href="pilot.html">Become a Pilot Partner</a>
+</header>
+
+<div id="top"></div>
+
+<section id="stage" aria-label="OpenPulse product story">
+  <div class="sticky">
+    <canvas id="scene"></canvas>
+
+    <div class="overlay ov-hero-top" data-range="-0.05,-0.04,0.07,0.095">
+      <div class="eyebrow">Modular biosensor platform</div>
+      <h1>Not another wearable.<br><span class="grad">A platform.</span></h1>
+    </div>
+
+    <div class="overlay ov-hero-bottom" data-range="-0.05,-0.04,0.07,0.095">
+      <p>Configurable sensor hardware, open data access and flexible integration, built around replaceable sensor pucks.</p>
+      <div class="btn-row center">
+        <a class="btn btn-primary" href="hardware.html">Explore hardware</a>
+        <a class="btn btn-ghost" href="pilot.html">Talk to us</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint" data-range="-0.05,-0.04,0.04,0.065">
+      <span>Scroll to explore</span>
+      <svg width="14" height="22" viewBox="0 0 14 22" fill="none"><rect x="1" y="1" width="12" height="20" rx="6" stroke="#8b909b" stroke-width="1.3"/><circle cx="7" cy="6.5" r="1.7" fill="#8b909b"/></svg>
+    </div>
+
+    <div class="overlay ov-problem" id="platform" data-range="0.10,0.125,0.175,0.20">
+      <div class="eyebrow">The problem</div>
+      <h2>Most wearables are closed by design.</h2>
+      <div class="fail-list">
+        <div class="row"><span class="x"></span>Fixed sensor stacks</div>
+        <div class="row"><span class="x"></span>Locked, black-box data flows</div>
+        <div class="row"><span class="x"></span>One-size-fits-all software</div>
+      </div>
+    </div>
+
+    <div class="overlay ov-reveal" data-range="0.205,0.225,0.275,0.30">
+      <div class="eyebrow">The platform inside</div>
+      <h2>OpenPulse is different.</h2>
+      <p>A reusable wearable base. Replaceable sensor pucks. Customer-controlled data. Integration into your own systems.</p>
+    </div>
+
+    <div class="overlay ov-anatomy left" data-range="0.440,0.452,0.482,0.494">
+      <div class="card">
+        <div class="idx">01 - Main PCB</div>
+        <h3>The reusable core</h3>
+        <p>Compute, wireless, power management and the interface between sensor modules and software.</p>
+        <div class="biz">The base stays. The configuration changes.</div>
+      </div>
+    </div>
+
+    <div class="overlay ov-anatomy right" data-range="0.494,0.506,0.537,0.549">
+      <div class="card">
+        <div class="idx">02 - Skin-side slots</div>
+        <h3>Signals from the body</h3>
+        <p>Skin-facing slots designed for future biosignal modules such as optical, electrical or thermal sensing.</p>
+      </div>
+    </div>
+
+    <div class="overlay ov-anatomy left" data-range="0.549,0.561,0.591,0.603">
+      <div class="card">
+        <div class="idx">03 - Outward-facing slot</div>
+        <h3>The world around the wearer</h3>
+        <p>Not every useful signal comes from the body. OpenPulse leaves room for environment-facing sensing.</p>
+      </div>
+    </div>
+
+    <div class="overlay ov-anatomy right" data-range="0.603,0.615,0.645,0.657">
+      <div class="card">
+        <div class="idx">04 - Sensor pucks</div>
+        <h3>Configure around the use case</h3>
+        <p>Pucks make OpenPulse configurable. Partners define what to measure; the hardware can evolve around it.</p>
+        <div class="biz">The puck is the business model.</div>
+      </div>
+    </div>
+
+    <div class="overlay ov-anatomy left" data-range="0.657,0.669,0.700,0.712">
+      <div class="card">
+        <div class="idx">05 - Software and API</div>
+        <h3>Built to integrate</h3>
+        <p>Designed to connect sensor data to apps, dashboards, research tools, safety workflows or partner platforms.</p>
+      </div>
+    </div>
+
+    <div class="overlay ov-anatomy right" data-range="0.712,0.724,0.754,0.766">
+      <div class="card">
+        <div class="idx">06 - Data ownership</div>
+        <h3>Your data flow, not ours</h3>
+        <p>Built around the idea that companies and users should understand and control how biosensor data is captured and integrated.</p>
+      </div>
+    </div>
+
+    <div class="overlay ov-anatomy left" data-range="0.766,0.778,0.808,0.820">
+      <div class="card">
+        <div class="idx">07 - Built to evolve</div>
+        <h3>Repairable and upgradeable</h3>
+        <p>Replaceable modules do not only create more use cases. They make hardware easier to repair, upgrade and adapt over time.</p>
+      </div>
+    </div>
+
+    <div id="anatomy-progress">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+
+    <div class="overlay ov-final" data-range="0.90,0.93,0.965,0.99">
+      <div class="eyebrow">From modules to solutions</div>
+      <h2>Configure biosensing around your product.</h2>
+      <p>OpenPulse lets partners combine wearable hardware, sensor modules and software integration into a system that fits their use case.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="pilot.html">Start a pilot conversation</a>
+        <a class="btn btn-ghost" href="#configs">See configurations</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof-strip" aria-label="OpenPulse status">
+  <div class="proof-item">
+    <span>Stage</span>
+    <strong>Prototype platform in active validation</strong>
+  </div>
+  <div class="proof-item">
+    <span>Hardware</span>
+    <strong>Working main PCB, puck boards in development</strong>
+  </div>
+  <div class="proof-item">
+    <span>Focus</span>
+    <strong>B2B pilots with concrete sensor and data needs</strong>
+  </div>
+</section>
+
+<section class="block platform-snapshot">
+  <div class="wrap">
+    <div class="section-head wide">
+      <div class="eyebrow">Platform thesis</div>
+      <h2>A wearable foundation companies can configure instead of reinventing.</h2>
+      <p>OpenPulse separates the wearable into reusable platform hardware, swappable sensing modules and software integration. The goal is not to sell one fixed device. The goal is to help partners build their own biosensing product layer.</p>
+    </div>
+    <div class="snapshot-grid">
+      <div class="architecture-panel">
+        <div class="arch-row">
+          <span>Partner product</span>
+          <strong>App, dashboard, workflow</strong>
+        </div>
+        <div class="arch-row">
+          <span>OpenPulse software</span>
+          <strong>API, export, integration layer</strong>
+        </div>
+        <div class="arch-row">
+          <span>Wearable base</span>
+          <strong>Main PCB, wireless, power, firmware</strong>
+        </div>
+        <div class="arch-row">
+          <span>Sensor pucks</span>
+          <strong>Use-case-specific sensing modules</strong>
+        </div>
+      </div>
+      <div class="decision-list">
+        <div>
+          <span class="num">01</span>
+          <h3>Configure the sensor stack</h3>
+          <p>Pick the sensing direction around a partner use case: body-facing, environment-facing or experimental developer modules.</p>
+        </div>
+        <div>
+          <span class="num">02</span>
+          <h3>Own the data path</h3>
+          <p>Design the data flow around the partner system instead of locking it inside someone else's app.</p>
+        </div>
+        <div>
+          <span class="num">03</span>
+          <h3>Validate honestly</h3>
+          <p>Main PCB works. Sensor pucks exist as PCBs and components, with assembly and signal validation next.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="anatomy-anchor"></div>
+
+<section class="block stats-band">
+  <div class="wrap">
+    <div class="stats-head">
+      <div class="eyebrow">The platform, by design</div>
+      <h2>Built modular from the first board.</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Reusable platform base</div>
+        <div class="stat-sub">One core reused across every configuration.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Sensor slots per device</div>
+        <div class="stat-sub">Two skin-facing, one outward-facing.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">B2B</div>
+        <div class="stat-label">Primary market</div>
+        <div class="stat-sub">Built for pilots, integrations and white-label directions.</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">API</div>
+        <div class="stat-label">Integration mindset</div>
+        <div class="stat-sub">Data access designed around partner systems.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="configs">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Example configurations</div>
+      <h2>One architecture. Multiple directions.</h2>
+      <p>The same foundation, configured around different signals and use cases. These are candidate directions, not finished product lines.</p>
+    </div>
+
+    <div class="configs-grid">
+      <article class="config-card">
+        <canvas class="config-canvas" data-config="human"></canvas>
+        <div class="config-body">
+          <div class="tag">Human Signals</div>
+          <h3>Body-data experiences</h3>
+          <p>Skin-facing biosignal modules for research, fitness platforms, biofeedback and corporate wellness.</p>
+          <div class="config-meta"><span class="chip">Optical</span><span class="chip">Thermal</span><span class="chip">Electrical</span></div>
+        </div>
+      </article>
+
+      <article class="config-card">
+        <canvas class="config-canvas" data-config="safety"></canvas>
+        <div class="config-body">
+          <div class="tag">Safety / Environment</div>
+          <h3>Context awareness</h3>
+          <p>Environment-facing modules for workplace and safety-related contexts such as heat, air and surroundings.</p>
+          <div class="config-meta"><span class="chip">Temperature</span><span class="chip">Air quality</span><span class="chip">UV / heat</span></div>
+        </div>
+      </article>
+
+      <article class="config-card">
+        <canvas class="config-canvas" data-config="dev"></canvas>
+        <div class="config-body">
+          <div class="tag">Developer / Open</div>
+          <h3>Room to experiment</h3>
+          <p>For teams who want deeper access, transparent data flows and the freedom to build their own thing.</p>
+          <div class="config-meta"><span class="chip">Open API</span><span class="chip">Data export</span><span class="chip">SDK vision</span></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="candidate-note">OpenPulse is currently looking for concrete B2B use cases and pilot partners.</div>
+  </div>
+</section>
+
+<section class="block quiet-band">
+  <div class="wrap">
+    <div class="section-head wide">
+      <div class="eyebrow">Partner motion</div>
+      <h2>From use-case question to configured prototype.</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <span>01</span>
+        <h3>Define the signal problem</h3>
+        <p>What needs to be sensed, in what context, by whom, and how often?</p>
+      </div>
+      <div class="process-step">
+        <span>02</span>
+        <h3>Select a sensing direction</h3>
+        <p>Skin-facing, environment-facing or a custom puck concept around the partner need.</p>
+      </div>
+      <div class="process-step">
+        <span>03</span>
+        <h3>Shape the data path</h3>
+        <p>Define export, API, dashboard or integration requirements before pretending the hardware is finished.</p>
+      </div>
+      <div class="process-step">
+        <span>04</span>
+        <h3>Build and validate</h3>
+        <p>Prototype, test signal quality, verify mechanical fit and decide whether a pilot makes sense.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block status" id="status">
+  <div class="wrap status-layout">
+    <div class="section-head sticky-head">
+      <div class="eyebrow">Where we are today</div>
+      <h2>Ambitious, but honest.</h2>
+      <p>OpenPulse is an early-stage platform with a working main PCB and sensor-puck hardware in active development.</p>
+      <a class="text-link" href="hardware.html">Read the hardware status</a>
+    </div>
+
+    <div class="roadmap">
+      <div class="rm-legend">
+        <span class="lg"><i class="led done"></i>Built</span>
+        <span class="lg"><i class="led active"></i>In progress</span>
+        <span class="lg"><i class="led next"></i>Planned / open</span>
+      </div>
+
+      <ol class="track">
+        <li class="tl-item done">
+          <span class="node"></span>
+          <div class="when">Done</div>
+          <h4>Concept and competitions</h4>
+          <p>The platform thesis - modular, open, data-sovereign biosensing - has been shaped through early concept work and competitions.</p>
+        </li>
+        <li class="tl-item done">
+          <span class="node"></span>
+          <div class="when">Done</div>
+          <h4>Main PCB designed, assembled and tested</h4>
+          <p>The reusable core works: compute, wireless, power management and the module interface are up and running.</p>
+        </li>
+        <li class="tl-item active">
+          <span class="node"></span>
+          <div class="when">In progress</div>
+          <h4>Sensor-puck PCBs and components in hand</h4>
+          <p>Puck boards and parts exist. Next up: assembly, reflow and bring-up of the first sensing modules.</p>
+        </li>
+        <li class="tl-item next">
+          <span class="node"></span>
+          <div class="when">Next</div>
+          <h4>Signal validation and data pipeline</h4>
+          <p>Validating signal quality and building the open data path from puck to partner system.</p>
+        </li>
+        <li class="tl-item next">
+          <span class="node"></span>
+          <div class="when">Open</div>
+          <h4>First B2B pilot partners</h4>
+          <p>Looking for partners with concrete use cases and clear sensor or data requirements to shape the platform.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="cta">
+  <div class="eyebrow">Pilot partners</div>
+  <h2>Building something that needs wearable biosensor data?</h2>
+  <p>Let's explore whether OpenPulse can become the hardware layer for your product.</p>
+  <a class="btn btn-primary" href="pilot.html">Talk to the founders</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand">
+      <a class="brand" href="index.html#top" aria-label="OpenPulse"><span class="brand-o" aria-hidden="true">
+  <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle class="brand-o-ring" cx="21" cy="21" r="17.5"/>
+    <path class="brand-o-trace" d="M15.8 15.4L27.2 15.1L30 25.8L15.2 27.4L15.8 15.4Z"/>
+    <circle class="brand-o-puck" cx="15.8" cy="15.4" r="4.6"/>
+    <circle class="brand-o-puck" cx="30" cy="25.8" r="4.6"/>
+    <circle class="brand-o-puck" cx="15.2" cy="27.4" r="4.6"/>
+  </svg>
+</span><span class="brand-rest">penPulse</span></a>
+      <p>Modular biosensing for companies building their own health, safety, research or performance experiences.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Platform</h5>
+      <a href="platform.html">Overview</a>
+      <a href="hardware.html">Hardware</a>
+      <a href="use-cases.html">Use cases</a>
+      <a href="competitions.html">Competitions</a>
+    </div>
+    <div class="footer-col">
+      <h5>Developers</h5>
+      <a href="developers.html">API concept</a>
+      <a href="developers.html#data">Data access</a>
+      <a href="developers.html#waitlist">Developer waitlist</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="company.html">About</a>
+      <a href="team.html">Meet the team</a>
+      <a href="pilot.html">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 OpenPulse. Prototype platform in active validation.</span>
+    <span class="mono">Privacy / Terms / Imprint</span>
+  </div>
+</footer>
+
+<script type="module" src="js/site.js?v=21"></script>
+<script type="module" src="js/stage.js?v=28"></script>
+<script type="module" src="js/configs.js?v=26"></script>
+</body>
+</html>
