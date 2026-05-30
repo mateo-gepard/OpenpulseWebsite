@@ -42,3 +42,39 @@ mobileDock.innerHTML = dockItems.map((item) => `
   </a>
 `).join('');
 document.body.appendChild(mobileDock);
+
+const configsSection = document.getElementById('configs');
+if (configsSection) {
+  let configsLoaded = false;
+  const loadConfigs = () => {
+    if (configsLoaded) return;
+    configsLoaded = true;
+    import('./configs.js?v=27').catch((error) => {
+      console.error('Could not load configuration previews', error);
+    });
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      loadConfigs();
+    }, { rootMargin: '700px 0px' });
+    observer.observe(configsSection);
+  } else {
+    window.addEventListener('scroll', loadConfigs, { once: true, passive: true });
+  }
+}
+
+document.querySelectorAll('[data-youtube-id]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const id = button.dataset.youtubeId;
+    const title = button.dataset.youtubeTitle || 'OpenPulse pitch video';
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    iframe.title = title;
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    button.replaceWith(iframe);
+  }, { once: true });
+});

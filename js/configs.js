@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
-import { buildDevice } from './device.js?v=25';
+import { buildDevice } from './device.js?v=26';
 
 function groundGlowTexture() {
   const c = document.createElement('canvas');

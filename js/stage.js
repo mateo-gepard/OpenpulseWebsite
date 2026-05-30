@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
-import { buildDevice } from './device.js?v=25';
+import { buildDevice } from './device.js?v=26';
 
 const canvas = document.getElementById('scene');
 const stage = document.getElementById('stage');
@@ -103,8 +103,23 @@ groundGlow.renderOrder = -1;
 scene.add(groundGlow);
 
 // device
-const device = await buildDevice('full');
+const device = await buildDevice('full', { initial: 'shell' });
 scene.add(device.group);
+let fullDevicePromise = null;
+
+function ensureFullDevice() {
+  if (!device.loadFull || fullDevicePromise) return fullDevicePromise;
+  fullDevicePromise = device.loadFull().catch((error) => {
+    console.error('Could not load full OpenPulse model', error);
+  });
+  return fullDevicePromise;
+}
+
+const loadWhenIdle = window.requestIdleCallback
+  ? (task) => window.requestIdleCallback(task, { timeout: 5000 })
+  : (task) => window.setTimeout(task, 2200);
+
+loadWhenIdle(() => ensureFullDevice());
 
 // ---------- helpers ----------
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -240,6 +255,7 @@ function onScroll() {
   const total = stage.offsetHeight - window.innerHeight;
   const scrolled = clamp(-rect.top, 0, total);
   targetProgress = total > 0 ? scrolled / total : 0;
+  if (targetProgress > 0.08) ensureFullDevice();
   updateOverlays(targetProgress);
 }
 

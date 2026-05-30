@@ -35,6 +35,13 @@ const PARTS = [
   { id: 'puck3-pcb', layer: 'outPuck', role: 'puckPcb', puck: 'puck3', cadOffset: PUCK_PCB_OFFSETS.puck3, sceneOffset: new THREE.Vector3(0, -0.035, 0), extraRotation: new THREE.Euler(Math.PI, 0, 0), obj: 'Puck3PCB.obj', mtl: 'Puck3PCB.mtl' },
 ];
 
+const SHELL_PART_IDS = new Set([
+  'case-main',
+  'case-bottom',
+  'puck3-case',
+  'puck3-bottom',
+]);
+
 const templateCache = new Map();
 const surfaceTextureCache = new Map();
 
@@ -343,20 +350,34 @@ function centerAssembly(assembly) {
 /**
  * Builds the OpenPulse device from the real OBJ/MTL exports.
  * variant: 'full' | 'human' | 'safety' | 'dev'
+ * options.initial: 'full' | 'shell'
  * Returns { group, layers, straps, dataPlane, mats }
  */
-export async function buildDevice(variant = 'full') {
+export async function buildDevice(variant = 'full', options = {}) {
   const root = new THREE.Group();
   const assembly = new THREE.Group();
   const layerMap = makeLayerMap();
+  const initial = options.initial || 'full';
+  const initialPartIds = initial === 'shell' ? SHELL_PART_IDS : null;
+  const loadedPartIds = new Set();
+  let fullLoadPromise = null;
 
   Object.values(layerMap).forEach((group) => assembly.add(group));
   root.add(assembly);
 
-  await Promise.all(PARTS.map(async (part) => {
+  async function addPart(part) {
+    if (loadedPartIds.has(part.id)) return null;
     const object = await makePart(part, variant);
     layerMap[part.layer].add(object);
-  }));
+    loadedPartIds.add(part.id);
+    return object;
+  }
+
+  const firstParts = initialPartIds
+    ? PARTS.filter((part) => initialPartIds.has(part.id))
+    : PARTS;
+
+  await Promise.all(firstParts.map(addPart));
 
   centerAssembly(assembly);
 
@@ -386,5 +407,14 @@ export async function buildDevice(variant = 'full') {
     straps: [],
     dataPlane,
     mats: {},
+    loadFull() {
+      if (!fullLoadPromise) {
+        fullLoadPromise = Promise.all(PARTS.map(addPart)).then(() => root);
+      }
+      return fullLoadPromise;
+    },
+    get isFullLoaded() {
+      return loadedPartIds.size === PARTS.length;
+    },
   };
 }
