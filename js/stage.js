@@ -209,19 +209,24 @@ function update(dt) {
 
   // shift device to the right in hero, center during story, left in final
   const heroT = 1 - smoothstep(0, PH.problem[0], p);
+  const mobileView = window.innerWidth < 820;
   const narrowView = window.innerWidth < 920;
   const heroLift = heroT * (narrowView ? -0.62 : -1.0);
   const heroShift = 0;
+  const storyLift = mobileView ? smoothstep(PH.problem[0], PH.final[0], p) * (1 - settle) * 0.24 : 0;
   const finalShift = settle * (narrowView ? -2.75 : -5.0);
   device.group.position.x = heroShift + finalShift;
-  device.group.position.y = floatY + heroLift + lerp(0, -0.2, explode * (1 - settle));
+  device.group.position.y = floatY + heroLift + storyLift + lerp(0, -0.2, explode * (1 - settle));
   const heroScale = narrowView ? 0.44 : 0.52;
-  const finalScale = narrowView ? 0.62 : 0.78;
-  const sc = lerp(1, finalScale, settle) * lerp(heroScale, 1, smoothstep(0, PH.problem[0], p));
+  const storyScale = mobileView ? 0.56 : 1;
+  const finalScale = mobileView ? 0.54 : (narrowView ? 0.62 : 0.78);
+  const sc = lerp(lerp(heroScale, storyScale, smoothstep(0, PH.problem[0], p)), finalScale, settle);
   device.group.scale.setScalar(sc);
 
   // camera dolly back a touch during explode for headroom
-  const dolly = lerp(8.8, 9.9, explode * (1 - settle));
+  const mobileStoryDolly = mobileView ? smoothstep(0, PH.problem[0], p) : 0;
+  const baseDolly = lerp(8.8, mobileView ? 10.0 : 8.8, mobileStoryDolly);
+  const dolly = lerp(baseDolly, mobileView ? 11.1 : 9.9, explode * (1 - settle));
   camera.position.z = lerp(camera.position.z, dolly, Math.min(1, dt * 4));
   camera.position.y = lerp(camera.position.y, lerp(2.5, 2.3, settle), Math.min(1, dt * 4));
   camera.lookAt(device.group.position.x * 0.5, 0, 0);

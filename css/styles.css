@@ -1738,7 +1738,10 @@ section.block,
 }
 .competition-media {
   position: relative;
+  min-width: 0;
   min-height: 420px;
+  overflow: hidden;
+  isolation: isolate;
   background:
     radial-gradient(circle at 28% 22%, rgba(59,130,246,0.22), transparent 34%),
     linear-gradient(135deg, #07090d, #10141e);
@@ -1751,6 +1754,8 @@ section.block,
 .image-frame img {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  display: block;
   width: 100%;
   height: 100%;
   border: 0;
@@ -1797,7 +1802,10 @@ section.block,
 }
 .planned-frame p { color: var(--ink-2); }
 .competition-copy {
+  position: relative;
+  z-index: 1;
   padding: clamp(28px, 4vw, 48px);
+  background: var(--panel);
 }
 .competition-copy h2 {
   font-size: 46px;
@@ -2018,6 +2026,17 @@ footer {
   .scroll-hint { display: none; }
 }
 
+@media (min-width: 1081px) {
+  .competition-card {
+    align-items: stretch;
+  }
+  .competition-media.video-frame {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: clamp(360px, 30vw, 520px);
+  }
+}
+
 @media (max-width: 1080px) {
   .menu-toggle { display: inline-flex; }
   .nav { gap: 14px; }
@@ -2236,6 +2255,63 @@ footer {
     padding-inline: 10px;
   }
   .scroll-hint { display: none; }
+  .ov-problem,
+  .ov-reveal,
+  .ov-final {
+    left: 50%;
+    right: auto;
+    top: 92px;
+    width: min(430px, calc(100vw - 28px));
+    max-width: none;
+    padding: 0;
+    transform: translateX(-50%);
+    text-align: left;
+  }
+  .ov-reveal p,
+  .ov-final p {
+    max-width: none;
+    margin-inline: 0;
+  }
+  .ov-anatomy,
+  .ov-anatomy.left,
+  .ov-anatomy.right {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: calc(92px + env(safe-area-inset-bottom));
+    width: min(430px, calc(100vw - 28px));
+    max-width: none;
+    padding: 0;
+    transform: translateX(-50%);
+  }
+  .ov-anatomy .card {
+    padding: 15px 16px 14px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.94);
+  }
+  .ov-anatomy .card .idx {
+    font-size: 11px;
+  }
+  .ov-anatomy .card h3 {
+    margin: 6px 0 7px;
+    font-size: 21px;
+    line-height: 1.02;
+  }
+  .ov-anatomy .card p {
+    font-size: 13.5px;
+    line-height: 1.42;
+  }
+  .ov-anatomy .card .biz {
+    display: none;
+  }
+  #anatomy-progress {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: calc(265px + env(safe-area-inset-bottom));
+    flex-direction: row;
+    transform: translateX(-50%);
+  }
   .ov-problem h2,
   .ov-reveal h2,
   .ov-final h2,
@@ -2394,7 +2470,32 @@ footer {
   }
   .radar-dot span { display: none; }
   .planned-frame strong { font-size: 34px; }
-  .competition-media { min-height: 240px; }
+  .competition-card {
+    overflow: visible;
+    border-radius: 18px;
+  }
+  .competition-media {
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 18px 18px 0 0;
+  }
+  .competition-media.video-frame {
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+  .competition-media.image-frame {
+    aspect-ratio: 16 / 10;
+    height: auto;
+  }
+  .video-frame iframe {
+    display: block;
+  }
+  .competition-copy {
+    position: relative;
+    z-index: 1;
+    background: var(--panel);
+    border-radius: 0 0 18px 18px;
+  }
   .planned-frame { min-height: 320px; }
   .team-hero {
     min-height: auto;
