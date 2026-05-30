@@ -16,7 +16,8 @@ const KEY_STEPS = [
   { start: 189, end: 215 },
 ];
 const KEEP_FRAMES = new Set([1, 20, 70, 96, 114, 130, 145, 158, 162, 175, 189, 200, 215]);
-const MAX_CACHE = FRAME_COUNT;
+const MAX_CACHE_DESKTOP = FRAME_COUNT;
+const MAX_CACHE_MOBILE = 64;
 const FRAME_SCROLL_PX = 104;
 const PRELOAD_BATCH_SIZE = 18;
 const SNAP_FRAMES = [1, 24, 74, 88, 96, 130, 162, 193, 211];
@@ -33,6 +34,7 @@ const frameName = (frame) => `${FRAME_PATH}${String(frame + IMAGE_START_NUMBER).
 
 const images = new Map();
 const requested = new Set();
+const loadedFramesSeen = new Set();
 let targetProgress = 0;
 let targetFrame = FIRST_FRAME;
 let progress = 0;
@@ -45,6 +47,17 @@ let framesReady = false;
 let loadedCount = 0;
 let snapTimer = 0;
 let isSnapScrolling = false;
+let stageTop = 0;
+let stageScrollTotal = 1;
+let frameTickRequested = false;
+
+function isMobileStage() {
+  return window.innerWidth < 820 || window.matchMedia?.('(pointer: coarse)').matches;
+}
+
+function maxCacheSize() {
+  return isMobileStage() ? MAX_CACHE_MOBILE : MAX_CACHE_DESKTOP;
+}
 
 function requestFrame(frame, priority = 'lazy') {
   const id = clamp(Math.round(frame), FIRST_FRAME, LAST_FRAME);
@@ -59,9 +72,11 @@ function requestFrame(frame, priority = 'lazy') {
   img.onload = () => {
     images.set(id, img);
     requested.delete(id);
-    loadedCount += 1;
+    loadedFramesSeen.add(id);
+    loadedCount = loadedFramesSeen.size;
     evictFarFrames();
-    if (Math.abs(id - currentFrame) <= 2 || id === FIRST_FRAME) scheduleDraw(true);
+    if (id === currentFrame || id === FIRST_FRAME) scheduleDraw(true);
+    if (Math.abs(id - targetFrame) <= 2) requestStageTick();
   };
   img.onerror = () => {
     requested.delete(id);
@@ -70,21 +85,33 @@ function requestFrame(frame, priority = 'lazy') {
 }
 
 function evictFarFrames() {
-  if (images.size <= MAX_CACHE) return;
+  const maxCache = maxCacheSize();
+  if (images.size <= maxCache) return;
   const candidates = [...images.keys()]
     .filter((id) => id !== currentFrame && !KEEP_FRAMES.has(id))
     .sort((a, b) => Math.abs(b - currentFrame) - Math.abs(a - currentFrame));
 
-  while (images.size > MAX_CACHE && candidates.length) {
+  while (images.size > maxCache && candidates.length) {
     images.delete(candidates.shift());
   }
 }
 
+function preloadWindow(frame) {
+  const offsets = isMobileStage()
+    ? [0, 1, -1, 2, -2, 4, -4, 7, -7]
+    : [0, 1, -1, 2, -2, 4, -4, 8, -8, 14, -14];
+  offsets.forEach((offset, index) => {
+    requestFrame(frame + offset, index < 3 ? 'eager' : 'lazy');
+  });
+}
+
 function preloadIdleFrames() {
-  for (let id = FIRST_FRAME; id <= Math.min(LAST_FRAME, 28); id += 1) {
+  const firstRun = isMobileStage() ? 18 : 28;
+  for (let id = FIRST_FRAME; id <= Math.min(LAST_FRAME, firstRun); id += 1) {
     requestFrame(id, 'eager');
   }
   KEEP_FRAMES.forEach((id) => requestFrame(id, 'eager'));
+  if (isMobileStage()) return;
 
   let nextFrame = FIRST_FRAME;
   const schedule = window.requestIdleCallback
@@ -103,18 +130,26 @@ function preloadIdleFrames() {
 }
 
 function resize() {
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const dpr = Math.min(window.devicePixelRatio || 1, isMobileStage() ? 1.25 : 2);
   const width = window.innerWidth;
   const height = window.innerHeight;
-  if (width === lastWidth && height === lastHeight) return;
-  lastWidth = width;
-  lastHeight = height;
-  canvas.width = Math.round(width * dpr);
-  canvas.height = Math.round(height * dpr);
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  if (width !== lastWidth || height !== lastHeight) {
+    lastWidth = width;
+    lastHeight = height;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  measureStage();
+  onScroll();
   scheduleDraw(true);
+}
+
+function measureStage() {
+  stageTop = stage.offsetTop;
+  stageScrollTotal = Math.max(1, stage.offsetHeight - window.innerHeight);
 }
 
 function drawImage(img) {
@@ -123,7 +158,7 @@ function drawImage(img) {
   ctx.clearRect(0, 0, width, height);
 
   const mobile = width < 820;
-  const scale = Math.min(width / img.naturalWidth, height / img.naturalHeight) * (mobile ? 1.18 : 1.04);
+  const scale = Math.min(width / img.naturalWidth, height / img.naturalHeight) * (mobile ? 0.98 : 1.04);
   const drawWidth = img.naturalWidth * scale;
   const drawHeight = img.naturalHeight * scale;
   const x = (width - drawWidth) / 2;
@@ -155,35 +190,36 @@ function nearestSnapFrame(frame) {
 
 function scheduleStageSnap() {
   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  if (isMobileStage()) return;
   if (isSnapScrolling) return;
   window.clearTimeout(snapTimer);
   snapTimer = window.setTimeout(() => {
-    const rect = stage.getBoundingClientRect();
-    const stageActive = rect.top < window.innerHeight * 0.55 && rect.bottom > window.innerHeight * 0.45;
+    const scrollY = window.scrollY;
+    const stageActive = scrollY > stageTop - window.innerHeight * 0.55
+      && scrollY < stageTop + stageScrollTotal + window.innerHeight * 0.45;
     if (!stageActive) return;
 
     const snapFrame = nearestSnapFrame(targetFrame);
     if (Math.abs(snapFrame - targetFrame) > SNAP_WINDOW_FRAMES) return;
 
-    const stageTop = window.scrollY + rect.top;
     const snapTop = stageTop + (snapFrame - FIRST_FRAME) * FRAME_SCROLL_PX;
     isSnapScrolling = true;
     window.scrollTo({ top: snapTop, behavior: 'smooth' });
     window.setTimeout(() => {
       isSnapScrolling = false;
       onScroll();
+      requestStageTick();
     }, 460);
   }, SNAP_DELAY_MS);
 }
 
 function onScroll(shouldSnap = false) {
-  const rect = stage.getBoundingClientRect();
-  const total = stage.offsetHeight - window.innerHeight;
-  const scrolled = clamp(-rect.top, 0, total);
-  targetProgress = total > 0 ? scrolled / total : 0;
+  const scrolled = clamp(window.scrollY - stageTop, 0, stageScrollTotal);
+  targetProgress = scrolled / stageScrollTotal;
   targetFrame = clamp(FIRST_FRAME + Math.floor(scrolled / FRAME_SCROLL_PX), FIRST_FRAME, LAST_FRAME);
   progress = targetProgress;
   if (shouldSnap) scheduleStageSnap();
+  requestStageTick();
 }
 
 const overlays = [...document.querySelectorAll('[data-frame-range]')].map((el) => {
@@ -192,8 +228,25 @@ const overlays = [...document.querySelectorAll('[data-frame-range]')].map((el) =
 });
 
 function updateOverlays(frame) {
-  overlays.forEach((overlay) => {
-    const visibility = band(frame, overlay.a, overlay.b, overlay.c, overlay.d);
+  const mobile = isMobileStage();
+  const visibilities = overlays.map((overlay) => ({
+    overlay,
+    visibility: band(frame, overlay.a, overlay.b, overlay.c, overlay.d),
+  }));
+
+  if (mobile) {
+    const story = visibilities.filter(({ overlay }) => (
+      !overlay.el.classList.contains('ov-hero-top') && !overlay.el.classList.contains('ov-hero-bottom')
+    ));
+    const activeStory = story.reduce((active, item) => (
+      item.visibility > active.visibility ? item : active
+    ), { visibility: 0, overlay: null });
+    story.forEach((item) => {
+      if (item !== activeStory) item.visibility = 0;
+    });
+  }
+
+  visibilities.forEach(({ overlay, visibility }) => {
     overlay.el.style.opacity = visibility.toFixed(3);
     overlay.el.style.pointerEvents = visibility > 0.5 ? 'auto' : 'none';
   });
@@ -213,17 +266,14 @@ function updateOverlays(frame) {
 function updateFrame() {
   framesReady = loadedCount >= FRAME_COUNT;
   const nextFrame = clamp(targetFrame, FIRST_FRAME, LAST_FRAME);
+  preloadWindow(nextFrame);
 
   if (nextFrame !== currentFrame) {
-    const direction = Math.sign(nextFrame - currentFrame);
-    const candidate = currentFrame + direction;
-    requestFrame(candidate, 'eager');
     requestFrame(nextFrame, 'eager');
-    if (images.has(nextFrame)) {
-      currentFrame = nextFrame;
-      scheduleDraw();
-    } else if (images.has(candidate)) {
-      currentFrame = candidate;
+
+    const frameToDraw = images.has(nextFrame) ? nextFrame : nearestLoadedFrame(nextFrame);
+    if (frameToDraw && frameToDraw !== currentFrame) {
+      currentFrame = frameToDraw;
       scheduleDraw();
     }
   } else if (lastDrawnFrame !== currentFrame && images.has(currentFrame)) {
@@ -237,10 +287,24 @@ function updateFrame() {
   window.__openPulseStage = { progress, targetFrame, frame: currentFrame, drawnFrame: lastDrawnFrame, loadedCount, framesReady };
 }
 
-function loop() {
-  onScroll();
-  updateFrame();
-  requestAnimationFrame(loop);
+function nearestLoadedFrame(frame) {
+  const radius = isMobileStage() ? 8 : 14;
+  for (let offset = 1; offset <= radius; offset += 1) {
+    const before = frame - offset;
+    const after = frame + offset;
+    if (images.has(before)) return before;
+    if (images.has(after)) return after;
+  }
+  return null;
+}
+
+function requestStageTick() {
+  if (frameTickRequested) return;
+  frameTickRequested = true;
+  requestAnimationFrame(() => {
+    frameTickRequested = false;
+    updateFrame();
+  });
 }
 
 if (canvas && stage && ctx) {
@@ -252,8 +316,7 @@ if (canvas && stage && ctx) {
   window.__openPulseStage = { progress: 0, targetFrame: FIRST_FRAME, frame: FIRST_FRAME, loadedCount: 0, framesReady: false };
   updateOverlays(FIRST_FRAME);
   resize();
-  onScroll();
   window.addEventListener('resize', resize, { passive: true });
   window.addEventListener('scroll', () => onScroll(true), { passive: true });
-  requestAnimationFrame(loop);
+  requestStageTick();
 }
