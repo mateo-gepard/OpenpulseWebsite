@@ -14,6 +14,7 @@ const MAX_CACHE_MOBILE = 88;
 const PRELOAD_BATCH_SIZE = 18;
 const CHAPTER_MAGNET_DELAY = 320;
 const MAGNET_CHAPTER_IDS = new Set(['architecture', 'mainpcb', 'pucks', 'case']);
+const DEFAULT_PEAK_HOLD_FRAMES = 50;
 
 const CHAPTERS = [
   {
@@ -23,8 +24,8 @@ const CHAPTERS = [
     title: 'Not another wearable.<br><span>A platform.</span>',
     body: 'Configurable sensor hardware, open data access and flexible integration, built around replaceable sensor pucks.',
     frames: [1, 52],
-    desktopVh: 135,
-    mobileVh: 112,
+    desktopVh: 96,
+    mobileVh: 82,
     layout: 'hero',
     visual: 'hero',
   },
@@ -36,8 +37,8 @@ const CHAPTERS = [
     body: 'Most devices are built around fixed sensors, locked data flows and one-size-fits-all software. OpenPulse starts from a different assumption: the use case should shape the wearable.',
     bullets: ['Fixed sensor stacks', 'Locked data flows', 'One-size-fits-all software'],
     frames: [52, 140],
-    desktopVh: 140,
-    mobileVh: 104,
+    desktopVh: 72,
+    mobileVh: 58,
     layout: 'left',
     visual: 'right',
   },
@@ -49,8 +50,8 @@ const CHAPTERS = [
     body: 'The opened view shows the reusable wearable base, two body-facing directions and one outward-facing sensing position.',
     note: 'The architecture is the product.',
     frames: [140, 188],
-    desktopVh: 102,
-    mobileVh: 82,
+    desktopVh: 58,
+    mobileVh: 48,
     layout: 'left',
     visual: 'right',
   },
@@ -62,8 +63,9 @@ const CHAPTERS = [
     body: 'Compute, wireless, power management and the interface between sensor modules and software live in the main board.',
     note: 'The base stays. The configuration changes.',
     frames: [192, 258],
-    desktopVh: 128,
-    mobileVh: 98,
+    holdFrame: 228,
+    desktopVh: 66,
+    mobileVh: 54,
     layout: 'left',
     visual: 'right',
   },
@@ -75,8 +77,9 @@ const CHAPTERS = [
     body: 'Pucks make OpenPulse configurable. Partners define what needs to be measured; the hardware can evolve around that use case.',
     note: 'The puck is the business model.',
     frames: [260, 316],
-    desktopVh: 118,
-    mobileVh: 92,
+    holdFrame: 290,
+    desktopVh: 62,
+    mobileVh: 52,
     layout: 'left',
     visual: 'right',
   },
@@ -88,8 +91,9 @@ const CHAPTERS = [
     body: 'The case gives the platform its physical language: a metallic body around the reusable core and modular puck system.',
     note: 'Premium outside. Configurable inside.',
     frames: [324, 378],
-    desktopVh: 118,
-    mobileVh: 92,
+    holdFrame: 350,
+    desktopVh: 62,
+    mobileVh: 52,
     layout: 'left',
     visual: 'right',
   },
@@ -100,8 +104,8 @@ const CHAPTERS = [
     title: 'Hardware becomes a data path.',
     body: 'The goal is not only a wearable. It is configurable sensing, open data access and integration into partner apps, dashboards and workflows.',
     frames: [378, 400],
-    desktopVh: 92,
-    mobileVh: 74,
+    desktopVh: 46,
+    mobileVh: 40,
     layout: 'left',
     visual: 'right',
   },
@@ -112,8 +116,8 @@ const CHAPTERS = [
     title: 'Configure biosensing around your product.',
     body: 'OpenPulse lets partners combine wearable hardware, sensor modules and software integration into a system that fits their use case.',
     frames: [400, 430],
-    desktopVh: 92,
-    mobileVh: 72,
+    desktopVh: 46,
+    mobileVh: 38,
     layout: 'right',
     visual: 'left',
     actions: [
@@ -279,6 +283,32 @@ function chapterAtScroll(scrolled) {
   return { entry, localProgress };
 }
 
+function chapterFrameAtProgress(chapter, localProgress) {
+  const [start, end] = chapter.frames;
+  if (!chapter.holdFrame) return lerp(start, end, localProgress);
+
+  const peak = clamp(chapter.holdFrame, Math.min(start, end), Math.max(start, end));
+  const holdFrames = chapter.holdFrames || DEFAULT_PEAK_HOLD_FRAMES;
+  const beforeFrames = Math.max(1, Math.abs(peak - start));
+  const afterFrames = Math.max(1, Math.abs(end - peak));
+  const virtualTotal = beforeFrames + holdFrames + afterFrames;
+  const virtualFrame = clamp(localProgress, 0, 1) * virtualTotal;
+
+  if (virtualFrame <= beforeFrames) {
+    return lerp(start, peak, virtualFrame / beforeFrames);
+  }
+
+  if (virtualFrame <= beforeFrames + holdFrames) {
+    return peak;
+  }
+
+  return lerp(
+    peak,
+    end,
+    (virtualFrame - beforeFrames - holdFrames) / afterFrames,
+  );
+}
+
 function resize() {
   const dpr = Math.min(window.devicePixelRatio || 1, isMobileStage() ? 1 : 2);
   const width = window.innerWidth;
@@ -406,7 +436,7 @@ function onScroll() {
   activeChapterProgress = localProgress;
   targetProgress = scrolled / stageScrollTotal;
   progress = targetProgress;
-  targetFrameExact = clamp(lerp(activeChapter.frames[0], activeChapter.frames[1], localProgress), FIRST_FRAME, LAST_FRAME);
+  targetFrameExact = clamp(chapterFrameAtProgress(activeChapter, localProgress), FIRST_FRAME, LAST_FRAME);
   targetFrame = clamp(Math.floor(targetFrameExact), FIRST_FRAME, LAST_FRAME);
   updateStageUi();
   requestStageTick();
