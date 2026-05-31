@@ -13,6 +13,7 @@ const MAX_CACHE_DESKTOP = 220;
 const MAX_CACHE_MOBILE = 88;
 const PRELOAD_BATCH_SIZE = 18;
 const CHAPTER_MAGNET_DELAY = 320;
+const MAGNET_CHAPTER_IDS = new Set(['architecture', 'mainpcb', 'pucks', 'case']);
 
 const CHAPTERS = [
   {
@@ -26,10 +27,6 @@ const CHAPTERS = [
     mobileVh: 112,
     layout: 'hero',
     visual: 'hero',
-    actions: [
-      { label: 'Explore hardware', href: 'hardware/', style: 'primary' },
-      { label: 'Talk to us', href: 'pilot/', style: 'ghost' },
-    ],
   },
   {
     id: 'problem',
@@ -115,8 +112,8 @@ const CHAPTERS = [
     title: 'Configure biosensing around your product.',
     body: 'OpenPulse lets partners combine wearable hardware, sensor modules and software integration into a system that fits their use case.',
     frames: [400, 430],
-    desktopVh: 132,
-    mobileVh: 110,
+    desktopVh: 92,
+    mobileVh: 72,
     layout: 'right',
     visual: 'left',
     actions: [
@@ -283,7 +280,7 @@ function chapterAtScroll(scrolled) {
 }
 
 function resize() {
-  const dpr = Math.min(window.devicePixelRatio || 1, isMobileStage() ? 1.25 : 2);
+  const dpr = Math.min(window.devicePixelRatio || 1, isMobileStage() ? 1 : 2);
   const width = window.innerWidth;
   const height = window.innerHeight;
   if (width !== lastWidth || height !== lastHeight) {
@@ -320,18 +317,18 @@ function drawImageAtFrame(img, frame) {
   if (mobile) {
     const heroFrame = activeChapter.id === 'hero';
     const bottomReserved = heroFrame
-      ? Math.min(120, Math.max(84, height * 0.12))
-      : Math.min(318, Math.max(246, height * 0.37));
+      ? Math.min(96, Math.max(72, height * 0.1))
+      : Math.min(430, Math.max(326, height * 0.46));
     const topReserved = heroFrame
-      ? Math.min(360, Math.max(300, height * 0.42))
-      : Math.min(96, Math.max(72, height * 0.1));
+      ? Math.min(332, Math.max(268, height * 0.38))
+      : Math.min(90, Math.max(64, height * 0.08));
     const availableHeight = Math.max(260, height - topReserved - bottomReserved);
-    const maxWidth = width * (heroFrame ? 0.92 : 0.88);
+    const maxWidth = width * (heroFrame ? 0.96 : 0.76);
     const scale = Math.min(maxWidth / img.naturalWidth, availableHeight / img.naturalHeight);
     const drawWidth = img.naturalWidth * scale;
     const drawHeight = img.naturalHeight * scale;
     const x = (width - drawWidth) / 2;
-    const y = topReserved + (availableHeight - drawHeight) * (heroFrame ? 0.48 : 0.42);
+    const y = topReserved + (availableHeight - drawHeight) * (heroFrame ? 0.5 : 0.34);
     ctx.drawImage(img, x, y, drawWidth, drawHeight);
     return;
   }
@@ -423,25 +420,34 @@ function scheduleChapterMagnet(scrolled) {
   window.clearTimeout(chapterMagnetTimer);
   chapterMagnetTimer = window.setTimeout(() => {
     const currentScrolled = clamp(window.scrollY - stageTop, 0, stageScrollTotal);
-    const { entry } = chapterAtScroll(currentScrolled);
-    if (entry.index === 0) return;
-    const target = entry.start + (entry.duration * 0.5);
-    const threshold = Math.min(
-      entry.duration * 0.58,
-      window.innerHeight * (isMobileStage() ? 0.72 : 0.82),
-    );
-    const distance = Math.abs(currentScrolled - target);
+    const candidates = timeline
+      .filter((item) => MAGNET_CHAPTER_IDS.has(item.chapter.id))
+      .map((item) => {
+        const target = item.start + (item.duration * 0.5);
+        const threshold = Math.min(
+          item.duration * 0.66,
+          window.innerHeight * (isMobileStage() ? 0.68 : 0.78),
+        );
+        return {
+          item,
+          target,
+          threshold,
+          distance: Math.abs(currentScrolled - target),
+        };
+      })
+      .sort((a, b) => a.distance - b.distance);
+    const candidate = candidates[0];
 
-    if (distance > threshold || distance < 10) return;
+    if (!candidate || candidate.distance > candidate.threshold || candidate.distance < 10) return;
     isChapterMagnetScrolling = true;
     window.scrollTo({
-      top: stageTop + target,
+      top: stageTop + candidate.target,
       behavior: 'smooth',
     });
     window.setTimeout(() => {
       isChapterMagnetScrolling = false;
-    }, 760);
-  }, isMobileStage() ? 260 : CHAPTER_MAGNET_DELAY);
+    }, isMobileStage() ? 560 : 680);
+  }, isMobileStage() ? 190 : CHAPTER_MAGNET_DELAY);
 }
 
 function renderCaption(chapter) {
