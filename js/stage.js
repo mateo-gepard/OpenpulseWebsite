@@ -38,9 +38,11 @@ const requested = new Set();
 const loadedFramesSeen = new Set();
 let targetProgress = 0;
 let targetFrame = FIRST_FRAME;
+let targetFrameExact = FIRST_FRAME;
 let progress = 0;
 let currentFrame = FIRST_FRAME;
-let lastDrawnFrame = -1;
+let currentFrameExact = FIRST_FRAME;
+let lastDrawnFrameKey = '';
 let drawRequested = false;
 let lastWidth = 0;
 let lastHeight = 0;
@@ -80,7 +82,7 @@ function requestFrame(frame, priority = 'lazy') {
     loadedFramesSeen.add(id);
     loadedCount = loadedFramesSeen.size;
     evictFarFrames();
-    if (id === currentFrame || id === FIRST_FRAME) scheduleDraw(true);
+    if (id === currentFrame || id === Math.ceil(currentFrameExact) || id === FIRST_FRAME) scheduleDraw(true);
     if (Math.abs(id - targetFrame) <= 2) requestStageTick();
   };
   img.onerror = () => {
@@ -157,15 +159,14 @@ function measureStage() {
   stageScrollTotal = Math.max(1, stage.offsetHeight - window.innerHeight);
 }
 
-function drawImage(img) {
+function drawImageAtFrame(img, frame) {
   const width = window.innerWidth;
   const height = window.innerHeight;
-  ctx.clearRect(0, 0, width, height);
 
   const mobile = width < 820;
   if (mobile) {
-    const storyFrame = currentFrame > 26;
-    const topPopupFrame = currentFrame >= 20 && currentFrame < 84;
+    const storyFrame = frame > 26;
+    const topPopupFrame = frame >= 20 && frame < 84;
     const topReserved = topPopupFrame ? Math.min(305, Math.max(250, height * 0.31)) : (storyFrame ? 96 : 118);
     const bottomReserved = topPopupFrame
       ? Math.min(160, Math.max(108, height * 0.14))
@@ -187,9 +188,34 @@ function drawImage(img) {
   const drawWidth = img.naturalWidth * scale;
   const drawHeight = img.naturalHeight * scale;
   const x = (width - drawWidth) / 2;
-  const introLowering = 36 * (1 - smoothstep(18, 58, currentFrame));
+  const introLowering = 36 * (1 - smoothstep(18, 58, frame));
   const y = (height - drawHeight) / 2 + 28 + introLowering;
   ctx.drawImage(img, x, y, drawWidth, drawHeight);
+}
+
+function drawSequenceFrame() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const baseFrame = clamp(Math.floor(currentFrameExact), FIRST_FRAME, LAST_FRAME);
+  const nextFrame = clamp(baseFrame + 1, FIRST_FRAME, LAST_FRAME);
+  const baseImg = images.get(baseFrame) || images.get(currentFrame);
+  const nextImg = images.get(nextFrame);
+  const alpha = clamp(currentFrameExact - baseFrame, 0, 1);
+
+  if (!baseImg) return false;
+
+  ctx.clearRect(0, 0, width, height);
+  ctx.save();
+  ctx.globalAlpha = 1;
+  drawImageAtFrame(baseImg, baseFrame);
+
+  if (nextImg && nextFrame !== baseFrame && alpha > 0.001) {
+    ctx.globalAlpha = alpha;
+    drawImageAtFrame(nextImg, nextFrame);
+  }
+
+  ctx.restore();
+  return true;
 }
 
 function scheduleDraw(force = false) {
@@ -198,13 +224,14 @@ function scheduleDraw(force = false) {
   drawRequested = true;
   requestAnimationFrame(() => {
     drawRequested = false;
-    const img = images.get(currentFrame);
-    if (!img) return;
-    if (!force && currentFrame === lastDrawnFrame) return;
-    lastDrawnFrame = currentFrame;
-    drawImage(img);
-    updateOverlays(currentFrame);
+    const drawKey = `${currentFrameExact.toFixed(3)}:${currentFrame}`;
+    if (!force && drawKey === lastDrawnFrameKey) return;
+    if (!drawSequenceFrame()) return;
+    lastDrawnFrameKey = drawKey;
+    updateOverlays(currentFrameExact);
+    stage.dataset.drawnFrame = lastDrawnFrameKey;
     canvas.style.opacity = (1 - smoothstep(0.992, 1, progress) * 0.9).toFixed(3);
+    window.__openPulseStage = { progress, targetFrame, targetFrameExact, frame: currentFrame, frameExact: currentFrameExact, drawnFrame: lastDrawnFrameKey, loadedCount, framesReady };
   });
 }
 
@@ -219,7 +246,8 @@ function scheduleStageSnap() {
 function onScroll(shouldSnap = false) {
   const scrolled = clamp(window.scrollY - stageTop, 0, stageScrollTotal);
   targetProgress = scrolled / stageScrollTotal;
-  targetFrame = clamp(FIRST_FRAME + Math.floor(scrolled / frameScrollPx()), FIRST_FRAME, LAST_FRAME);
+  targetFrameExact = clamp(FIRST_FRAME + (scrolled / frameScrollPx()), FIRST_FRAME, LAST_FRAME);
+  targetFrame = clamp(Math.floor(targetFrameExact), FIRST_FRAME, LAST_FRAME);
   progress = targetProgress;
   if (shouldSnap) scheduleStageSnap();
   requestStageTick();
@@ -271,25 +299,30 @@ function updateOverlays(frame) {
 function updateFrame() {
   framesReady = loadedCount >= FRAME_COUNT;
   const nextFrame = clamp(targetFrame, FIRST_FRAME, LAST_FRAME);
-  preloadWindow(nextFrame);
+  const nextFrameCeil = clamp(Math.ceil(targetFrameExact), FIRST_FRAME, LAST_FRAME);
+  preloadWindow(targetFrameExact);
+  requestFrame(nextFrame, 'eager');
+  requestFrame(nextFrameCeil, 'eager');
 
-  if (nextFrame !== currentFrame) {
-    requestFrame(nextFrame, 'eager');
+  const baseAvailable = images.has(nextFrame);
+  const ceilAvailable = images.has(nextFrameCeil);
+  const frameToDraw = baseAvailable ? nextFrame : nearestLoadedFrame(nextFrame);
 
-    const frameToDraw = images.has(nextFrame) ? nextFrame : nearestLoadedFrame(nextFrame);
-    if (frameToDraw && frameToDraw !== currentFrame) {
-      currentFrame = frameToDraw;
-      scheduleDraw();
-    }
-  } else if (lastDrawnFrame !== currentFrame && images.has(currentFrame)) {
+  if (frameToDraw) {
+    currentFrame = frameToDraw;
+    currentFrameExact = baseAvailable
+      ? (ceilAvailable ? targetFrameExact : nextFrame)
+      : frameToDraw;
     scheduleDraw();
   }
   stage.dataset.targetFrame = String(targetFrame);
+  stage.dataset.targetFrameExact = targetFrameExact.toFixed(3);
   stage.dataset.currentFrame = String(currentFrame);
-  stage.dataset.drawnFrame = String(lastDrawnFrame);
+  stage.dataset.currentFrameExact = currentFrameExact.toFixed(3);
+  stage.dataset.drawnFrame = lastDrawnFrameKey;
   stage.dataset.loadedFrames = String(loadedCount);
   stage.dataset.framesReady = String(framesReady);
-  window.__openPulseStage = { progress, targetFrame, frame: currentFrame, drawnFrame: lastDrawnFrame, loadedCount, framesReady };
+  window.__openPulseStage = { progress, targetFrame, targetFrameExact, frame: currentFrame, frameExact: currentFrameExact, drawnFrame: lastDrawnFrameKey, loadedCount, framesReady };
 }
 
 function nearestLoadedFrame(frame) {
