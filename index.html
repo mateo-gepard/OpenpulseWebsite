@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>OpenPulse - Modular biosensing for companies</title>
 <meta name="description" content="OpenPulse is a modular biosensor wearable platform for companies building their own health, safety, research or performance experiences." />
-<link rel="stylesheet" href="css/styles.css?v=49" />
+<link rel="stylesheet" href="css/styles.css?v=54" />
 <script type="importmap">
 {
   "imports": {
@@ -18,15 +18,7 @@
 <body data-page="home">
 
 <header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="OpenPulse"><span class="brand-o" aria-hidden="true">
-  <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle class="brand-o-ring" cx="21" cy="21" r="17.5"/>
-    <path class="brand-o-trace" d="M15.8 15.4L27.2 15.1L30 25.8L15.2 27.4L15.8 15.4Z"/>
-    <circle class="brand-o-puck" cx="15.8" cy="15.4" r="4.6"/>
-    <circle class="brand-o-puck" cx="30" cy="25.8" r="4.6"/>
-    <circle class="brand-o-puck" cx="15.2" cy="27.4" r="4.6"/>
-  </svg>
-</span><span class="brand-rest">penPulse</span></a>
+  <a class="brand" href="#top" aria-label="OpenPulse"><img class="brand-logo-img" src="Photos/openpulse-logo-alpha.png" alt="" aria-hidden="true" /></a>
   <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-menu-toggle>
     <span></span><span></span>
   </button>
@@ -47,91 +39,19 @@
   <div class="sticky">
     <canvas id="scene"></canvas>
 
-    <div class="overlay ov-hero-top" data-frame-range="0,1,20,26">
-      <div class="eyebrow">Modular biosensor platform</div>
-      <h1>Not another wearable.<br><span class="grad">A platform.</span></h1>
-    </div>
-
-    <div class="overlay ov-hero-bottom" data-frame-range="0,1,20,26">
-      <p>Configurable sensor hardware, open data access and flexible integration, built around replaceable sensor pucks.</p>
-      <div class="btn-row center">
+    <div class="stage-caption" data-stage-caption aria-live="polite">
+      <div class="eyebrow" data-chapter-eyebrow>Modular biosensor platform</div>
+      <h1 data-chapter-title>Not another wearable.<br><span>A platform.</span></h1>
+      <p data-chapter-body>Configurable sensor hardware, open data access and flexible integration, built around replaceable sensor pucks.</p>
+      <div class="stage-bullets" data-chapter-bullets hidden></div>
+      <div class="stage-note" data-chapter-note hidden></div>
+      <div class="btn-row stage-actions" data-chapter-actions>
         <a class="btn btn-primary" href="hardware/">Explore hardware</a>
         <a class="btn btn-ghost" href="pilot/">Talk to us</a>
       </div>
     </div>
 
-    <div class="stage-scroll-cue" aria-hidden="true">
-      <span>Scroll</span>
-      <i></i>
-    </div>
-
-    <div class="overlay ov-problem" id="platform" data-frame-range="20,26,58,64">
-      <div class="eyebrow">The problem</div>
-      <h2>Most wearables are closed by design.</h2>
-      <div class="fail-list">
-        <div class="row"><span class="x"></span>Fixed sensor stacks</div>
-        <div class="row"><span class="x"></span>Locked, black-box data flows</div>
-        <div class="row"><span class="x"></span>One-size-fits-all software</div>
-      </div>
-    </div>
-
-    <div class="overlay ov-anatomy left" data-frame-range="84,86,92,94">
-      <div class="card">
-        <div class="idx">01 - Platform architecture</div>
-        <h3>One base. Three sensing positions.</h3>
-        <p>The opened view shows the reusable wearable base, two body-facing directions and one outward-facing sensing position.</p>
-        <div class="biz">The architecture is the product.</div>
-      </div>
-    </div>
-
-    <div class="overlay ov-anatomy right" data-frame-range="94,96,114,129">
-      <div class="card">
-        <div class="idx">02 - Main PCB</div>
-        <h3>The reusable core</h3>
-        <p>Compute, wireless, power management and the interface between sensor modules and software.</p>
-        <div class="biz">The base stays. The configuration changes.</div>
-      </div>
-    </div>
-
-    <div class="overlay ov-anatomy left" data-frame-range="128,130,145,158">
-      <div class="card">
-        <div class="idx">03 - Sensor pucks</div>
-        <h3>Configure around the use case</h3>
-        <p>Pucks make OpenPulse configurable. Partners define what needs to be measured; the hardware can evolve around that use case.</p>
-        <div class="biz">The puck is the business model.</div>
-      </div>
-    </div>
-
-    <div class="overlay ov-anatomy right" data-frame-range="160,162,175,189">
-      <div class="card">
-        <div class="idx">04 - Titanium case</div>
-        <h3>The structural shell</h3>
-        <p>The case gives the platform its physical language: a precise metallic body around the reusable core and modular puck system.</p>
-        <div class="biz">Premium outside. Configurable inside.</div>
-      </div>
-    </div>
-
-    <div class="overlay ov-anatomy left" data-frame-range="189,193,200,204">
-      <div class="card">
-        <div class="idx">05 - Integration layer</div>
-        <h3>Hardware becomes a data path</h3>
-        <p>The goal is not only a wearable. It is configurable sensing, open data access and integration into partner systems.</p>
-      </div>
-    </div>
-
-    <div id="anatomy-progress">
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-    </div>
-
-    <div class="overlay ov-final" data-frame-range="206,208,216,222">
-      <div class="eyebrow">From modules to solutions</div>
-      <h2>Configure biosensing around your product.</h2>
-      <p>OpenPulse lets partners combine wearable hardware, sensor modules and software integration into a system that fits their use case.</p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="pilot/">Start a pilot conversation</a>
-        <a class="btn btn-ghost" href="#configs">See configurations</a>
-      </div>
-    </div>
+    <nav class="stage-rail" data-stage-rail aria-label="OpenPulse story chapters"></nav>
   </div>
 </section>
 
@@ -229,9 +149,9 @@
     <div class="config-studio" data-config-studio>
       <div class="studio-preview" aria-label="OpenPulse configuration previews">
         <div class="studio-canvas-stack">
-          <canvas class="config-canvas is-active" data-config="human"></canvas>
-          <canvas class="config-canvas" data-config="safety"></canvas>
-          <canvas class="config-canvas" data-config="dev"></canvas>
+          <img class="config-shot is-active" data-config-visual="human" src="Photos/stage-frames-430-webp/openpulse_0001.webp" alt="Closed OpenPulse configuration render" loading="lazy" />
+          <img class="config-shot" data-config-visual="safety" src="Photos/stage-frames-430-webp/openpulse_0324.webp" alt="OpenPulse case and outward-facing sensing configuration render" loading="lazy" />
+          <img class="config-shot" data-config-visual="dev" src="Photos/stage-frames-430-webp/openpulse_0192.webp" alt="OpenPulse main PCB inspection render" loading="lazy" />
         </div>
         <div class="studio-readout">
           <span>Active direction</span>
@@ -368,15 +288,7 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-col footer-brand">
-      <a class="brand" href="#top" aria-label="OpenPulse"><span class="brand-o" aria-hidden="true">
-  <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle class="brand-o-ring" cx="21" cy="21" r="17.5"/>
-    <path class="brand-o-trace" d="M15.8 15.4L27.2 15.1L30 25.8L15.2 27.4L15.8 15.4Z"/>
-    <circle class="brand-o-puck" cx="15.8" cy="15.4" r="4.6"/>
-    <circle class="brand-o-puck" cx="30" cy="25.8" r="4.6"/>
-    <circle class="brand-o-puck" cx="15.2" cy="27.4" r="4.6"/>
-  </svg>
-</span><span class="brand-rest">penPulse</span></a>
+      <a class="brand" href="#top" aria-label="OpenPulse"><img class="brand-logo-img" src="Photos/openpulse-logo-alpha.png" alt="" aria-hidden="true" /></a>
       <p>Modular biosensing for companies building their own health, safety, research or performance experiences.</p>
     </div>
     <div class="footer-col">
@@ -405,7 +317,7 @@
   </div>
 </footer>
 
-<script type="module" src="js/site.js?v=24"></script>
-<script type="module" src="js/stage.js?v=61"></script>
+<script type="module" src="js/site.js?v=25"></script>
+<script type="module" src="js/stage.js?v=69"></script>
 </body>
 </html>

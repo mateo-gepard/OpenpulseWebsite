@@ -49,7 +49,7 @@ mobileDock.innerHTML = dockItems.map((item) => `
 document.body.appendChild(mobileDock);
 
 const configsSection = document.getElementById('configs');
-if (configsSection) {
+if (configsSection && configsSection.querySelector('[data-config]')) {
   let configsLoaded = false;
   const loadConfigs = () => {
     if (configsLoaded) return;
@@ -75,7 +75,7 @@ const configStudio = document.querySelector('[data-config-studio]');
 if (configStudio) {
   const tabs = [...configStudio.querySelectorAll('[data-config-tab]')];
   const panels = [...configStudio.querySelectorAll('[data-config-panel]')];
-  const canvases = [...configStudio.querySelectorAll('[data-config]')];
+  const visuals = [...configStudio.querySelectorAll('[data-config], [data-config-visual]')];
   const readout = configStudio.querySelector('[data-studio-title]');
 
   const setActiveConfig = (key) => {
@@ -86,7 +86,10 @@ if (configStudio) {
       if (active && readout) readout.textContent = tab.textContent.trim();
     });
     panels.forEach((panel) => panel.classList.toggle('is-active', panel.dataset.configPanel === key));
-    canvases.forEach((canvas) => canvas.classList.toggle('is-active', canvas.dataset.config === key));
+    visuals.forEach((visual) => {
+      const visualKey = visual.dataset.config || visual.dataset.configVisual;
+      visual.classList.toggle('is-active', visualKey === key);
+    });
   };
 
   tabs.forEach((tab) => {
