@@ -1,16 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Redirecting to OpenPulse Use Cases</title>
-<link rel="canonical" href="use-cases/" />
-<meta http-equiv="refresh" content="0; url=use-cases/" />
-</head>
-<body>
-<p>Redirecting to <a href="use-cases/">OpenPulse Use Cases</a>.</p>
-<script>
-  window.location.replace('use-cases/' + window.location.search + window.location.hash);
-</script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Use Cases - OpenPulse</title>
+    <meta name="description" content="OpenPulse use cases for research, GBU-Psyche, workplace safety, neuromarketing, wellness, interactive art, and quantified-self pilots.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-page="cases">
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="OpenPulse home">
+        <img src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+      <nav class="site-nav" data-nav>
+        <a href="hardware.html">Hardware</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="team.html">Team</a>
+        <a href="competitions.html">Competitions</a>
+        <button class="button button-primary nav-cta" type="button" data-open-contact>Talk to us</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero page-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Use cases</p>
+          <h1>One platform. Every field that measures the human body.</h1>
+          <p class="hero-subline">OpenPulse is not sold as one generic fitness product. It is configured around a pilot: the signals, the environment, the data path, and the partner's workflow.</p>
+          <div class="hero-actions">
+            <button class="button button-primary" type="button" data-open-contact>Discuss this use case</button>
+            <a class="button button-secondary" href="#segments">Compare segments</a>
+          </div>
+        </div>
+        <div class="hero-visual product-visual">
+          <img src="Photos/stage-frames-430-webp/openpulse_0288.webp" alt="OpenPulse modular wearable render">
+          <div class="visual-label label-a">B2B first</div>
+          <div class="visual-label label-b">B2C community second</div>
+          <div class="visual-label label-c">problem -> configuration -> pilot</div>
+        </div>
+      </section>
+
+      <section class="section" id="segments">
+        <div class="container">
+          <div class="section-topline">
+            <div>
+              <p class="eyebrow">Pilot segments</p>
+              <h2>Filter by the partner you want to convince.</h2>
+            </div>
+            <button class="button button-secondary" type="button" data-open-contact>Start with your measurement need</button>
+          </div>
+          <div class="filter-bar" aria-label="Use case filters">
+            <button type="button" class="is-active" data-filter="all">All</button>
+            <button type="button" data-filter="research">Research</button>
+            <button type="button" data-filter="gbu">GBU-Psyche</button>
+            <button type="button" data-filter="safety">Safety</button>
+            <button type="button" data-filter="neuro">Neuromarketing</button>
+            <button type="button" data-filter="wellness">Wellness</button>
+            <button type="button" data-filter="art">Art</button>
+            <button type="button" data-filter="b2c">B2C</button>
+          </div>
+          <div class="segment-grid">
+            <article class="segment-card research" data-case-card="research">
+              <span>Academic research</span>
+              <h3>Raw biosignals after the E4 era</h3>
+              <p>Open API, exportable data, EDA, PPG, temperature, motion, and a lower-friction hardware path.</p>
+            </article>
+            <article class="segment-card neuro" data-case-card="gbu">
+              <span>GBU-Psyche</span>
+              <h3>Objective layers for workplace stress assessment</h3>
+              <p>EDA and HRV context for consultants who already run surveys and interviews.</p>
+            </article>
+            <article class="segment-card safety" data-case-card="safety">
+              <span>Workplace safety</span>
+              <h3>Human signal plus environment signal</h3>
+              <p>Gas, temperature, heart-rate context, and local alarms in one configurable band.</p>
+            </article>
+            <article class="segment-card neuro" data-case-card="neuro">
+              <span>Neuromarketing</span>
+              <h3>Response measurement without a black box</h3>
+              <p>EDA and HR pipelines for consumer research, stimulus testing, and controlled response studies.</p>
+            </article>
+            <article class="segment-card wellness" data-case-card="wellness">
+              <span>Wellness resorts</span>
+              <h3>White-label recovery without device lock-in</h3>
+              <p>Configured bands for premium recovery, stress, and retreat experiences.</p>
+            </article>
+            <article class="segment-card art" data-case-card="art">
+              <span>Interactive art</span>
+              <h3>Biosignals as input for installations</h3>
+              <p>Turn pulse, motion, EDA, and environment into live media control signals.</p>
+            </article>
+            <article class="segment-card opensource" data-case-card="b2c">
+              <span>Open source / quantified self</span>
+              <h3>The secondary market that builds with you</h3>
+              <p>For data-sovereign users, developers, and quantified-self people who hate sealed clouds.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section real-section case-strategy">
+        <div class="container">
+          <div class="section-topline">
+            <div>
+              <p class="eyebrow">Where the fit is sharpest</p>
+              <h2>The strongest markets do not want another watch. They want a measurement layer.</h2>
+            </div>
+            <p class="topline-note">OpenPulse becomes interesting when the partner already has a workflow, but the existing wearable hardware is too closed, too generic, or missing one key signal.</p>
+          </div>
+
+          <div class="case-showcase">
+            <article class="case-spotlight research" data-case-detail="research">
+              <div class="spotlight-copy">
+                <p class="eyebrow">01 / Research</p>
+                <h2>Raw biosignals without the black box.</h2>
+                <p>For labs, OpenPulse is a configurable raw-signal wristband: EDA, PPG, temperature, motion, documented processing, and exportable data for repeatable pilots.</p>
+                <div class="config-row"><span>EDA</span><span>PPG</span><span>Temp</span><span>IMU</span><span>Open export</span></div>
+                <button class="button button-primary" type="button" data-open-contact data-segment="Academic research">Discuss research pilot</button>
+              </div>
+              <div class="spotlight-panel">
+                <span class="panel-label">Why now</span>
+                <strong>The E4 gap</strong>
+                <p>With the Empatica E4 retired, research teams still need inspectable wearable biosignals without moving into a closed consumer ecosystem.</p>
+              </div>
+            </article>
+
+            <article class="case-spotlight safety" data-case-detail="safety">
+              <div class="spotlight-copy">
+                <p class="eyebrow">02 / Safety</p>
+                <h2>The worker and the environment in one timeline.</h2>
+                <p>A gas spike means more with body context. A physiological spike means more with environmental context. OpenPulse can join both into local alerts or exports.</p>
+                <div class="config-row"><span>Gas</span><span>Heat</span><span>PPG</span><span>Temp</span><span>Local alert</span></div>
+                <button class="button button-primary" type="button" data-open-contact data-segment="Workplace safety">Discuss safety pilot</button>
+              </div>
+              <div class="spotlight-panel dark">
+                <span class="panel-label">Configuration</span>
+                <strong>Body module + environment module</strong>
+                <p>One wristband can monitor worker context and ambient hazards instead of splitting the pilot across separate devices.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="opportunity-stack" aria-label="Additional OpenPulse pilot opportunities">
+            <article class="opportunity-row" data-case-detail="gbu">
+              <span>GBU-Psyche</span>
+              <h3>Stress assessment gets a repeatable signal layer.</h3>
+              <p>EDA and HRV context for consultants who already run interviews, workshops, and surveys.</p>
+              <div class="mini-recipe"><i>EDA</i><i>HRV</i><i>Export</i></div>
+            </article>
+            <article class="opportunity-row" data-case-detail="neuro">
+              <span>Neuromarketing</span>
+              <h3>Explainable reaction signals for stimulus testing.</h3>
+              <p>EDA and pulse pipelines synchronized to media, retail, or product-testing stimuli.</p>
+              <div class="mini-recipe"><i>EDA</i><i>PPG</i><i>Sync</i></div>
+            </article>
+            <article class="opportunity-row" data-case-detail="wellness">
+              <span>Wellness resorts</span>
+              <h3>A white-label recovery layer, not a locked watch account.</h3>
+              <p>Configured guest experiences for recovery, stress trends, and resort-owned workflows.</p>
+              <div class="mini-recipe"><i>PPG</i><i>Temp</i><i>EDA</i></div>
+            </article>
+            <article class="opportunity-row" data-case-detail="art">
+              <span>Interactive art</span>
+              <h3>Biosignals as live input for light, sound, and space.</h3>
+              <p>MQTT outputs turn pulse, EDA, motion, or environment into a control surface.</p>
+              <div class="mini-recipe"><i>PPG</i><i>Motion</i><i>MQTT</i></div>
+            </article>
+            <article class="opportunity-row secondary" data-case-detail="b2c">
+              <span>Secondary market</span>
+              <h3>For the people who already want to build their own wearable.</h3>
+              <p>Data-sovereign users, quantified-self builders, and open-source developers who hate sealed clouds.</p>
+              <div class="mini-recipe"><i>Open API</i><i>GitHub</i><i>No lock-in</i></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section navy">
+        <div class="container centered-heading">
+          <p class="eyebrow">Pilot fit</p>
+          <h2>Bring one concrete measurement problem.</h2>
+          <p>OpenPulse is strongest when a partner has a clear question: what signal, on whom, in which context, and what decision should the output support?</p>
+          <div class="hero-actions centered">
+            <button class="button button-primary" type="button" data-open-contact>Discuss a pilot</button>
+            <a class="button button-light" href="hardware.html">Inspect hardware</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <img class="footer-logo" src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
+          <p>OpenPulse builds modular, open biosignal wearables for teams that need exactly the right sensors.</p>
+        </div>
+        <div>
+          <h3>Pages</h3>
+          <a href="hardware.html">Hardware</a>
+          <a href="use-cases.html">Use Cases</a>
+          <a href="team.html">Team</a>
+          <a href="competitions.html">Competitions</a>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <button type="button" data-open-contact>Discuss a pilot</button>
+          <a href="https://github.com/openpulse">GitHub</a>
+          <a href="mailto:hello@openpulse.dev">hello@openpulse.dev</a>
+        </div>
+        <div class="sources">
+          <h3>Sources</h3>
+          <a href="https://www.empatica.com/en-us/research/e4-sunset">Empatica E4 sunset</a>
+          <a href="https://link.springer.com/chapter/10.1007/978-3-658-49104-8_4">GBU-Psyche implementation analysis</a>
+          <a href="https://forum.dguv.de/ausgabe/9-2025/artikel/betriebsbefragung-zur-organisation-und-umsetzung-von-arbeitsschutzmassnahmen">DGUV Forum 2023/24 reporting</a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" data-contact hidden>
+      <div class="modal-panel">
+        <button class="modal-close" type="button" aria-label="Close contact form" data-close-contact></button>
+        <p class="eyebrow">Talk to us</p>
+        <h2 id="contact-title">Map your first OpenPulse pilot.</h2>
+        <form class="contact-form" data-contact-form>
+          <label>Name<input name="name" autocomplete="name" required></label>
+          <label>Organization<input name="organization" autocomplete="organization"></label>
+          <label>Segment
+            <select name="segment">
+              <option>Academic research</option>
+              <option>Workplace safety</option>
+              <option>GBU-Psyche</option>
+              <option>Neuromarketing</option>
+              <option>Wellness</option>
+              <option>Open source / quantified self</option>
+            </select>
+          </label>
+          <label>What do you want to measure?<textarea name="message" rows="4" required></textarea></label>
+          <button class="button button-primary" type="submit">Prepare pilot email</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
 </html>

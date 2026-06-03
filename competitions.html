@@ -1,16 +1,210 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Redirecting to OpenPulse Competitions</title>
-<link rel="canonical" href="competitions/" />
-<meta http-equiv="refresh" content="0; url=competitions/" />
-</head>
-<body>
-<p>Redirecting to <a href="competitions/">OpenPulse Competitions</a>.</p>
-<script>
-  window.location.replace('competitions/' + window.location.search + window.location.hash);
-</script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Competitions - OpenPulse</title>
+    <meta name="description" content="OpenPulse competition recognition: Blue Ocean Europe winner, STARTUP TEENS Top 5 Health, and Jugend grundet Top 14 Germany.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-page="competitions">
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="OpenPulse home">
+        <img src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+      <nav class="site-nav" data-nav>
+        <a href="hardware.html">Hardware</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="team.html">Team</a>
+        <a href="competitions.html">Competitions</a>
+        <button class="button button-primary nav-cta" type="button" data-open-contact>Talk to us</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero page-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Recognition</p>
+          <h1>Recognized across Europe.</h1>
+          <p class="hero-subline">Competitions are not the product. They are external proof that the idea has survived pressure, pitching, feedback, and comparison against other young ventures.</p>
+          <div class="hero-actions">
+            <button class="button button-primary" type="button" data-open-contact>Turn proof into a pilot</button>
+            <a class="button button-secondary" href="#timeline">See the journey</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="pitch-photo" src="Photos/FotoJugendGr%C3%BCndet.jpg" alt="OpenPulse at Jugend grundet">
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="centered-heading">
+            <p class="eyebrow">Proof wall</p>
+            <h2>External validation without pretending to be finished.</h2>
+          </div>
+          <div class="competition-grid">
+            <article class="competition-card">
+              <div class="place">1st</div>
+              <h3>Blue Ocean Entrepreneurs Competition</h3>
+              <p>Europe-wide first place. A strong early signal that the positioning and ambition travel beyond a local school context.</p>
+            </article>
+            <article class="competition-card">
+              <div class="place">Top 5</div>
+              <h3>STARTUP TEENS Health</h3>
+              <p>Selected among the top health projects. The next hurdle is public voting until June 12, 2026.</p>
+            </article>
+            <article class="competition-card">
+              <div class="place">Top 14</div>
+              <h3>Jugend grundet Germany</h3>
+              <p>The original modular sensor idea was strong enough to reach the national top 14 before the team shifted strategy.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section real-section" id="timeline">
+        <div class="container">
+          <div class="section-topline">
+            <div>
+              <p class="eyebrow">Timeline</p>
+              <h2>Momentum, not mythology.</h2>
+            </div>
+            <a class="text-link" href="team.html">Meet the team</a>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <time>2025</time>
+              <div>
+                <h3>The frustration that started it</h3>
+                <p>Mateo becomes dissatisfied with subscription-based wearables and starts thinking about an open-source fitness band.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <time>Jugend grundet</time>
+              <div>
+                <h3>The first public version</h3>
+                <p>The team submits the original concept: a main PCB with round body-sensor modules and an open-source modular software idea.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <time>Munich pitch event</time>
+              <div>
+                <h3>The network expands</h3>
+                <p>Roman and Mateo meet experienced startup and hardware people, opening the path to sharper strategy and faster prototype feedback.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <time>Strategic shift</time>
+              <div>
+                <h3>B2B becomes the primary market</h3>
+                <p>The team moves from "for everyone" to pilot partners: research, safety, GBU-Psyche, neuromarketing, wellness, and specialist open-source users.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <time>Build phase</time>
+              <div>
+                <h3>Main PCB manufactured and tested</h3>
+                <p>JLCPCB manufacturing, assembled main boards, Seeed XIAO nRF52840 Sense platform, and round sensor-module PCBs ready for assembly validation.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <time>Now</time>
+              <div>
+                <h3>Public proof and pilot search</h3>
+                <p>Blue Ocean Europe first place, STARTUP TEENS Top 5 Health, and a clearer website funnel: talk to pilot partners, show the hardware, keep the open-source path alive.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container split">
+          <div>
+            <img class="pitch-photo" src="Photos/TeamFoto.PNG" alt="OpenPulse team with prototype">
+          </div>
+          <div class="section-copy">
+            <p class="eyebrow">Live now</p>
+            <h2>STARTUP TEENS voting is a short-term conversion moment.</h2>
+            <p>Until June 12, 2026, the site can carry a focused voting strip. After the deadline, that section should become a regular proof block or be removed to keep the site timeless.</p>
+            <div class="build-board">
+              <div><span>Current</span><strong>Top 5 Health</strong></div>
+              <div><span>Goal</span><strong>place 1st or 2nd in public voting</strong></div>
+              <div><span>After</span><strong>turn attention into pilots and newsletter leads</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section navy">
+        <div class="container centered-heading">
+          <p class="eyebrow">Recognition to pilots</p>
+          <h2>This is just the start. The next proof is a working pilot.</h2>
+          <p>Competitions create trust. Pilot partners create the product.</p>
+          <div class="hero-actions centered">
+            <button class="button button-primary" type="button" data-open-contact>Discuss a pilot</button>
+            <a class="button button-light" href="hardware.html">Inspect the hardware</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <img class="footer-logo" src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
+          <p>OpenPulse builds modular, open biosignal wearables for teams that need exactly the right sensors.</p>
+        </div>
+        <div>
+          <h3>Pages</h3>
+          <a href="hardware.html">Hardware</a>
+          <a href="use-cases.html">Use Cases</a>
+          <a href="team.html">Team</a>
+          <a href="competitions.html">Competitions</a>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <button type="button" data-open-contact>Discuss a pilot</button>
+          <a href="https://github.com/openpulse">GitHub</a>
+          <a href="mailto:hello@openpulse.dev">hello@openpulse.dev</a>
+        </div>
+        <div class="sources">
+          <h3>Proof</h3>
+          <a href="team.html">Founder story</a>
+          <a href="hardware.html">Hardware status</a>
+          <a href="use-cases.html">Pilot segments</a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" data-contact hidden>
+      <div class="modal-panel">
+        <button class="modal-close" type="button" aria-label="Close contact form" data-close-contact></button>
+        <p class="eyebrow">Talk to us</p>
+        <h2 id="contact-title">Map your first OpenPulse pilot.</h2>
+        <form class="contact-form" data-contact-form>
+          <label>Name<input name="name" autocomplete="name" required></label>
+          <label>Organization<input name="organization" autocomplete="organization"></label>
+          <label>Segment
+            <select name="segment">
+              <option>Academic research</option>
+              <option>Workplace safety</option>
+              <option>GBU-Psyche</option>
+              <option>Neuromarketing</option>
+              <option>Wellness</option>
+              <option>Open source / quantified self</option>
+            </select>
+          </label>
+          <label>What do you want to measure?<textarea name="message" rows="4" required></textarea></label>
+          <button class="button button-primary" type="submit">Prepare pilot email</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
 </html>

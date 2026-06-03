@@ -1,16 +1,151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Redirecting to OpenPulse Team</title>
-<link rel="canonical" href="team/" />
-<meta http-equiv="refresh" content="0; url=team/" />
-</head>
-<body>
-<p>Redirecting to <a href="team/">OpenPulse Team</a>.</p>
-<script>
-  window.location.replace('team/' + window.location.search + window.location.hash);
-</script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Team - OpenPulse</title>
+    <meta name="description" content="Meet the OpenPulse founders: Mateo, Juan, and Roman, building an open modular biosignal wearable platform.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-page="team">
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="OpenPulse home">
+        <img src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+      <nav class="site-nav" data-nav>
+        <a href="hardware.html">Hardware</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="team.html">Team</a>
+        <a href="competitions.html">Competitions</a>
+        <button class="button button-primary nav-cta" type="button" data-open-contact>Talk to us</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero page-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Team</p>
+          <h1>Three founders. One open system.</h1>
+          <p class="hero-subline">OpenPulse started because Mateo was frustrated with a subscription wearable. It became a modular biosignal platform once the team realized the sharper problem was B2B: give partners exactly the sensors and data path they need.</p>
+          <div class="hero-actions">
+            <button class="button button-primary" type="button" data-open-contact>Work with us</button>
+            <a class="button button-secondary" href="competitions.html">See recognition</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="team-photo-hero" src="Photos/TeamFoto.PNG" alt="OpenPulse founders with prototype band">
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container split">
+          <div class="section-copy">
+            <p class="eyebrow">Origin story</p>
+            <h2>From "no subscription" to a configurable platform.</h2>
+            <p>The first idea was an open-source fitness band: privacy-friendly, repairable, and customizable. The strategic shift came after hard target-group conversations: "everyone" was not a market. Pilot partners were.</p>
+          </div>
+          <div class="build-board">
+            <div><span>Start</span><strong>frustration with subscription wearables</strong></div>
+            <div><span>First thesis</span><strong>open-source fitness tracker for data sovereignty</strong></div>
+            <div><span>Shift</span><strong>B2B platform with B2C open-source secondary market</strong></div>
+            <div><span>Now</span><strong>hardware built, sensor-module validation next</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section real-section">
+        <div class="container">
+          <div class="centered-heading">
+            <p class="eyebrow">Founders</p>
+            <h2>Young, technical, and unusually close to the hardware.</h2>
+            <p>The age is part of the story, but not the pitch. The pitch is that the team can design PCBs, run the build process, talk to partners, and keep shipping.</p>
+          </div>
+          <div class="founder-grid">
+            <article class="founder-card">
+              <img src="Photos/FotoMateo-upright.jpg" alt="Mateo portrait">
+              <div>
+                <span>Hardware architecture & product</span>
+                <h3>Mateo</h3>
+                <p>Started OpenPulse after rejecting the subscription logic of closed wearables. Leads product direction, hardware architecture, and partner problem framing.</p>
+              </div>
+            </article>
+            <article class="founder-card">
+              <img src="Photos/FotoJuan.png" alt="Juan portrait">
+              <div>
+                <span>Business & strategy</span>
+                <h3>Juan</h3>
+                <p>Works across business model, competitions, and partner logic. Brings analytical strength and international perspective from Sevenoaks and math competition experience.</p>
+              </div>
+            </article>
+            <article class="founder-card">
+              <img src="Photos/FotoRoman.jpg" alt="Roman portrait">
+              <div>
+                <span>Firmware & signal processing</span>
+                <h3>Roman</h3>
+                <p>Focuses on firmware, math, physics, and signal logic. Early-study-level technical curiosity meets practical embedded development.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <img class="footer-logo" src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
+          <p>OpenPulse builds modular, open biosignal wearables for teams that need exactly the right sensors.</p>
+        </div>
+        <div>
+          <h3>Pages</h3>
+          <a href="hardware.html">Hardware</a>
+          <a href="use-cases.html">Use Cases</a>
+          <a href="team.html">Team</a>
+          <a href="competitions.html">Competitions</a>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <button type="button" data-open-contact>Discuss a pilot</button>
+          <a href="https://github.com/openpulse">GitHub</a>
+          <a href="mailto:hello@openpulse.dev">hello@openpulse.dev</a>
+        </div>
+        <div class="sources">
+          <h3>Notes</h3>
+          <a href="competitions.html">Competition proof</a>
+          <a href="hardware.html">Hardware status</a>
+          <a href="use-cases.html">Pilot segments</a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" data-contact hidden>
+      <div class="modal-panel">
+        <button class="modal-close" type="button" aria-label="Close contact form" data-close-contact></button>
+        <p class="eyebrow">Talk to us</p>
+        <h2 id="contact-title">Map your first OpenPulse pilot.</h2>
+        <form class="contact-form" data-contact-form>
+          <label>Name<input name="name" autocomplete="name" required></label>
+          <label>Organization<input name="organization" autocomplete="organization"></label>
+          <label>Segment
+            <select name="segment">
+              <option>Academic research</option>
+              <option>Workplace safety</option>
+              <option>GBU-Psyche</option>
+              <option>Neuromarketing</option>
+              <option>Wellness</option>
+              <option>Open source / quantified self</option>
+            </select>
+          </label>
+          <label>What do you want to measure?<textarea name="message" rows="4" required></textarea></label>
+          <button class="button button-primary" type="submit">Prepare pilot email</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
 </html>
