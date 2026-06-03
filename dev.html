@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>OpenPulse Dev Metrics</title>
+  <style>
+    :root {
+      --navy: #0b1e3b;
+      --deep: #08182e;
+      --red: #e5372c;
+      --paper: #f5f8fc;
+      --line: #dfe7f0;
+      --muted: #6b7787;
+      --text: #202a36;
+      --white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 80% 4%, rgba(229, 55, 44, 0.12), transparent 30rem),
+        linear-gradient(135deg, #ffffff 0%, #f5f8fc 52%, #edf3fa 100%);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 42px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 0 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--navy);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
+
+    .status-pill {
+      border: 1px solid rgba(11, 30, 59, 0.14);
+      border-radius: 999px;
+      color: var(--navy);
+      background: rgba(255, 255, 255, 0.72);
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid rgba(11, 30, 59, 0.12);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 28px 80px rgba(8, 24, 46, 0.08);
+      backdrop-filter: blur(18px);
+    }
+
+    .intro {
+      position: relative;
+      overflow: hidden;
+      min-height: 430px;
+      padding: clamp(28px, 5vw, 56px);
+      color: var(--white);
+      background:
+        linear-gradient(135deg, rgba(8, 24, 46, 0.96), rgba(11, 30, 59, 0.9)),
+        var(--navy);
+    }
+
+    .intro::after {
+      content: "REDIRECTS";
+      position: absolute;
+      right: -1.2rem;
+      bottom: -0.8rem;
+      color: rgba(255, 255, 255, 0.055);
+      font-size: clamp(62px, 12vw, 148px);
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 0.8;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 720px;
+      margin: 0;
+      color: var(--white);
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .intro p {
+      max-width: 550px;
+      margin: 24px 0 0;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.55;
+    }
+
+    .target {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .target span {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    .login {
+      padding: 28px;
+    }
+
+    .login h2,
+    .dashboard h2 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .login p,
+    .dashboard-note {
+      margin: 0 0 22px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin: 16px 0 8px;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--white);
+      padding: 14px 14px;
+      color: var(--text);
+      font: inherit;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: rgba(229, 55, 44, 0.7);
+      box-shadow: 0 0 0 4px rgba(229, 55, 44, 0.12);
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 48px;
+      margin-top: 22px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--red);
+      color: var(--white);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      width: auto;
+      min-height: 38px;
+      margin: 0;
+      padding: 0 14px;
+      color: var(--navy);
+      background: transparent;
+      border: 1px solid rgba(11, 30, 59, 0.18);
+    }
+
+    .message {
+      min-height: 20px;
+      margin-top: 14px;
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .dashboard {
+      display: none;
+      margin-top: 28px;
+    }
+
+    .dashboard-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      min-height: 150px;
+      padding: 20px;
+    }
+
+    .metric span {
+      display: block;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--navy);
+      font-size: clamp(38px, 5vw, 64px);
+      line-height: 0.9;
+      letter-spacing: 0;
+    }
+
+    .wide {
+      grid-column: span 2;
+    }
+
+    .chart {
+      display: flex;
+      align-items: end;
+      gap: 10px;
+      height: 190px;
+      padding-top: 16px;
+    }
+
+    .bar {
+      display: grid;
+      align-content: end;
+      flex: 1;
+      height: 100%;
+      min-width: 0;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .bar i {
+      display: block;
+      min-height: 4px;
+      border-radius: 999px 999px 6px 6px;
+      background: linear-gradient(180deg, var(--red), #a91f19);
+      box-shadow: 0 12px 26px rgba(229, 55, 44, 0.2);
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(11, 30, 59, 0.08);
+      padding: 10px 0;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .row:last-child {
+      border-bottom: 0;
+    }
+
+    .row strong {
+      color: var(--navy);
+    }
+
+    .setup {
+      display: none;
+      margin-top: 22px;
+      padding: 18px;
+      border: 1px solid rgba(229, 55, 44, 0.25);
+      border-radius: 16px;
+      background: rgba(229, 55, 44, 0.06);
+      color: var(--navy);
+      line-height: 1.5;
+    }
+
+    .setup code {
+      display: inline-block;
+      margin: 4px 0;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.78);
+      padding: 2px 7px;
+      color: var(--deep);
+      font-size: 13px;
+    }
+
+    @media (max-width: 860px) {
+      .shell {
+        width: min(100% - 22px, 560px);
+        padding-top: 16px;
+      }
+
+      .topbar,
+      .dashboard-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .intro {
+        min-height: 360px;
+        border-radius: 18px;
+      }
+
+      .login {
+        padding: 22px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wide {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="https://www.openpulse.eu/" aria-label="OpenPulse home">
+        <img src="Photos/openpulse-logo-alpha.png" alt="">
+        <span>OpenPulse Dev</span>
+      </a>
+      <span class="status-pill">Private redirect metrics</span>
+    </header>
+
+    <section class="hero">
+      <div class="intro panel">
+        <p class="eyebrow">Startup Teens voting</p>
+        <h1>Redirects, counted before the jump.</h1>
+        <p>
+          Every visit to the OpenPulse voting shortcut is tracked server-side,
+          then forwarded to the Startup Teens voting page at the OpenPulse section.
+        </p>
+        <a class="target" href="https://www.openpulse.eu/Vote-for-Openpulse">
+          <span aria-hidden="true">-></span>
+          Vote shortcut
+        </a>
+      </div>
+
+      <form class="login panel" id="loginForm">
+        <h2>Developer login</h2>
+        <p>Visible only after a signed dev session. No password, no metrics.</p>
+        <label for="username">Username</label>
+        <input id="username" name="username" value="openpulse" autocomplete="username">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password">
+        <button type="submit">Open dashboard</button>
+        <div class="message" id="loginMessage" role="status"></div>
+      </form>
+    </section>
+
+    <section class="dashboard" id="dashboard" aria-live="polite">
+      <div class="dashboard-head">
+        <div>
+          <h2>Voting redirect dashboard</h2>
+          <p class="dashboard-note" id="updatedAt">Loading metrics...</p>
+        </div>
+        <button class="secondary" id="logoutButton" type="button">Log out</button>
+      </div>
+
+      <div class="setup" id="setupBox"></div>
+
+      <div class="grid" id="metricsGrid">
+        <article class="metric panel">
+          <span>Total redirects</span>
+          <strong id="total">0</strong>
+        </article>
+        <article class="metric panel">
+          <span>Today</span>
+          <strong id="today">0</strong>
+        </article>
+        <article class="metric panel">
+          <span>Unique visitors</span>
+          <strong id="unique">0</strong>
+        </article>
+        <article class="metric panel">
+          <span>Latest source</span>
+          <strong id="latestSource">-</strong>
+        </article>
+
+        <article class="metric panel wide">
+          <span>Last 7 days</span>
+          <div class="chart" id="chart"></div>
+        </article>
+        <article class="metric panel wide">
+          <span>Referrers</span>
+          <div class="list" id="referers"></div>
+        </article>
+        <article class="metric panel wide">
+          <span>Devices</span>
+          <div class="list" id="devices"></div>
+        </article>
+        <article class="metric panel wide">
+          <span>Recent redirects</span>
+          <div class="list" id="recent"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const loginMessage = document.getElementById("loginMessage");
+    const dashboard = document.getElementById("dashboard");
+    const setupBox = document.getElementById("setupBox");
+    const metricsGrid = document.getElementById("metricsGrid");
+    const updatedAt = document.getElementById("updatedAt");
+
+    const formatNumber = new Intl.NumberFormat("en-US");
+
+    function setText(id, value) {
+      document.getElementById(id).textContent = value;
+    }
+
+    function renderList(id, rows, emptyLabel) {
+      const element = document.getElementById(id);
+      element.innerHTML = "";
+
+      if (!rows || rows.length === 0) {
+        element.innerHTML = `<div class="row"><span>${emptyLabel}</span><strong>0</strong></div>`;
+        return;
+      }
+
+      rows.slice(0, 8).forEach((row) => {
+        const item = document.createElement("div");
+        item.className = "row";
+        item.innerHTML = `<span>${row[0]}</span><strong>${formatNumber.format(row[1])}</strong>`;
+        element.appendChild(item);
+      });
+    }
+
+    function renderRecent(events) {
+      const element = document.getElementById("recent");
+      element.innerHTML = "";
+
+      if (!events || events.length === 0) {
+        element.innerHTML = '<div class="row"><span>No redirects yet</span><strong>-</strong></div>';
+        return;
+      }
+
+      events.slice(0, 8).forEach((event) => {
+        const item = document.createElement("div");
+        item.className = "row";
+        const time = new Date(event.at).toLocaleString("en-US", {
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        item.innerHTML = `<span>${time} - ${event.device}</span><strong>${event.referer}</strong>`;
+        element.appendChild(item);
+      });
+    }
+
+    function renderChart(days) {
+      const element = document.getElementById("chart");
+      element.innerHTML = "";
+      const max = Math.max(1, ...days.map((day) => day.count));
+
+      days.forEach((day) => {
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        const height = Math.max(4, Math.round((day.count / max) * 150));
+        const label = day.date.slice(5).replace("-", "/");
+        bar.innerHTML = `<i style="height:${height}px"></i><span>${label}</span><strong>${day.count}</strong>`;
+        element.appendChild(bar);
+      });
+    }
+
+    function showDashboard() {
+      loginForm.style.display = "none";
+      dashboard.style.display = "block";
+    }
+
+    function showLogin(message) {
+      dashboard.style.display = "none";
+      loginForm.style.display = "block";
+      loginMessage.textContent = message || "";
+    }
+
+    async function loadStats() {
+      const response = await fetch("/api/dev-stats", { cache: "no-store" });
+
+      if (response.status === 401) {
+        showLogin("");
+        return;
+      }
+
+      showDashboard();
+      const data = await response.json();
+
+      if (!data.ok) {
+        setupBox.style.display = "block";
+        setupBox.innerHTML = `
+          <strong>Storage is not connected yet.</strong><br>
+          Set these Vercel env vars for persistent counts:<br>
+          <code>KV_REST_API_URL</code> + <code>KV_REST_API_TOKEN</code><br>
+          or <code>UPSTASH_REDIS_REST_URL</code> + <code>UPSTASH_REDIS_REST_TOKEN</code>.
+        `;
+        metricsGrid.style.opacity = "0.45";
+        updatedAt.textContent = "Login works. Stats storage still needs Vercel KV / Upstash Redis.";
+        return;
+      }
+
+      const stats = data.stats;
+      setupBox.style.display = "none";
+      metricsGrid.style.opacity = "1";
+      setText("total", formatNumber.format(stats.total));
+      setText("today", formatNumber.format(stats.today));
+      setText("unique", formatNumber.format(stats.uniqueVisitors));
+      setText("latestSource", stats.recent[0]?.referer || "-");
+      updatedAt.textContent = `Updated ${new Date(stats.updatedAt).toLocaleString("en-US")}`;
+      renderChart(stats.daily);
+      renderList("referers", stats.referers, "No referrers yet");
+      renderList("devices", stats.devices, "No devices yet");
+      renderRecent(stats.recent);
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      loginMessage.textContent = "Checking...";
+
+      const payload = {
+        username: loginForm.username.value,
+        password: loginForm.password.value,
+      };
+
+      const response = await fetch("/api/dev-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+      if (!data.ok) {
+        loginMessage.textContent = data.error || "Login failed.";
+        return;
+      }
+
+      loginMessage.textContent = "";
+      await loadStats();
+    });
+
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+      await fetch("/api/dev-logout", { method: "POST" });
+      showLogin("Logged out.");
+    });
+
+    loadStats();
+    setInterval(() => {
+      if (dashboard.style.display === "block") loadStats();
+    }, 30000);
+  </script>
+</body>
+</html>

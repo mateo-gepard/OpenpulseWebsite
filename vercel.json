@@ -1,5 +1,53 @@
 {
+  "headers": [
+    {
+      "source": "/dev.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/api/dev-:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "dev.openpulse.eu"
+        }
+      ],
+      "destination": "/dev.html"
+    },
+    {
+      "source": "/dashboard",
+      "has": [
+        {
+          "type": "host",
+          "value": "dev.openpulse.eu"
+        }
+      ],
+      "destination": "/dev.html"
+    },
     {
       "source": "/Vote-for-Openpulse",
       "destination": "/api/vote-for-openpulse"

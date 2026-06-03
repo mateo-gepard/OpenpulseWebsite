@@ -1,4 +1,5 @@
 const { randomUUID } = require("crypto");
+const { trackVoteRedirect } = require("../lib/vote-stats");
 
 const TARGET_URL =
   "https://www.startupteens.de/challenge-2026/voting/" +
@@ -54,6 +55,29 @@ async function sendWebhook(event) {
   }
 }
 
+async function persistStats(event) {
+  try {
+    const result = await trackVoteRedirect(event);
+    if (!result.configured) {
+      console.error(
+        JSON.stringify({
+          event: "openpulse_vote_stats_storage_missing",
+          hitId: event.hitId,
+          hint: "Set KV_REST_API_URL and KV_REST_API_TOKEN, or UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN.",
+        })
+      );
+    }
+  } catch (error) {
+    console.error(
+      JSON.stringify({
+        event: "openpulse_vote_stats_storage_failed",
+        error: error && error.message ? error.message : String(error),
+        hitId: event.hitId,
+      })
+    );
+  }
+}
+
 module.exports = async function voteForOpenPulse(req, res) {
   const cookies = parseCookies(getHeader(req.headers, "cookie"));
   const visitorId = cookies.op_vote_visitor || randomUUID();
@@ -76,7 +100,7 @@ module.exports = async function voteForOpenPulse(req, res) {
   };
 
   console.log(JSON.stringify(event));
-  await sendWebhook(event);
+  await Promise.all([persistStats(event), sendWebhook(event)]);
 
   res.writeHead(302, {
     Location: TARGET_URL,
