@@ -267,7 +267,8 @@
       padding: 20px;
     }
 
-    .metric span {
+    .metric > span,
+    .geo-summary > div > span {
       display: block;
       margin-bottom: 16px;
       color: var(--muted);
@@ -277,7 +278,7 @@
       text-transform: uppercase;
     }
 
-    .metric strong {
+    .metric > strong {
       display: block;
       color: var(--navy);
       font-size: clamp(38px, 5vw, 64px);
@@ -305,6 +306,7 @@
     .world-map {
       position: relative;
       overflow: hidden;
+      height: clamp(320px, 38vw, 430px);
       min-height: 320px;
       border: 1px solid rgba(11, 30, 59, 0.1);
       border-radius: 18px;
@@ -314,33 +316,140 @@
     }
 
     .world-map .leaflet-container {
+      position: relative;
+      z-index: 1;
       width: 100%;
-      min-height: 320px;
-      height: 320px;
+      height: 100%;
+      min-height: 0;
       background: #dfe8f0;
     }
 
-    .leaflet-popup-content-wrapper,
-    .leaflet-popup-tip {
+    .world-map .leaflet-pane,
+    .world-map .leaflet-tile,
+    .world-map .leaflet-marker-icon,
+    .world-map .leaflet-marker-shadow,
+    .world-map .leaflet-tile-container,
+    .world-map .leaflet-pane > svg,
+    .world-map .leaflet-pane > canvas,
+    .world-map .leaflet-zoom-box,
+    .world-map .leaflet-image-layer,
+    .world-map .leaflet-layer {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .world-map .leaflet-tile,
+    .world-map .leaflet-marker-icon,
+    .world-map .leaflet-marker-shadow {
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .world-map .leaflet-control-container .leaflet-top,
+    .world-map .leaflet-control-container .leaflet-bottom {
+      position: absolute;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .world-map .leaflet-control-container .leaflet-top {
+      top: 10px;
+    }
+
+    .world-map .leaflet-control-container .leaflet-bottom {
+      bottom: 10px;
+    }
+
+    .world-map .leaflet-control-container .leaflet-left {
+      left: 10px;
+    }
+
+    .world-map .leaflet-control-container .leaflet-right {
+      right: 10px;
+    }
+
+    .world-map .leaflet-control {
+      position: relative;
+      z-index: 1000;
+      float: left;
+      clear: both;
+      pointer-events: auto;
+    }
+
+    .world-map .leaflet-right .leaflet-control {
+      float: right;
+    }
+
+    .world-map .leaflet-top .leaflet-control {
+      margin-top: 0;
+    }
+
+    .world-map .leaflet-bottom .leaflet-control {
+      margin-bottom: 0;
+    }
+
+    .world-map .leaflet-container img {
+      max-width: none;
+    }
+
+    .world-map .leaflet-popup-content-wrapper,
+    .world-map .leaflet-popup-tip {
       color: var(--text);
       background: rgba(255, 255, 255, 0.96);
       box-shadow: 0 18px 42px rgba(8, 24, 46, 0.18);
     }
 
-    .leaflet-popup-content {
+    .world-map .leaflet-popup-content {
       margin: 12px 14px;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 13px;
       line-height: 1.35;
     }
 
-    .leaflet-control-attribution {
+    .world-map .leaflet-popup-content strong {
+      display: inline;
+      margin: 0;
+      color: var(--navy);
+      font-size: 13px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .world-map .leaflet-popup-content span,
+    .world-map .leaflet-control span,
+    .world-map .leaflet-control a {
+      margin: 0;
+      font-size: inherit;
+      font-weight: inherit;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .world-map .leaflet-control-attribution {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 10px;
     }
 
-    .leaflet-control-zoom a {
+    .world-map .leaflet-control-zoom a {
+      display: block;
+      width: 28px;
+      height: 28px;
+      min-height: 0;
+      margin: 0;
+      border: 0;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.94);
       color: var(--navy);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 28px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .world-map .leaflet-control-zoom a + a {
+      border-top: 1px solid rgba(11, 30, 59, 0.12);
     }
 
     .map-empty {
@@ -419,6 +528,24 @@
 
     .row strong {
       color: var(--navy);
+      font-size: 14px;
+      line-height: 1.2;
+      text-align: right;
+    }
+
+    .bar span,
+    .bar strong,
+    .row span {
+      display: inline;
+      margin: 0;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .bar strong {
+      color: var(--navy);
+      font-size: 13px;
+      line-height: 1;
     }
 
     .setup {
@@ -483,8 +610,7 @@
         grid-template-columns: 1fr;
       }
 
-      .world-map,
-      .world-map .leaflet-container {
+      .world-map {
         min-height: 260px;
         height: 260px;
       }
@@ -680,6 +806,26 @@
       return voteMap;
     }
 
+    function fitVoteMap(map, mapped) {
+      map.invalidateSize();
+      if (mapped.length === 1) {
+        map.setView([Number(mapped[0].latitude), Number(mapped[0].longitude)], 5);
+      } else if (mapped.length > 1) {
+        const bounds = L.latLngBounds(
+          mapped.map((location) => [Number(location.latitude), Number(location.longitude)])
+        );
+        map.fitBounds(bounds, { padding: [34, 34], maxZoom: 5 });
+      } else {
+        map.setView([20, 0], 2);
+      }
+    }
+
+    function scheduleMapFit(map, mapped) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => fitVoteMap(map, mapped));
+      });
+    }
+
     function renderMap(locations, unmappedClicks) {
       const mapEmpty = document.getElementById("mapEmpty");
       const geoNote = document.getElementById("geoNote");
@@ -706,19 +852,7 @@
           marker.addTo(voteMapMarkers);
         });
 
-        setTimeout(() => {
-          map.invalidateSize();
-          if (mapped.length === 1) {
-            map.setView([Number(mapped[0].latitude), Number(mapped[0].longitude)], 5);
-          } else if (mapped.length > 1) {
-            const bounds = L.latLngBounds(
-              mapped.map((location) => [Number(location.latitude), Number(location.longitude)])
-            );
-            map.fitBounds(bounds, { padding: [34, 34], maxZoom: 5 });
-          } else {
-            map.setView([20, 0], 2);
-          }
-        }, 80);
+        scheduleMapFit(map, mapped);
       } else {
         mapEmpty.style.display = "grid";
         mapEmpty.textContent = "Map library could not load. Location counts are still listed on the right.";
