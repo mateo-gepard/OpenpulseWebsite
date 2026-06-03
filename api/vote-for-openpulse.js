@@ -17,6 +17,41 @@ function getClientIp(headers) {
   return getHeader(headers, "x-real-ip") || null;
 }
 
+function decodeHeaderValue(value) {
+  if (!value) return null;
+
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
+function numberHeader(headers, name) {
+  const value = Number(getHeader(headers, name));
+  return Number.isFinite(value) ? value : null;
+}
+
+function getGeo(headers) {
+  const country = getHeader(headers, "x-vercel-ip-country");
+  const region = getHeader(headers, "x-vercel-ip-country-region");
+  const city = decodeHeaderValue(getHeader(headers, "x-vercel-ip-city"));
+  const latitude = numberHeader(headers, "x-vercel-ip-latitude");
+  const longitude = numberHeader(headers, "x-vercel-ip-longitude");
+
+  if (!country && !region && !city && latitude === null && longitude === null) {
+    return null;
+  }
+
+  return {
+    country: country || null,
+    region: region || null,
+    city: city || null,
+    latitude,
+    longitude,
+  };
+}
+
 function parseCookies(cookieHeader) {
   if (!cookieHeader) return {};
 
@@ -94,6 +129,7 @@ module.exports = async function voteForOpenPulse(req, res) {
     targetUrl: TARGET_URL,
     method: req.method,
     ip: getClientIp(req.headers),
+    geo: getGeo(req.headers),
     userAgent: getHeader(req.headers, "user-agent") || null,
     referer: getHeader(req.headers, "referer") || null,
     vercelId: getHeader(req.headers, "x-vercel-id") || null,

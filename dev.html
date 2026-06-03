@@ -284,6 +284,90 @@
       grid-column: span 2;
     }
 
+    .map-card {
+      grid-column: span 4;
+      min-height: 430px;
+    }
+
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(240px, 0.65fr);
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 16px;
+    }
+
+    .world-map {
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+      border: 1px solid rgba(11, 30, 59, 0.1);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 30% 35%, rgba(229, 55, 44, 0.12), transparent 15rem),
+        linear-gradient(135deg, rgba(8, 24, 46, 0.96), rgba(11, 30, 59, 0.88));
+    }
+
+    .world-map svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+    }
+
+    .land {
+      fill: rgba(255, 255, 255, 0.1);
+      stroke: rgba(255, 255, 255, 0.14);
+      stroke-width: 1;
+    }
+
+    .graticule {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.09);
+      stroke-width: 1;
+    }
+
+    .map-empty {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: rgba(255, 255, 255, 0.72);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .map-dot {
+      fill: rgba(229, 55, 44, 0.82);
+      stroke: rgba(255, 255, 255, 0.88);
+      stroke-width: 2;
+      filter: drop-shadow(0 10px 18px rgba(229, 55, 44, 0.36));
+    }
+
+    .map-label {
+      fill: rgba(255, 255, 255, 0.86);
+      font-size: 13px;
+      font-weight: 800;
+      paint-order: stroke;
+      stroke: rgba(8, 24, 46, 0.72);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+    }
+
+    .geo-summary {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .geo-note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
     .chart {
       display: flex;
       align-items: end;
@@ -391,6 +475,19 @@
       .wide {
         grid-column: span 1;
       }
+
+      .map-card {
+        grid-column: span 1;
+      }
+
+      .map-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .world-map,
+      .world-map svg {
+        min-height: 260px;
+      }
     }
   </style>
 </head>
@@ -463,6 +560,35 @@
           <span>Last 7 days</span>
           <div class="chart" id="chart"></div>
         </article>
+        <article class="metric panel map-card">
+          <span>Where clicks come from</span>
+          <div class="map-layout">
+            <div class="world-map" id="worldMapWrap">
+              <svg id="worldMap" viewBox="0 0 1000 500" role="img" aria-label="Map of vote redirect locations">
+                <path class="graticule" d="M0 125H1000M0 250H1000M0 375H1000M125 0V500M250 0V500M375 0V500M500 0V500M625 0V500M750 0V500M875 0V500"></path>
+                <path class="land" d="M150 122 205 82 280 98 323 152 300 210 228 224 170 184Z"></path>
+                <path class="land" d="M305 235 350 250 378 318 350 420 303 386 285 302Z"></path>
+                <path class="land" d="M455 108 562 82 672 118 650 184 572 196 506 168Z"></path>
+                <path class="land" d="M520 190 620 190 668 270 622 370 548 346 506 260Z"></path>
+                <path class="land" d="M660 138 812 132 884 212 820 278 706 250Z"></path>
+                <path class="land" d="M792 318 884 340 910 406 835 428 770 386Z"></path>
+                <g id="mapDots"></g>
+              </svg>
+              <div class="map-empty" id="mapEmpty">No mapped clicks yet. New redirects will appear here once Vercel sends geo headers.</div>
+            </div>
+            <div class="geo-summary">
+              <div>
+                <span>Top locations</span>
+                <div class="list" id="locations"></div>
+              </div>
+              <div>
+                <span>Countries</span>
+                <div class="list" id="countries"></div>
+              </div>
+              <p class="geo-note" id="geoNote"></p>
+            </div>
+          </div>
+        </article>
         <article class="metric panel wide">
           <span>Referrers</span>
           <div class="list" id="referers"></div>
@@ -528,9 +654,74 @@
           hour: "2-digit",
           minute: "2-digit",
         });
-        item.innerHTML = `<span>${time} - ${event.device}</span><strong>${event.referer}</strong>`;
+        const place = event.geo?.label || event.geo?.country || event.referer;
+        item.innerHTML = `<span>${time} - ${event.device}</span><strong>${place}</strong>`;
         element.appendChild(item);
       });
+    }
+
+    function projectLocation(location) {
+      const longitude = Number(location.longitude);
+      const latitude = Number(location.latitude);
+      if (!Number.isFinite(longitude) || !Number.isFinite(latitude)) return null;
+
+      return {
+        x: ((longitude + 180) / 360) * 1000,
+        y: ((90 - latitude) / 180) * 500,
+      };
+    }
+
+    function renderMap(locations, unmappedClicks) {
+      const dotLayer = document.getElementById("mapDots");
+      const mapEmpty = document.getElementById("mapEmpty");
+      const geoNote = document.getElementById("geoNote");
+      dotLayer.innerHTML = "";
+
+      const mapped = (locations || []).filter((location) => projectLocation(location));
+      const max = Math.max(1, ...mapped.map((location) => location.count));
+      mapEmpty.style.display = mapped.length ? "none" : "grid";
+
+      mapped.slice(0, 24).forEach((location) => {
+        const point = projectLocation(location);
+        const radius = 8 + Math.sqrt(location.count / max) * 20;
+        const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("class", "map-dot");
+        circle.setAttribute("cx", point.x);
+        circle.setAttribute("cy", point.y);
+        circle.setAttribute("r", radius);
+
+        const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+        title.textContent = `${location.label}: ${location.count} redirects`;
+        circle.appendChild(title);
+        group.appendChild(circle);
+
+        const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        label.setAttribute("class", "map-label");
+        label.setAttribute("x", Math.min(960, point.x + radius + 8));
+        label.setAttribute("y", Math.max(18, point.y + 4));
+        label.textContent = location.label;
+        group.appendChild(label);
+
+        dotLayer.appendChild(group);
+      });
+
+      if (unmappedClicks > 0) {
+        geoNote.textContent = `${formatNumber.format(unmappedClicks)} older redirect${unmappedClicks === 1 ? "" : "s"} do not have stored geo data, so they are counted but not placed on the map.`;
+      } else {
+        geoNote.textContent = mapped.length
+          ? "Locations use Vercel request geolocation headers and are aggregated, not shown as raw IP addresses."
+          : "Locations will appear after the next tracked redirect with Vercel geo headers.";
+      }
+    }
+
+    function renderLocationList(locations) {
+      const rows = (locations || []).slice(0, 8).map((location) => [
+        location.label,
+        location.count,
+      ]);
+      renderList("locations", rows, "No mapped locations yet");
     }
 
     function renderChart(days) {
@@ -592,6 +783,9 @@
       setText("latestSource", stats.recent[0]?.referer || "-");
       updatedAt.textContent = `Updated ${new Date(stats.updatedAt).toLocaleString("en-US")}`;
       renderChart(stats.daily);
+      renderMap(stats.locations, stats.unmappedClicks);
+      renderLocationList(stats.locations);
+      renderList("countries", stats.countries, "No countries yet");
       renderList("referers", stats.referers, "No referrers yet");
       renderList("devices", stats.devices, "No devices yet");
       renderRecent(stats.recent);
