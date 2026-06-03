@@ -510,6 +510,17 @@
       box-shadow: 0 0 0 1px rgba(8, 24, 46, 0.12);
     }
 
+    .vote-pin.is-cluster::before {
+      background: rgba(11, 30, 59, 0.22);
+    }
+
+    .vote-pin.is-cluster::after {
+      inset: 18%;
+      border-width: 3px;
+      background:
+        radial-gradient(circle at 50% 50%, var(--red) 0 36%, var(--navy) 38% 100%);
+    }
+
     .vote-pin-count {
       position: absolute;
       left: 50%;
@@ -526,6 +537,35 @@
       line-height: 1;
       text-align: center;
       transform: translateX(-50%);
+    }
+
+    .world-map .cluster-popup-kicker {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .world-map .cluster-popup-list {
+      display: grid;
+      gap: 5px;
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .world-map .cluster-popup-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(11, 30, 59, 0.08);
+      padding-top: 5px;
+    }
+
+    .world-map .cluster-popup-list b {
+      color: var(--navy);
+      font-size: 12px;
     }
 
     @keyframes votePinPulse {
@@ -903,6 +943,7 @@
     const formatNumber = new Intl.NumberFormat("en-US");
     let voteMap;
     let voteMapMarkers;
+    let currentMappedLocations = [];
 
     function escapeHtml(value) {
       return String(value).replace(/[&<>"']/g, (character) => ({
@@ -979,6 +1020,7 @@
       }).addTo(voteMap);
 
       voteMapMarkers = L.layerGroup().addTo(voteMap);
+      voteMap.on("zoomend moveend", renderClusteredMapMarkers);
       return voteMap;
     }
 
@@ -1002,39 +1044,124 @@
       });
     }
 
+    function clusterLocations(map, locations) {
+      const radius = map.getSize().x < 560 ? 58 : 46;
+      const clusters = [];
+
+      locations.forEach((location) => {
+        const latitude = Number(location.latitude);
+        const longitude = Number(location.longitude);
+        const point = map.latLngToLayerPoint([latitude, longitude]);
+        let target = null;
+        let nearestDistance = Infinity;
+
+        clusters.forEach((cluster) => {
+          const distance = point.distanceTo(cluster.point);
+          if (distance <= radius && distance < nearestDistance) {
+            target = cluster;
+            nearestDistance = distance;
+          }
+        });
+
+        if (!target) {
+          target = {
+            count: 0,
+            locations: [],
+            point,
+            weightedLatitude: 0,
+            weightedLongitude: 0,
+          };
+          clusters.push(target);
+        }
+
+        target.count += location.count;
+        target.locations.push(location);
+        target.weightedLatitude += latitude * location.count;
+        target.weightedLongitude += longitude * location.count;
+        target.point = target.point.multiplyBy(target.locations.length - 1)
+          .add(point)
+          .divideBy(target.locations.length);
+      });
+
+      return clusters.map((cluster) => ({
+        count: cluster.count,
+        locations: cluster.locations.sort((a, b) => b.count - a.count),
+        latitude: cluster.weightedLatitude / cluster.count,
+        longitude: cluster.weightedLongitude / cluster.count,
+        isCluster: cluster.locations.length > 1,
+      }));
+    }
+
+    function createVoteMarkerIcon(count, max, isCluster) {
+      const size = Math.round((isCluster ? 30 : 24) + Math.sqrt(count / max) * (isCluster ? 28 : 22));
+      const countLabel = formatNumber.format(count);
+
+      return L.divIcon({
+        className: "vote-pin-icon",
+        html: `<span class="vote-pin${isCluster ? " is-cluster" : ""}"><span class="vote-pin-count">${countLabel}</span></span>`,
+        iconSize: [size, size],
+        iconAnchor: [size / 2, size / 2],
+        popupAnchor: [0, -size / 2],
+      });
+    }
+
+    function popupHtmlForCluster(cluster) {
+      const countLabel = formatNumber.format(cluster.count);
+
+      if (!cluster.isCluster) {
+        const location = cluster.locations[0];
+        return `<strong>${escapeHtml(location.label)}</strong><br>${countLabel} redirect${cluster.count === 1 ? "" : "s"}`;
+      }
+
+      const rows = cluster.locations.slice(0, 6).map((location) => (
+        `<li><span>${escapeHtml(location.label)}</span><b>${formatNumber.format(location.count)}</b></li>`
+      )).join("");
+      const hidden = cluster.locations.length > 6
+        ? `<li><span>${formatNumber.format(cluster.locations.length - 6)} more</span><b></b></li>`
+        : "";
+
+      return `
+        <strong>${countLabel} redirects</strong>
+        <span class="cluster-popup-kicker">${formatNumber.format(cluster.locations.length)} nearby locations grouped</span>
+        <ul class="cluster-popup-list">${rows}${hidden}</ul>
+      `;
+    }
+
+    function renderClusteredMapMarkers() {
+      if (!voteMap || !voteMapMarkers) return;
+
+      voteMapMarkers.clearLayers();
+      if (!currentMappedLocations.length) return;
+      const clusters = clusterLocations(voteMap, currentMappedLocations);
+      const max = Math.max(1, ...clusters.map((cluster) => cluster.count));
+
+      clusters.forEach((cluster) => {
+        const countLabel = formatNumber.format(cluster.count);
+        const marker = L.marker([cluster.latitude, cluster.longitude], {
+          icon: createVoteMarkerIcon(cluster.count, max, cluster.isCluster),
+          keyboard: true,
+          title: cluster.isCluster
+            ? `${countLabel} redirects across ${cluster.locations.length} nearby locations`
+            : `${cluster.locations[0].label}: ${countLabel} redirect${cluster.count === 1 ? "" : "s"}`,
+        }).bindPopup(popupHtmlForCluster(cluster));
+        marker.addTo(voteMapMarkers);
+      });
+    }
+
     function renderMap(locations, unmappedClicks) {
       const mapEmpty = document.getElementById("mapEmpty");
       const geoNote = document.getElementById("geoNote");
       const map = ensureVoteMap();
       const mapped = (locations || []).filter(hasCoordinates);
-      const max = Math.max(1, ...mapped.map((location) => location.count));
 
       mapEmpty.style.display = mapped.length ? "none" : "grid";
 
       if (map && voteMapMarkers) {
-        voteMapMarkers.clearLayers();
-
-        mapped.slice(0, 50).forEach((location) => {
-          const size = Math.round(24 + Math.sqrt(location.count / max) * 22);
-          const countLabel = formatNumber.format(location.count);
-          const marker = L.marker([Number(location.latitude), Number(location.longitude)], {
-            icon: L.divIcon({
-              className: "vote-pin-icon",
-              html: `<span class="vote-pin"><span class="vote-pin-count">${countLabel}</span></span>`,
-              iconSize: [size, size],
-              iconAnchor: [size / 2, size / 2],
-              popupAnchor: [0, -size / 2],
-            }),
-            keyboard: true,
-            title: `${location.label}: ${countLabel} redirect${location.count === 1 ? "" : "s"}`,
-          }).bindPopup(
-            `<strong>${escapeHtml(location.label)}</strong><br>${countLabel} redirect${location.count === 1 ? "" : "s"}`
-          );
-          marker.addTo(voteMapMarkers);
-        });
-
+        currentMappedLocations = mapped.slice(0, 50);
+        renderClusteredMapMarkers();
         scheduleMapFit(map, mapped);
       } else {
+        currentMappedLocations = [];
         mapEmpty.style.display = "grid";
         mapEmpty.textContent = "Map library could not load. Location counts are still listed on the right.";
       }
