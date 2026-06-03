@@ -4,7 +4,7 @@ const { trackVoteRedirect } = require("../lib/vote-stats");
 const TARGET_URL =
   "https://www.startupteens.de/challenge-2026/voting/" +
   "?utm_source=openpulse.eu&utm_medium=redirect&utm_campaign=startupteens_2026_vote&utm_content=vote_for_openpulse" +
-  "#c5193";
+  "#c5193:~:text=OPENPULSE";
 
 function getHeader(headers, name) {
   const value = headers[name] || headers[name.toLowerCase()];
