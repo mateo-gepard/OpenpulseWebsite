@@ -339,6 +339,30 @@
       top: 0;
     }
 
+    .world-map .leaflet-tile-pane {
+      z-index: 200;
+    }
+
+    .world-map .leaflet-overlay-pane {
+      z-index: 400;
+    }
+
+    .world-map .leaflet-shadow-pane {
+      z-index: 500;
+    }
+
+    .world-map .leaflet-marker-pane {
+      z-index: 600;
+    }
+
+    .world-map .leaflet-tooltip-pane {
+      z-index: 650;
+    }
+
+    .world-map .leaflet-popup-pane {
+      z-index: 700;
+    }
+
     .world-map .leaflet-tile,
     .world-map .leaflet-marker-icon,
     .world-map .leaflet-marker-shadow {
@@ -452,6 +476,71 @@
       border-top: 1px solid rgba(11, 30, 59, 0.12);
     }
 
+    .world-map .vote-pin-icon {
+      border: 0;
+      background: transparent;
+      pointer-events: auto;
+    }
+
+    .vote-pin {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 12px 18px rgba(8, 24, 46, 0.28));
+    }
+
+    .vote-pin::before,
+    .vote-pin::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .vote-pin::before {
+      inset: 0;
+      background: rgba(229, 55, 44, 0.28);
+      animation: votePinPulse 2.2s ease-in-out infinite;
+    }
+
+    .vote-pin::after {
+      inset: 25%;
+      border: 2px solid #fff;
+      background: var(--red);
+      box-shadow: 0 0 0 1px rgba(8, 24, 46, 0.12);
+    }
+
+    .vote-pin-count {
+      position: absolute;
+      left: 50%;
+      top: -10px;
+      z-index: 2;
+      min-width: 20px;
+      border: 1px solid rgba(8, 24, 46, 0.1);
+      border-radius: 999px;
+      background: #fff;
+      padding: 2px 5px;
+      color: var(--navy);
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+      transform: translateX(-50%);
+    }
+
+    @keyframes votePinPulse {
+      0%,
+      100% {
+        transform: scale(0.74);
+        opacity: 0.82;
+      }
+
+      50% {
+        transform: scale(1);
+        opacity: 0.28;
+      }
+    }
+
     .map-empty {
       position: absolute;
       inset: 0;
@@ -546,6 +635,75 @@
       color: var(--navy);
       font-size: 13px;
       line-height: 1;
+    }
+
+    .rhythm-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 2px 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .rhythm-meta strong {
+      color: var(--navy);
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .hour-chart {
+      display: flex;
+      align-items: end;
+      gap: 4px;
+      height: 166px;
+      padding: 10px 0 24px;
+    }
+
+    .hour-bar {
+      position: relative;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      flex: 1;
+      height: 100%;
+      min-width: 0;
+    }
+
+    .hour-bar i {
+      display: block;
+      width: min(100%, 14px);
+      min-height: 3px;
+      border-radius: 999px 999px 5px 5px;
+      background: rgba(11, 30, 59, 0.14);
+      transition: height 180ms ease, background 180ms ease;
+    }
+
+    .hour-bar.has-votes i {
+      background: linear-gradient(180deg, var(--red), #a91f19);
+      box-shadow: 0 10px 22px rgba(229, 55, 44, 0.18);
+    }
+
+    .hour-bar.is-peak i {
+      background: linear-gradient(180deg, #ff5a50, var(--red));
+      box-shadow: 0 14px 30px rgba(229, 55, 44, 0.3);
+    }
+
+    .hour-bar span {
+      position: absolute;
+      bottom: -21px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .vote-pin::before {
+        animation: none;
+      }
     }
 
     .setup {
@@ -686,6 +844,14 @@
           <span>Last 7 days</span>
           <div class="chart" id="chart"></div>
         </article>
+        <article class="metric panel wide">
+          <span>Last 24 hours</span>
+          <div class="rhythm-meta">
+            <strong id="peakHour">-</strong>
+            <em>peak local hour</em>
+          </div>
+          <div class="hour-chart" id="hourChart" aria-label="Hourly vote redirect chart"></div>
+        </article>
         <article class="metric panel map-card">
           <span>Where clicks come from</span>
           <div class="map-layout">
@@ -737,6 +903,16 @@
     const formatNumber = new Intl.NumberFormat("en-US");
     let voteMap;
     let voteMapMarkers;
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[character]));
+    }
 
     function setText(id, value) {
       document.getElementById(id).textContent = value;
@@ -839,15 +1015,20 @@
         voteMapMarkers.clearLayers();
 
         mapped.slice(0, 50).forEach((location) => {
-          const radius = 6 + Math.sqrt(location.count / max) * 18;
-          const marker = L.circleMarker([Number(location.latitude), Number(location.longitude)], {
-            radius,
-            color: "#ffffff",
-            weight: 2,
-            fillColor: "#e5372c",
-            fillOpacity: 0.78,
+          const size = Math.round(24 + Math.sqrt(location.count / max) * 22);
+          const countLabel = formatNumber.format(location.count);
+          const marker = L.marker([Number(location.latitude), Number(location.longitude)], {
+            icon: L.divIcon({
+              className: "vote-pin-icon",
+              html: `<span class="vote-pin"><span class="vote-pin-count">${countLabel}</span></span>`,
+              iconSize: [size, size],
+              iconAnchor: [size / 2, size / 2],
+              popupAnchor: [0, -size / 2],
+            }),
+            keyboard: true,
+            title: `${location.label}: ${countLabel} redirect${location.count === 1 ? "" : "s"}`,
           }).bindPopup(
-            `<strong>${location.label}</strong><br>${formatNumber.format(location.count)} redirect${location.count === 1 ? "" : "s"}`
+            `<strong>${escapeHtml(location.label)}</strong><br>${countLabel} redirect${location.count === 1 ? "" : "s"}`
           );
           marker.addTo(voteMapMarkers);
         });
@@ -886,6 +1067,48 @@
         const height = Math.max(4, Math.round((day.count / max) * 150));
         const label = day.date.slice(5).replace("-", "/");
         bar.innerHTML = `<i style="height:${height}px"></i><span>${label}</span><strong>${day.count}</strong>`;
+        element.appendChild(bar);
+      });
+    }
+
+    function formatHourLabel(hour) {
+      const date = new Date(`${hour}:00:00.000Z`);
+      return date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+
+    function renderHourChart(hours) {
+      const element = document.getElementById("hourChart");
+      const peakElement = document.getElementById("peakHour");
+      element.innerHTML = "";
+
+      if (!hours || hours.length === 0) {
+        peakElement.textContent = "-";
+        return;
+      }
+
+      const max = Math.max(1, ...hours.map((hour) => hour.count));
+      const peak = hours.reduce((best, hour) => (hour.count > best.count ? hour : best), hours[0]);
+      peakElement.textContent = peak.count > 0
+        ? `${formatHourLabel(peak.hour)} · ${formatNumber.format(peak.count)}`
+        : "No votes yet";
+
+      hours.forEach((hour, index) => {
+        const bar = document.createElement("div");
+        const height = hour.count > 0
+          ? Math.max(8, Math.round((hour.count / max) * 132))
+          : 3;
+        const showLabel = index % 6 === 0 || index === hours.length - 1;
+        const label = showLabel ? formatHourLabel(hour.hour).replace(":00", "") : "";
+        bar.className = [
+          "hour-bar",
+          hour.count > 0 ? "has-votes" : "",
+          hour.count === max && hour.count > 0 ? "is-peak" : "",
+        ].filter(Boolean).join(" ");
+        bar.title = `${formatHourLabel(hour.hour)}: ${formatNumber.format(hour.count)} redirect${hour.count === 1 ? "" : "s"}`;
+        bar.innerHTML = `<i style="height:${height}px"></i>${label ? `<span>${label}</span>` : ""}`;
         element.appendChild(bar);
       });
     }
@@ -934,6 +1157,7 @@
       setText("latestSource", stats.recent[0]?.referer || "-");
       updatedAt.textContent = `Updated ${new Date(stats.updatedAt).toLocaleString("en-US")}`;
       renderChart(stats.daily);
+      renderHourChart(stats.hourly);
       renderMap(stats.locations, stats.unmappedClicks);
       renderLocationList(stats.locations);
       renderList("countries", stats.countries, "No countries yet");
