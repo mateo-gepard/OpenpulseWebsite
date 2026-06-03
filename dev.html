@@ -702,6 +702,11 @@
       padding: 10px 0 24px;
     }
 
+    .ten-chart {
+      gap: 2px;
+      height: 166px;
+    }
+
     .hour-bar {
       position: relative;
       display: flex;
@@ -729,6 +734,10 @@
     .hour-bar.is-peak i {
       background: linear-gradient(180deg, #ff5a50, var(--red));
       box-shadow: 0 14px 30px rgba(229, 55, 44, 0.3);
+    }
+
+    .ten-chart .hour-bar i {
+      width: min(100%, 9px);
     }
 
     .hour-bar span {
@@ -891,6 +900,14 @@
             <em>peak local hour</em>
           </div>
           <div class="hour-chart" id="hourChart" aria-label="Hourly vote redirect chart"></div>
+        </article>
+        <article class="metric panel wide">
+          <span>Last 6 hours / 10 min</span>
+          <div class="rhythm-meta">
+            <strong id="peakTenMinute">-</strong>
+            <em>peak 10-minute window</em>
+          </div>
+          <div class="hour-chart ten-chart" id="tenMinuteChart" aria-label="Vote redirects per 10 minutes"></div>
         </article>
         <article class="metric panel map-card">
           <span>Where clicks come from</span>
@@ -1206,6 +1223,14 @@
       });
     }
 
+    function formatBucketLabel(bucket) {
+      const date = new Date(`${bucket}:00.000Z`);
+      return date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+
     function renderHourChart(hours) {
       const element = document.getElementById("hourChart");
       const peakElement = document.getElementById("peakHour");
@@ -1235,6 +1260,43 @@
           hour.count === max && hour.count > 0 ? "is-peak" : "",
         ].filter(Boolean).join(" ");
         bar.title = `${formatHourLabel(hour.hour)}: ${formatNumber.format(hour.count)} redirect${hour.count === 1 ? "" : "s"}`;
+        bar.innerHTML = `<i style="height:${height}px"></i>${label ? `<span>${label}</span>` : ""}`;
+        element.appendChild(bar);
+      });
+    }
+
+    function renderTenMinuteChart(buckets) {
+      const element = document.getElementById("tenMinuteChart");
+      const peakElement = document.getElementById("peakTenMinute");
+      element.innerHTML = "";
+
+      if (!buckets || buckets.length === 0) {
+        peakElement.textContent = "-";
+        return;
+      }
+
+      const max = Math.max(1, ...buckets.map((bucket) => bucket.count));
+      const peak = buckets.reduce(
+        (best, bucket) => (bucket.count > best.count ? bucket : best),
+        buckets[0]
+      );
+      peakElement.textContent = peak.count > 0
+        ? `${formatBucketLabel(peak.bucket)} · ${formatNumber.format(peak.count)}`
+        : "No votes yet";
+
+      buckets.forEach((bucket, index) => {
+        const bar = document.createElement("div");
+        const height = bucket.count > 0
+          ? Math.max(8, Math.round((bucket.count / max) * 132))
+          : 3;
+        const showLabel = index % 6 === 0 || index === buckets.length - 1;
+        const label = showLabel ? formatBucketLabel(bucket.bucket).replace(":00", "") : "";
+        bar.className = [
+          "hour-bar",
+          bucket.count > 0 ? "has-votes" : "",
+          bucket.count === max && bucket.count > 0 ? "is-peak" : "",
+        ].filter(Boolean).join(" ");
+        bar.title = `${formatBucketLabel(bucket.bucket)}: ${formatNumber.format(bucket.count)} redirect${bucket.count === 1 ? "" : "s"}`;
         bar.innerHTML = `<i style="height:${height}px"></i>${label ? `<span>${label}</span>` : ""}`;
         element.appendChild(bar);
       });
@@ -1285,6 +1347,7 @@
       updatedAt.textContent = `Updated ${new Date(stats.updatedAt).toLocaleString("en-US")}`;
       renderChart(stats.daily);
       renderHourChart(stats.hourly);
+      renderTenMinuteChart(stats.tenMinute);
       renderMap(stats.locations, stats.unmappedClicks);
       renderLocationList(stats.locations);
       renderList("countries", stats.countries, "No countries yet");
