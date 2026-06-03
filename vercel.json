@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/Vote-for-Openpulse",
+      "destination": "/api/vote-for-openpulse"
+    },
+    {
+      "source": "/Vote-for-Openpulse/",
+      "destination": "/api/vote-for-openpulse"
+    },
+    {
+      "source": "/vote-for-openpulse",
+      "destination": "/api/vote-for-openpulse"
+    },
+    {
+      "source": "/vote-for-openpulse/",
+      "destination": "/api/vote-for-openpulse"
+    }
+  ]
+}
