@@ -705,6 +705,9 @@
     .ten-chart {
       gap: 2px;
       height: 166px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
     }
 
     .hour-bar {
@@ -738,6 +741,10 @@
 
     .ten-chart .hour-bar i {
       width: min(100%, 9px);
+    }
+
+    .ten-chart .hour-bar {
+      flex: 1 0 8px;
     }
 
     .hour-bar span {
@@ -902,7 +909,7 @@
           <div class="hour-chart" id="hourChart" aria-label="Hourly vote redirect chart"></div>
         </article>
         <article class="metric panel wide">
-          <span>Last 6 hours / 10 min</span>
+          <span>Since 15:00 / 10 min</span>
           <div class="rhythm-meta">
             <strong id="peakTenMinute">-</strong>
             <em>peak 10-minute window</em>
@@ -1217,17 +1224,19 @@
 
     function formatHourLabel(hour) {
       const date = new Date(`${hour}:00:00.000Z`);
-      return date.toLocaleTimeString("en-US", {
+      return date.toLocaleTimeString("en-GB", {
         hour: "2-digit",
         minute: "2-digit",
+        hourCycle: "h23",
       });
     }
 
     function formatBucketLabel(bucket) {
       const date = new Date(`${bucket}:00.000Z`);
-      return date.toLocaleTimeString("en-US", {
+      return date.toLocaleTimeString("en-GB", {
         hour: "2-digit",
         minute: "2-digit",
+        hourCycle: "h23",
       });
     }
 
@@ -1244,7 +1253,7 @@
       const max = Math.max(1, ...hours.map((hour) => hour.count));
       const peak = hours.reduce((best, hour) => (hour.count > best.count ? hour : best), hours[0]);
       peakElement.textContent = peak.count > 0
-        ? `${formatHourLabel(peak.hour)} · ${formatNumber.format(peak.count)}`
+        ? `${formatHourLabel(peak.hour)} - ${formatNumber.format(peak.count)}`
         : "No votes yet";
 
       hours.forEach((hour, index) => {
@@ -1281,7 +1290,7 @@
         buckets[0]
       );
       peakElement.textContent = peak.count > 0
-        ? `${formatBucketLabel(peak.bucket)} · ${formatNumber.format(peak.count)}`
+        ? `${formatBucketLabel(peak.bucket)} - ${formatNumber.format(peak.count)}`
         : "No votes yet";
 
       buckets.forEach((bucket, index) => {
