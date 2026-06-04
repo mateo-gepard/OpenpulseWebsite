@@ -4184,3 +4184,147 @@ body[data-page="competitions"] .competition-card.reveal-item.is-visible:nth-chil
     transition-duration: 0.001ms !important;
   }
 }
+
+/* UX polish pass: keep the desktop product story above the fold and reduce dead air. */
+@media (min-width: 1081px) {
+  .landing-hero {
+    grid-template-columns: minmax(470px, 0.92fr) minmax(560px, 1.08fr);
+    min-height: min(860px, calc(100svh - 16px));
+    align-items: center;
+    gap: 38px;
+    padding-top: 104px;
+    padding-bottom: 28px;
+  }
+
+  .landing-hero .hero-copy {
+    max-width: 720px;
+  }
+
+  .landing-hero h1 {
+    max-width: 11.4ch;
+    margin-bottom: 20px;
+    font-size: clamp(58px, 5.65vw, 72px);
+    line-height: 0.96;
+  }
+
+  .landing-hero .hero-subline {
+    max-width: 650px;
+    font-size: 19px;
+    line-height: 1.42;
+  }
+
+  .landing-hero .hero-actions {
+    margin-top: 24px;
+  }
+
+  .landing-hero .hero-definition {
+    max-width: 650px;
+    margin-top: 22px;
+  }
+
+  .landing-hero .hero-definition span {
+    grid-template-columns: 86px minmax(0, 1fr);
+    padding: 10px 0;
+    font-size: 14px;
+  }
+
+  .landing-hero .product-visual {
+    min-height: 552px;
+  }
+
+  .landing-hero .sequence-frame {
+    width: min(104%, 800px);
+  }
+
+  .hero-spec-panel {
+    bottom: 2%;
+    width: min(320px, 42%);
+  }
+
+  .section {
+    padding-top: 104px;
+    padding-bottom: 104px;
+  }
+
+  .configuration-section {
+    padding-top: 98px;
+    padding-bottom: 86px;
+  }
+
+  .config-layout {
+    gap: 52px;
+  }
+
+  .config-board {
+    min-height: 560px;
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .config-question,
+  .output-panel {
+    padding: 18px;
+  }
+
+  .puck-array {
+    min-height: 168px;
+  }
+
+  .puck-slot {
+    width: 104px;
+    height: 104px;
+  }
+
+  .proof-pillars {
+    padding-top: 74px;
+  }
+
+  body[data-page="hardware"] .page-hero {
+    width: min(1380px, calc(100% - 48px));
+    grid-template-columns: minmax(420px, 0.82fr) minmax(560px, 1.18fr);
+    min-height: min(860px, calc(100svh - 16px));
+    align-items: center;
+    gap: 54px;
+    text-align: left;
+    padding: 104px 0 44px;
+  }
+
+  body[data-page="hardware"] .page-hero .hero-copy {
+    max-width: 660px;
+    margin: 0;
+  }
+
+  body[data-page="hardware"] .page-hero h1 {
+    max-width: 100%;
+    margin-bottom: 18px;
+    font-size: clamp(46px, 4.65vw, 60px);
+    line-height: 0.98;
+  }
+
+  body[data-page="hardware"] .page-hero .hero-subline {
+    margin-right: 0;
+    margin-left: 0;
+    font-size: 18px;
+    line-height: 1.42;
+  }
+
+  body[data-page="hardware"] .page-hero .hero-actions {
+    margin-top: 24px;
+    justify-content: flex-start;
+  }
+
+  body[data-page="hardware"] .page-hero .product-visual {
+    min-height: 560px;
+    overflow: hidden;
+  }
+
+  body[data-page="hardware"] .page-hero .sequence-frame {
+    width: min(110%, 820px);
+  }
+
+  body[data-page="hardware"] .page-hero::before {
+    right: -3vw;
+    top: 96px;
+    font-size: clamp(80px, 9vw, 150px);
+  }
+}
