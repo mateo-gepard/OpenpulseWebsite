@@ -114,6 +114,213 @@
     });
   }
 
+  const configurators = document.querySelectorAll("[data-configurator]");
+  const puckCatalog = {
+    pulse: {
+      id: "pulse",
+      label: "Pulse",
+      chip: "PPG",
+      type: "body",
+      theme: "ppg",
+      accent: "var(--ppg)",
+      summary: "optical pulse",
+    },
+    stress: {
+      id: "stress",
+      label: "EDA",
+      chip: "EDA",
+      type: "body",
+      theme: "eda",
+      accent: "var(--eda)",
+      summary: "skin conductance response",
+    },
+    temp: {
+      id: "temp",
+      label: "Temp",
+      chip: "TEMP",
+      type: "body",
+      theme: "temp",
+      accent: "var(--temp)",
+      summary: "skin temperature trend",
+    },
+    motion: {
+      id: "motion",
+      label: "Motion",
+      chip: "IMU",
+      type: "body",
+      theme: "imu",
+      accent: "var(--imu)",
+      summary: "movement context",
+    },
+    gas: {
+      id: "gas",
+      label: "Gas",
+      chip: "GAS",
+      type: "environment",
+      theme: "env",
+      accent: "var(--bioz)",
+      summary: "environment context",
+    },
+  };
+  const configLimits = { body: 2, environment: 1 };
+  const configPresets = {
+    research: ["pulse", "stress", "temp"],
+    safety: ["pulse", "motion", "gas"],
+    wellness: ["pulse", "stress", "motion"],
+  };
+
+  const sameSet = (a, b) => {
+    if (a.length !== b.length) return false;
+    return a.slice().sort().join("|") === b.slice().sort().join("|");
+  };
+
+  const formatPuckList = (pucks) => {
+    if (pucks.length === 0) return "No modules";
+    return pucks.map((puck) => puck.label).join(" + ");
+  };
+
+  configurators.forEach((configurator) => {
+    const puckButtons = configurator.querySelectorAll("[data-config-puck]");
+    const presetButtons = configurator.querySelectorAll("[data-config-preset]");
+    const clearButton = configurator.querySelector("[data-config-clear]");
+    const slots = configurator.querySelector("[data-config-slots]");
+    const bodyCount = configurator.querySelector("[data-config-body-count]");
+    const envCount = configurator.querySelector("[data-config-env-count]");
+    const outputTitle = configurator.querySelector("[data-config-output-title]");
+    const outputCopy = configurator.querySelector("[data-config-output-copy]");
+
+    if (!slots) return;
+
+    let selected = Array.from(puckButtons)
+      .filter((button) => button.getAttribute("aria-pressed") === "true")
+      .map((button) => button.dataset.configPuck)
+      .filter((id) => puckCatalog[id]);
+
+    const removePuck = (id) => {
+      selected = selected.filter((entry) => entry !== id);
+      renderConfig();
+    };
+
+    const addPuck = (id) => {
+      const puck = puckCatalog[id];
+      if (!puck) return;
+      if (selected.includes(id)) {
+        removePuck(id);
+        return;
+      }
+      const sameType = selected.filter((entry) => puckCatalog[entry].type === puck.type);
+      if (sameType.length >= configLimits[puck.type]) {
+        selected = selected.filter((entry) => entry !== sameType[0]);
+      }
+      selected = selected.concat(id);
+      renderConfig();
+    };
+
+    const createPuckSlot = (slotType, index, puck) => {
+      const slot = document.createElement("button");
+      slot.type = "button";
+      slot.className = "puck-slot";
+      if (slotType === "environment") slot.classList.add("environment-slot");
+
+      const label = document.createElement("span");
+      const chip = document.createElement("small");
+
+      if (!puck) {
+        slot.classList.add("is-empty");
+        slot.disabled = true;
+        label.textContent = "empty";
+        chip.textContent = slotType === "body" ? "body " + index : "env";
+      } else {
+        slot.classList.add("active", puck.theme);
+        if (puck.type === "environment") slot.classList.add("environment");
+        slot.style.setProperty("--puck-accent", puck.accent);
+        slot.dataset.configRemove = puck.id;
+        slot.setAttribute("aria-label", "Remove " + puck.label + " puck");
+        label.textContent = puck.label;
+        chip.textContent = puck.chip;
+
+        const pins = document.createElement("b");
+        pins.className = "puck-pins";
+        pins.setAttribute("aria-hidden", "true");
+        const removeIcon = document.createElement("i");
+        removeIcon.className = "puck-remove";
+        removeIcon.setAttribute("aria-hidden", "true");
+        slot.append(pins, removeIcon);
+      }
+
+      slot.append(label, chip);
+      return slot;
+    };
+
+    function renderConfig() {
+      const selectedPucks = selected.map((id) => puckCatalog[id]).filter(Boolean);
+      const bodyPucks = selectedPucks.filter((puck) => puck.type === "body");
+      const envPucks = selectedPucks.filter((puck) => puck.type === "environment");
+
+      puckButtons.forEach((button) => {
+        const isSelected = selected.includes(button.dataset.configPuck);
+        button.classList.toggle("is-selected", isSelected);
+        button.setAttribute("aria-pressed", String(isSelected));
+      });
+
+      const activePreset = Object.entries(configPresets).find(([, ids]) => sameSet(ids, selected));
+      presetButtons.forEach((button) => {
+        button.classList.toggle("is-active", Boolean(activePreset && button.dataset.configPreset === activePreset[0]));
+      });
+
+      slots.replaceChildren(
+        createPuckSlot("body", 1, bodyPucks[0]),
+        createPuckSlot("body", 2, bodyPucks[1]),
+        createPuckSlot("environment", 1, envPucks[0])
+      );
+
+      if (bodyCount) bodyCount.textContent = bodyPucks.length + " / 2 body slots";
+      if (envCount) envCount.textContent = envPucks.length + " / 1 environment slot";
+
+      if (outputTitle) {
+        outputTitle.textContent = selectedPucks.length ? "Configured pilot stack" : "Open base, no pucks";
+      }
+      if (outputCopy) {
+        if (!selectedPucks.length) {
+          outputCopy.textContent = "The base stays reusable. Add only the modules a pilot needs.";
+        } else {
+          outputCopy.textContent =
+            formatPuckList(selectedPucks) +
+            " selected: " +
+            selectedPucks.map((puck) => puck.summary).join(", ") +
+            ". The base stays fixed; the data path changes with the puck stack.";
+        }
+      }
+    }
+
+    puckButtons.forEach((button) => {
+      button.addEventListener("click", () => addPuck(button.dataset.configPuck));
+    });
+
+    presetButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const preset = configPresets[button.dataset.configPreset];
+        if (!preset) return;
+        selected = preset.slice();
+        renderConfig();
+      });
+    });
+
+    if (clearButton) {
+      clearButton.addEventListener("click", () => {
+        selected = [];
+        renderConfig();
+      });
+    }
+
+    slots.addEventListener("click", (event) => {
+      const removeButton = event.target.closest("[data-config-remove]");
+      if (removeButton) removePuck(removeButton.dataset.configRemove);
+    });
+
+    renderConfig();
+  });
+
   const revealTargets = document.querySelectorAll(
     ".section-copy, .centered-heading, .section-topline, .loop-step, .pillar-card, .segment-card, .sensor-card, .case-detail, .case-spotlight, .opportunity-row, .founder-card, .competition-card, .timeline-item, .trust-grid div, .metric-card, .build-board, .image-collage, .device-map, .pipeline-step, .config-board"
   );

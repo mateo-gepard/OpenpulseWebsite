@@ -124,37 +124,62 @@
         <div class="container config-layout">
           <div class="section-copy">
             <p class="eyebrow">Configuration layer</p>
-            <h2>A wearable should start with a question, not a SKU.</h2>
-            <p>For a pilot partner, the first question is never "which model do you want?" It is "what signal do you need, in which context, and what should the output trigger?"</p>
+            <h2>Start with the signal. Build the wearable around it.</h2>
+            <p>OpenPulse keeps the base wearable reusable while the puck stack changes around each pilot: two skin-side modules for body signals, one outward module for context, and an output path that fits the partner system.</p>
             <div class="config-proof">
-              <div><span>01</span><strong>Choose body signals</strong><p>PPG, EDA, temperature, motion.</p></div>
-              <div><span>02</span><strong>Add environment</strong><p>Gas, ambient temperature, humidity, acoustics.</p></div>
-              <div><span>03</span><strong>Ship the pipeline</strong><p>Local processing, export, dashboard, or alert.</p></div>
+              <div><span>01</span><strong>Choose skin-side pucks</strong><p>Pulse, EDA response, temperature, or motion context.</p></div>
+              <div><span>02</span><strong>Add one context puck</strong><p>Environment-facing sensing for safety, workplace, or study conditions.</p></div>
+              <div><span>03</span><strong>Define the output</strong><p>Export, dashboard, integration, or local alert logic for the pilot.</p></div>
             </div>
           </div>
-          <div class="config-board" aria-label="OpenPulse configuration diagram">
+          <div class="config-board" data-configurator aria-label="OpenPulse puck configurator">
             <div class="config-question">
               <span>input</span>
-              What do you need to measure?
+              Configure a pilot stack.
             </div>
-            <div class="signal-bank">
-              <span class="signal-chip ppg">PPG</span>
-              <span class="signal-chip eda">EDA</span>
-              <span class="signal-chip temp">TEMP</span>
-              <span class="signal-chip env">GAS</span>
-              <span class="signal-chip imu">IMU</span>
+            <div class="signal-bank" aria-label="Available sensor pucks">
+              <button class="signal-chip ppg is-selected" type="button" data-config-puck="pulse" aria-pressed="true">PPG</button>
+              <button class="signal-chip eda is-selected" type="button" data-config-puck="stress" aria-pressed="true">EDA</button>
+              <button class="signal-chip temp" type="button" data-config-puck="temp" aria-pressed="false">TEMP</button>
+              <button class="signal-chip env is-selected" type="button" data-config-puck="gas" aria-pressed="true">GAS</button>
+              <button class="signal-chip imu" type="button" data-config-puck="motion" aria-pressed="false">IMU</button>
+            </div>
+            <div class="config-presets" aria-label="Example configurations">
+              <button type="button" data-config-preset="research">Research</button>
+              <button type="button" data-config-preset="safety">Safety</button>
+              <button type="button" data-config-preset="wellness">Wellness</button>
+              <button type="button" data-config-clear>Clear</button>
             </div>
             <div class="route-line route-a"></div>
             <div class="route-line route-b"></div>
-            <div class="puck-array">
-              <div class="puck-slot active"><span>pulse</span></div>
-              <div class="puck-slot active"><span>stress</span></div>
-              <div class="puck-slot environment"><span>gas</span></div>
+            <div class="puck-array" data-config-slots aria-live="polite">
+              <button class="puck-slot active ppg" type="button" data-config-remove="pulse" style="--puck-accent: var(--ppg)" aria-label="Remove pulse puck">
+                <b class="puck-pins" aria-hidden="true"></b>
+                <span>Pulse</span>
+                <small>PPG</small>
+                <i class="puck-remove" aria-hidden="true"></i>
+              </button>
+              <button class="puck-slot active eda" type="button" data-config-remove="stress" style="--puck-accent: var(--eda)" aria-label="Remove stress puck">
+                <b class="puck-pins" aria-hidden="true"></b>
+                <span>EDA</span>
+                <small>EDA</small>
+                <i class="puck-remove" aria-hidden="true"></i>
+              </button>
+              <button class="puck-slot active environment env" type="button" data-config-remove="gas" style="--puck-accent: var(--bioz)" aria-label="Remove gas puck">
+                <b class="puck-pins" aria-hidden="true"></b>
+                <span>Gas</span>
+                <small>GAS</small>
+                <i class="puck-remove" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="config-state" aria-label="Configured slot usage">
+              <span data-config-body-count>2 / 2 body slots</span>
+              <span data-config-env-count>1 / 1 environment slot</span>
             </div>
             <div class="output-panel">
               <span>output</span>
-              <strong>pilot-ready wearable</strong>
-              <p>Configured hardware, open data path, documented signal stack.</p>
+              <strong data-config-output-title>Configured pilot stack</strong>
+              <p data-config-output-copy>Pulse + EDA + Gas selected. The base stays fixed; the data path changes with the puck stack.</p>
             </div>
           </div>
         </div>
