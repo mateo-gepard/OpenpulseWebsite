@@ -235,6 +235,26 @@
       border: 1px solid rgba(11, 30, 59, 0.18);
     }
 
+    button.export-button {
+      width: auto;
+      min-height: 38px;
+      margin: 0;
+      padding: 0 14px;
+      color: var(--white);
+      background: var(--navy);
+    }
+
+    .dashboard-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .dashboard-actions button {
+      white-space: nowrap;
+    }
+
     .message {
       min-height: 20px;
       margin-top: 14px;
@@ -795,6 +815,10 @@
         flex-direction: column;
       }
 
+      .dashboard-actions {
+        justify-content: flex-start;
+      }
+
       .hero {
         grid-template-columns: 1fr;
       }
@@ -873,7 +897,10 @@
           <h2>Voting redirect dashboard</h2>
           <p class="dashboard-note" id="updatedAt">Loading metrics...</p>
         </div>
-        <button class="secondary" id="logoutButton" type="button">Log out</button>
+        <div class="dashboard-actions">
+          <button class="export-button" id="exportButton" type="button">Export visits CSV</button>
+          <button class="secondary" id="logoutButton" type="button">Log out</button>
+        </div>
       </div>
 
       <div class="setup" id="setupBox"></div>
@@ -963,6 +990,7 @@
     const setupBox = document.getElementById("setupBox");
     const metricsGrid = document.getElementById("metricsGrid");
     const updatedAt = document.getElementById("updatedAt");
+    const exportButton = document.getElementById("exportButton");
 
     const formatNumber = new Intl.NumberFormat("en-US");
     let voteMap;
@@ -1322,6 +1350,49 @@
       loginMessage.textContent = message || "";
     }
 
+    function filenameFromDisposition(disposition) {
+      const match = /filename="?([^"]+)"?/i.exec(disposition || "");
+      return match ? match[1] : `openpulse-vote-visits-${new Date().toISOString().slice(0, 10)}.csv`;
+    }
+
+    async function exportVisitsCsv() {
+      exportButton.disabled = true;
+      exportButton.textContent = "Preparing CSV...";
+
+      try {
+        const response = await fetch("/api/dev-export", { cache: "no-store" });
+
+        if (response.status === 401) {
+          showLogin("");
+          return;
+        }
+
+        if (!response.ok) {
+          let message = "Could not export visits.";
+          try {
+            const data = await response.json();
+            message = data.error || message;
+          } catch {}
+          updatedAt.textContent = message;
+          return;
+        }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filenameFromDisposition(response.headers.get("Content-Disposition"));
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        updatedAt.textContent = `CSV exported ${new Date().toLocaleString("en-US")}`;
+      } finally {
+        exportButton.disabled = false;
+        exportButton.textContent = "Export visits CSV";
+      }
+    }
+
     async function loadStats() {
       const response = await fetch("/api/dev-stats", { cache: "no-store" });
 
@@ -1394,6 +1465,8 @@
       await fetch("/api/dev-logout", { method: "POST" });
       showLogin("Logged out.");
     });
+
+    exportButton.addEventListener("click", exportVisitsCsv);
 
     loadStats();
     setInterval(() => {
