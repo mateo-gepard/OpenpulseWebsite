@@ -1423,7 +1423,7 @@
       setText("total", formatNumber.format(stats.total));
       setText("today", formatNumber.format(stats.today));
       setText("unique", formatNumber.format(stats.uniqueVisitors));
-      setText("latestSource", stats.recent[0]?.referer || "-");
+      setText("latestSource", stats.recent[0]?.source || stats.recent[0]?.referer || "-");
       updatedAt.textContent = `Updated ${new Date(stats.updatedAt).toLocaleString("en-US")}`;
       renderChart(stats.daily);
       renderHourChart(stats.hourly);
