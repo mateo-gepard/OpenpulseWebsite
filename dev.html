@@ -964,6 +964,10 @@
           </div>
         </article>
         <article class="metric panel wide">
+          <span>Link sources</span>
+          <div class="list" id="sources"></div>
+        </article>
+        <article class="metric panel wide">
           <span>Referrers</span>
           <div class="list" id="referers"></div>
         </article>
@@ -1023,7 +1027,7 @@
       rows.slice(0, 8).forEach((row) => {
         const item = document.createElement("div");
         item.className = "row";
-        item.innerHTML = `<span>${row[0]}</span><strong>${formatNumber.format(row[1])}</strong>`;
+        item.innerHTML = `<span>${escapeHtml(row[0])}</span><strong>${formatNumber.format(row[1])}</strong>`;
         element.appendChild(item);
       });
     }
@@ -1047,7 +1051,7 @@
           minute: "2-digit",
         });
         const place = event.geo?.label || event.geo?.country || event.referer;
-        item.innerHTML = `<span>${time} - ${event.device}</span><strong>${place}</strong>`;
+        item.innerHTML = `<span>${escapeHtml(`${time} - ${event.device || "Unknown"}`)}</span><strong>${escapeHtml(place || "-")}</strong>`;
         element.appendChild(item);
       });
     }
@@ -1431,6 +1435,7 @@
       renderMap(stats.locations, stats.unmappedClicks);
       renderLocationList(stats.locations);
       renderList("countries", stats.countries, "No countries yet");
+      renderList("sources", stats.sources, "No link sources yet");
       renderList("referers", stats.referers, "No referrers yet");
       renderList("devices", stats.devices, "No devices yet");
       renderRecent(stats.recent);
