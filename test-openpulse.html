@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test OpenPulse - Live Monitor</title>
+<meta name="description" content="Mobile-first OpenPulse live monitor for testing multi-sensor wearable data over Web Bluetooth.">
+<style>
+  :root {
+    --bg: #f6f8fb;
+    --surface: #ffffff;
+    --surface-soft: #eef3f8;
+    --line: #dce4ed;
+    --ink: #142033;
+    --muted: #6b7888;
+    --faint: #9aa7b6;
+    --coral: #e95544;
+    --teal: #139f91;
+    --crimson: #d93544;
+    --amber: #d88919;
+    --violet: #6757d6;
+    --blue: #2e71e5;
+    --green: #1d9b63;
+    --shadow: 0 18px 54px rgba(20, 32, 51, 0.11);
+    --shadow-soft: 0 10px 28px rgba(20, 32, 51, 0.08);
+    --grid: rgba(20, 32, 51, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    min-width: 320px;
+    background:
+      radial-gradient(620px 360px at 100% -120px, rgba(19, 159, 145, 0.13), transparent 70%),
+      radial-gradient(520px 300px at -90px 220px, rgba(233, 85, 68, 0.10), transparent 72%),
+      var(--bg);
+    color: var(--ink);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  .app-shell {
+    width: min(100%, 1180px);
+    margin: 0 auto;
+    padding: 14px;
+  }
+
+  .topbar {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--coral);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .brand-mark::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 0 5px rgba(233, 85, 68, 0.14);
+  }
+
+  h1 {
+    margin-top: 8px;
+    color: var(--ink);
+    font-size: clamp(28px, 9vw, 58px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  .subline {
+    max-width: 620px;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .controls {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+  }
+
+  .connection-card {
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.84);
+    border: 1px solid rgba(220, 228, 237, 0.92);
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(16px);
+  }
+
+  .status-row,
+  .battery-mini {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+  }
+
+  .status-label,
+  .battery-mini > span {
+    min-width: 0;
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 28px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--faint);
+    transition: background 180ms ease, box-shadow 180ms ease;
+  }
+
+  .dot.on {
+    background: var(--teal);
+    box-shadow: 0 0 0 5px rgba(19, 159, 145, 0.13), 0 0 18px rgba(19, 159, 145, 0.42);
+  }
+
+  .battery-body {
+    width: 42px;
+    height: 20px;
+    position: relative;
+    padding: 3px;
+    border: 1.5px solid var(--faint);
+    border-radius: 5px;
+    background: var(--surface);
+  }
+
+  .battery-body::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    right: -5px;
+    width: 3px;
+    height: 8px;
+    border-radius: 0 2px 2px 0;
+    background: var(--faint);
+  }
+
+  .battery-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--green));
+    transition: width 160ms ease, background 160ms ease;
+  }
+
+  .battery-mini.charging .battery-fill {
+    background: linear-gradient(90deg, var(--amber), #f5b855);
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .action-button {
+    min-height: 46px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: var(--ink);
+    color: var(--surface);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, opacity 160ms ease;
+  }
+
+  .action-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .action-button.secondary {
+    background: var(--surface);
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .action-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .tile,
+  .panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .tile {
+    min-height: 132px;
+    padding: 15px;
+  }
+
+  .accent {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: var(--accent, var(--teal));
+  }
+
+  .metric-label,
+  .panel-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    color: var(--muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .metric-value {
+    margin-top: 14px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: clamp(34px, 12vw, 54px);
+    font-weight: 800;
+    line-height: 0.95;
+    color: var(--accent, var(--ink));
+  }
+
+  .unit {
+    color: var(--muted);
+    font-size: 0.34em;
+    font-weight: 700;
+  }
+
+  .tag {
+    min-height: 22px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 6px;
+    border: 1px solid rgba(216, 137, 25, 0.34);
+    border-radius: 999px;
+    color: var(--amber);
+    background: rgba(216, 137, 25, 0.08);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  .scope {
+    margin-top: 10px;
+    padding: 12px;
+  }
+
+  .scope-head {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .signal-name {
+    color: var(--coral);
+  }
+
+  .sample-rate {
+    color: var(--muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+  }
+
+  .canvas-wrap {
+    position: relative;
+    min-height: 230px;
+    border: 1px solid rgba(220, 228, 237, 0.8);
+    border-radius: 8px;
+    background:
+      linear-gradient(90deg, rgba(20, 32, 51, 0.04) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(20, 32, 51, 0.04) 1px, transparent 1px),
+      #fbfdff;
+    background-size: 54px 54px;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  #ppg {
+    height: 230px;
+  }
+
+  .hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 220ms ease;
+  }
+
+  .hint.show {
+    opacity: 1;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .imu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  .sensor-readout {
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface-soft);
+  }
+
+  .sensor-readout .key {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .sensor-readout .value {
+    margin-top: 5px;
+    color: var(--ink);
+    font-size: 19px;
+    font-weight: 800;
+  }
+
+  #imuc {
+    height: 78px;
+    margin-top: 12px;
+    background: #fbfdff;
+    border: 1px solid var(--line);
+  }
+
+  .vu {
+    height: 18px;
+    margin-top: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface-soft);
+  }
+
+  .vufill {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--teal), var(--amber), var(--crimson));
+    transition: width 80ms ease;
+  }
+
+  .mic-number,
+  .battery-large {
+    margin-top: 14px;
+    color: var(--violet);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .battery-large {
+    color: var(--ink);
+  }
+
+  .battery-rows {
+    display: grid;
+    gap: 8px;
+    margin-top: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+  }
+
+  .battery-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+  }
+
+  .battery-row span:first-child {
+    color: var(--muted);
+  }
+
+  .note {
+    margin: 12px 0 2px;
+    color: var(--muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .note strong {
+    color: var(--ink);
+  }
+
+  @media (min-width: 560px) {
+    .app-shell {
+      padding: 20px;
+    }
+
+    .metrics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .imu-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 860px) {
+    .topbar {
+      grid-template-columns: 1fr 360px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .metrics {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .detail-grid {
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+    }
+
+    .scope-head {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 1180px) {
+    .app-shell {
+      padding: 26px 0;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">OpenPulse</div>
+      <h1>Live sensor monitor.</h1>
+      <p class="subline">A test dashboard for reading OpenPulse multi-sensor data over Bluetooth.</p>
+    </div>
+
+    <section class="connection-card" aria-label="Connection status">
+      <div class="battery-mini" id="bat">
+        <span>Battery</span>
+        <div class="battery-body" aria-hidden="true"><div class="battery-fill" id="batfill"></div></div>
+        <strong id="batpct">--%</strong>
+      </div>
+      <div class="status-row">
+        <span class="status-label">Device</span>
+        <span class="status-pill"><span class="dot" id="dot"></span><span id="stat">Disconnected</span></span>
+      </div>
+      <div class="actions">
+        <button class="action-button" id="connect" type="button">Connect</button>
+        <button class="action-button secondary" id="disconnect" type="button" disabled>Disconnect</button>
+      </div>
+    </section>
+  </header>
+
+  <section class="metrics" aria-label="Live metrics">
+    <article class="tile" id="bpm" style="--accent: var(--coral)">
+      <div class="accent"></div>
+      <div class="metric-label">Heart rate</div>
+      <div class="metric-value" id="bpmV">--<span class="unit"> bpm</span></div>
+    </article>
+    <article class="tile" id="spo2" style="--accent: var(--teal)">
+      <div class="accent"></div>
+      <div class="metric-label">SpO2 <span class="tag">Uncal.</span></div>
+      <div class="metric-value" id="spo2V">--<span class="unit"> %</span></div>
+    </article>
+    <article class="tile" id="pi" style="--accent: var(--amber)">
+      <div class="accent"></div>
+      <div class="metric-label">Perfusion</div>
+      <div class="metric-value" id="piV">--<span class="unit"> %</span></div>
+    </article>
+    <article class="tile" id="hrv" style="--accent: var(--crimson)">
+      <div class="accent"></div>
+      <div class="metric-label">HRV RMSSD</div>
+      <div class="metric-value" id="hrvV">--<span class="unit"> ms</span></div>
+    </article>
+  </section>
+
+  <section class="panel scope" aria-label="PPG waveform">
+    <div class="scope-head">
+      <div class="panel-title"><span class="signal-name">Green PPG</span> Pulse wave AC</div>
+      <div class="sample-rate"><span id="rate">0</span> Hz / Quality: <span id="qual">-</span></div>
+    </div>
+    <div class="canvas-wrap">
+      <canvas id="ppg"></canvas>
+      <div class="hint show" id="hint">Connect and place a finger on the sensor window.</div>
+    </div>
+  </section>
+
+  <section class="detail-grid">
+    <article class="panel">
+      <div class="panel-title"><span style="color:var(--violet)">Motion</span> IMU LSM6DS3</div>
+      <div class="imu-grid">
+        <div class="sensor-readout"><div class="key">Acc X g</div><div class="value" id="ax">--</div></div>
+        <div class="sensor-readout"><div class="key">Acc Y g</div><div class="value" id="ay">--</div></div>
+        <div class="sensor-readout"><div class="key">Acc Z g</div><div class="value" id="az">--</div></div>
+        <div class="sensor-readout"><div class="key">Gyr X deg/s</div><div class="value" id="gx">--</div></div>
+        <div class="sensor-readout"><div class="key">Gyr Y deg/s</div><div class="value" id="gy">--</div></div>
+        <div class="sensor-readout"><div class="key">Gyr Z deg/s</div><div class="value" id="gz">--</div></div>
+      </div>
+      <canvas id="imuc"></canvas>
+    </article>
+
+    <article class="panel">
+      <div class="panel-title"><span style="color:var(--amber)">Microphone</span> Level</div>
+      <div class="vu"><div class="vufill" id="vufill"></div></div>
+      <div class="mic-number" id="micV">--<span class="unit"> rms</span></div>
+
+      <div class="panel-title" style="margin-top:20px"><span style="color:var(--green)">Battery</span> Power</div>
+      <div class="battery-large" id="batbig">--<span class="unit"> %</span></div>
+      <div class="battery-rows">
+        <div class="battery-row"><span>Voltage</span><strong id="batv">-- V</strong></div>
+        <div class="battery-row"><span>Status</span><strong id="batstat">-</strong></div>
+      </div>
+    </article>
+  </section>
+
+  <p class="note">
+    <strong>Test page.</strong> PPG, HRV, perfusion, IMU, microphone level, and battery values are live device readings. SpO2 is an uncalibrated estimate.
+  </p>
+</main>
+
+<script>
+const NUS='6e400001-b5a3-f393-e0a9-e50e24dcca9e', TX='6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+let device=null,txChar=null,rxBuf='';
+const $=id=>document.getElementById(id);
+
+const GMAX=1500;
+let g=[],ir=[],rd=[]; let dcG=null,dcIR=null,dcRD=null; const aDC=0.02;
+let ibis=[],lastPeak=0,peakT=[]; let a1=0,a2=0,t1=0,hA1=false,hA2=false; let scaleSmooth=400; let recv=[];
+let imu={ax:0,ay:0,az:0,gx:0,gy:0,gz:0}; let accelMag=[]; let micLevel=0,micHist=[]; let battery=null;
+
+$('connect').onclick=async()=>{
+  if(!navigator.bluetooth){ setStat('Chrome with Web Bluetooth required',false); return; }
+  try{ setStat('Searching...',false);
+    device=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[NUS]});
+    device.addEventListener('gattserverdisconnected',onDisc);
+    setStat('Connecting...',false);
+    const s=await device.gatt.connect(); const svc=await s.getPrimaryService(NUS);
+    txChar=await svc.getCharacteristic(TX); await txChar.startNotifications();
+    txChar.addEventListener('characteristicvaluechanged',onData);
+    setStat('Connected / '+(device.name||'OpenPulse'),true);
+    $('connect').disabled=true; $('disconnect').disabled=false;
+  }catch(e){ setStat('Stopped: '+(e.message||e),false); }
+};
+$('disconnect').onclick=()=>{ if(device&&device.gatt.connected) device.gatt.disconnect(); };
+function onDisc(){ setStat('Disconnected',false); $('connect').disabled=false; $('disconnect').disabled=true; txChar=null; }
+function setStat(t,on){ $('stat').textContent=t; $('dot').classList.toggle('on',!!on); }
+
+const dec=new TextDecoder();
+function onData(e){
+  rxBuf+=dec.decode(e.target.value); let nl;
+  while((nl=rxBuf.indexOf('\n'))>=0){
+    const line=rxBuf.slice(0,nl); rxBuf=rxBuf.slice(nl+1); const p=line.split(','); const k=p[0];
+    if(k==='P'&&p.length===4) ingestPPG(+p[1],+p[2],+p[3]);
+    else if(k==='I'&&p.length===7){ imu={ax:+p[1],ay:+p[2],az:+p[3],gx:+p[4],gy:+p[5],gz:+p[6]};
+      accelMag.push(Math.hypot(imu.ax,imu.ay,imu.az)); if(accelMag.length>220) accelMag.shift(); }
+    else if(k==='M'&&p.length===2){ micLevel=+p[1]; micHist.push(micLevel); if(micHist.length>120) micHist.shift(); }
+    else if(k==='B'&&p.length===4){ battery={v:+p[1],pct:+p[2],chg:(+p[3]===1)}; }
+  }
+  if(rxBuf.length>4096) rxBuf='';
+}
+
+function ingestPPG(t,tag,v){
+  if(tag===1){ dcG=dcG===null?v:dcG+aDC*(v-dcG); const ac=v-dcG; g.push({t,v,ac}); if(g.length>GMAX)g.shift();
+    detectPeak(ac,t); const now=performance.now(); recv.push(now); while(recv.length&&now-recv[0]>1000) recv.shift(); }
+  else if(tag===2){ dcIR=dcIR===null?v:dcIR+aDC*(v-dcIR); ir.push({t,v}); if(ir.length>700)ir.shift(); }
+  else if(tag===3){ dcRD=dcRD===null?v:dcRD+aDC*(v-dcRD); rd.push({t,v}); if(rd.length>700)rd.shift(); }
+}
+function envP2P(){ let mn=1e9,mx=-1e9,n=g.length,f=Math.max(0,n-220); for(let i=f;i<n;i++){const a=g[i].ac;if(a<mn)mn=a;if(a>mx)mx=a;} return n-f>5?mx-mn:0; }
+function detectPeak(ac,t){
+  if(hA1&&hA2&&a1>a2&&a1>=ac){ const env=envP2P(),gap=t1-lastPeak;
+    if(a1>0.20*env&&env>120&&gap>300){ if(lastPeak>0&&gap<2000){ibis.push(gap);if(ibis.length>10)ibis.shift();}
+      lastPeak=t1; peakT.push(t1); if(peakT.length>24)peakT.shift(); }
+    else if(lastPeak>0&&gap>2500){ lastPeak=0; ibis=[]; } }
+  a2=a1;hA2=hA1;a1=ac;t1=t;hA1=true;
+}
+const med=a=>{const s=[...a].sort((x,y)=>x-y);return s[Math.floor(s.length/2)];};
+const mean=w=>w.reduce((s,x)=>s+x.v,0)/w.length, ptp=w=>{let mn=1e9,mx=-1e9;for(const x of w){if(x.v<mn)mn=x.v;if(x.v>mx)mx=x.v;}return mx-mn;};
+function bpm(){ if(ibis.length<3)return null; const b=Math.round(60000/med(ibis)); return b>=30&&b<=220?b:null; }
+function hrv(){ if(ibis.length<4)return null; let s=0;for(let i=1;i<ibis.length;i++){const d=ibis[i]-ibis[i-1];s+=d*d;} return Math.round(Math.sqrt(s/(ibis.length-1))); }
+function pi(){ if(g.length<60||dcG===null||Math.abs(dcG)<1)return null; return envP2P()/Math.abs(dcG)*100; }
+function spo2(){ if(ir.length<150||rd.length<150)return null; const wI=ir.slice(-220),wR=rd.slice(-220);
+  const dI=mean(wI),dR=mean(wR),aI=ptp(wI),aR=ptp(wR); if(dI<1||dR<1||aI<dI*0.001||aR<dR*0.001)return null;
+  let s=110-25*((aR/dR)/(aI/dI)); return Math.round(Math.max(70,Math.min(100,s))); }
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+
+function cv(c){const r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;c.width=r.width*d;c.height=r.height*d;
+  const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);return {x,w:r.width,h:r.height};}
+let P,I; function resize(){ P=cv($('ppg')); I=cv($('imuc')); } window.addEventListener('resize',resize);
+function grid(x,w,h){ x.strokeStyle=cssv('--grid');x.lineWidth=1;
+  for(let i=1;i<8;i++){const px=w*i/8;x.beginPath();x.moveTo(px,0);x.lineTo(px,h);x.stroke();}
+  for(let i=1;i<4;i++){const py=h*i/4;x.beginPath();x.moveTo(0,py);x.lineTo(w,py);x.stroke();} }
+function drawPPG(){ const {x,w,h}=P; x.clearRect(0,0,w,h); grid(x,w,h);
+  const N=Math.min(g.length,650); if(N<2)return; const st=g.length-N;
+  let mx=0; for(let i=st;i<g.length;i++) mx=Math.max(mx,Math.abs(g[i].ac));
+  scaleSmooth+=0.08*(Math.max(mx,80)-scaleSmooth); const sc=(h*0.42)/scaleSmooth,mid=h/2;
+  x.beginPath(); for(let i=0;i<N;i++){const px=w*i/(N-1),py=mid-g[st+i].ac*sc; i?x.lineTo(px,py):x.moveTo(px,py);}
+  x.strokeStyle=cssv('--coral');x.lineWidth=2;x.lineJoin='round';x.shadowColor='rgba(233,85,68,.36)';x.shadowBlur=8;x.stroke();x.shadowBlur=0;
+  x.fillStyle=cssv('--amber'); for(const pt of peakT){ for(let i=st;i<g.length;i++){ if(g[i].t>=pt){const px=w*(i-st)/(N-1);x.beginPath();x.arc(px,mid-g[i].ac*sc,2.5,0,7);x.fill();break;} } } }
+function drawIMU(){ const {x,w,h}=I; x.clearRect(0,0,w,h);
+  const N=Math.min(accelMag.length,220); if(N<2)return; const st=accelMag.length-N;
+  let mn=1e9,mx=-1e9; for(let i=st;i<accelMag.length;i++){const v=accelMag[i];if(v<mn)mn=v;if(v>mx)mx=v;} const rng=(mx-mn)||1;
+  x.beginPath(); for(let i=0;i<N;i++){const px=w*i/(N-1),py=h-((accelMag[st+i]-mn)/rng)*(h*0.8)-h*0.1;i?x.lineTo(px,py):x.moveTo(px,py);}
+  x.strokeStyle=cssv('--violet');x.lineWidth=1.8;x.lineJoin='round';x.stroke(); }
+
+function fmt(el,val,unit){ $(el).innerHTML=(val===null?'--':val)+'<span class="unit"> '+unit+'</span>'; }
+function tick(){
+  drawPPG(); drawIMU();
+  fmt('bpmV',bpm(),'bpm'); fmt('spo2V',spo2(),'%');
+  const p=pi(); $('piV').innerHTML=(p===null?'--':p.toFixed(1))+'<span class="unit"> %</span>'; fmt('hrvV',hrv(),'ms');
+  $('rate').textContent=recv.length;
+  const e=envP2P(); $('qual').textContent=e<120?'No signal':(ibis.length>=4?'Good':'...');
+  $('hint').classList.toggle('show',e<120);
+  $('ax').textContent=imu.ax.toFixed(2); $('ay').textContent=imu.ay.toFixed(2); $('az').textContent=imu.az.toFixed(2);
+  $('gx').textContent=imu.gx.toFixed(0); $('gy').textContent=imu.gy.toFixed(0); $('gz').textContent=imu.gz.toFixed(0);
+  $('micV').innerHTML=Math.round(micLevel)+'<span class="unit"> rms</span>';
+  const db=20*Math.log10(micLevel+1); const vu=Math.max(0,Math.min(100,(db-30)/(72-30)*100));
+  $('vufill').style.width=vu+'%';
+  if(battery){ $('batpct').textContent=battery.pct+'%'; $('batfill').style.width=battery.pct+'%';
+    $('bat').classList.toggle('charging',battery.chg);
+    $('batbig').innerHTML=battery.pct+'<span class="unit"> %</span>';
+    $('batv').textContent=battery.v.toFixed(2)+' V';
+    $('batstat').textContent=battery.chg?'Charging':'Battery'; }
+  requestAnimationFrame(tick);
+}
+resize(); requestAnimationFrame(tick);
+</script>
+</body>
+</html>

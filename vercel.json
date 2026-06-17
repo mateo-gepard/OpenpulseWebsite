@@ -49,6 +49,14 @@
       "destination": "/dev.html"
     },
     {
+      "source": "/test-openpulse",
+      "destination": "/test-openpulse.html"
+    },
+    {
+      "source": "/test-openpulse/",
+      "destination": "/test-openpulse.html"
+    },
+    {
       "source": "/Vote-for-Openpulse",
       "destination": "/api/vote-for-openpulse"
     },
