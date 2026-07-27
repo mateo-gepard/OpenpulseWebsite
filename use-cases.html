@@ -3,248 +3,175 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Use Cases - OpenPulse</title>
-    <meta name="description" content="OpenPulse use cases for research, GBU-Psyche, workplace safety, neuromarketing, wellness, interactive art, and quantified-self pilots.">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="ux-polish.css">
+    <title>Use cases — OpenPulse for B2B measurement needs</title>
+    <meta name="description" content="See how OpenPulse defines a company’s measurement requirement, selects sensor pucks, configures the platform, provides raw data, and integrates with existing systems.">
+    <link rel="canonical" href="https://www.openpulse.eu/use-cases.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OpenPulse">
+    <meta property="og:title" content="One platform, configured for each company.">
+    <meta property="og:description" content="OpenPulse configures sensor pucks, firmware, software, and integration around each B2B use case.">
+    <meta property="og:url" content="https://www.openpulse.eu/use-cases.html">
+    <meta property="og:image" content="https://www.openpulse.eu/Photos/openpulse-social-preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://www.openpulse.eu/Photos/openpulse-social-preview.png">
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body data-page="cases">
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header" data-header>
-      <a class="brand" href="index.html" aria-label="OpenPulse home">
-        <img src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
-      </a>
-      <button class="nav-toggle" type="button" aria-label="Open navigation" data-nav-toggle>
-        <span></span><span></span>
-      </button>
-      <nav class="site-nav" data-nav>
-        <a href="hardware.html">Hardware</a>
-        <a href="use-cases.html">Use Cases</a>
-        <a href="team.html">Team</a>
-        <a href="competitions.html">Competitions</a>
+      <a class="brand" href="/" aria-label="OpenPulse home"><img src="/Photos/openpulse-logo-alpha.png" alt="OpenPulse"></a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle><span></span><span></span></button>
+      <nav class="site-nav" aria-label="Main navigation" data-nav>
+        <a href="/hardware.html">Hardware</a>
+        <a href="/use-cases.html">Use cases</a>
+        <a href="/software.html">Software &amp; API</a>
+        <a href="/team.html">Team</a>
+        <a href="/competitions.html">Recognition</a>
         <button class="button button-primary nav-cta" type="button" data-open-contact>Talk to us</button>
       </nav>
     </header>
 
-    <main>
+    <main id="main">
       <section class="hero page-hero">
         <div class="hero-copy">
-          <p class="eyebrow">Use cases</p>
-          <h1>One platform. Every field that measures the human body.</h1>
-          <p class="hero-subline">OpenPulse is not sold as one generic fitness product. It is configured around a pilot: the signals, the environment, the data path, and the partner's workflow.</p>
+          <p class="eyebrow">B2B use cases</p>
+          <h1>One platform, configured for each company.</h1>
+          <p class="lead">Companies define what they need to measure and how the data must connect to their existing systems. We configure the sensor pucks, firmware, software, and integration around that use case.</p>
           <div class="hero-actions">
-            <button class="button button-primary" type="button" data-open-contact>Discuss this use case</button>
-            <a class="button button-secondary" href="#segments">Compare segments</a>
+            <button class="button button-primary" type="button" data-open-contact>Define your requirement</button>
+            <a class="button button-secondary" href="#process">See how it works</a>
           </div>
         </div>
-        <div class="hero-visual product-visual">
-          <img src="Photos/stage-frames-430-webp/openpulse_0288.webp" alt="OpenPulse modular wearable render">
-          <div class="visual-label label-a">B2B first</div>
-          <div class="visual-label label-b">B2C community second</div>
-          <div class="visual-label label-c">problem -> configuration -> pilot</div>
-        </div>
-      </section>
-
-      <section class="section" id="segments">
-        <div class="container">
-          <div class="section-topline">
-            <div>
-              <p class="eyebrow">Pilot segments</p>
-              <h2>Filter by the partner you want to convince.</h2>
+        <div class="hero-visual">
+          <div class="system-card" aria-label="A measurement requirement flowing through OpenPulse to a company system">
+            <div class="system-card-header"><span>Configuration map</span><span class="live-dot">B2B</span></div>
+            <div class="software-flow" style="position:relative;top:58px;grid-template-columns:1fr">
+              <div class="software-node" style="min-height:90px"><span>INPUT</span><h3 style="margin-top:20px">Measurement requirement</h3></div>
+              <div class="software-node" style="min-height:90px"><span>CONFIGURE</span><h3 style="margin-top:20px">Hardware + firmware</h3></div>
+              <div class="software-node" style="min-height:90px"><span>CONNECT</span><h3 style="margin-top:20px">Existing company system</h3></div>
             </div>
-            <button class="button button-secondary" type="button" data-open-contact>Start with your measurement need</button>
-          </div>
-          <div class="filter-bar" aria-label="Use case filters">
-            <button type="button" class="is-active" data-filter="all">All</button>
-            <button type="button" data-filter="research">Research</button>
-            <button type="button" data-filter="gbu">GBU-Psyche</button>
-            <button type="button" data-filter="safety">Safety</button>
-            <button type="button" data-filter="neuro">Neuromarketing</button>
-            <button type="button" data-filter="wellness">Wellness</button>
-            <button type="button" data-filter="art">Art</button>
-            <button type="button" data-filter="b2c">B2C</button>
-          </div>
-          <div class="segment-grid">
-            <article class="segment-card research" data-case-card="research">
-              <span>Academic research</span>
-              <h3>Raw biosignals after the E4 era</h3>
-              <p>Open API, exportable data, EDA, PPG, temperature, motion, and a lower-friction hardware path.</p>
-            </article>
-            <article class="segment-card neuro" data-case-card="gbu">
-              <span>GBU-Psyche</span>
-              <h3>Objective layers for workplace stress assessment</h3>
-              <p>EDA and HRV context for consultants who already run surveys and interviews.</p>
-            </article>
-            <article class="segment-card safety" data-case-card="safety">
-              <span>Workplace safety</span>
-              <h3>Human signal plus environment signal</h3>
-              <p>Gas, temperature, heart-rate context, and local alarms in one configurable band.</p>
-            </article>
-            <article class="segment-card neuro" data-case-card="neuro">
-              <span>Neuromarketing</span>
-              <h3>Response measurement without a black box</h3>
-              <p>EDA and HR pipelines for consumer research, stimulus testing, and controlled response studies.</p>
-            </article>
-            <article class="segment-card wellness" data-case-card="wellness">
-              <span>Wellness resorts</span>
-              <h3>White-label recovery without device lock-in</h3>
-              <p>Configured bands for premium recovery, stress, and retreat experiences.</p>
-            </article>
-            <article class="segment-card art" data-case-card="art">
-              <span>Interactive art</span>
-              <h3>Biosignals as input for installations</h3>
-              <p>Turn pulse, motion, EDA, and environment into live media control signals.</p>
-            </article>
-            <article class="segment-card opensource" data-case-card="b2c">
-              <span>Open source / quantified self</span>
-              <h3>The secondary market that builds with you</h3>
-              <p>For data-sovereign users, developers, and quantified-self people who hate sealed clouds.</p>
-            </article>
+            <div class="system-card-footer"><span>Requirement first</span><span>Integration included</span></div>
           </div>
         </div>
       </section>
 
-      <section class="section real-section case-strategy">
+      <section class="section section-paper" id="process">
         <div class="container">
-          <div class="section-topline">
-            <div>
-              <p class="eyebrow">Where the fit is sharpest</p>
-              <h2>The strongest markets do not want another watch. They want a measurement layer.</h2>
-            </div>
-            <p class="topline-note">OpenPulse becomes interesting when the partner already has a workflow, but the existing wearable hardware is too closed, too generic, or missing one key signal.</p>
+          <div class="section-heading">
+            <p class="eyebrow">The process</p>
+            <h2>From measurement need to connected system.</h2>
+            <p class="lead">The product is not a fixed catalogue of wearables. It is a repeatable platform for configuring a company-specific sensing and data path.</p>
           </div>
-
-          <div class="case-showcase">
-            <article class="case-spotlight research" data-case-detail="research">
-              <div class="spotlight-copy">
-                <p class="eyebrow">01 / Research</p>
-                <h2>Raw biosignals without the black box.</h2>
-                <p>For labs, OpenPulse is a configurable raw-signal wristband: EDA, PPG, temperature, motion, documented processing, and exportable data for repeatable pilots.</p>
-                <div class="config-row"><span>EDA</span><span>PPG</span><span>Temp</span><span>IMU</span><span>Open export</span></div>
-                <button class="button button-primary" type="button" data-open-contact data-segment="Academic research">Discuss research pilot</button>
-              </div>
-              <div class="spotlight-panel">
-                <span class="panel-label">Why now</span>
-                <strong>The E4 gap</strong>
-                <p>With the Empatica E4 retired, research teams still need inspectable wearable biosignals without moving into a closed consumer ecosystem.</p>
-              </div>
-            </article>
-
-            <article class="case-spotlight safety" data-case-detail="safety">
-              <div class="spotlight-copy">
-                <p class="eyebrow">02 / Safety</p>
-                <h2>The worker and the environment in one timeline.</h2>
-                <p>A gas spike means more with body context. A physiological spike means more with environmental context. OpenPulse can join both into local alerts or exports.</p>
-                <div class="config-row"><span>Gas</span><span>Heat</span><span>PPG</span><span>Temp</span><span>Local alert</span></div>
-                <button class="button button-primary" type="button" data-open-contact data-segment="Workplace safety">Discuss safety pilot</button>
-              </div>
-              <div class="spotlight-panel dark">
-                <span class="panel-label">Configuration</span>
-                <strong>Body module + environment module</strong>
-                <p>One wristband can monitor worker context and ambient hazards instead of splitting the pilot across separate devices.</p>
-              </div>
-            </article>
+          <div class="process-grid">
+            <article class="process-step"><span>01</span><h3>Define the measurement requirement</h3><p>Clarify what the company needs to measure and why.</p></article>
+            <article class="process-step"><span>02</span><h3>Select the required sensor pucks</h3><p>Match the requirement to working and planned module capabilities.</p></article>
+            <article class="process-step"><span>03</span><h3>Configure hardware and firmware</h3><p>Adapt the reusable core around the chosen sensor stack.</p></article>
+            <article class="process-step"><span>04</span><h3>Provide raw-data access</h3><p>Expose underlying sensor data instead of only predefined scores.</p></article>
+            <article class="process-step"><span>05</span><h3>Integrate the system</h3><p>Connect data to the customer’s app, database, dashboard, or workflow.</p></article>
           </div>
+        </div>
+      </section>
 
-          <div class="opportunity-stack" aria-label="Additional OpenPulse pilot opportunities">
-            <article class="opportunity-row" data-case-detail="gbu">
-              <span>GBU-Psyche</span>
-              <h3>Stress assessment gets a repeatable signal layer.</h3>
-              <p>EDA and HRV context for consultants who already run interviews, workshops, and surveys.</p>
-              <div class="mini-recipe"><i>EDA</i><i>HRV</i><i>Export</i></div>
+      <section class="section section-sand">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Potential configurations</p>
+            <h2>Examples, not market claims.</h2>
+            <p class="lead">These examples show how the architecture could be configured. They are not claims of existing products, active pilots, proven markets, or currently available unfinished sensor modules.</p>
+          </div>
+          <div class="use-case-grid">
+            <article class="use-card">
+              <span class="status-pill development">Potential configuration</span>
+              <h3>Workforce safety system</h3>
+              <p>A company could combine body measurements with a planned outward-facing environment puck and connect the data to its existing operational system.</p>
+              <div class="recipe"><span>PPG · working</span><span>Environment · planned</span><span>System integration</span></div>
             </article>
-            <article class="opportunity-row" data-case-detail="neuro">
-              <span>Neuromarketing</span>
-              <h3>Explainable reaction signals for stimulus testing.</h3>
-              <p>EDA and pulse pipelines synchronized to media, retail, or product-testing stimuli.</p>
-              <div class="mini-recipe"><i>EDA</i><i>PPG</i><i>Sync</i></div>
+            <article class="use-card">
+              <span class="status-pill development">Potential configuration</span>
+              <h3>Performance platform</h3>
+              <p>A sports, wellness, or workforce platform could integrate working PPG data and onboard motion context into its own user experience.</p>
+              <div class="recipe"><span>PPG · working</span><span>Onboard motion</span><span>App integration</span></div>
             </article>
-            <article class="opportunity-row" data-case-detail="wellness">
-              <span>Wellness resorts</span>
-              <h3>A white-label recovery layer, not a locked watch account.</h3>
-              <p>Configured guest experiences for recovery, stress trends, and resort-owned workflows.</p>
-              <div class="mini-recipe"><i>PPG</i><i>Temp</i><i>EDA</i></div>
-            </article>
-            <article class="opportunity-row" data-case-detail="art">
-              <span>Interactive art</span>
-              <h3>Biosignals as live input for light, sound, and space.</h3>
-              <p>MQTT outputs turn pulse, EDA, motion, or environment into a control surface.</p>
-              <div class="mini-recipe"><i>PPG</i><i>Motion</i><i>MQTT</i></div>
-            </article>
-            <article class="opportunity-row secondary" data-case-detail="b2c">
-              <span>Secondary market</span>
-              <h3>For the people who already want to build their own wearable.</h3>
-              <p>Data-sovereign users, quantified-self builders, and open-source developers who hate sealed clouds.</p>
-              <div class="mini-recipe"><i>Open API</i><i>GitHub</i><i>No lock-in</i></div>
+            <article class="use-card">
+              <span class="status-pill development">Potential configuration</span>
+              <h3>Temperature-aware workflow</h3>
+              <p>A future temperature puck could add wearable thermal data to a company dashboard or automated operational workflow.</p>
+              <div class="recipe"><span>Temperature · planned</span><span>Raw data</span><span>Dashboard</span></div>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section navy">
-        <div class="container centered-heading">
-          <p class="eyebrow">Pilot fit</p>
-          <h2>Bring one concrete measurement problem.</h2>
-          <p>OpenPulse is strongest when a partner has a clear question: what signal, on whom, in which context, and what decision should the output support?</p>
+      <section class="section section-navy">
+        <div class="container split">
+          <div>
+            <p class="eyebrow">What changes</p>
+            <h2>We configure more than the sensor.</h2>
+            <p class="lead">Each company’s use case shapes four connected layers. That is what turns a wearable prototype into a useful B2B platform.</p>
+          </div>
+          <div class="spec-list">
+            <div class="spec-row"><span>Hardware</span><strong>Sensor puck selection and physical configuration.</strong></div>
+            <div class="spec-row"><span>Firmware</span><strong>Acquisition and communication behavior for the chosen signals.</strong></div>
+            <div class="spec-row"><span>Software</span><strong>Raw-data access, visualization, and multi-unit handling.</strong></div>
+            <div class="spec-row"><span>Integration</span><strong>Connection to an existing app, database, dashboard, or operational system.</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-paper">
+        <div class="container split wide-right">
+          <div>
+            <p class="eyebrow">Start with fit</p>
+            <h2>A useful first conversation is specific.</h2>
+          </div>
+          <div class="problem-list">
+            <article class="problem-item"><span>01</span><div><h3>What must be measured?</h3><p>The exact signal or environmental condition, at the level you currently understand it.</p></div></article>
+            <article class="problem-item"><span>02</span><div><h3>Where must the data go?</h3><p>Your current app, database, dashboard, operational platform, or analysis tool.</p></div></article>
+            <article class="problem-item"><span>03</span><div><h3>How many units are required?</h3><p>An approximate device count helps shape the engineering and pilot conversation.</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-navy closing-cta">
+        <div class="container">
+          <p class="eyebrow">Your configuration</p>
+          <h2>Tell us the measurement. We’ll map the system.</h2>
+          <p class="lead">We will be clear about what works today, what requires development, and how the data could connect to your existing setup.</p>
           <div class="hero-actions centered">
-            <button class="button button-primary" type="button" data-open-contact>Discuss a pilot</button>
-            <a class="button button-light" href="hardware.html">Inspect hardware</a>
+            <button class="button button-primary" type="button" data-open-contact>Define your requirement</button>
+            <a class="button button-light" href="/software.html">Explore raw-data access</a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <img class="footer-logo" src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
-          <p>OpenPulse builds modular, open biosignal wearables for teams that need exactly the right sensors.</p>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand"><img class="footer-logo" src="/Photos/openpulse-logo-alpha.png" alt="OpenPulse"><p>OpenPulse is a modular B2B wearable sensor platform with swappable sensor pucks, raw-data access, and integration into existing systems.</p></div>
+          <div><h3>Platform</h3><a href="/hardware.html">Hardware</a><a href="/software.html">Software &amp; API</a><a href="/use-cases.html">Use cases</a></div>
+          <div><h3>Company</h3><a href="/team.html">Team</a><a href="/competitions.html">Recognition</a></div>
+          <div><h3>Contact</h3><button type="button" data-open-contact>Tell us what you need</button><a href="mailto:hello@openpulse.dev">hello@openpulse.dev</a></div>
         </div>
-        <div>
-          <h3>Pages</h3>
-          <a href="hardware.html">Hardware</a>
-          <a href="use-cases.html">Use Cases</a>
-          <a href="team.html">Team</a>
-          <a href="competitions.html">Competitions</a>
-        </div>
-        <div>
-          <h3>Contact</h3>
-          <button type="button" data-open-contact>Discuss a pilot</button>
-          <a href="https://github.com/openpulse">GitHub</a>
-          <a href="mailto:hello@openpulse.dev">hello@openpulse.dev</a>
-        </div>
-        <div class="sources">
-          <h3>Sources</h3>
-          <a href="https://www.empatica.com/en-us/research/e4-sunset">Empatica E4 sunset</a>
-          <a href="https://link.springer.com/chapter/10.1007/978-3-658-49104-8_4">GBU-Psyche implementation analysis</a>
-          <a href="https://forum.dguv.de/ausgabe/9-2025/artikel/betriebsbefragung-zur-organisation-und-umsetzung-von-arbeitsschutzmassnahmen">DGUV Forum 2023/24 reporting</a>
-        </div>
+        <div class="footer-bottom"><span>© 2026 OpenPulse</span><span>Modular sensing for companies</span></div>
       </div>
     </footer>
 
     <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" data-contact hidden>
       <div class="modal-panel">
         <button class="modal-close" type="button" aria-label="Close contact form" data-close-contact></button>
-        <p class="eyebrow">Talk to us</p>
-        <h2 id="contact-title">Map your first OpenPulse pilot.</h2>
+        <p class="eyebrow">Company inquiry</p>
+        <h2 id="contact-title">Tell us what your company needs to measure.</h2>
         <form class="contact-form" data-contact-form>
           <label>Name<input name="name" autocomplete="name" required></label>
-          <label>Organization<input name="organization" autocomplete="organization"></label>
-          <label>Segment
-            <select name="segment">
-              <option>Academic research</option>
-              <option>Workplace safety</option>
-              <option>GBU-Psyche</option>
-              <option>Neuromarketing</option>
-              <option>Wellness</option>
-              <option>Open source / quantified self</option>
-            </select>
-          </label>
-          <label>What do you want to measure?<textarea name="message" rows="4" required></textarea></label>
-          <button class="button button-primary" type="submit">Prepare pilot email</button>
+          <label>Company<input name="company" autocomplete="organization" required></label>
+          <label class="full">Measurement requirement<textarea name="measurement" rows="3" placeholder="What signals or conditions do you need to measure?" required></textarea></label>
+          <label class="full">Desired integration<textarea name="integration" rows="3" placeholder="App, database, dashboard, operational system…" required></textarea></label>
+          <label>Approximate device count<input name="deviceCount" inputmode="numeric" placeholder="For example, 20"></label>
+          <div><button class="button button-primary" type="submit">Prepare email</button></div>
         </form>
       </div>
     </div>
-
-    <script src="app.js"></script>
+    <script src="/app.js"></script>
   </body>
 </html>

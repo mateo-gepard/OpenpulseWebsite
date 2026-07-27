@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/product",
+      "destination": "/hardware.html",
+      "permanent": true
+    },
+    {
+      "source": "/product.html",
+      "destination": "/hardware.html",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/dev.html",

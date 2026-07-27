@@ -3,283 +3,235 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hardware - OpenPulse</title>
-    <meta name="description" content="OpenPulse hardware architecture: two wrist-contact body-sensor modules, one outward environment module, open signal processing, and modular wearable design.">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="ux-polish.css">
+    <title>Hardware — OpenPulse modular wearable platform</title>
+    <meta name="description" content="Explore the OpenPulse architecture: two body-facing puck positions, one environment-facing position, a working 10 mm PPG puck, and clear module status.">
+    <link rel="canonical" href="https://www.openpulse.eu/hardware.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OpenPulse">
+    <meta property="og:title" content="One core wearable. Swappable sensor pucks.">
+    <meta property="og:description" content="The OpenPulse hardware architecture and current working-prototype status.">
+    <meta property="og:url" content="https://www.openpulse.eu/hardware.html">
+    <meta property="og:image" content="https://www.openpulse.eu/Photos/openpulse-social-preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://www.openpulse.eu/Photos/openpulse-social-preview.png">
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body data-page="hardware">
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header" data-header>
-      <a class="brand" href="index.html" aria-label="OpenPulse home">
-        <img src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
-      </a>
-      <button class="nav-toggle" type="button" aria-label="Open navigation" data-nav-toggle>
-        <span></span><span></span>
-      </button>
-      <nav class="site-nav" data-nav>
-        <a href="hardware.html">Hardware</a>
-        <a href="use-cases.html">Use Cases</a>
-        <a href="team.html">Team</a>
-        <a href="competitions.html">Competitions</a>
+      <a class="brand" href="/" aria-label="OpenPulse home"><img src="/Photos/openpulse-logo-alpha.png" alt="OpenPulse"></a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle><span></span><span></span></button>
+      <nav class="site-nav" aria-label="Main navigation" data-nav>
+        <a href="/hardware.html">Hardware</a>
+        <a href="/use-cases.html">Use cases</a>
+        <a href="/software.html">Software &amp; API</a>
+        <a href="/team.html">Team</a>
+        <a href="/competitions.html">Recognition</a>
         <button class="button button-primary nav-cta" type="button" data-open-contact>Talk to us</button>
       </nav>
     </header>
 
-    <main>
+    <main id="main">
       <section class="hero page-hero">
         <div class="hero-copy">
-          <p class="eyebrow">Hardware</p>
-          <h1>Three sensor positions. One configurable band.</h1>
-          <p class="hero-subline">OpenPulse combines two modules that touch the wrist for body signals with one module that faces outward for context like gas, heat, or humidity. The same band can become a research wearable, safety monitor, or wellness pilot device.</p>
+          <p class="eyebrow">Hardware architecture</p>
+          <h1>One core. Three puck positions.</h1>
+          <p class="lead">Two sensor pucks face the body. One faces the surrounding environment. The same core wearable can be configured around a company’s measurement requirement without redesigning the entire device.</p>
           <div class="hero-actions">
-            <button class="button button-primary" type="button" data-open-contact>Need a configuration?</button>
-            <a class="button button-secondary" href="#pucks">Explore modules</a>
+            <button class="button button-primary" type="button" data-open-contact>Discuss your sensor requirement</button>
+            <a class="button button-secondary" href="#status">See module status</a>
           </div>
         </div>
-        <div class="hero-visual product-visual">
-          <img
-            class="sequence-frame"
-            src="Photos/stage-frames-430-webp/openpulse_0225.webp"
-            alt="OpenPulse wearable hardware exploded view"
-            data-sequence
-            data-sequence-path="Photos/stage-frames-430-webp/openpulse_"
-            data-sequence-count="430"
-          >
-          <div class="visual-label label-a">swap sensor module</div>
-          <div class="visual-label label-b">upgrade without replacing the band</div>
-          <div class="visual-label label-c">open signal path</div>
+        <div class="hero-visual">
+          <div class="page-visual">
+            <div class="architecture-visual" aria-label="OpenPulse architecture with two body-facing and one environment-facing puck position">
+              <div class="arch-line" aria-hidden="true"></div>
+              <div class="arch-core">CORE DEVICE</div>
+              <div class="arch-puck ppg">BODY 01<br>PPG</div>
+              <div class="arch-puck body">BODY 02<br>PLANNED</div>
+              <div class="arch-puck environment">ENV 01<br>PLANNED</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="section">
-        <div class="container architecture-grid">
-          <div class="device-map">
-            <img src="Photos/stage-frames-430-webp/openpulse_0225.webp" alt="Exploded OpenPulse architecture">
-            <span class="callout one">Main PCB: Seeed XIAO nRF52840 Sense</span>
-            <span class="callout two">environment sensor faces outward</span>
-            <span class="callout three">body sensors touch the wrist</span>
-          </div>
+      <section class="status-ribbon" aria-label="Hardware proof points">
+        <div class="status-grid">
+          <div class="status-item"><strong>2 + 1</strong><span>puck architecture</span></div>
+          <div class="status-item"><strong>I²C</strong><span>through pogo contacts</span></div>
+          <div class="status-item"><strong>48h+</strong><span>measured runtime</span></div>
+          <div class="status-item"><strong>BLE</strong><span>reliable transmission</span></div>
+        </div>
+      </section>
+
+      <section class="section section-paper">
+        <div class="container split">
           <div>
-            <p class="eyebrow">Architecture at a glance</p>
-            <h2>One core board. Three places to measure.</h2>
-            <p>The main PCB handles power, BLE, compute, and the sensor bus. The round modules define what the band measures: two collect wrist-contact body signals, while one looks outward at the surrounding environment.</p>
-            <div class="metric-grid">
-              <div class="metric-card"><strong>2</strong><span>wrist-contact modules for body signals</span></div>
-              <div class="metric-card"><strong>1</strong><span>outward module for environment context</span></div>
-              <div class="metric-card"><strong>36x20</strong><span>mm class main PCB footprint target</span></div>
+            <p class="eyebrow">Current status</p>
+            <h2>Functional hardware, not a future assembly plan.</h2>
+            <p class="lead">We have multiple fully functional, battery-powered prototypes. They run for more than 48 hours on one charge and reliably transmit sensor data over Bluetooth.</p>
+          </div>
+          <div class="spec-list">
+            <div class="spec-row"><span>Sensor puck</span><strong>The first 10 mm circular PPG puck is fully developed and working.</strong></div>
+            <div class="spec-row"><span>Recognition</span><strong>The mainboard recognizes and communicates with connected pucks.</strong></div>
+            <div class="spec-row"><span>Runtime</span><strong>More than 48 hours measured on one charge.</strong></div>
+            <div class="spec-row"><span>Enclosure</span><strong>Current enclosure and strap are temporary and used for prototype testing.</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-sand">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Puck interface</p>
+            <h2>Exchange the module, not the core device.</h2>
+            <p class="lead">The 10 mm pucks connect through pogo contacts using I²C. The mainboard recognizes and communicates with the connected puck, allowing modules to be exchanged without redesigning the core device.</p>
+          </div>
+          <div class="interface-diagram" aria-label="Sensor puck connection flow">
+            <div class="interface-node accent">
+              <span class="node-index">01 / Sensor</span>
+              <h3>10 mm puck</h3>
+            </div>
+            <div class="interface-arrow" aria-hidden="true">→</div>
+            <div class="interface-node">
+              <span class="node-index">02 / Interface</span>
+              <h3>Pogo contacts + I²C</h3>
+            </div>
+            <div class="interface-arrow" aria-hidden="true">→</div>
+            <div class="interface-node">
+              <span class="node-index">03 / Core</span>
+              <h3>Mainboard recognition</h3>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section real-section">
-        <div class="container split">
-          <div class="section-copy">
-            <p class="eyebrow">Modularity is the product</p>
-            <h2>The sensor module comes out. The use case changes.</h2>
-            <p>For a layperson, this means a wearable that can be configured instead of replaced. For a technical partner, it means a repeatable hardware interface for new sensors, validation runs, and specialized signal stacks.</p>
-            <div class="build-board">
-              <div><span>Specialize</span><strong>research, safety, wellness, open-source builds</strong></div>
-              <div><span>Repair</span><strong>replace a sensor module instead of the whole band</strong></div>
-              <div><span>Upgrade</span><strong>new sensor generation, same core architecture</strong></div>
-            </div>
-          </div>
-          <div class="puck-stage product-visual">
-            <img
-              class="sequence-frame"
-              src="Photos/stage-frames-430-webp/openpulse_0300.webp"
-              alt="OpenPulse sensor-module swap animation frame"
-              data-sequence
-              data-sequence-path="Photos/stage-frames-430-webp/openpulse_"
-              data-sequence-count="430"
-            >
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="pucks">
+      <section class="section section-paper" id="status">
         <div class="container">
-          <div class="centered-heading">
-            <p class="eyebrow">Sensor modules</p>
-            <h2>Simple explanation first. Chip-level detail second.</h2>
-            <p>Each round module is a small replaceable sensor board. First we explain what it measures and why a pilot might need it; then the chip-level detail is available for engineers.</p>
+          <div class="section-heading">
+            <p class="eyebrow">Module status</p>
+            <h2>Roadmap, without blurred lines.</h2>
+            <p class="lead">Only the PPG sensor puck is working today. Every other puck is labelled according to its actual state.</p>
           </div>
-          <div class="sensor-grid">
-            <article class="sensor-card ppg">
-              <span class="sensor-dot"></span>
-              <h3>PPG module</h3>
-              <p>Optical pulse sensing for heart rate, HRV, and SpO2-related research signals.</p>
-              <dl>
-                <dt>For pilots</dt><dd>recovery, exertion, safety context</dd>
-                <dt>Chip</dt><dd>MAXM86161</dd>
-              </dl>
+          <div class="status-table">
+            <article class="status-row">
+              <h3>PPG</h3>
+              <span class="status-pill working">Working prototype</span>
+              <p>Working PPG puck for heart-rate and blood-oxygen measurement. No medical or clinical validation is implied.</p>
             </article>
-            <article class="sensor-card eda">
-              <span class="sensor-dot"></span>
-              <h3>EDA / Bioimpedance</h3>
-              <p>Skin conductance and impedance signals for stress, arousal, and response studies.</p>
-              <dl>
-                <dt>For pilots</dt><dd>research, neuromarketing, GBU-Psyche</dd>
-                <dt>Chip</dt><dd>MAX30009</dd>
-              </dl>
+            <article class="status-row">
+              <h3>Temperature</h3>
+              <span class="status-pill">Planned</span>
+              <p>A planned body-facing puck. Not included in the current working prototype configuration.</p>
             </article>
-            <article class="sensor-card temp">
-              <span class="sensor-dot"></span>
-              <h3>Skin temperature</h3>
-              <p>High-resolution temperature tracking as context for recovery, environment, and safety.</p>
-              <dl>
-                <dt>For pilots</dt><dd>wellness, heat exposure, trend tracking</dd>
-                <dt>Chip</dt><dd>TMP117</dd>
-              </dl>
+            <article class="status-row">
+              <h3>Gas / environment</h3>
+              <span class="status-pill">Planned</span>
+              <p>A planned outward-facing puck for environment-sensing configurations.</p>
             </article>
-            <article class="sensor-card imu">
-              <span class="sensor-dot"></span>
-              <h3>IMU</h3>
-              <p>Movement, posture, and activity context that helps interpret physiological signals.</p>
-              <dl>
-                <dt>For pilots</dt><dd>sports, safety, artifacts, activity context</dd>
-                <dt>Stack</dt><dd>accelerometer / motion primitives</dd>
-              </dl>
-            </article>
-            <article class="sensor-card mic">
-              <span class="sensor-dot"></span>
-              <h3>Microphone</h3>
-              <p>Acoustic context for controlled pilots where sound events matter to the measurement setup.</p>
-              <dl>
-                <dt>For pilots</dt><dd>environmental context, interaction studies</dd>
-                <dt>Status</dt><dd>configuration-dependent</dd>
-              </dl>
-            </article>
-            <article class="sensor-card env">
-              <span class="sensor-dot"></span>
-              <h3>Environment module</h3>
-              <p>Sensing that faces away from the wrist for gas, humidity, temperature, or other workplace context.</p>
-              <dl>
-                <dt>For pilots</dt><dd>workplace safety, industrial environments</dd>
-                <dt>Position</dt><dd>faces away from the wrist</dd>
-              </dl>
+            <article class="status-row">
+              <h3>EDA / bioimpedance</h3>
+              <span class="status-pill future">Future concept</span>
+              <p>A future body-facing concept, not a currently available module.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section">
-        <div class="container split">
-          <div class="section-copy">
-            <p class="eyebrow">Full specs</p>
-            <h2>Enough detail for engineers. Still skippable for everyone else.</h2>
-            <p>OpenPulse should never bury the product in jargon. But serious pilot partners need to see that the architecture has real engineering decisions behind it.</p>
-          </div>
-          <div class="specs-list">
-            <details open>
-              <summary>Firmware and connectivity</summary>
-              <ul>
-                <li>Seeed XIAO nRF52840 Sense as the current main compute/BLE platform.</li>
-                <li>Zephyr RTOS target for structured firmware development.</li>
-                <li>BLE for device communication, MQTT in the data path from day one.</li>
-              </ul>
-            </details>
-            <details>
-              <summary>Signal processing</summary>
-              <ul>
-                <li>NeuroKit2 primitives for transparent biosignal processing where applicable.<sup><a href="#source-neurokit">1</a></sup></li>
-                <li>Classical DSP first, narrow ML use only where it adds measurable value.</li>
-                <li>Pipeline goal: acquisition -> primitives -> composite metrics -> use-case outputs.</li>
-              </ul>
-            </details>
-            <details>
-              <summary>Power, housing, and status</summary>
-              <ul>
-                <li>Approx. 120 mAh battery class and 30+ hour target depending on configuration.</li>
-                <li>IP54 target for pilot hardware.</li>
-                <li>ECG is framed as a V2 housing/band-closure contact concept, not as a removable module claim.</li>
-              </ul>
-            </details>
-          </div>
-        </div>
-      </section>
-
-      <section class="section real-section">
+      <section class="section section-navy">
         <div class="container">
-          <div class="centered-heading">
-            <p class="eyebrow">Open software architecture</p>
-            <h2>The hardware is modular. The signal path should be modular too.</h2>
+          <div class="section-heading">
+            <p class="eyebrow">Core capabilities</p>
+            <h2>The base stays useful as the sensor stack changes.</h2>
           </div>
-          <div class="pipeline">
-            <div class="pipeline-step"><span>01</span><h3>Acquisition</h3><p>Raw sensor channels from module-specific drivers.</p></div>
-            <div class="pipeline-step"><span>02</span><h3>Primitives</h3><p>EDA, PPG, temperature, motion, and environment processing blocks.</p></div>
-            <div class="pipeline-step"><span>03</span><h3>Composite</h3><p>Use-case-aware signal combinations, not one uniform algorithm for all.</p></div>
-            <div class="pipeline-step"><span>04</span><h3>YAML pipelines</h3><p>Configurable recipes for pilots and repeatable studies.</p></div>
-            <div class="pipeline-step"><span>05</span><h3>Outputs</h3><p>MQTT, dashboards, exports, app integrations, or local alerts.</p></div>
+          <div class="capability-grid">
+            <article class="capability-card">
+              <span>01 / Communication</span>
+              <h3>Bluetooth data transmission</h3>
+              <p>Working prototypes reliably transmit sensor data over Bluetooth to a nearby device.</p>
+            </article>
+            <article class="capability-card">
+              <span>02 / Onboard</span>
+              <h3>Motion and microphone</h3>
+              <p>Onboard capabilities of the current development platform, not separate puck claims.</p>
+            </article>
+            <article class="capability-card">
+              <span>03 / Synchronization</span>
+              <h3>Optional MQTT</h3>
+              <p>MQTT can be used as an optional synchronization route when it fits a customer system.</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="section navy">
-        <div class="container centered-heading">
-          <p class="eyebrow">Data sovereignty</p>
-          <h2>No forced cloud as the center of the product.</h2>
-          <p>OpenPulse is designed for local processing, open APIs, exportable data, and pilots where the partner can understand what is measured and how the signal is transformed.</p>
+      <section class="section section-paper">
+        <div class="container evidence-grid">
+          <div class="photo-panel product-focus">
+            <img src="/Photos/TeamFoto.PNG" alt="OpenPulse founders showing the wrist-worn working prototype">
+            <div class="photo-caption"><span>Actual prototype</span><span>Temporary test enclosure</span></div>
+          </div>
+          <div class="evidence-stack">
+            <article class="evidence-card">
+              <span class="status-pill working">Working</span>
+              <h3>Battery-powered prototypes</h3>
+              <p>Multiple units operate independently without a wired power connection.</p>
+            </article>
+            <article class="evidence-card">
+              <strong class="metric">48h+</strong>
+              <h3>One charge</h3>
+              <p>Measured prototype runtime, not a future battery target.</p>
+            </article>
+            <article class="evidence-card dark">
+              <h3>Prototype-grade wearability</h3>
+              <p>The enclosure and strap support current testing. They are not presented as production-ready industrial design.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-navy closing-cta">
+        <div class="container">
+          <p class="eyebrow">Configure the platform</p>
+          <h2>Start with the signal your company needs.</h2>
+          <p class="lead">We will map the requirement to the current platform and separate working hardware from planned development.</p>
           <div class="hero-actions centered">
-            <button class="button button-primary" type="button" data-open-contact>Talk through a sensor setup</button>
-            <a class="button button-light" href="use-cases.html">See pilot paths</a>
+            <button class="button button-primary" type="button" data-open-contact>Discuss a configuration</button>
+            <a class="button button-light" href="/software.html">Explore software &amp; API</a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <img class="footer-logo" src="Photos/openpulse-logo-alpha.png" alt="OpenPulse">
-          <p>OpenPulse builds modular, open biosignal wearables for teams that need exactly the right sensors.</p>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img class="footer-logo" src="/Photos/openpulse-logo-alpha.png" alt="OpenPulse">
+            <p>OpenPulse is a modular B2B wearable sensor platform with swappable sensor pucks, raw-data access, and integration into existing systems.</p>
+          </div>
+          <div><h3>Platform</h3><a href="/hardware.html">Hardware</a><a href="/software.html">Software &amp; API</a><a href="/use-cases.html">Use cases</a></div>
+          <div><h3>Company</h3><a href="/team.html">Team</a><a href="/competitions.html">Recognition</a></div>
+          <div><h3>Contact</h3><button type="button" data-open-contact>Tell us what you need</button><a href="mailto:hello@openpulse.dev">hello@openpulse.dev</a></div>
         </div>
-        <div>
-          <h3>Pages</h3>
-          <a href="hardware.html">Hardware</a>
-          <a href="use-cases.html">Use Cases</a>
-          <a href="team.html">Team</a>
-          <a href="competitions.html">Competitions</a>
-        </div>
-        <div>
-          <h3>Contact</h3>
-          <button type="button" data-open-contact>Discuss a pilot</button>
-          <a href="https://github.com/openpulse">GitHub</a>
-          <a href="mailto:hello@openpulse.dev">hello@openpulse.dev</a>
-        </div>
-        <div class="sources">
-          <h3>Sources</h3>
-          <a id="source-neurokit" href="https://neuropsychology.github.io/NeuroKit/">1. NeuroKit2 documentation</a>
-          <a href="https://www.empatica.com/en-us/research/e4-sunset">Empatica E4 sunset</a>
-          <a href="https://www.baua.de/DE/Themen/Arbeitsgestaltung/Gefaehrdungsbeurteilung/Handbuch-Gefaehrdungsbeurteilung/Expertenwissen/Psychische-Faktoren/Psychische-Faktoren.html">BAuA psychological factors</a>
-        </div>
+        <div class="footer-bottom"><span>© 2026 OpenPulse</span><span>Modular sensing for companies</span></div>
       </div>
     </footer>
 
     <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" data-contact hidden>
       <div class="modal-panel">
         <button class="modal-close" type="button" aria-label="Close contact form" data-close-contact></button>
-        <p class="eyebrow">Talk to us</p>
-        <h2 id="contact-title">Map your first OpenPulse pilot.</h2>
+        <p class="eyebrow">Company inquiry</p>
+        <h2 id="contact-title">Tell us what your company needs to measure.</h2>
         <form class="contact-form" data-contact-form>
           <label>Name<input name="name" autocomplete="name" required></label>
-          <label>Organization<input name="organization" autocomplete="organization"></label>
-          <label>Segment
-            <select name="segment">
-              <option>Academic research</option>
-              <option>Workplace safety</option>
-              <option>GBU-Psyche</option>
-              <option>Neuromarketing</option>
-              <option>Wellness</option>
-              <option>Open source / quantified self</option>
-            </select>
-          </label>
-          <label>What do you want to measure?<textarea name="message" rows="4" required></textarea></label>
-          <button class="button button-primary" type="submit">Prepare pilot email</button>
+          <label>Company<input name="company" autocomplete="organization" required></label>
+          <label class="full">Measurement requirement<textarea name="measurement" rows="3" placeholder="What signals or conditions do you need to measure?" required></textarea></label>
+          <label class="full">Desired integration<textarea name="integration" rows="3" placeholder="App, database, dashboard, operational system…" required></textarea></label>
+          <label>Approximate device count<input name="deviceCount" inputmode="numeric" placeholder="For example, 20"></label>
+          <div><button class="button button-primary" type="submit">Prepare email</button></div>
         </form>
       </div>
     </div>
-
-    <script src="app.js"></script>
+    <script src="/app.js"></script>
   </body>
 </html>

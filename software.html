@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Software &amp; API — OpenPulse raw-data integration</title>
+    <meta name="description" content="OpenPulse provides companies with underlying raw sensor data and an integration layer for apps, databases, dashboards, and operational systems.">
+    <link rel="canonical" href="https://www.openpulse.eu/software.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OpenPulse">
+    <meta property="og:title" content="Raw sensor data, connected to your system.">
+    <meta property="og:description" content="The OpenPulse software and API direction for raw-data access, multi-unit visibility, and B2B integration.">
+    <meta property="og:url" content="https://www.openpulse.eu/software.html">
+    <meta property="og:image" content="https://www.openpulse.eu/Photos/openpulse-social-preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://www.openpulse.eu/Photos/openpulse-social-preview.png">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body data-page="software">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header" data-header>
+      <a class="brand" href="/" aria-label="OpenPulse home"><img src="/Photos/openpulse-logo-alpha.png" alt="OpenPulse"></a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle><span></span><span></span></button>
+      <nav class="site-nav" aria-label="Main navigation" data-nav>
+        <a href="/hardware.html">Hardware</a>
+        <a href="/use-cases.html">Use cases</a>
+        <a href="/software.html">Software &amp; API</a>
+        <a href="/team.html">Team</a>
+        <a href="/competitions.html">Recognition</a>
+        <button class="button button-primary nav-cta" type="button" data-open-contact>Talk to us</button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero page-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Software &amp; API</p>
+          <h1>Raw sensor data, connected to your system.</h1>
+          <p class="lead">OpenPulse gives companies access to the underlying raw sensor data instead of only predefined scores. The wearable can communicate with a phone, laptop, or server, and our software can display and analyze data from multiple units simultaneously.</p>
+          <div class="hero-actions">
+            <button class="button button-primary" type="button" data-open-contact>Discuss your integration</button>
+            <a class="button button-secondary" href="#status">See development status</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="system-card" aria-label="OpenPulse live data transmission illustration">
+            <div class="system-card-header"><span>Data layer / preview</span><span class="live-dot">Receiving</span></div>
+            <div class="live-data" style="position:relative;top:85px;gap:24px">
+              <div class="live-row" style="grid-template-columns:70px 1fr 58px"><span>Unit 01</span><i style="--value:91%"></i><span>PPG</span></div>
+              <div class="live-row" style="grid-template-columns:70px 1fr 58px"><span>Unit 02</span><i style="--value:76%"></i><span>PPG</span></div>
+              <div class="live-row" style="grid-template-columns:70px 1fr 58px"><span>Unit 03</span><i style="--value:84%"></i><span>PPG</span></div>
+              <div class="live-row" style="grid-template-columns:70px 1fr 58px"><span>Unit 04</span><i style="--value:67%"></i><span>PPG</span></div>
+            </div>
+            <div class="system-card-footer"><span>Multiple units</span><span>Raw-data access</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="status-ribbon" aria-label="Software priorities">
+        <div class="status-grid">
+          <div class="status-item"><strong>Raw</strong><span>sensor-data access</span></div>
+          <div class="status-item"><strong>Multi</strong><span>unit visibility</span></div>
+          <div class="status-item"><strong>BLE</strong><span>working data link</span></div>
+          <div class="status-item"><strong>API</strong><span>in development</span></div>
+        </div>
+      </section>
+
+      <section class="section section-paper">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">The data path</p>
+            <h2>From sensor puck to company workflow.</h2>
+            <p class="lead">The integration layer connects wearable data to the customer’s existing app, database, dashboard, or operational system.</p>
+          </div>
+          <div class="software-flow" aria-label="OpenPulse data flow">
+            <article class="software-node"><span>01 / Sense</span><h3>Sensor puck</h3><p>The connected module captures the required signal.</p></article>
+            <article class="software-node"><span>02 / Transmit</span><h3>Core wearable</h3><p>The working prototype transmits data over Bluetooth.</p></article>
+            <article class="software-node"><span>03 / Access</span><h3>OpenPulse software</h3><p>Raw data can be displayed and analyzed across multiple units.</p></article>
+            <article class="software-node"><span>04 / Integrate</span><h3>Customer system</h3><p>The data connects to an existing product or workflow.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-sand" id="status">
+        <div class="container split">
+          <div>
+            <span class="status-pill development">In development</span>
+            <p class="eyebrow" style="margin-top:24px">Customer-facing API</p>
+            <h2>Integration is central. The production API is not being overstated.</h2>
+            <p class="lead">The API and integration layer are in development. We do not imply that a production customer API is already deployed end to end.</p>
+          </div>
+          <div class="spec-list">
+            <div class="spec-row"><span>Working now</span><strong>Reliable Bluetooth transmission from battery-powered prototypes.</strong></div>
+            <div class="spec-row"><span>Software</span><strong>Display and analysis direction for multiple units simultaneously.</strong></div>
+            <div class="spec-row"><span>API</span><strong>Customer-facing access and integration layer in development.</strong></div>
+            <div class="spec-row"><span>MQTT</span><strong>Optional synchronization route when appropriate, not a mandatory data path.</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-paper">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Integration targets</p>
+            <h2>Fit the company’s existing stack.</h2>
+          </div>
+          <div class="integration-grid">
+            <article class="integration-card"><h3>App</h3><p>Bring wearable data into an existing mobile or desktop product experience.</p></article>
+            <article class="integration-card"><h3>Database</h3><p>Store underlying sensor data in the customer’s preferred data environment.</p></article>
+            <article class="integration-card"><h3>Dashboard</h3><p>Display multiple units and relevant measurements in an operational view.</p></article>
+            <article class="integration-card"><h3>Operational system</h3><p>Connect sensor input to an existing company workflow or decision process.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-navy">
+        <div class="container split wide-right">
+          <div>
+            <p class="eyebrow">Why raw data matters</p>
+            <h2>Build your own meaning on top.</h2>
+          </div>
+          <div class="problem-list">
+            <article class="problem-item"><span>01</span><div><h3>Inspect the underlying signal</h3><p>Work from sensor data rather than being limited to a vendor’s predefined score.</p></div></article>
+            <article class="problem-item"><span>02</span><div><h3>Use the company’s own logic</h3><p>Apply analysis and interpretation that match the actual operational use case.</p></div></article>
+            <article class="problem-item"><span>03</span><div><h3>Integrate instead of replacing</h3><p>Add wearable sensing to the systems the company already relies on.</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-navy closing-cta">
+        <div class="container">
+          <p class="eyebrow">Plan the integration</p>
+          <h2>Where should the sensor data go?</h2>
+          <p class="lead">Tell us your measurement requirement and current system. We’ll separate today’s working data path from the integration work still required.</p>
+          <div class="hero-actions centered">
+            <button class="button button-primary" type="button" data-open-contact>Discuss your data path</button>
+            <a class="button button-light" href="/hardware.html">See the hardware</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand"><img class="footer-logo" src="/Photos/openpulse-logo-alpha.png" alt="OpenPulse"><p>OpenPulse is a modular B2B wearable sensor platform with swappable sensor pucks, raw-data access, and integration into existing systems.</p></div>
+          <div><h3>Platform</h3><a href="/hardware.html">Hardware</a><a href="/software.html">Software &amp; API</a><a href="/use-cases.html">Use cases</a></div>
+          <div><h3>Company</h3><a href="/team.html">Team</a><a href="/competitions.html">Recognition</a></div>
+          <div><h3>Contact</h3><button type="button" data-open-contact>Tell us what you need</button><a href="mailto:hello@openpulse.dev">hello@openpulse.dev</a></div>
+        </div>
+        <div class="footer-bottom"><span>© 2026 OpenPulse</span><span>Modular sensing for companies</span></div>
+      </div>
+    </footer>
+
+    <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" data-contact hidden>
+      <div class="modal-panel">
+        <button class="modal-close" type="button" aria-label="Close contact form" data-close-contact></button>
+        <p class="eyebrow">Company inquiry</p>
+        <h2 id="contact-title">Tell us what your company needs to measure.</h2>
+        <form class="contact-form" data-contact-form>
+          <label>Name<input name="name" autocomplete="name" required></label>
+          <label>Company<input name="company" autocomplete="organization" required></label>
+          <label class="full">Measurement requirement<textarea name="measurement" rows="3" placeholder="What signals or conditions do you need to measure?" required></textarea></label>
+          <label class="full">Desired integration<textarea name="integration" rows="3" placeholder="App, database, dashboard, operational system…" required></textarea></label>
+          <label>Approximate device count<input name="deviceCount" inputmode="numeric" placeholder="For example, 20"></label>
+          <div><button class="button button-primary" type="submit">Prepare email</button></div>
+        </form>
+      </div>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>
