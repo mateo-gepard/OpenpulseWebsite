@@ -207,17 +207,57 @@
       });
   });
 
-  /* ---------- hero: scroll-scrubbed rotation ----------
-     The band turns from a three-quarter view to face-on as you scroll the
-     hero. The still stays in the markup and is only replaced once the video
-     has enough data to seek, so a failed or slow load degrades to the image.
-     Seeks are frame-quantised and one-at-a-time, otherwise rapid scrolling
-     queues requests the decoder cannot keep up with.                        */
+  /* ---------- hero: rotation clip ----------
+     Pointer devices scrub the rotation against hero scroll position. Touch
+     devices play it through once when it comes into view instead: iOS Safari
+     throttles seeks during momentum scroll, which makes scrubbing stall and
+     then jump, and a clean one-shot reads far better than that.
+     Either way the still stays in the markup and is only replaced once the
+     clip is actually usable, so a failed or slow load degrades to the image. */
 
   var heroMedia = document.getElementById('heroMedia');
   var coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  var conn = navigator.connection;
+  var saveData = Boolean(conn && conn.saveData);
 
-  if (heroMedia && !reduceMotion && !coarse) {
+  if (heroMedia && !reduceMotion && !saveData && coarse) {
+    var clip = document.createElement('video');
+    clip.className = 'hero-video';
+    clip.src = 'assets/video/hero-rotate.mp4';
+    clip.poster = 'assets/img/hero-still.webp';
+    clip.muted = true;
+    clip.defaultMuted = true;
+    clip.playsInline = true;
+    clip.setAttribute('muted', '');
+    clip.setAttribute('playsinline', '');
+    clip.preload = 'auto';
+    clip.setAttribute('aria-hidden', 'true');
+    clip.setAttribute('tabindex', '-1');
+
+    clip.addEventListener('loadeddata', function () {
+      heroMedia.classList.add('has-video');
+      heroMedia.appendChild(clip);
+
+      var play = function () {
+        var p = clip.play();
+        if (p && p.catch) p.catch(function () {});   // blocked: poster stands in
+      };
+
+      if (!('IntersectionObserver' in window)) { play(); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          io.disconnect();
+          play();
+        });
+      }, { threshold: 0.35 });
+      io.observe(heroMedia);
+    }, { once: true });
+
+    clip.load();
+  }
+
+  if (heroMedia && !reduceMotion && !saveData && !coarse) {
     var video = document.createElement('video');
     video.className = 'hero-video';
     video.src = 'assets/video/hero-rotate.mp4';
