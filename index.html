@@ -18,6 +18,19 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+
+<script>
+/* Reveal animations only apply under .js, so content can never be left
+   invisible by a script that fails to load. Set before first paint to avoid
+   a flash, then withdrawn if main.js has not checked in. */
+document.documentElement.className += ' js';
+setTimeout(function () {
+  if (!window.__openpulseBooted) {
+    document.documentElement.className =
+      document.documentElement.className.replace(/\bjs\b/, '');
+  }
+}, 2500);
+</script>
 </head>
 
 <body>

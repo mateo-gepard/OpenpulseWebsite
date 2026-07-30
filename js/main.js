@@ -4,6 +4,8 @@
 (function () {
   'use strict';
 
+  window.__openpulseBooted = true;   // tells the <head> guard the script ran
+
   /* Where the contact form posts. Drop in a Formspree / Basin / own
      endpoint URL and the form will POST to it; left empty, the form
      validates and confirms locally without sending anything. */
@@ -223,36 +225,60 @@
   if (heroMedia && !reduceMotion && !saveData && coarse) {
     var clip = document.createElement('video');
     clip.className = 'hero-video';
-    clip.src = 'assets/video/hero-rotate.mp4';
     clip.poster = 'assets/img/hero-still.webp';
     clip.muted = true;
     clip.defaultMuted = true;
     clip.playsInline = true;
+    clip.autoplay = true;
+    /* iOS only honours these as attributes, and only if they are set before
+       the source is attached. autoplay does the real work here: Safari starts
+       a muted inline video on its own once it has data, with no JS timing to
+       get wrong. */
     clip.setAttribute('muted', '');
     clip.setAttribute('playsinline', '');
+    clip.setAttribute('webkit-playsinline', '');
+    clip.setAttribute('autoplay', '');
     clip.preload = 'auto';
     clip.setAttribute('aria-hidden', 'true');
     clip.setAttribute('tabindex', '-1');
+    clip.src = 'assets/video/hero-rotate.mp4';
 
-    clip.addEventListener('loadeddata', function () {
-      heroMedia.classList.add('has-video');
-      heroMedia.appendChild(clip);
+    /* Insert straight away rather than waiting for `loadeddata`. iOS defers
+       loading until it feels like it, so that event may never arrive and the
+       hero would sit on the still forever. The poster IS the still, so this
+       swap is invisible and stays invisible if playback never starts. */
+    heroMedia.classList.add('has-video');
+    heroMedia.appendChild(clip);
 
-      var play = function () {
-        var p = clip.play();
-        if (p && p.catch) p.catch(function () {});   // blocked: poster stands in
-      };
+    var kick = function () {
+      if (!clip.paused || clip.ended) return;
+      var p = clip.play();
+      if (p && p.catch) p.catch(function () {});   // blocked: poster stands in
+    };
 
-      if (!('IntersectionObserver' in window)) { play(); return; }
+    clip.addEventListener('loadeddata', kick, { once: true });
+    clip.addEventListener('canplay', kick, { once: true });
+
+    if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (!e.isIntersecting) return;
           io.disconnect();
-          play();
+          kick();
         });
-      }, { threshold: 0.35 });
+      }, { threshold: 0.25 });
       io.observe(heroMedia);
-    }, { once: true });
+    } else {
+      kick();
+    }
+
+    /* Low Power Mode blocks autoplay outright; the first touch is the only
+       gesture we are going to get, so use it. */
+    var onFirstTouch = function () {
+      kick();
+      window.removeEventListener('touchstart', onFirstTouch);
+    };
+    window.addEventListener('touchstart', onFirstTouch, { passive: true, once: true });
 
     clip.load();
   }

@@ -702,12 +702,14 @@ body.menu-open{ overflow:hidden; }
    scroll reveal
    ============================================================ */
 
-.reveal{ opacity:0; transform:translateY(22px); }
-.reveal.is-in{
+/* Scoped to .js so that if the script never boots the content is simply
+   visible rather than a page of invisible sections. The <head> sets the
+   class and withdraws it if main.js fails to check in. */
+.js .reveal{ opacity:0; transform:translateY(22px); }
+.js .reveal.is-in{
   opacity:1; transform:none;
   transition:opacity .7s var(--ease), transform .7s var(--ease);
 }
-.js-off .reveal{ opacity:1; transform:none; }
 
 @media (prefers-reduced-motion: reduce){
   .reveal, .reveal.is-in{ opacity:1 !important; transform:none !important; transition:none !important; }
