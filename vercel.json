@@ -1,15 +1,17 @@
 {
   "redirects": [
-    {
-      "source": "/product",
-      "destination": "/hardware.html",
-      "permanent": true
-    },
-    {
-      "source": "/product.html",
-      "destination": "/hardware.html",
-      "permanent": true
-    }
+    { "source": "/product", "destination": "/", "permanent": true },
+    { "source": "/product.html", "destination": "/", "permanent": true },
+    { "source": "/hardware.html", "destination": "/", "permanent": true },
+    { "source": "/hardware", "destination": "/", "permanent": true },
+    { "source": "/software.html", "destination": "/", "permanent": true },
+    { "source": "/software", "destination": "/", "permanent": true },
+    { "source": "/team.html", "destination": "/", "permanent": true },
+    { "source": "/team", "destination": "/", "permanent": true },
+    { "source": "/use-cases.html", "destination": "/", "permanent": true },
+    { "source": "/use-cases", "destination": "/", "permanent": true },
+    { "source": "/competitions.html", "destination": "/", "permanent": true },
+    { "source": "/competitions", "destination": "/", "permanent": true }
   ],
   "headers": [
     {
