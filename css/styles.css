@@ -727,3 +727,148 @@ body.menu-open{ overflow:hidden; }
   .hero-media img{ animation:none; }
   *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
 }
+
+/* ============================================================
+   the problem
+   ============================================================ */
+
+.problem{ background:var(--paper-2); padding:clamp(56px,7vw,104px) 0; }
+.problem-inner{ width:var(--shell); margin-inline:auto; }
+.problem-head{ margin-bottom:clamp(34px,4.5vw,56px); }
+.problem-head h2{ font-size:clamp(30px,4.2vw,52px); }
+
+.problem-list{
+  list-style:none; margin:0; padding:0;
+  display:grid; gap:clamp(26px,3vw,40px);
+  grid-template-columns:1fr;
+}
+@media (min-width: 760px){ .problem-list{ grid-template-columns:repeat(3,1fr); } }
+
+.problem-opt{ padding-top:20px; border-top:1px solid rgba(16,31,60,.18); }
+.problem-num{
+  display:block; margin-bottom:14px;
+  font-size:10.5px; font-weight:600; letter-spacing:.18em; color:var(--ink-3);
+  font-variant-numeric:tabular-nums;
+}
+.problem-opt h3{
+  margin:0 0 12px; font-family:var(--f-display); font-weight:400;
+  font-size:clamp(20px,2.1vw,26px); letter-spacing:-.01em; line-height:1.15;
+}
+.problem-opt p{ margin:0; font-size:14.5px; color:var(--ink-2); max-width:34ch; }
+
+/* the third option is ours: mark it without shouting */
+.problem-opt.is-us{ border-top-color:var(--red); }
+.problem-opt.is-us .problem-num{ color:var(--red); }
+
+/* ============================================================
+   what you get out
+   ============================================================ */
+
+.open{ padding:clamp(60px,8vw,110px) 0; }
+.open-inner{
+  width:var(--shell); margin-inline:auto;
+  display:grid; gap:clamp(34px,4.5vw,64px);
+}
+@media (min-width: 900px){ .open-inner{ grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); } }
+
+.open-head h2{ font-size:clamp(30px,4.2vw,52px); }
+.open-head p{ margin:24px 0 0; color:var(--ink-2); max-width:38ch; font-size:clamp(15px,1.3vw,16.5px); }
+
+.open-list{
+  list-style:none; margin:0; padding:0;
+  display:grid; gap:clamp(22px,2.6vw,32px);
+  grid-template-columns:1fr;
+}
+@media (min-width: 620px){ .open-list{ grid-template-columns:repeat(2,1fr); } }
+
+.open-list li{ padding-top:18px; border-top:1px solid var(--line-soft); }
+.open-list h3{
+  margin:0 0 10px; font-size:11px; font-weight:600;
+  letter-spacing:.14em; text-transform:uppercase;
+}
+.open-list p{ margin:0; font-size:14.5px; color:var(--ink-2); }
+
+/* ============================================================
+   build status
+   ============================================================ */
+
+.status{ background:var(--blue-tint); padding:clamp(56px,7vw,100px) 0; }
+.status-inner{ width:var(--shell); margin-inline:auto; }
+.status-head{ margin-bottom:clamp(34px,4.5vw,56px); max-width:52ch; }
+.status-head h2{ font-size:clamp(30px,4.2vw,50px); }
+.status-head p{ margin:22px 0 0; color:var(--ink-2); font-size:clamp(15px,1.3vw,16.5px); }
+
+.status-list{
+  list-style:none; margin:0; padding:0;
+  display:grid; gap:clamp(24px,3vw,32px);
+  grid-template-columns:1fr;
+}
+@media (min-width: 820px){ .status-list{ grid-template-columns:repeat(3,1fr); } }
+
+.status-item{ padding-top:20px; border-top:2px solid var(--blue); }
+.status-item.is-now { border-top-color:var(--red); }
+.status-item.is-next{ border-top-color:rgba(16,31,60,.22); }
+
+.status-tag{
+  display:inline-block; margin-bottom:14px;
+  font-size:10px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--blue);
+}
+.status-item.is-now  .status-tag{ color:var(--red); }
+.status-item.is-next .status-tag{ color:var(--ink-3); }
+
+.status-item h3{
+  margin:0 0 12px; font-family:var(--f-display); font-weight:400;
+  font-size:clamp(19px,2vw,24px); letter-spacing:-.01em; line-height:1.15;
+}
+.status-item p{ margin:0; font-size:14.5px; color:var(--ink-2); }
+
+.status-note{
+  display:flex; align-items:flex-start; gap:14px;
+  margin:clamp(32px,4vw,48px) 0 0; padding-top:20px;
+  border-top:1px solid rgba(16,31,60,.12);
+  font-size:13.5px; color:var(--ink-2); max-width:62ch;
+}
+.status-note .rule{ width:22px; height:1.5px; background:var(--red); flex:none; margin-top:9px; }
+
+/* ============================================================
+   recognition
+   ============================================================ */
+
+.traction{ background:var(--paper-2); padding:clamp(40px,5vw,64px) 0; }
+.traction-inner{ width:var(--shell); margin-inline:auto; }
+.traction-inner .kicker{ margin-bottom:22px; }
+
+.traction-list{
+  list-style:none; margin:0; padding:0;
+  display:grid; gap:20px clamp(24px,4vw,56px);
+  grid-template-columns:1fr;
+}
+@media (min-width: 660px){ .traction-list{ grid-template-columns:repeat(3,1fr); } }
+
+.traction-list li{
+  display:flex; flex-direction:column; gap:6px;
+  padding-left:16px; border-left:2px solid var(--red);
+}
+.traction-list b{
+  font-family:var(--f-display); font-weight:400; font-size:clamp(22px,2.4vw,30px);
+  letter-spacing:-.01em; line-height:1;
+}
+.traction-list span{ font-size:13px; color:var(--ink-2); }
+
+/* ============================================================
+   what happens next (contact)
+   ============================================================ */
+
+.next-steps{
+  list-style:none; margin:30px 0 0; padding:0;
+  display:grid; gap:12px;
+}
+.next-steps li{
+  display:flex; gap:14px; align-items:baseline;
+  font-size:14.5px; color:var(--ink-2);
+}
+.next-steps span{
+  flex:none; font-size:10.5px; font-weight:600; letter-spacing:.14em;
+  color:var(--red); font-variant-numeric:tabular-nums;
+}

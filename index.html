@@ -75,12 +75,14 @@ setTimeout(function () {
 <div class="menu" id="menu" hidden>
   <nav class="menu-inner" aria-label="Main">
     <ul>
-      <li><a href="#sensors"><span>01</span> Sensor pucks</a></li>
-      <li><a href="#core"><span>02</span> The core</a></li>
-      <li><a href="#flow"><span>03</span> Data path</a></li>
-      <li><a href="#uses"><span>04</span> Configurations</a></li>
-      <li><a href="#team"><span>05</span> Who we are</a></li>
-      <li><a href="#contact"><span>06</span> Get in touch</a></li>
+      <li><a href="#problem"><span>01</span> The problem</a></li>
+      <li><a href="#sensors"><span>02</span> Sensor pucks</a></li>
+      <li><a href="#core"><span>03</span> The core</a></li>
+      <li><a href="#data"><span>04</span> Your data</a></li>
+      <li><a href="#uses"><span>05</span> Configurations</a></li>
+      <li><a href="#status"><span>06</span> Where we are</a></li>
+      <li><a href="#team"><span>07</span> Who we are</a></li>
+      <li><a href="#contact"><span>08</span> Get in touch</a></li>
     </ul>
   </nav>
 </div>
@@ -111,13 +113,42 @@ setTimeout(function () {
     </div>
   </section>
 
+
+  <!-- the problem -->
+  <section class="problem" id="problem" aria-labelledby="problem-h">
+    <div class="problem-inner">
+      <div class="problem-head reveal">
+        <p class="kicker">The choice today</p>
+        <h2 class="display" id="problem-h">Two bad options<span class="dot">.</span></h2>
+      </div>
+
+      <ol class="problem-list">
+        <li class="problem-opt reveal">
+          <span class="problem-num">01</span>
+          <h3>Bend a consumer device to fit</h3>
+          <p>It measures what its maker decided to measure and hands back a score instead of a signal. Your question stops where their product roadmap stops.</p>
+        </li>
+        <li class="problem-opt reveal">
+          <span class="problem-num">02</span>
+          <h3>Build your own from scratch</h3>
+          <p>Electronics, firmware, enclosure, certification, manufacturing. Years of engineering and a budget most teams do not have, and a fixed sensor set at the end of it.</p>
+        </li>
+        <li class="problem-opt is-us reveal">
+          <span class="problem-num">03</span>
+          <h3>Configure one</h3>
+          <p>Keep the core, the radio, the enclosure and the software. Change only the part that senses. That is the whole of what we are building.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <!-- sensor pucks / status -->
   <section class="sensors" id="sensors" aria-labelledby="sensors-h">
     <h2 class="sr-only" id="sensors-h">Sensor pucks</h2>
 
     <article class="puck-panel is-ppg reveal" data-puck="ppg" data-slot="body1" data-label="PPG">
       <header class="puck-head">
-        <span class="puck-kicker">PPG <span aria-hidden="true">/</span> <b>Working</b></span>
+        <span class="puck-kicker">PPG <span aria-hidden="true">/</span> <b>In validation</b></span>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-ppg.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -173,9 +204,9 @@ setTimeout(function () {
         <p class="muted">The core carries the battery, the radio and the clock. The pucks carry everything that changes. When the question changes, you swap a puck, not the product.</p>
 
         <dl class="spec">
-          <div><dt>Slots per core</dt><dd>3</dd></div>
-          <div><dt>Puck change</dt><dd>Under 5 s</dd></div>
-          <div><dt>Contacts</dt><dd>Gold-plated pogo</dd></div>
+          <div><dt>Sensor slots</dt><dd>2 body, 1 environment</dd></div>
+          <div><dt>Puck board</dt><dd>~10 mm circular</dd></div>
+          <div><dt>Core module</dt><dd>XIAO nRF52840 Sense</dd></div>
         </dl>
       </div>
 
@@ -195,9 +226,9 @@ setTimeout(function () {
         <p>A single mechanical and electrical interface across the whole range. A puck we design next year drops into a core built today.</p>
 
         <dl class="spec spec-dark">
-          <div><dt>Contact pair</dt><dd>2 × gold pad</dd></div>
-          <div><dt>Mating cycles</dt><dd>5,000+</dd></div>
-          <div><dt>Keying</dt><dd>Radial, one way</dd></div>
+          <div><dt>Contacts</dt><dd>Pogo pin</dd></div>
+          <div><dt>Interface</dt><dd>Common to every puck</dd></div>
+          <div><dt>Swap</dt><dd>Tool-free</dd></div>
         </dl>
       </div>
 
@@ -238,7 +269,7 @@ setTimeout(function () {
           <p class="path-index">03</p>
           <h3>Bluetooth</h3>
           <p class="path-desc">A reliable link that survives a real work floor.</p>
-          <p class="path-spec">BLE, reconnecting</p>
+          <p class="path-spec">Bluetooth Low Energy</p>
         </li>
 
         <li class="path-stage">
@@ -251,6 +282,37 @@ setTimeout(function () {
       </ol>
 
       <p class="flow-note"><span class="rule" aria-hidden="true"></span>You receive the underlying raw data. Production API in development.</p>
+    </div>
+  </section>
+
+
+  <!-- what you get out -->
+  <section class="open" id="data" aria-labelledby="data-h">
+    <div class="open-inner">
+      <div class="open-head reveal">
+        <p class="kicker">What you get out</p>
+        <h2 class="display" id="data-h">Raw signal<span class="dot">.</span><br>Not a score.</h2>
+        <p>Most wearables hand back a number their maker invented and keep the measurement behind it. That is fine for a consumer app and useless for research or a safety case.</p>
+      </div>
+
+      <ul class="open-list reveal">
+        <li>
+          <h3>The measurement itself</h3>
+          <p>Timestamped signal as the sensor produced it, so your own analysis sits on top of the data rather than on top of somebody else's interpretation of it.</p>
+        </li>
+        <li>
+          <h3>Into your systems</h3>
+          <p>An API into the tools you already run, rather than a dashboard you have to log into. In development, and shaped by the first pilots.</p>
+        </li>
+        <li>
+          <h3>No fee to read your own data</h3>
+          <p>You own the deployment and what it records. Access to your own measurements is not a subscription.</p>
+        </li>
+        <li>
+          <h3>Reconfigurable between studies</h3>
+          <p>Change the sensor set for the next question without changing the platform, the firmware or the pipeline you built around it.</p>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -300,6 +362,38 @@ setTimeout(function () {
     </div>
   </section>
 
+
+  <!-- where the hardware actually is -->
+  <section class="status" id="status" aria-labelledby="status-h">
+    <div class="status-inner">
+      <div class="status-head reveal">
+        <p class="kicker">Where the hardware is</p>
+        <h2 class="display" id="status-h">What works today<span class="dot">,</span><br>and what does not.</h2>
+        <p>We would rather you read this here than discover it midway through a pilot.</p>
+      </div>
+
+      <ol class="status-list">
+        <li class="status-item is-done reveal">
+          <span class="status-tag">Done</span>
+          <h3>The main board</h3>
+          <p>Designed, manufactured through JLCPCB, assembled and tested. Built around the Seeed XIAO nRF52840 Sense.</p>
+        </li>
+        <li class="status-item is-now reveal">
+          <span class="status-tag">Current milestone</span>
+          <h3>Validating the sensor pucks</h3>
+          <p>The circular puck boards exist and the components are in hand. Assembly, reflow, electrical reliability, mechanical contact and on-body signal quality are the work in front of us.</p>
+        </li>
+        <li class="status-item is-next reveal">
+          <span class="status-tag">Next</span>
+          <h3>Configured pilots</h3>
+          <p>Devices built around a specific partner question, with the raw stream landing in their systems. The production API is being built alongside them.</p>
+        </li>
+      </ol>
+
+      <p class="status-note reveal"><span class="rule" aria-hidden="true"></span>The modular puck system is not production hardware yet. Everything above is where it genuinely stands.</p>
+    </div>
+  </section>
+
   <!-- the team -->
   <section class="team" id="team" aria-labelledby="team-h">
     <div class="team-copy reveal">
@@ -312,6 +406,24 @@ setTimeout(function () {
     </figure>
   </section>
 
+
+  <!-- RECOGNITION: built and styled, held back until the exact placements
+       and competition names are confirmed. Delete these two comment lines
+       to publish it.
+  <!~~ recognition. FIGURES NEED CONFIRMING BEFORE THIS GOES PUBLIC ~~>
+  <section class="traction" aria-labelledby="traction-h">
+    <div class="traction-inner">
+      <h2 class="kicker" id="traction-h">Recognition</h2>
+      <ul class="traction-list reveal">
+        <li><b>1st in Europe</b><span>Blue Ocean Entrepreneur Competition</span></li>
+        <li><b>Top 5</b><span>STARTUP TEENS, Health</span></li>
+        <li><b>Top 14 nationwide</b><span>Jugend gr&uuml;ndet</span></li>
+      </ul>
+    </div>
+  </section>
+
+  -->
+
   <!-- contact -->
   <section class="contact" id="contact" aria-labelledby="contact-h">
     <div class="contact-bg" aria-hidden="true">
@@ -323,6 +435,12 @@ setTimeout(function () {
         <p class="kicker">Tell us about your workflow</p>
         <h2 class="display" id="contact-h">What should this configuration measure<span class="dot">?</span></h2>
         <p class="contact-lede">We’re choosing which pucks to build next based on real workflows. Tell us yours.</p>
+
+        <ol class="next-steps">
+          <li><span>01</span>You tell us what you need to measure, and in what setting.</li>
+          <li><span>02</span>We work out whether a configuration of the platform answers it.</li>
+          <li><span>03</span>If it does, we build that configuration and you run it.</li>
+        </ol>
 
         <div class="config-readout" id="configReadout">
           <p class="config-label">Your configuration</p>
