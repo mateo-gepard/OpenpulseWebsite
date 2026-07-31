@@ -70,6 +70,10 @@
   var header = document.getElementById('siteHeader');
   var onScroll = function () {
     header.classList.toggle('is-stuck', window.scrollY > 8);
+    /* the header CTA only appears once the hero's own buttons have gone */
+    var hero = document.querySelector('.hero');
+    var past = hero ? window.scrollY > hero.offsetHeight * 0.7 : false;
+    header.classList.toggle('is-past-hero', past);
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });

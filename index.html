@@ -73,6 +73,8 @@ setTimeout(function () {
       <p class="slots-status" id="slotStatus" role="status">Core empty. 3 slots open</p>
     </nav>
 
+    <a class="btn btn-primary header-cta" href="#contact">Get in touch</a>
+
     <div class="lang">
       <a href="/" aria-current="true" hreflang="en">EN</a><span aria-hidden="true">/</span><a href="/de/" hreflang="de">DE</a>
     </div>
@@ -95,6 +97,7 @@ setTimeout(function () {
       <li><a href="#status">Where we are</a></li>
       <li><a href="#team">Who we are</a></li>
       <li><a href="#contact">Get in touch</a></li>
+      <li class="menu-lang"><a href="/de/" hreflang="de">Auf Deutsch ansehen</a></li>
     </ul>
   </nav>
 </div>
@@ -257,11 +260,12 @@ setTimeout(function () {
   </section>
 
   <!-- data path -->
-  <section class="flow" id="flow" aria-labelledby="flow-h">
+  <section class="flow" id="data" aria-labelledby="flow-h">
     <div class="flow-inner">
       <header class="flow-head">
         <p class="kicker">The signal path</p>
         <h2 class="display flow-h" id="flow-h">Puck <span class="arrow" aria-hidden="true">→</span> Core <span class="arrow" aria-hidden="true">→</span> Your system</h2>
+              <p class="flow-lede">Raw signal, not a score. Most wearables hand back a number their maker invented and keep the measurement behind it. Fine for a consumer app, useless for research or a safety case.</p>
       </header>
 
       <ol class="path reveal">
@@ -294,20 +298,6 @@ setTimeout(function () {
         </li>
       </ol>
 
-      <p class="flow-note"><span class="rule" aria-hidden="true"></span>You receive the underlying raw data. Production API in development.</p>
-    </div>
-  </section>
-
-
-  <!-- what you get out -->
-  <section class="open" id="data" aria-labelledby="data-h">
-    <div class="open-inner">
-      <div class="open-head reveal">
-        <p class="kicker">What you get out</p>
-        <h2 class="display" id="data-h">Raw signal<span class="dot">.</span><br>Not a score.</h2>
-        <p>Most wearables hand back a number their maker invented and keep the measurement behind it. That is fine for a consumer app and useless for research or a safety case.</p>
-      </div>
-
       <ul class="open-list reveal">
         <li>
           <h3>The measurement itself</h3>
@@ -321,13 +311,13 @@ setTimeout(function () {
           <h3>No fee to read your own data</h3>
           <p>You own the deployment and what it records. Access to your own measurements is not a subscription.</p>
         </li>
-        <li>
-          <h3>Reconfigurable between studies</h3>
-          <p>Change the sensor set for the next question without changing the platform, the firmware or the pipeline you built around it.</p>
-        </li>
       </ul>
+
+      <p class="flow-note"><span class="rule" aria-hidden="true"></span>You receive the underlying raw data. Production API in development.</p>
     </div>
   </section>
+
+
 
   <!-- example configurations -->
   <section class="uses" id="uses" aria-labelledby="uses-h">
@@ -404,6 +394,17 @@ setTimeout(function () {
       </ol>
 
       <p class="status-note reveal"><span class="rule" aria-hidden="true"></span>These are working prototypes, not production units. The case and strap are still prototype parts, and certification is ahead of us. Everything above is where it genuinely stands.</p>
+    </div>
+  </section>
+
+
+  <!-- mid-page call to action -->
+  <section class="midcta">
+    <div class="midcta-inner reveal">
+      <p class="kicker">Ready when you are</p>
+      <h2 class="display">Tell us what you need to measure<span class="dot">.</span></h2>
+      <p>If a configuration of this platform answers a question you have, we would rather hear it early than late.</p>
+      <a class="btn btn-primary" href="#contact">Start the conversation</a>
     </div>
   </section>
 

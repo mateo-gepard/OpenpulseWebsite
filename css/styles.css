@@ -28,6 +28,15 @@
   --f-display: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
   --f-ui: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
 
+  /* Type scale. Five steps, used everywhere. Sizes were drifting to ten
+     distinct values chosen per section, which reads as accumulation rather
+     than hierarchy. */
+  --t-hero:    clamp(40px, 7vw, 82px);
+  --t-section: clamp(30px, 4.2vw, 50px);
+  --t-sub:     clamp(19px, 1.9vw, 24px);
+  --t-body:    15px;
+  --t-label:   11px;
+
   --ease: cubic-bezier(.22,.61,.36,1);
   --hdr: 68px;
 }
@@ -87,8 +96,8 @@ button{ font:inherit; color:inherit; -webkit-tap-highlight-color:rgba(16,31,60,.
 .display{
   font-family:var(--f-display);
   font-weight:500;
-  line-height:1.03;
-  letter-spacing:-.032em;
+  line-height:1.0;
+  letter-spacing:-.04em;
   margin:0;
   font-variant-ligatures:common-ligatures;
 }
@@ -241,7 +250,7 @@ body.menu-open{ overflow:hidden; }
   .hero-inner{ grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(24px,4vw,56px); }
 }
 
-.hero h1{ font-size:clamp(42px,7.4vw,86px); }
+.hero h1{ font-size:var(--t-hero); }
 
 .hero-config{
   margin:clamp(20px,2.6vw,28px) 0 0;
@@ -252,7 +261,7 @@ body.menu-open{ overflow:hidden; }
 
 .hero-sub{
   margin:18px 0 0; max-width:44ch;
-  font-size:clamp(15px,1.35vw,17px); color:var(--ink-2); line-height:1.62;
+  font-size:var(--t-body); color:var(--ink-2); line-height:1.62;
 }
 
 .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
@@ -320,7 +329,7 @@ body.menu-open{ overflow:hidden; }
 }
 /* full-height panels only once they sit side by side */
 @media (min-width: 760px){
-  .puck-panel{ min-height:min(74vh,560px); }
+  .puck-panel{ min-height:min(62vh,470px); }
 }
 /* --panel-bg lets the "loaded" button knock its label and dot back out
    in the panel's own colour, whatever that colour is. */
@@ -360,7 +369,7 @@ body.menu-open{ overflow:hidden; }
    the core
    ============================================================ */
 
-.core{ padding:clamp(64px,9vw,132px) 0 clamp(56px,7vw,96px); }
+.core{ padding:clamp(52px,6vw,88px) 0 clamp(48px,5.5vw,76px); }
 
 .core-inner{
   width:var(--shell); margin-inline:auto;
@@ -368,8 +377,8 @@ body.menu-open{ overflow:hidden; }
 }
 @media (min-width: 900px){ .core-inner{ grid-template-columns:minmax(0,.85fr) minmax(0,1fr); } }
 
-.core-copy h2{ font-size:clamp(34px,4.6vw,60px); margin-bottom:26px; }
-.core-copy p{ margin:0 0 16px; max-width:46ch; font-size:clamp(15px,1.3vw,17px); }
+.core-copy h2{ font-size:var(--t-section); margin-bottom:26px; }
+.core-copy p{ margin:0 0 16px; max-width:46ch; font-size:var(--t-body); }
 
 .spec{
   display:grid; gap:0; margin:32px 0 0; padding:0;
@@ -392,7 +401,7 @@ body.menu-open{ overflow:hidden; }
    connector detail (dark band)
    ============================================================ */
 
-.detail{ background:var(--night); color:#fff; padding:clamp(56px,7vw,104px) 0; }
+.detail{ background:var(--night); color:#fff; padding:clamp(48px,5.5vw,80px) 0; }
 
 .detail-inner{
   width:var(--shell); margin-inline:auto;
@@ -402,8 +411,8 @@ body.menu-open{ overflow:hidden; }
   .detail-inner{ grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); }
 }
 
-.detail-copy h2{ font-size:clamp(30px,3.9vw,50px); max-width:15ch; }
-.detail-copy > p{ margin:22px 0 0; max-width:46ch; color:rgba(255,255,255,.7); font-size:clamp(15px,1.3vw,17px); }
+.detail-copy h2{ font-size:var(--t-section); max-width:15ch; }
+.detail-copy > p{ margin:22px 0 0; max-width:46ch; color:rgba(255,255,255,.7); font-size:var(--t-body); }
 
 /* the macro is a lit studio shot: give it its own frame rather than
    bleeding it into the page, so the gradient reads as lighting */
@@ -426,7 +435,7 @@ body.menu-open{ overflow:hidden; }
 .flow-inner{ width:var(--shell); margin-inline:auto; }
 
 .flow-head{ margin-bottom:clamp(40px,5vw,64px); }
-.flow-h{ font-size:clamp(26px,3.6vw,44px); }
+.flow-h{ font-size:var(--t-section); }
 .flow-h .arrow{ color:var(--blue); margin:0 .12em; font-family:var(--f-ui); font-weight:400; }
 
 /* --- signal path -------------------------------------------------------
@@ -492,7 +501,7 @@ body.menu-open{ overflow:hidden; }
 
 .path-stage h3{
   margin:0 0 10px; font-family:var(--f-display); font-weight:500;
-  font-size:clamp(22px,2.2vw,28px); letter-spacing:-.01em; line-height:1.1;
+  font-size:var(--t-sub); letter-spacing:-.01em; line-height:1.1;
 }
 .path-desc{ margin:0 0 18px; font-size:14.5px; color:var(--ink-2); max-width:26ch; }
 .path-spec{
@@ -513,10 +522,10 @@ body.menu-open{ overflow:hidden; }
    example configurations
    ============================================================ */
 
-.uses{ padding:clamp(56px,7vw,96px) 0; }
+.uses{ padding:clamp(48px,5.5vw,80px) 0; }
 .uses-h{
   width:var(--shell); margin:0 auto clamp(28px,3.4vw,44px);
-  font-family:var(--f-display); font-weight:500; font-size:clamp(20px,2.2vw,27px);
+  font-family:var(--f-display); font-weight:500; font-size:var(--t-sub);
   letter-spacing:-.01em;
 }
 .uses-h span{ color:var(--ink-3); margin:0 4px; }
@@ -544,7 +553,7 @@ body.menu-open{ overflow:hidden; }
 }
 .use-badge svg{ width:24px; height:24px; }
 
-.use h3{ margin:0 0 12px; font-family:var(--f-display); font-weight:500; font-size:clamp(20px,2vw,25px); letter-spacing:-.01em; }
+.use h3{ margin:0 0 12px; font-family:var(--f-display); font-weight:500; font-size:var(--t-sub); letter-spacing:-.01em; }
 .use-rule{ display:block; width:34px; height:2px; background:var(--blue); margin-bottom:14px; }
 .use p{ margin:0; font-size:14.5px; color:var(--ink-2); max-width:34ch; }
 
@@ -566,8 +575,8 @@ body.menu-open{ overflow:hidden; }
 @media (min-width: 880px){
   .team-copy{ padding-left:var(--edge); padding-right:clamp(28px,3vw,48px); }
 }
-.team-copy h2{ font-size:clamp(32px,4.2vw,54px); }
-.team-copy p{ margin:24px 0 0; color:var(--ink-2); font-size:clamp(15px,1.3vw,16.5px); max-width:38ch; }
+.team-copy h2{ font-size:var(--t-section); }
+.team-copy p{ margin:24px 0 0; color:var(--ink-2); font-size:var(--t-body); max-width:38ch; }
 
 .team-media{ margin:0; height:100%; }
 .team-media img{
@@ -583,7 +592,7 @@ body.menu-open{ overflow:hidden; }
 .contact{
   position:relative; overflow:hidden;
   background:linear-gradient(180deg, var(--paper) 0%, #eeece7 100%);
-  padding:clamp(60px,8vw,110px) 0 clamp(56px,7vw,92px);
+  padding:clamp(52px,6vw,84px) 0 clamp(56px,7vw,92px);
 }
 .contact-bg{
   position:absolute; left:50%; top:-9%; transform:translateX(-50%);
@@ -600,8 +609,8 @@ body.menu-open{ overflow:hidden; }
 }
 @media (min-width: 900px){ .contact-inner{ grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr); } }
 
-.contact-copy h2{ font-size:clamp(32px,4.4vw,56px); max-width:13ch; }
-.contact-lede{ margin:22px 0 0; color:var(--ink-2); max-width:38ch; font-size:clamp(15px,1.3vw,16.5px); }
+.contact-copy h2{ font-size:var(--t-section); max-width:13ch; }
+.contact-lede{ margin:22px 0 0; color:var(--ink-2); max-width:38ch; font-size:var(--t-body); }
 
 .config-readout{
   margin-top:34px; padding:20px 22px;
@@ -721,10 +730,10 @@ body.menu-open{ overflow:hidden; }
    the problem
    ============================================================ */
 
-.problem{ background:var(--paper-2); padding:clamp(56px,7vw,104px) 0; }
+.problem{ background:var(--paper-2); padding:clamp(48px,5.5vw,80px) 0; }
 .problem-inner{ width:var(--shell); margin-inline:auto; }
 .problem-head{ margin-bottom:clamp(34px,4.5vw,56px); }
-.problem-head h2{ font-size:clamp(30px,4.2vw,52px); }
+.problem-head h2{ font-size:var(--t-section); }
 
 .problem-list{
   list-style:none; margin:0; padding:0;
@@ -736,7 +745,7 @@ body.menu-open{ overflow:hidden; }
 .problem-opt{ padding-top:20px; border-top:1px solid rgba(16,31,60,.18); }
 .problem-opt h3{
   margin:0 0 12px; font-family:var(--f-display); font-weight:500;
-  font-size:clamp(20px,2.1vw,26px); letter-spacing:-.01em; line-height:1.15;
+  font-size:var(--t-sub); letter-spacing:-.01em; line-height:1.15;
 }
 .problem-opt p{ margin:0; font-size:14.5px; color:var(--ink-2); max-width:34ch; }
 
@@ -746,15 +755,15 @@ body.menu-open{ overflow:hidden; }
    what you get out
    ============================================================ */
 
-.open{ padding:clamp(60px,8vw,110px) 0; }
+.open{ padding:clamp(52px,6vw,84px) 0; }
 .open-inner{
   width:var(--shell); margin-inline:auto;
   display:grid; gap:clamp(34px,4.5vw,64px);
 }
 @media (min-width: 900px){ .open-inner{ grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); } }
 
-.open-head h2{ font-size:clamp(30px,4.2vw,52px); }
-.open-head p{ margin:24px 0 0; color:var(--ink-2); max-width:38ch; font-size:clamp(15px,1.3vw,16.5px); }
+.open-head h2{ font-size:var(--t-section); }
+.open-head p{ margin:24px 0 0; color:var(--ink-2); max-width:38ch; font-size:var(--t-body); }
 
 .open-list{
   list-style:none; margin:0; padding:0;
@@ -774,11 +783,11 @@ body.menu-open{ overflow:hidden; }
    build status
    ============================================================ */
 
-.status{ background:var(--blue-tint); padding:clamp(56px,7vw,100px) 0; }
+.status{ background:var(--paper-2); padding:clamp(48px,5.5vw,80px) 0; }
 .status-inner{ width:var(--shell); margin-inline:auto; }
 .status-head{ margin-bottom:clamp(34px,4.5vw,56px); max-width:52ch; }
-.status-head h2{ font-size:clamp(30px,4.2vw,50px); }
-.status-head p{ margin:22px 0 0; color:var(--ink-2); font-size:clamp(15px,1.3vw,16.5px); }
+.status-head h2{ font-size:var(--t-section); }
+.status-head p{ margin:22px 0 0; color:var(--ink-2); font-size:var(--t-body); }
 
 .status-list{
   list-style:none; margin:0; padding:0;
@@ -801,7 +810,7 @@ body.menu-open{ overflow:hidden; }
 
 .status-item h3{
   margin:0 0 12px; font-family:var(--f-display); font-weight:500;
-  font-size:clamp(19px,2vw,24px); letter-spacing:-.01em; line-height:1.15;
+  font-size:var(--t-sub); letter-spacing:-.01em; line-height:1.15;
 }
 .status-item p{ margin:0; font-size:14.5px; color:var(--ink-2); }
 
@@ -833,7 +842,7 @@ body.menu-open{ overflow:hidden; }
   padding-left:16px; border-left:2px solid var(--red);
 }
 .traction-list b{
-  font-family:var(--f-display); font-weight:500; font-size:clamp(22px,2.4vw,30px);
+  font-family:var(--f-display); font-weight:500; font-size:var(--t-sub);
   letter-spacing:-.01em; line-height:1;
 }
 .traction-list span{ font-size:13px; color:var(--ink-2); }
@@ -939,8 +948,8 @@ body.menu-open{ overflow:hidden; }
 
 .legal{ padding:clamp(48px,6vw,88px) 0 clamp(56px,7vw,96px); }
 .legal-inner{ width:min(760px, 100% - 2 * var(--gutter)); margin-inline:auto; }
-.legal h1{ font-size:clamp(34px,5vw,56px); }
-.legal-lede{ margin:22px 0 0; color:var(--ink-2); font-size:clamp(15px,1.3vw,17px); max-width:52ch; }
+.legal h1{ font-size:var(--t-section); }
+.legal-lede{ margin:22px 0 0; color:var(--ink-2); font-size:var(--t-body); max-width:52ch; }
 
 .legal section{ margin-top:clamp(34px,4vw,52px); }
 .legal h2{
@@ -987,3 +996,87 @@ body.menu-open{ overflow:hidden; }
 .site-footer .lang a[aria-current="true"],
 .site-footer .lang a:hover{ color:#fff; }
 .site-footer .lang span{ color:rgba(255,255,255,.25); }
+
+/* ============================================================
+   persistent call to action
+   ============================================================ */
+
+/* Hidden until past the hero: before that the hero's own buttons are on
+   screen, and two competing CTAs in view at once is noise. */
+.header-cta{
+  display:none; padding:10px 18px; font-size:10.5px; flex:none;
+  opacity:0; transform:translateY(-4px);
+  transition:opacity .3s var(--ease), transform .3s var(--ease);
+}
+.site-header.is-past-hero .header-cta{ opacity:1; transform:none; }
+@media (min-width: 620px){ .header-cta{ display:inline-flex; } }
+
+/* ---------- mid-page CTA ---------- */
+.midcta{ background:var(--ink); color:#fff; padding:clamp(48px,5.5vw,76px) 0; }
+.midcta-inner{ width:var(--shell); margin-inline:auto; max-width:none; }
+.midcta .kicker{ color:rgba(255,255,255,.5); }
+.midcta h2{ font-size:var(--t-section); max-width:18ch; }
+.midcta p{
+  margin:20px 0 28px; max-width:46ch;
+  font-size:var(--t-body); color:rgba(255,255,255,.72);
+}
+
+/* ---------- signal path lede ---------- */
+.flow-lede{
+  margin:20px 0 0; max-width:62ch;
+  font-size:var(--t-body); color:var(--ink-2);
+}
+.flow .open-list{ margin-top:clamp(34px,4vw,52px); }
+
+/* ============================================================
+   configurator feedback on small screens
+   ============================================================ */
+
+/* The slot indicators used to vanish below 940px, which left the whole
+   configurator with no visible payoff on a phone: tapping a puck changed a
+   button label and nothing else. Below 940px they stay, as dots only. */
+@media (max-width: 939px){
+  .slots{ display:block; }
+  .slots-list{ gap:10px; }
+  .slot-name{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+  .slot a{ gap:0; }
+  .slot-dot{ width:13px; height:13px; }
+  .slots-status{ display:none; }
+}
+@media (max-width: 420px){
+  .slots-list{ gap:8px; }
+  .header-inner{ gap:12px; }
+}
+
+/* On phones the header cannot carry wordmark, slot dots, language switch,
+   CTA and menu button at once. The language switch moves into the menu, which
+   frees the CTA to stay visible: without it a mobile reader has no way to act
+   for roughly 9,000px between the hero and the mid-page band. */
+@media (max-width: 619px){
+  .lang{ display:none; }
+  .header-cta{ display:inline-flex; padding:9px 14px; font-size:10px; letter-spacing:.08em; }
+}
+@media (min-width: 620px){
+  .menu-lang{ display:none; }
+}
+.menu-lang a{ font-family:var(--f-ui) !important; font-size:12px !important;
+  letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:var(--ink-3); }
+.menu-lang a:hover{ color:var(--red); }
+
+/* Two dark fields, one colour: the interface band and the CTA band both sit on
+   --ink rather than introducing a sixth background. */
+.detail{ background:var(--ink); }
+
+/* At 390px the header carried 385px of children in a 342px bar and pushed the
+   menu button off screen. The wordmark text is the one element the mark can
+   stand in for, so below 620px only the mark shows. */
+@media (max-width: 619px){
+  .wordmark span{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+  .wordmark .mark{ width:26px; height:26px; }
+}

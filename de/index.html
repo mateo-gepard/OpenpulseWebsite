@@ -73,6 +73,8 @@ setTimeout(function () {
       <p class="slots-status" id="slotStatus" role="status">Core leer. 3 Slots frei</p>
     </nav>
 
+    <a class="btn btn-primary header-cta" href="#contact">Kontakt</a>
+
     <div class="lang">
       <a href="/" hreflang="en">EN</a><span aria-hidden="true">/</span><a href="/de/" aria-current="true" hreflang="de">DE</a>
     </div>
@@ -95,6 +97,7 @@ setTimeout(function () {
       <li><a href="#status">Wo wir stehen</a></li>
       <li><a href="#team">Wer wir sind</a></li>
       <li><a href="#contact">Kontakt</a></li>
+      <li class="menu-lang"><a href="/" hreflang="en">View in English</a></li>
     </ul>
   </nav>
 </div>
@@ -257,11 +260,12 @@ setTimeout(function () {
   </section>
 
   <!-- data path -->
-  <section class="flow" id="flow" aria-labelledby="flow-h">
+  <section class="flow" id="data" aria-labelledby="flow-h">
     <div class="flow-inner">
       <header class="flow-head">
         <p class="kicker">Der Signalweg</p>
         <h2 class="display flow-h" id="flow-h">Puck <span class="arrow" aria-hidden="true">→</span> Core <span class="arrow" aria-hidden="true">→</span> Ihr System</h2>
+              <p class="flow-lede">Rohsignal statt Score. Die meisten Wearables liefern eine Zahl, die ihr Hersteller erfunden hat, und behalten die Messung dahinter für sich. Für eine Consumer-App reicht das. Für Forschung oder einen Arbeitsschutzfall nicht.</p>
       </header>
 
       <ol class="path reveal">
@@ -294,20 +298,6 @@ setTimeout(function () {
         </li>
       </ol>
 
-      <p class="flow-note"><span class="rule" aria-hidden="true"></span>Sie erhalten die zugrunde liegenden Rohdaten. Produktions-API in Entwicklung.</p>
-    </div>
-  </section>
-
-
-  <!-- what you get out -->
-  <section class="open" id="data" aria-labelledby="data-h">
-    <div class="open-inner">
-      <div class="open-head reveal">
-        <p class="kicker">Was herauskommt</p>
-        <h2 class="display" id="data-h">Rohsignal<span class="dot">.</span><br>Kein Score.</h2>
-        <p>Die meisten Wearables liefern eine Zahl, die ihr Hersteller erfunden hat, und behalten die Messung dahinter für sich. Für eine Consumer-App reicht das. Für Forschung oder einen Arbeitsschutzfall nicht.</p>
-      </div>
-
       <ul class="open-list reveal">
         <li>
           <h3>Die Messung selbst</h3>
@@ -321,13 +311,13 @@ setTimeout(function () {
           <h3>Keine Gebühr für die eigenen Daten</h3>
           <p>Ihnen gehören der Einsatz und das, was dabei aufgezeichnet wird. Der Zugriff auf die eigenen Messwerte ist kein Abonnement.</p>
         </li>
-        <li>
-          <h3>Zwischen Studien umkonfigurierbar</h3>
-          <p>Wechseln Sie den Sensorsatz für die nächste Fragestellung, ohne Plattform, Firmware oder die darum gebaute Pipeline zu ändern.</p>
-        </li>
       </ul>
+
+      <p class="flow-note"><span class="rule" aria-hidden="true"></span>Sie erhalten die zugrunde liegenden Rohdaten. Produktions-API in Entwicklung.</p>
     </div>
   </section>
+
+
 
   <!-- example configurations -->
   <section class="uses" id="uses" aria-labelledby="uses-h">
@@ -404,6 +394,17 @@ setTimeout(function () {
       </ol>
 
       <p class="status-note reveal"><span class="rule" aria-hidden="true"></span>Dies sind funktionsfähige Prototypen, keine Seriengeräte. Gehäuse und Armband sind noch Prototypenteile, und die Zertifizierung steht aus. Alles oben Genannte ist der ehrliche Stand.</p>
+    </div>
+  </section>
+
+
+  <!-- mid-page call to action -->
+  <section class="midcta">
+    <div class="midcta-inner reveal">
+      <p class="kicker">Wann immer Sie so weit sind</p>
+      <h2 class="display">Sagen Sie uns, was Sie messen müssen<span class="dot">.</span></h2>
+      <p>Wenn eine Konfiguration dieser Plattform eine Ihrer Fragen beantwortet, hören wir das lieber früh als spät.</p>
+      <a class="btn btn-primary" href="#contact">Gespräch beginnen</a>
     </div>
   </section>
 
