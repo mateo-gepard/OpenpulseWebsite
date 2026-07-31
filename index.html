@@ -148,7 +148,7 @@ setTimeout(function () {
 
     <article class="puck-panel is-ppg reveal" data-puck="ppg" data-slot="body1" data-label="PPG">
       <header class="puck-head">
-        <span class="puck-kicker">PPG <span aria-hidden="true">/</span> <b>In validation</b></span>
+        <span class="puck-kicker">PPG <span aria-hidden="true">/</span> <b>At fabrication</b></span>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-ppg.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -164,7 +164,7 @@ setTimeout(function () {
 
     <article class="puck-panel is-eda reveal" data-puck="eda" data-slot="body2" data-label="EDA">
       <header class="puck-head">
-        <span class="puck-kicker">EDA <span aria-hidden="true">/</span> <b>Planned</b></span>
+        <span class="puck-kicker">EDA <span aria-hidden="true">/</span> <b>In design</b></span>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-eda.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -180,7 +180,7 @@ setTimeout(function () {
 
     <article class="puck-panel is-env reveal" data-puck="env" data-slot="env" data-label="Air &amp; temp">
       <header class="puck-head">
-        <span class="puck-kicker">Environment <span aria-hidden="true">/</span> <b>In design</b></span>
+        <span class="puck-kicker">Environment <span aria-hidden="true">/</span> <b>Planned</b></span>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-env.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -205,7 +205,8 @@ setTimeout(function () {
 
         <dl class="spec">
           <div><dt>Sensor slots</dt><dd>2 body, 1 environment</dd></div>
-          <div><dt>Puck board</dt><dd>~10 mm circular</dd></div>
+          <div><dt>Battery life</dt><dd>48 h+ per charge</dd></div>
+          <div><dt>Mainboard</dt><dd>36 × 20 mm</dd></div>
           <div><dt>Core module</dt><dd>XIAO nRF52840 Sense</dd></div>
         </dl>
       </div>
@@ -226,8 +227,8 @@ setTimeout(function () {
         <p>A single mechanical and electrical interface across the whole range. A puck we design next year drops into a core built today.</p>
 
         <dl class="spec spec-dark">
-          <div><dt>Contacts</dt><dd>Pogo pin</dd></div>
-          <div><dt>Interface</dt><dd>Common to every puck</dd></div>
+          <div><dt>Contacts</dt><dd>Pogo pads, I²C</dd></div>
+          <div><dt>Retention</dt><dd>Neodymium magnets</dd></div>
           <div><dt>Swap</dt><dd>Tool-free</dd></div>
         </dl>
       </div>
@@ -253,7 +254,7 @@ setTimeout(function () {
           <p class="path-index">01</p>
           <h3>Puck</h3>
           <p class="path-desc">Raw sensor data, straight off the die.</p>
-          <p class="path-spec">Analogue front end</p>
+          <p class="path-spec">Optical AFE, I²C</p>
         </li>
 
         <li class="path-stage">
@@ -261,7 +262,7 @@ setTimeout(function () {
           <p class="path-index">02</p>
           <h3>Core</h3>
           <p class="path-desc">Samples, timestamps and buffers every channel.</p>
-          <p class="path-spec">Battery, radio, clock</p>
+          <p class="path-spec">Zephyr RTOS, buffering</p>
         </li>
 
         <li class="path-stage">
@@ -277,7 +278,7 @@ setTimeout(function () {
           <p class="path-index">04</p>
           <h3>Your system</h3>
           <p class="path-desc">Your pipeline, your models, your decisions.</p>
-          <p class="path-spec">Raw stream in</p>
+          <p class="path-spec">Raw stream, API in build</p>
         </li>
       </ol>
 
@@ -374,23 +375,23 @@ setTimeout(function () {
 
       <ol class="status-list">
         <li class="status-item is-done reveal">
-          <span class="status-tag">Done</span>
-          <h3>The main board</h3>
-          <p>Designed, manufactured through JLCPCB, assembled and tested. Built around the Seeed XIAO nRF52840 Sense.</p>
+          <span class="status-tag">Working now</span>
+          <h3>The core, on the bench</h3>
+          <p>Multiple working prototypes. Battery powered, over 48 hours on a charge, transmitting sensor data over Bluetooth. The mainboard recognises a connected puck and talks to it over the interface we designed.</p>
         </li>
         <li class="status-item is-now reveal">
           <span class="status-tag">Current milestone</span>
-          <h3>Validating the sensor pucks</h3>
-          <p>The circular puck boards exist and the components are in hand. Assembly, reflow, electrical reliability, mechanical contact and on-body signal quality are the work in front of us.</p>
+          <h3>The first puck</h3>
+          <p>A 10 mm optical module for heart rate, variability and blood oxygen, built on the MAXM86161. It is at fabrication. Validating the connection and the on-body signal quality is the work in front of us.</p>
         </li>
         <li class="status-item is-next reveal">
           <span class="status-tag">Next</span>
-          <h3>Configured pilots</h3>
-          <p>Devices built around a specific partner question, with the raw stream landing in their systems. The production API is being built alongside them.</p>
+          <h3>Units with external testers</h3>
+          <p>Six testers with working devices, once the puck connection and signal quality are validated and the case and strap are past the prototype stage.</p>
         </li>
       </ol>
 
-      <p class="status-note reveal"><span class="rule" aria-hidden="true"></span>The modular puck system is not production hardware yet. Everything above is where it genuinely stands.</p>
+      <p class="status-note reveal"><span class="rule" aria-hidden="true"></span>The case and strap you see are prototype parts, and the modular puck system is not production hardware yet. Everything above is where it genuinely stands.</p>
     </div>
   </section>
 
@@ -398,7 +399,15 @@ setTimeout(function () {
   <section class="team" id="team" aria-labelledby="team-h">
     <div class="team-copy reveal">
       <h2 class="display" id="team-h">Built by<br>people who<br>build<span class="dot">.</span></h2>
-      <p>We’re engineers and operators building the platform we wish we’d had, because we kept hitting the same wall: one wearable, one fixed set of sensors, one set of questions you’re allowed to ask.</p>
+      <p>We’re engineers building the platform we wish we’d had, because we kept hitting the same wall: one wearable, one fixed set of sensors, one set of questions you’re allowed to ask.</p>
+
+      <ul class="founders">
+        <li><b>Mateo Mamaladze</b><span>Co-founder, CEO</span></li>
+        <li><b>Juan Rivera Chopinaud</b><span>Co-founder, CTO</span></li>
+        <li><b>Roman Daugavet</b><span>Co-founder, Head of Software</span></li>
+      </ul>
+
+      <p class="team-note">Based in Munich. Fabrication and prototyping through the UnternehmerTUM MakerSpace at TU Munich.</p>
     </div>
     <figure class="team-media reveal">
       <img src="assets/img/team.webp" width="1600" height="1195" loading="lazy" decoding="async"
@@ -407,22 +416,26 @@ setTimeout(function () {
   </section>
 
 
-  <!-- RECOGNITION: built and styled, held back until the exact placements
-       and competition names are confirmed. Delete these two comment lines
-       to publish it.
-  <!~~ recognition. FIGURES NEED CONFIRMING BEFORE THIS GOES PUBLIC ~~>
+  <!-- recognition -->
   <section class="traction" aria-labelledby="traction-h">
     <div class="traction-inner">
       <h2 class="kicker" id="traction-h">Recognition</h2>
       <ul class="traction-list reveal">
-        <li><b>1st in Europe</b><span>Blue Ocean Entrepreneur Competition</span></li>
-        <li><b>Top 5</b><span>STARTUP TEENS, Health</span></li>
-        <li><b>Top 14 nationwide</b><span>Jugend gr&uuml;ndet</span></li>
+        <li>
+          <b>1st in Europe</b>
+          <span>Blue Ocean Student Entrepreneur Competition, 2026. Over 23,000 students from 173 countries.</span>
+        </li>
+        <li>
+          <b>1st nationally</b>
+          <span>STARTUP TEENS, 2026. One of seven national category winners from 1,482 projects.</span>
+        </li>
+        <li>
+          <b>Top 14 nationally</b>
+          <span>Jugend gr&uuml;ndet, 2025/26. Invited to pitch from 1,461 teams.</span>
+        </li>
       </ul>
     </div>
   </section>
-
-  -->
 
   <!-- contact -->
   <section class="contact" id="contact" aria-labelledby="contact-h">
