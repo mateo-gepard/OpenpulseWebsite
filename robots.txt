@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# /archive/ holds superseded versions of the site. They are served with an
+# X-Robots-Tag: noindex header rather than blocked here on purpose: a crawler
+# has to be able to fetch a page to see that header. Blocking them in robots
+# would leave any already-indexed copies stuck in the index.
+
+Sitemap: https://www.openpulse.eu/sitemap.xml

@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenPulse: Ein Wearable sollte nicht entscheiden, was zählt</title>
+<meta name="description" content="OpenPulse ist eine modulare Wearable-Sensorplattform aus einem wiederverwendbaren Core und wechselbaren Sensor-Pucks. Zwei Körper-Slots, ein Umgebungs-Slot. Sie entscheiden, was jede Konfiguration misst.">
+<meta name="theme-color" content="#f4f3f1">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="OpenPulse: Ein Wearable sollte nicht entscheiden, was zählt">
+<meta property="og:description" content="Eine modulare Wearable-Sensorplattform. Core behalten, Sensorik wechseln.">
+<link rel="canonical" href="https://www.openpulse.eu/de/">
+<meta property="og:url" content="https://www.openpulse.eu/de/">
+<meta property="og:site_name" content="OpenPulse">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:image" content="https://www.openpulse.eu/assets/img/hero-band.webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:alt" content="Das OpenPulse-Armband.">
+<link rel="alternate" hreflang="en" href="https://www.openpulse.eu/">
+<link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/">
+<link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/styles.css">
+
+<script>
+/* Reveal animations only apply under .js, so content can never be left
+   invisible by a script that fails to load. Set before first paint to avoid
+   a flash, then withdrawn if main.js has not checked in. */
+document.documentElement.className += ' js';
+setTimeout(function () {
+  if (!window.__openpulseBooted) {
+    document.documentElement.className =
+      document.documentElement.className.replace(/\bjs\b/, '');
+  }
+}, 2500);
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="wordmark" href="#top" aria-label="OpenPulse Startseite"><svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M 20.87 65.49 A 33 33 0 0 1 64.98 20.60" stroke="#101f3c" stroke-width="9" stroke-linecap="round"/><circle cx="64.98" cy="20.60" r="6.48" fill="#101f3c"/><path d="M 75.28 28.79 A 33 33 0 0 1 72.08 74.53" stroke="#b08d83" stroke-width="9" stroke-linecap="round"/><circle cx="72.08" cy="74.53" r="6.48" fill="#b08d83"/><path d="M 27.48 74.53 A 33 33 0 0 0 61.28 80.20" stroke="#cf3826" stroke-width="9" stroke-linecap="round"/><circle cx="27.48" cy="74.53" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
+
+    <!-- Live configuration readout: fills as you load pucks in the sensor section -->
+    <nav class="slots" aria-label="Core-Konfiguration">
+      <ul class="slots-list" id="slotList">
+        <li class="slot" data-slot="body1">
+          <a href="#sensors">
+            <span class="slot-dot" aria-hidden="true"></span>
+            <span class="slot-name">Körper 1</span>
+          </a>
+        </li>
+        <li class="slot" data-slot="body2">
+          <a href="#sensors">
+            <span class="slot-dot" aria-hidden="true"></span>
+            <span class="slot-name">Körper 2</span>
+          </a>
+        </li>
+        <li class="slot" data-slot="env">
+          <a href="#sensors">
+            <span class="slot-dot" aria-hidden="true"></span>
+            <span class="slot-name">Umgebung</span>
+          </a>
+        </li>
+      </ul>
+      <p class="slots-status" id="slotStatus" role="status">Core leer. 3 Slots frei</p>
+    </nav>
+
+    <div class="lang">
+      <a href="/" hreflang="en">EN</a><span aria-hidden="true">/</span><a href="/de/" aria-current="true" hreflang="de">DE</a>
+    </div>
+
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <span class="menu-bars" aria-hidden="true"><i></i><i></i></span>
+      <span class="sr-only">Menü</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav class="menu-inner" aria-label="Main">
+    <ul>
+      <li><a href="#problem">Das Problem</a></li>
+      <li><a href="#sensors">Sensor-Pucks</a></li>
+      <li><a href="#core">Der Core</a></li>
+      <li><a href="#data">Ihre Daten</a></li>
+      <li><a href="#uses">Konfigurationen</a></li>
+      <li><a href="#status">Wo wir stehen</a></li>
+      <li><a href="#team">Wer wir sind</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main id="main">
+  <span id="top"></span>
+
+  <!-- hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1 class="display">Ein Wearable sollte<br>nicht entscheiden,<br>was zählt<span class="dot">.</span></h1>
+        <p class="hero-config">Zwei Slots für den Körper. Einer für die Umgebung.</p>
+        <p class="hero-sub">Ein wiederverwendbarer Core. Drei wechselbare Sensor-Pucks. Sie entscheiden, was jede Konfiguration misst, und Sie bekommen die Rohdaten dahinter.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Gespräch beginnen</a>
+          <a class="btn btn-ghost" href="#core">So funktioniert es</a>
+        </div>
+      </div>
+
+      <!-- The still is what ships. main.js swaps in the scroll-scrubbed
+           rotation only when the browser can actually play it. -->
+      <div class="hero-media" id="heroMedia">
+        <img class="clip-still" src="../assets/img/hero-still.webp" width="1280" height="1640"
+             alt="Das OpenPulse-Armband: ein gewebtes graues Band mit eingesetztem Sensormodul aus Metall."
+             fetchpriority="high" decoding="async">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- the problem -->
+  <section class="problem" id="problem" aria-labelledby="problem-h">
+    <div class="problem-inner">
+      <div class="problem-head reveal">
+        <p class="kicker">Die Wahl heute</p>
+        <h2 class="display" id="problem-h">Zwei schlechte Optionen<span class="dot">.</span></h2>
+      </div>
+
+      <ol class="problem-list">
+        <li class="problem-opt reveal">
+          <span class="problem-tag">Anpassen</span>
+          <h3>Ein Consumer-Gerät zurechtbiegen</h3>
+          <p>Es misst, was sein Hersteller festgelegt hat, und liefert einen Score statt eines Signals. Ihre Fragestellung endet dort, wo dessen Produkt-Roadmap endet.</p>
+        </li>
+        <li class="problem-opt reveal">
+          <span class="problem-tag">Bauen</span>
+          <h3>Selbst von Grund auf entwickeln</h3>
+          <p>Elektronik, Firmware, Gehäuse, Zertifizierung, Fertigung. Jahre an Entwicklung und ein Budget, das die wenigsten Teams haben, und am Ende doch ein fester Sensorsatz.</p>
+        </li>
+        <li class="problem-opt is-us reveal">
+          <span class="problem-tag">Konfigurieren</span>
+          <h3>Eines konfigurieren</h3>
+          <p>Core, Funk, Gehäuse und Software bleiben. Nur der Teil, der misst, wird getauscht. Genau das bauen wir.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- sensor pucks / status -->
+  <section class="sensors" id="sensors" aria-labelledby="sensors-h">
+    <h2 class="sr-only" id="sensors-h">Sensor-Pucks</h2>
+
+    <article class="puck-panel is-ppg reveal" data-puck="ppg" data-slot="body1" data-label="PPG">
+      <header class="puck-head">
+        <p class="puck-name">PPG</p>
+        <p class="puck-state">Gebaut und getestet</p>
+      </header>
+      <div class="puck-img">
+        <img src="../assets/img/puck-ppg.webp" width="508" height="508" loading="lazy" decoding="async"
+             alt="PPG-Sensor-Puck: ein rundes Metallgehäuse mit schwarzem optischen Sensorchip in der Mitte.">
+      </div>
+      <div class="puck-foot">
+        <p class="puck-desc">Optischer Puls. Herzfrequenz, Variabilität und Durchblutung am Handgelenk.</p>
+        <button class="puck-btn" type="button" data-load>
+          <span class="puck-btn-txt">In den Core laden</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="puck-panel is-eda reveal" data-puck="eda" data-slot="body2" data-label="EDA">
+      <header class="puck-head">
+        <p class="puck-name">EDA</p>
+        <p class="puck-state">Gebaut und getestet</p>
+      </header>
+      <div class="puck-img">
+        <img src="../assets/img/puck-eda.webp" width="508" height="508" loading="lazy" decoding="async"
+             alt="EDA-Sensor-Puck: ein rundes Metallgehäuse mit zwei vergoldeten Hautelektroden.">
+      </div>
+      <div class="puck-foot">
+        <p class="puck-desc">Elektrodermale Aktivität über zwei Goldelektroden. Erregung und Belastung.</p>
+        <button class="puck-btn" type="button" data-load>
+          <span class="puck-btn-txt">In den Core laden</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="puck-panel is-env reveal" data-puck="env" data-slot="env" data-label="Luft &amp; Temp">
+      <header class="puck-head">
+        <p class="puck-name">Umgebung</p>
+        <p class="puck-state">Gebaut und getestet</p>
+      </header>
+      <div class="puck-img">
+        <img src="../assets/img/puck-env.webp" width="508" height="508" loading="lazy" decoding="async"
+             alt="Umgebungssensor-Puck: ein rundes Metallgehäuse mit gebürsteter Stahlplatte und zentraler Ansaugöffnung.">
+      </div>
+      <div class="puck-foot">
+        <p class="puck-desc">Die Luft um die tragende Person. Temperatur, Feuchte und flüchtige Stoffe.</p>
+        <button class="puck-btn" type="button" data-load>
+          <span class="puck-btn-txt">In den Core laden</span>
+        </button>
+      </div>
+    </article>
+  </section>
+
+  <!-- the core -->
+  <section class="core" id="core" aria-labelledby="core-h">
+    <div class="core-inner">
+      <div class="core-copy reveal">
+        <h2 class="display" id="core-h">Core behalten.<br>Sensorik wechseln<span class="dot">.</span></h2>
+        <p>OpenPulse ist eine modulare Wearable-Sensorplattform aus einem wiederverwendbaren Core und wechselbaren Sensor-Pucks.</p>
+        <p class="muted">Der Core trägt Akku, Funk und Zeitbasis. Die Pucks tragen alles, was sich ändert. Ändert sich die Fragestellung, tauschen Sie einen Puck, nicht das Produkt.</p>
+
+        <dl class="spec">
+          <div><dt>Sensor-Slots</dt><dd>2 Körper, 1 Umgebung</dd></div>
+          <div><dt>Laufzeit</dt><dd>48 h+ pro Ladung</dd></div>
+          <div><dt>Mainboard</dt><dd>36 × 20 mm</dd></div>
+          <div><dt>Core-Modul</dt><dd>XIAO nRF52840 Sense</dd></div>
+        </dl>
+      </div>
+
+      <figure class="core-media reveal" id="explodedMedia">
+        <img class="clip-still" src="../assets/img/exploded-still.webp" width="900" height="1600"
+             loading="lazy" decoding="async"
+             alt="Explosionsdarstellung des OpenPulse-Core: Haltering, Sensorplatine, Metallgehäuse, Hauptplatine, Chassis und zwei weitere Pucks mit vergoldeten Federkontakten.">
+      </figure>
+    </div>
+  </section>
+
+  <!-- connector detail -->
+  <section class="detail" aria-labelledby="detail-h">
+    <div class="detail-inner">
+      <div class="detail-copy reveal">
+        <p class="kicker kicker-light">Die Schnittstelle</p>
+        <h2 class="display" id="detail-h">Jeder Puck trifft auf dieselben Kontakte<span class="dot">.</span></h2>
+        <p>Eine einzige mechanische und elektrische Schnittstelle über die gesamte Reihe. Ein Puck, den wir nächstes Jahr entwerfen, passt in einen Core von heute.</p>
+
+        <dl class="spec spec-dark">
+          <div><dt>Kontakte</dt><dd>Federkontakte, I²C</dd></div>
+          <div><dt>Halterung</dt><dd>Neodym-Magnete</dd></div>
+          <div><dt>Wechsel</dt><dd>Werkzeuglos</dd></div>
+        </dl>
+      </div>
+
+      <figure class="detail-media reveal">
+        <img src="../assets/img/electrodes-macro.webp" width="1000" height="1000" loading="lazy" decoding="async"
+             alt="Makroaufnahme der beiden vergoldeten Elektrodenflächen eines Sensor-Pucks in schwarzer Fassung.">
+      </figure>
+    </div>
+  </section>
+
+  <!-- data path -->
+  <section class="flow" id="flow" aria-labelledby="flow-h">
+    <div class="flow-inner">
+      <header class="flow-head">
+        <p class="kicker">Der Signalweg</p>
+        <h2 class="display flow-h" id="flow-h">Puck <span class="arrow" aria-hidden="true">→</span> Core <span class="arrow" aria-hidden="true">→</span> Ihr System</h2>
+      </header>
+
+      <ol class="path reveal">
+        <li class="path-stage">
+          <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
+          <h3>Puck</h3>
+          <p class="path-desc">Rohe Sensordaten, direkt vom Chip.</p>
+          <p class="path-spec">Optisches AFE, I²C</p>
+        </li>
+
+        <li class="path-stage">
+          <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
+          <h3>Core</h3>
+          <p class="path-desc">Tastet ab, versieht mit Zeitstempel und puffert jeden Kanal.</p>
+          <p class="path-spec">Zephyr RTOS, Pufferung</p>
+        </li>
+
+        <li class="path-stage">
+          <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
+          <h3>Bluetooth</h3>
+          <p class="path-desc">Eine belastbare Verbindung, die im realen Betrieb hält.</p>
+          <p class="path-spec">Bluetooth Low Energy</p>
+        </li>
+
+        <li class="path-stage">
+          <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
+          <h3>Ihr System</h3>
+          <p class="path-desc">Ihre Pipeline, Ihre Modelle, Ihre Entscheidungen.</p>
+          <p class="path-spec">Rohdatenstrom, API im Aufbau</p>
+        </li>
+      </ol>
+
+      <p class="flow-note"><span class="rule" aria-hidden="true"></span>Sie erhalten die zugrunde liegenden Rohdaten. Produktions-API in Entwicklung.</p>
+    </div>
+  </section>
+
+
+  <!-- what you get out -->
+  <section class="open" id="data" aria-labelledby="data-h">
+    <div class="open-inner">
+      <div class="open-head reveal">
+        <p class="kicker">Was herauskommt</p>
+        <h2 class="display" id="data-h">Rohsignal<span class="dot">.</span><br>Kein Score.</h2>
+        <p>Die meisten Wearables liefern eine Zahl, die ihr Hersteller erfunden hat, und behalten die Messung dahinter für sich. Für eine Consumer-App reicht das. Für Forschung oder einen Arbeitsschutzfall nicht.</p>
+      </div>
+
+      <ul class="open-list reveal">
+        <li>
+          <h3>Die Messung selbst</h3>
+          <p>Zeitgestempeltes Signal so, wie der Sensor es geliefert hat. Ihre Auswertung setzt damit auf den Daten auf und nicht auf der Interpretation eines Dritten.</p>
+        </li>
+        <li>
+          <h3>In Ihre Systeme</h3>
+          <p>Eine API in die Werkzeuge, die Sie ohnehin betreiben, statt eines Dashboards, in das Sie sich einloggen müssen. In Entwicklung und geprägt von den ersten Pilotprojekten.</p>
+        </li>
+        <li>
+          <h3>Keine Gebühr für die eigenen Daten</h3>
+          <p>Ihnen gehören der Einsatz und das, was dabei aufgezeichnet wird. Der Zugriff auf die eigenen Messwerte ist kein Abonnement.</p>
+        </li>
+        <li>
+          <h3>Zwischen Studien umkonfigurierbar</h3>
+          <p>Wechseln Sie den Sensorsatz für die nächste Fragestellung, ohne Plattform, Firmware oder die darum gebaute Pipeline zu ändern.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- example configurations -->
+  <section class="uses" id="uses" aria-labelledby="uses-h">
+    <h2 class="uses-h" id="uses-h">Beispielkonfigurationen</h2>
+
+    <div class="use-grid">
+      <article class="use reveal">
+        <div class="use-media">
+          <img src="../assets/img/use-workforce.webp" width="1200" height="800" loading="lazy" decoding="async"
+               alt="Ein Maschinenbediener mit Schutzbrille an einer Presse, mit einem OpenPulse-Band am Handgelenk.">
+          <span class="use-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v6c0 4.2 2.9 7.7 7 9 4.1-1.3 7-4.8 7-9V6l-7-3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+        <h3>Arbeitssicherheit</h3>
+        <span class="use-rule" aria-hidden="true"></span>
+        <p>Belastung und Umgebung gemeinsam erfassen, damit das Bild einer Schicht vollständig ist.</p>
+      </article>
+
+      <article class="use reveal">
+        <div class="use-media">
+          <img src="../assets/img/use-lab.webp" width="1200" height="800" loading="lazy" decoding="async"
+               alt="Eine Person im weißen Kittel begutachtet an einem Labortisch ein OpenPulse-Band.">
+          <span class="use-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2.5-6 4 12L16 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+        <h3>Forschung und Leistung</h3>
+        <span class="use-rule" aria-hidden="true"></span>
+        <p>Die Sensorik zwischen Studien wechseln, ohne Plattform oder Pipeline zu ändern.</p>
+      </article>
+
+      <article class="use reveal">
+        <div class="use-media">
+          <img src="../assets/img/use-environment.webp" width="1200" height="800" loading="lazy" decoding="async"
+               alt="Ein Handgelenk mit OpenPulse-Band hält einen Teller mit einer Scheibe schimmligem Brot.">
+          <span class="use-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M10 13.5V5a2 2 0 1 1 4 0v8.5a4 4 0 1 1-4 0Z" stroke="currentColor" stroke-width="1.5"/></svg>
+          </span>
+        </div>
+        <h3>Umgebungsbewusstes Arbeiten</h3>
+        <span class="use-rule" aria-hidden="true"></span>
+        <p>Die Bedingungen erfassen, die Menschen und Produkt beeinflussen, dort wo tatsächlich gearbeitet wird.</p>
+      </article>
+    </div>
+  </section>
+
+
+  <!-- where the hardware actually is -->
+  <section class="status" id="status" aria-labelledby="status-h">
+    <div class="status-inner">
+      <div class="status-head reveal">
+        <p class="kicker">Wo die Hardware steht</p>
+        <h2 class="display" id="status-h">Was heute funktioniert<span class="dot">,</span><br>und was nicht.</h2>
+        <p>Die Plattform funktioniert. Hier steht genau, wie weit das reicht, damit mitten im Pilotprojekt nichts überrascht.</p>
+      </div>
+
+      <ol class="status-list">
+        <li class="status-item is-done reveal">
+          <span class="status-tag">Funktioniert jetzt</span>
+          <h3>Core und Pucks im Zusammenspiel</h3>
+          <p>Alle drei Sensor-Pucks sind gebaut und getestet. Das Mainboard erkennt jeden davon über die von uns entwickelte Schnittstelle, und das zusammengebaute Gerät läuft im Akkubetrieb über 48 Stunden und überträgt Sensordaten per Bluetooth.</p>
+        </li>
+        <li class="status-item is-now reveal">
+          <span class="status-tag">Aktueller Meilenstein</span>
+          <h3>Aus unseren Händen</h3>
+          <p>Geräte zu Menschen bringen, die sie nicht gebaut haben. Externe Testpersonen tragen konfigurierte Geräte durch echte Arbeitstage. Nur so erfahren wir, was ein Labortest nicht zeigt.</p>
+        </li>
+        <li class="status-item is-next reveal">
+          <span class="status-tag">Als Nächstes</span>
+          <h3>Konfigurierte Pilotprojekte</h3>
+          <p>Geräte, die um eine konkrete Fragestellung eines Partners herum gebaut werden, mit Rohdatenstrom direkt in dessen Systeme. Die Produktions-API entsteht parallel dazu.</p>
+        </li>
+      </ol>
+
+      <p class="status-note reveal"><span class="rule" aria-hidden="true"></span>Dies sind funktionsfähige Prototypen, keine Seriengeräte. Gehäuse und Armband sind noch Prototypenteile, und die Zertifizierung steht aus. Alles oben Genannte ist der ehrliche Stand.</p>
+    </div>
+  </section>
+
+  <!-- the team -->
+  <section class="team" id="team" aria-labelledby="team-h">
+    <div class="team-copy reveal">
+      <h2 class="display" id="team-h">Gebaut von<br>Menschen,<br>die bauen<span class="dot">.</span></h2>
+      <p>Wir sind Ingenieure und bauen die Plattform, die wir uns selbst gewünscht hätten. Denn wir sind immer wieder an derselben Wand gelandet: ein Wearable, ein fester Sensorsatz, ein festgelegter Satz an Fragen, die man stellen darf.</p>
+
+      <ul class="founders">
+        <li><b>Mateo Mamaladze</b><span>Mitgründer, CEO</span></li>
+        <li><b>Juan Rivera Chopinaud</b><span>Mitgründer, CTO</span></li>
+        <li><b>Roman Daugavet</b><span>Mitgründer, Leitung Software</span></li>
+      </ul>
+
+      <p class="team-note">Ansässig in München. Fertigung und Prototyping über den UnternehmerTUM MakerSpace an der TU München.</p>
+    </div>
+    <figure class="team-media reveal">
+      <img src="../assets/img/team.webp" width="1600" height="1195" loading="lazy" decoding="async"
+           alt="Die drei Gründer von OpenPulse nebeneinander, einer trägt das Band.">
+    </figure>
+  </section>
+
+
+  <!-- recognition -->
+  <section class="traction" aria-labelledby="traction-h">
+    <div class="traction-inner">
+      <h2 class="kicker" id="traction-h">Auszeichnungen</h2>
+      <ul class="traction-list reveal">
+        <li>
+          <b>1. Platz Europa</b>
+          <span>Blue Ocean Student Entrepreneur Competition, 2026. Über 23.000 Teilnehmende aus 173 Ländern.</span>
+        </li>
+        <li>
+          <b>1. Platz bundesweit</b>
+          <span>STARTUP TEENS, 2026. Einer von sieben Bundessiegern aus 1.482 Projekten.</span>
+        </li>
+        <li>
+          <b>Top 14 bundesweit</b>
+          <span>Jugend gr&uuml;ndet, 2025/26. Aus 1.461 Teams zum Pitch eingeladen.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <div class="contact-bg" aria-hidden="true">
+      <img src="../assets/img/pucks-row.webp" width="1400" height="700" loading="lazy" decoding="async" alt="">
+    </div>
+
+    <div class="contact-inner">
+      <div class="contact-copy reveal">
+        <p class="kicker">Erzählen Sie uns von Ihrem Ablauf</p>
+        <h2 class="display" id="contact-h">Was soll diese Konfiguration messen<span class="dot">?</span></h2>
+        <p class="contact-lede">Welche Pucks wir als Nächstes bauen, entscheiden wir anhand echter Arbeitsabläufe. Erzählen Sie uns Ihren.</p>
+
+        <p class="contact-direct">Oder schreiben Sie uns direkt an
+          <a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a>.</p>
+
+        <ol class="next-steps">
+          <li>Sie sagen uns, was Sie messen müssen und in welcher Umgebung.</li>
+          <li>Wir klären, ob eine Konfiguration der Plattform diese Frage beantwortet.</li>
+          <li>Wenn ja, bauen wir diese Konfiguration und Sie setzen sie ein.</li>
+        </ol>
+
+        <div class="config-readout" id="configReadout">
+          <p class="config-label">Ihre Konfiguration</p>
+          <ul class="config-list">
+            <li data-readout="body1"><b>Körper 1</b><span>leer</span></li>
+            <li data-readout="body2"><b>Körper 2</b><span>leer</span></li>
+            <li data-readout="env"><b>Umgebung</b><span>leer</span></li>
+          </ul>
+          <p class="config-hint">Laden Sie Pucks im <a href="#sensors">Sensorbereich</a>, dann gehen sie mit Ihrer Nachricht mit.</p>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="field">
+          <label for="f-name">Ihr Name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+          <p class="err" data-err></p>
+        </div>
+
+        <div class="field">
+          <label for="f-email">Geschäftliche E-Mail</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+          <p class="err" data-err></p>
+        </div>
+
+        <div class="field">
+          <label for="f-case">Anwendungsfall</label>
+          <input id="f-case" name="usecase" type="text" placeholder="z. B. Schichtsicherheit an einer Fertigungslinie">
+          <p class="err" data-err></p>
+        </div>
+
+        <div class="field field-wide">
+          <label for="f-measure">Was möchten Sie messen?</label>
+          <textarea id="f-measure" name="measure" rows="3" required></textarea>
+          <p class="err" data-err></p>
+        </div>
+
+        <div class="field field-wide">
+          <label for="f-notes">Sonst noch etwas, das wir wissen sollten?</label>
+          <textarea id="f-notes" name="notes" rows="2"></textarea>
+        </div>
+
+        <input type="hidden" name="configuration" id="f-config" value="">
+
+        <div class="form-foot">
+          <button class="btn btn-primary" type="submit">Gespräch beginnen</button>
+          <p class="form-note">Wir antworten auf jede Nachricht. Kein Verteiler, kein Newsletter.</p>
+        </div>
+
+        <p class="form-success" id="formSuccess" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a class="wordmark" href="#top"><svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M 20.87 65.49 A 33 33 0 0 1 64.98 20.60" stroke="#101f3c" stroke-width="9" stroke-linecap="round"/><circle cx="64.98" cy="20.60" r="6.48" fill="#101f3c"/><path d="M 75.28 28.79 A 33 33 0 0 1 72.08 74.53" stroke="#b08d83" stroke-width="9" stroke-linecap="round"/><circle cx="72.08" cy="74.53" r="6.48" fill="#b08d83"/><path d="M 27.48 74.53 A 33 33 0 0 0 61.28 80.20" stroke="#cf3826" stroke-width="9" stroke-linecap="round"/><circle cx="27.48" cy="74.53" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
+    <p class="footer-line">Eine modulare Wearable-Sensorplattform. Core behalten, Sensorik wechseln.</p>
+    <p class="footer-mail"><a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a></p>
+    <nav class="footer-nav" aria-label="Fußzeile">
+      <a href="#sensors">Pucks</a>
+      <a href="#core">Core</a>
+      <a href="#contact">Kontakt</a>
+      <a href="../impressum.html">Impressum</a>
+      <a href="../datenschutz.html">Datenschutz</a>
+    </nav>
+    <p class="footer-meta"><span id="year">2026</span> OpenPulse. Gezeigte Hardware ist Vorserie.</p>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

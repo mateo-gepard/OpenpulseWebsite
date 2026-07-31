@@ -6,6 +6,58 @@
 
   window.__openpulseBooted = true;   // tells the <head> guard the script ran
 
+  /* ---------- copy, per language ----------
+     The German page is a separate document at /de/. Everything the script
+     writes into the page is looked up here off <html lang>, so the two stay
+     in step without duplicating the logic.                                */
+  var STRINGS = {
+    en: {
+      slots:      { body1: 'Body 1', body2: 'Body 2', env: 'Environment' },
+      empty:      'empty',
+      coreEmpty:  '',
+      loadedCount: function (n) { return n + ' of 3 loaded'; },
+      load:       'Load into core',
+      loaded:     'Loaded',
+      required:   'This one we need.',
+      badEmail:   'That address looks incomplete.',
+      sending:    'Sending\u2026',
+      submit:     'Start the conversation',
+      thanks:     'Thanks, that\u2019s with us. We read every message and reply in person.',
+      almost:     'Almost there.',
+      failed:     'That didn\u2019t send.',
+      mailLead:   ' Your message is ready in your mail app. If nothing opened, write to ',
+      mailTail:   ' and everything above comes with you.',
+      mailSubject: function (name) { return 'OpenPulse enquiry from ' + name; },
+      fromSite:   'the website',
+      fName: 'Name', fEmail: 'Email', fCase: 'Use case',
+      fMeasure: 'What we want to measure:', fNotes: 'Anything else:',
+      fConfig: 'Configuration: ', notSet: 'not set'
+    },
+    de: {
+      slots:      { body1: 'K\u00f6rper 1', body2: 'K\u00f6rper 2', env: 'Umgebung' },
+      empty:      'leer',
+      coreEmpty:  '',
+      loadedCount: function (n) { return n + ' von 3 geladen'; },
+      load:       'In den Core laden',
+      loaded:     'Geladen',
+      required:   'Das brauchen wir noch.',
+      badEmail:   'Diese Adresse sieht unvollst\u00e4ndig aus.',
+      sending:    'Wird gesendet\u2026',
+      submit:     'Gespr\u00e4ch beginnen',
+      thanks:     'Danke, Ihre Nachricht ist bei uns. Wir lesen jede und antworten pers\u00f6nlich.',
+      almost:     'Fast geschafft.',
+      failed:     'Das konnte nicht gesendet werden.',
+      mailLead:   ' Ihre Nachricht liegt in Ihrem E-Mail-Programm bereit. Falls sich nichts ge\u00f6ffnet hat, schreiben Sie an ',
+      mailTail:   ', dann kommt alles von oben mit.',
+      mailSubject: function (name) { return 'OpenPulse Anfrage von ' + name; },
+      fromSite:   'der Website',
+      fName: 'Name', fEmail: 'E-Mail', fCase: 'Anwendungsfall',
+      fMeasure: 'Was gemessen werden soll:', fNotes: 'Sonstiges:',
+      fConfig: 'Konfiguration: ', notSet: 'nicht gesetzt'
+    }
+  };
+  var L = STRINGS[(document.documentElement.lang || 'en').slice(0, 2)] || STRINGS.en;
+
   /* Where the contact form posts. Drop in a Formspree / Basin / own endpoint
      URL and the form will POST to it. Left empty, the form hands the message
      to the visitor's mail client instead, so nothing is ever discarded. */
@@ -58,7 +110,7 @@
      indicator in the header and the readout above the contact form,
      so the message you send carries the configuration you built.   */
 
-  var SLOT_NAMES = { body1: 'Body 1', body2: 'Body 2', env: 'Environment' };
+  var SLOT_NAMES = L.slots;
   var loaded = {};
 
   var panels = Array.prototype.slice.call(document.querySelectorAll('[data-puck]'));
@@ -79,16 +131,16 @@
       var key = li.dataset.readout;
       var val = loaded[key];
       li.classList.toggle('is-set', Boolean(val));
-      li.querySelector('span').textContent = val || 'empty';
+      li.querySelector('span').textContent = val || L.empty;
     });
 
     var count = Object.keys(loaded).length;
-    slotStatus.textContent = count === 0 ? '' : count + ' of 3 loaded';
+    slotStatus.textContent = count === 0 ? L.coreEmpty : L.loadedCount(count);
     slotStatus.classList.toggle('is-on', count > 0);
 
     if (configField) {
       configField.value = ['body1', 'body2', 'env'].map(function (k) {
-        return SLOT_NAMES[k] + ': ' + (loaded[k] || 'empty');
+        return SLOT_NAMES[k] + ': ' + (loaded[k] || L.empty);
       }).join(' | ');
     }
   }
@@ -104,7 +156,7 @@
       if (isOn) loaded[slot] = label;
       else delete loaded[slot];
 
-      txt.textContent = isOn ? 'Loaded' : 'Load into core';
+      txt.textContent = isOn ? L.loaded : L.load;
       btn.setAttribute('aria-pressed', String(isOn));
       render();
     });
@@ -147,11 +199,11 @@
   function validate(input) {
     var v = input.value.trim();
     if (input.required && !v) {
-      fieldError(input, 'This one we need.');
+      fieldError(input, L.required);
       return false;
     }
     if (input.type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
-      fieldError(input, 'That address looks incomplete.');
+      fieldError(input, L.badEmail);
       return false;
     }
     fieldError(input, '');
@@ -185,7 +237,7 @@
       success.hidden = false;
       success.textContent = 'Thanks, that’s with us. We read every message and reply in person.';
       btn.disabled = false;
-      btn.textContent = 'Start the conversation';
+      btn.textContent = L.submit;
     };
 
     var fallback = function (lead) {
@@ -198,38 +250,38 @@
         return el && el.value.trim();
       };
       var body = [
-        'Name: ' + (get('f-name') || ''),
-        'Email: ' + (get('f-email') || ''),
-        'Use case: ' + (get('f-case') || ''),
+        L.fName + ': ' + (get('f-name') || ''),
+        L.fEmail + ': ' + (get('f-email') || ''),
+        L.fCase + ': ' + (get('f-case') || ''),
         '',
-        'What we want to measure:',
+        L.fMeasure,
         get('f-measure') || '',
         '',
-        'Anything else:',
+        L.fNotes,
         get('f-notes') || '',
         '',
-        'Configuration: ' + ((configField && configField.value) || 'not set')
+        L.fConfig + ((configField && configField.value) || L.notSet)
       ].join('\n');
 
       var href = 'mailto:' + CONTACT_EMAIL +
-        '?subject=' + encodeURIComponent('OpenPulse enquiry from ' + (get('f-name') || 'the website')) +
+        '?subject=' + encodeURIComponent(L.mailSubject(get('f-name') || L.fromSite)) +
         '&body=' + encodeURIComponent(body);
 
       success.hidden = false;
       success.innerHTML = '';
-      success.appendChild(document.createTextNode(lead + ' Your message is ready in your mail app. If nothing opened, write to '));
+      success.appendChild(document.createTextNode(lead + L.mailLead));
       var a = document.createElement('a');
       a.href = 'mailto:' + CONTACT_EMAIL;
       a.textContent = CONTACT_EMAIL;
       success.appendChild(a);
-      success.appendChild(document.createTextNode(' and everything above comes with you.'));
+      success.appendChild(document.createTextNode(L.mailTail));
 
       btn.disabled = false;
-      btn.textContent = 'Start the conversation';
+      btn.textContent = L.submit;
       window.location.href = href;
     };
 
-    if (!ENDPOINT) { fallback('Almost there.'); return; }
+    if (!ENDPOINT) { fallback(L.almost); return; }
 
     btn.disabled = true;
     btn.textContent = 'Sending…';
