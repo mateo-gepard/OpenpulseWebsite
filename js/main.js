@@ -312,6 +312,9 @@
      still underneath is hidden only once a real frame has been painted, so
      any failure leaves the poster image in place.                          */
 
+  /* `src` must be root-absolute. These paths are resolved against the
+     document, and the German page lives at /de/, where a relative path would
+     ask for /de/assets/... and 404. */
   function scrubClip(host, src, progressOf) {
     if (!host) return;
 
@@ -416,7 +419,7 @@
     /* Hero sits at the top: drive it off absolute scroll through the section. */
     scrubClip(
       document.getElementById('heroMedia'),
-      'assets/video/hero-rotate.mp4',
+      '/assets/video/hero-rotate.mp4',
       function (host) {
         var hero = host.closest('.hero');
         return window.scrollY / (hero.offsetHeight * 0.85);
@@ -427,7 +430,7 @@
        viewport: 0 as it enters from below, 1 as it leaves past the top. */
     scrubClip(
       document.getElementById('explodedMedia'),
-      'assets/video/exploded-drift.mp4',
+      '/assets/video/exploded-drift.mp4',
       function (host) {
         var r = host.getBoundingClientRect();
         return (window.innerHeight - r.top) / (window.innerHeight + r.height);
