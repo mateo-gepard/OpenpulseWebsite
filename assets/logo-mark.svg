@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" role="img" aria-label="OpenPulse">
+  <path d="M 20.86 65.49 A 33.0 33.0 0 0 1 64.98 20.60" stroke="#101f3c" stroke-width="9.0" stroke-linecap="round"/>
+  <circle cx="64.98" cy="20.60" r="6.48" fill="#101f3c"/>
+  <path d="M 75.28 28.79 A 33.0 33.0 0 0 1 72.08 74.52" stroke="#b08d83" stroke-width="9.0" stroke-linecap="round"/>
+  <circle cx="72.08" cy="74.52" r="6.48" fill="#b08d83"/>
+  <path d="M 27.92 74.52 A 33.0 33.0 0 0 0 61.29 81.01" stroke="#cf3826" stroke-width="9.0" stroke-linecap="round"/>
+  <circle cx="27.92" cy="74.52" r="6.48" fill="#cf3826"/>
+</svg>

@@ -25,8 +25,8 @@
   --edge:   max(var(--gutter), calc((100vw - 1280px) / 2));
   --gutter: 24px;
 
-  --f-display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
-  --f-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --f-display: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+  --f-ui: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
 
   --ease: cubic-bezier(.22,.61,.36,1);
   --hdr: 68px;
@@ -86,9 +86,9 @@ button{ font:inherit; color:inherit; -webkit-tap-highlight-color:rgba(16,31,60,.
 
 .display{
   font-family:var(--f-display);
-  font-weight:400;
-  line-height:1.02;
-  letter-spacing:-.018em;
+  font-weight:500;
+  line-height:1.03;
+  letter-spacing:-.032em;
   margin:0;
   font-variant-ligatures:common-ligatures;
 }
@@ -328,13 +328,7 @@ body.menu-open{ overflow:hidden; }
 .is-eda{ background:var(--paper-2); color:var(--ink); --panel-bg:var(--paper-2); }
 .is-env{ background:var(--cream);   color:#4a4335;  --panel-bg:var(--cream); }
 
-.puck-kicker{
-  font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase;
-  opacity:.75; display:block;
-}
-.puck-kicker b{ font-weight:600; opacity:1; }
-.is-ppg .puck-kicker b{ color:#fff; }
-
+.is-ppg 
 .puck-img{ flex:1; width:100%; display:grid; place-items:center; padding:4px; }
 .puck-img img{
   width:min(80%,268px);
@@ -387,7 +381,7 @@ body.menu-open{ overflow:hidden; }
   padding:13px 0; border-bottom:1px solid var(--line-soft);
 }
 .spec dt{ font-size:11px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); }
-.spec dd{ margin:0; font-family:var(--f-display); font-size:20px; }
+.spec dd{ margin:0; font-family:var(--f-display); font-size:19px; font-weight:500; letter-spacing:-.01em; }
 
 .core-media{ margin:0; }
 .core-media img{
@@ -497,12 +491,8 @@ body.menu-open{ overflow:hidden; }
   }
 }
 
-.path-index{
-  margin:0 0 10px; font-size:10.5px; font-weight:600; letter-spacing:.18em;
-  color:var(--blue); font-variant-numeric:tabular-nums;
-}
 .path-stage h3{
-  margin:0 0 10px; font-family:var(--f-display); font-weight:400;
+  margin:0 0 10px; font-family:var(--f-display); font-weight:500;
   font-size:clamp(22px,2.2vw,28px); letter-spacing:-.01em; line-height:1.1;
 }
 .path-desc{ margin:0 0 18px; font-size:14.5px; color:var(--ink-2); max-width:26ch; }
@@ -527,7 +517,7 @@ body.menu-open{ overflow:hidden; }
 .uses{ padding:clamp(56px,7vw,96px) 0; }
 .uses-h{
   width:var(--shell); margin:0 auto clamp(28px,3.4vw,44px);
-  font-family:var(--f-display); font-weight:400; font-size:clamp(20px,2.2vw,27px);
+  font-family:var(--f-display); font-weight:500; font-size:clamp(20px,2.2vw,27px);
   letter-spacing:-.01em;
 }
 .uses-h span{ color:var(--ink-3); margin:0 4px; }
@@ -555,7 +545,7 @@ body.menu-open{ overflow:hidden; }
 }
 .use-badge svg{ width:24px; height:24px; }
 
-.use h3{ margin:0 0 12px; font-family:var(--f-display); font-weight:400; font-size:clamp(20px,2vw,25px); letter-spacing:-.01em; }
+.use h3{ margin:0 0 12px; font-family:var(--f-display); font-weight:500; font-size:clamp(20px,2vw,25px); letter-spacing:-.01em; }
 .use-rule{ display:block; width:34px; height:2px; background:var(--blue); margin-bottom:14px; }
 .use p{ margin:0; font-size:14.5px; color:var(--ink-2); max-width:34ch; }
 
@@ -745,21 +735,15 @@ body.menu-open{ overflow:hidden; }
 @media (min-width: 760px){ .problem-list{ grid-template-columns:repeat(3,1fr); } }
 
 .problem-opt{ padding-top:20px; border-top:1px solid rgba(16,31,60,.18); }
-.problem-num{
-  display:block; margin-bottom:14px;
-  font-size:10.5px; font-weight:600; letter-spacing:.18em; color:var(--ink-3);
-  font-variant-numeric:tabular-nums;
-}
 .problem-opt h3{
-  margin:0 0 12px; font-family:var(--f-display); font-weight:400;
+  margin:0 0 12px; font-family:var(--f-display); font-weight:500;
   font-size:clamp(20px,2.1vw,26px); letter-spacing:-.01em; line-height:1.15;
 }
 .problem-opt p{ margin:0; font-size:14.5px; color:var(--ink-2); max-width:34ch; }
 
 /* the third option is ours: mark it without shouting */
 .problem-opt.is-us{ border-top-color:var(--red); }
-.problem-opt.is-us .problem-num{ color:var(--red); }
-
+.problem-opt.is-us 
 /* ============================================================
    what you get out
    ============================================================ */
@@ -818,7 +802,7 @@ body.menu-open{ overflow:hidden; }
 .status-item.is-next .status-tag{ color:var(--ink-3); }
 
 .status-item h3{
-  margin:0 0 12px; font-family:var(--f-display); font-weight:400;
+  margin:0 0 12px; font-family:var(--f-display); font-weight:500;
   font-size:clamp(19px,2vw,24px); letter-spacing:-.01em; line-height:1.15;
 }
 .status-item p{ margin:0; font-size:14.5px; color:var(--ink-2); }
@@ -851,7 +835,7 @@ body.menu-open{ overflow:hidden; }
   padding-left:16px; border-left:2px solid var(--red);
 }
 .traction-list b{
-  font-family:var(--f-display); font-weight:400; font-size:clamp(22px,2.4vw,30px);
+  font-family:var(--f-display); font-weight:500; font-size:clamp(22px,2.4vw,30px);
   letter-spacing:-.01em; line-height:1;
 }
 .traction-list span{ font-size:13px; color:var(--ink-2); }
@@ -867,10 +851,6 @@ body.menu-open{ overflow:hidden; }
 .next-steps li{
   display:flex; gap:14px; align-items:baseline;
   font-size:14.5px; color:var(--ink-2);
-}
-.next-steps span{
-  flex:none; font-size:10.5px; font-weight:600; letter-spacing:.14em;
-  color:var(--red); font-variant-numeric:tabular-nums;
 }
 
 /* founders */
@@ -899,6 +879,7 @@ body.menu-open{ overflow:hidden; }
 
 .footer-mail{ margin:0; }
 .footer-mail a{
+  display:inline-flex; align-items:center; min-height:44px;   /* standalone: give it a target */
   font-size:13.5px; color:#fff; text-decoration:underline;
   text-underline-offset:3px; text-decoration-color:rgba(255,255,255,.35);
   transition:text-decoration-color .2s var(--ease);
@@ -920,4 +901,36 @@ body.menu-open{ overflow:hidden; }
      item into shrink-to-fit, and the only in-flow child is a lazy image, so
      the panel would collapse to zero before that image loads. */
   .core-media{ width:100%; max-width:440px; margin-inline:auto; }
+}
+
+/* ---------- logo lockup ---------- */
+.wordmark{ gap:9px; }
+.wordmark .mark{ width:22px; height:22px; flex:none; display:block; }
+.wordmark span{ letter-spacing:-.02em; }
+.site-footer .wordmark .mark path[stroke="#101f3c"]{ stroke:#fff; }
+.site-footer .wordmark .mark circle[fill="#101f3c"]{ fill:#fff; }
+
+/* ---------- puck header, name over state ---------- */
+.puck-name{
+  margin:0; font-size:12.5px; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase;
+}
+.puck-state{
+  margin:6px 0 0; font-size:10.5px; font-weight:500;
+  letter-spacing:.13em; text-transform:uppercase; opacity:.6;
+}
+
+/* ---------- problem: verbs instead of decorative numbering ---------- */
+.problem-tag{
+  display:block; margin-bottom:14px;
+  font-size:10.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-3);
+}
+.problem-opt.is-us .problem-tag{ color:var(--red); }
+
+/* ---------- next steps: a rule per step rather than a number ---------- */
+.next-steps li{ position:relative; padding-left:30px; }
+.next-steps li::before{
+  content:""; position:absolute; left:0; top:.7em;
+  width:18px; height:1.5px; background:var(--red);
 }

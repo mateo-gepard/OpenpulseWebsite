@@ -14,9 +14,6 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 
 <script>
@@ -38,7 +35,7 @@ setTimeout(function () {
 
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
-    <a class="wordmark" href="#top" aria-label="OpenPulse home">openpulse</a>
+    <a class="wordmark" href="#top" aria-label="OpenPulse home"><svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M 20.87 65.49 A 33 33 0 0 1 64.98 20.60" stroke="#101f3c" stroke-width="9" stroke-linecap="round"/><circle cx="64.98" cy="20.60" r="6.48" fill="#101f3c"/><path d="M 75.28 28.79 A 33 33 0 0 1 72.08 74.53" stroke="#b08d83" stroke-width="9" stroke-linecap="round"/><circle cx="72.08" cy="74.53" r="6.48" fill="#b08d83"/><path d="M 27.48 74.53 A 33 33 0 0 0 61.28 80.20" stroke="#cf3826" stroke-width="9" stroke-linecap="round"/><circle cx="27.48" cy="74.53" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
 
     <!-- Live configuration readout: fills as you load pucks in the sensor section -->
     <nav class="slots" aria-label="Core configuration">
@@ -75,14 +72,14 @@ setTimeout(function () {
 <div class="menu" id="menu" hidden>
   <nav class="menu-inner" aria-label="Main">
     <ul>
-      <li><a href="#problem"><span>01</span> The problem</a></li>
-      <li><a href="#sensors"><span>02</span> Sensor pucks</a></li>
-      <li><a href="#core"><span>03</span> The core</a></li>
-      <li><a href="#data"><span>04</span> Your data</a></li>
-      <li><a href="#uses"><span>05</span> Configurations</a></li>
-      <li><a href="#status"><span>06</span> Where we are</a></li>
-      <li><a href="#team"><span>07</span> Who we are</a></li>
-      <li><a href="#contact"><span>08</span> Get in touch</a></li>
+      <li><a href="#problem">The problem</a></li>
+      <li><a href="#sensors">Sensor pucks</a></li>
+      <li><a href="#core">The core</a></li>
+      <li><a href="#data">Your data</a></li>
+      <li><a href="#uses">Configurations</a></li>
+      <li><a href="#status">Where we are</a></li>
+      <li><a href="#team">Who we are</a></li>
+      <li><a href="#contact">Get in touch</a></li>
     </ul>
   </nav>
 </div>
@@ -95,7 +92,7 @@ setTimeout(function () {
     <div class="hero-inner">
       <div class="hero-copy">
         <h1 class="display">One wearable<br>shouldn’t decide<br>what matters<span class="dot">.</span></h1>
-        <p class="hero-config">2 body <span aria-hidden="true">/</span> 1 environment</p>
+        <p class="hero-config">Two body slots. One for the environment.</p>
         <p class="hero-sub">A reusable core. Three swappable sensor pucks. You choose what each configuration measures, and you get the raw data underneath it.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact">Start the conversation</a>
@@ -124,17 +121,17 @@ setTimeout(function () {
 
       <ol class="problem-list">
         <li class="problem-opt reveal">
-          <span class="problem-num">01</span>
+          <span class="problem-tag">Adapt</span>
           <h3>Bend a consumer device to fit</h3>
           <p>It measures what its maker decided to measure and hands back a score instead of a signal. Your question stops where their product roadmap stops.</p>
         </li>
         <li class="problem-opt reveal">
-          <span class="problem-num">02</span>
+          <span class="problem-tag">Build</span>
           <h3>Build your own from scratch</h3>
           <p>Electronics, firmware, enclosure, certification, manufacturing. Years of engineering and a budget most teams do not have, and a fixed sensor set at the end of it.</p>
         </li>
         <li class="problem-opt is-us reveal">
-          <span class="problem-num">03</span>
+          <span class="problem-tag">Configure</span>
           <h3>Configure one</h3>
           <p>Keep the core, the radio, the enclosure and the software. Change only the part that senses. That is the whole of what we are building.</p>
         </li>
@@ -148,7 +145,8 @@ setTimeout(function () {
 
     <article class="puck-panel is-ppg reveal" data-puck="ppg" data-slot="body1" data-label="PPG">
       <header class="puck-head">
-        <span class="puck-kicker">PPG <span aria-hidden="true">/</span> <b>Built and tested</b></span>
+        <p class="puck-name">PPG</p>
+        <p class="puck-state">Built and tested</p>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-ppg.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -164,7 +162,8 @@ setTimeout(function () {
 
     <article class="puck-panel is-eda reveal" data-puck="eda" data-slot="body2" data-label="EDA">
       <header class="puck-head">
-        <span class="puck-kicker">EDA <span aria-hidden="true">/</span> <b>Built and tested</b></span>
+        <p class="puck-name">EDA</p>
+        <p class="puck-state">Built and tested</p>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-eda.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -180,7 +179,8 @@ setTimeout(function () {
 
     <article class="puck-panel is-env reveal" data-puck="env" data-slot="env" data-label="Air &amp; temp">
       <header class="puck-head">
-        <span class="puck-kicker">Environment <span aria-hidden="true">/</span> <b>Built and tested</b></span>
+        <p class="puck-name">Environment</p>
+        <p class="puck-state">Built and tested</p>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-env.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -252,7 +252,6 @@ setTimeout(function () {
       <ol class="path reveal">
         <li class="path-stage">
           <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
-          <p class="path-index">01</p>
           <h3>Puck</h3>
           <p class="path-desc">Raw sensor data, straight off the die.</p>
           <p class="path-spec">Optical AFE, I²C</p>
@@ -260,7 +259,6 @@ setTimeout(function () {
 
         <li class="path-stage">
           <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
-          <p class="path-index">02</p>
           <h3>Core</h3>
           <p class="path-desc">Samples, timestamps and buffers every channel.</p>
           <p class="path-spec">Zephyr RTOS, buffering</p>
@@ -268,7 +266,6 @@ setTimeout(function () {
 
         <li class="path-stage">
           <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
-          <p class="path-index">03</p>
           <h3>Bluetooth</h3>
           <p class="path-desc">A reliable link that survives a real work floor.</p>
           <p class="path-spec">Bluetooth Low Energy</p>
@@ -276,7 +273,6 @@ setTimeout(function () {
 
         <li class="path-stage">
           <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
-          <p class="path-index">04</p>
           <h3>Your system</h3>
           <p class="path-desc">Your pipeline, your models, your decisions.</p>
           <p class="path-spec">Raw stream, API in build</p>
@@ -320,7 +316,7 @@ setTimeout(function () {
 
   <!-- example configurations -->
   <section class="uses" id="uses" aria-labelledby="uses-h">
-    <h2 class="uses-h" id="uses-h">Examples <span aria-hidden="true">/</span> potential configurations</h2>
+    <h2 class="uses-h" id="uses-h">Example configurations</h2>
 
     <div class="use-grid">
       <article class="use reveal">
@@ -454,9 +450,9 @@ setTimeout(function () {
           <a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a>.</p>
 
         <ol class="next-steps">
-          <li><span>01</span>You tell us what you need to measure, and in what setting.</li>
-          <li><span>02</span>We work out whether a configuration of the platform answers it.</li>
-          <li><span>03</span>If it does, we build that configuration and you run it.</li>
+          <li>You tell us what you need to measure, and in what setting.</li>
+          <li>We work out whether a configuration of the platform answers it.</li>
+          <li>If it does, we build that configuration and you run it.</li>
         </ol>
 
         <div class="config-readout" id="configReadout">
@@ -515,7 +511,7 @@ setTimeout(function () {
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <a class="wordmark" href="#top">openpulse</a>
+    <a class="wordmark" href="#top"><svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M 20.87 65.49 A 33 33 0 0 1 64.98 20.60" stroke="#101f3c" stroke-width="9" stroke-linecap="round"/><circle cx="64.98" cy="20.60" r="6.48" fill="#101f3c"/><path d="M 75.28 28.79 A 33 33 0 0 1 72.08 74.53" stroke="#b08d83" stroke-width="9" stroke-linecap="round"/><circle cx="72.08" cy="74.53" r="6.48" fill="#b08d83"/><path d="M 27.48 74.53 A 33 33 0 0 0 61.28 80.20" stroke="#cf3826" stroke-width="9" stroke-linecap="round"/><circle cx="27.48" cy="74.53" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
     <p class="footer-line">A modular wearable sensor platform. Reuse the core, change the sensing.</p>
     <p class="footer-mail"><a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a></p>
     <nav class="footer-nav" aria-label="Footer">
