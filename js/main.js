@@ -9,7 +9,7 @@
   /* Where the contact form posts. Drop in a Formspree / Basin / own endpoint
      URL and the form will POST to it. Left empty, the form hands the message
      to the visitor's mail client instead, so nothing is ever discarded. */
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://formspree.io/f/xnjeyvzr';
   var CONTACT_EMAIL = 'contact@openpulse.eu';
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -248,33 +248,27 @@
       });
   });
 
-  /* ---------- hero: scroll-scrubbed rotation ----------
-     The band turns from three-quarter to face-on as you scroll the hero, on
-     every device.
+  /* ---------- scroll-scrubbed clips ----------
+     Frames are painted into a <canvas> rather than shown through the <video>.
+     A video element repaints on its own schedule and iOS Safari defers that
+     during momentum scroll, so a scrubbed video stalls and then jumps. A
+     canvas keeps whatever was last drawn and repaints like any other element,
+     so the worst case is the animation trailing the finger.
 
-     Frames are painted into a <canvas> rather than showing the <video>
-     directly. A video element repaints on its own schedule, and iOS Safari
-     defers that during momentum scroll, so a scrubbed video stalls and then
-     jumps. A canvas holds whatever was last drawn into it and repaints like
-     any other element, so the worst case is the animation lagging the finger
-     briefly rather than freezing or blanking.
+     The video stays in the DOM behind the canvas, transparent, purely as the
+     decoder: iOS will not decode a detached or display:none element. The
+     still underneath is hidden only once a real frame has been painted, so
+     any failure leaves the poster image in place.                          */
 
-     The video still does the decoding, and stays in the DOM (transparent,
-     behind the canvas) because iOS will not decode a detached or display:none
-     element. The still underneath is only hidden once a real frame has been
-     painted, so any failure leaves the poster image in place.             */
+  function scrubClip(host, src, progressOf) {
+    if (!host) return;
 
-  var heroMedia = document.getElementById('heroMedia');
-  var conn = navigator.connection;
-  var saveData = Boolean(conn && conn.saveData);
-
-  if (heroMedia && !reduceMotion && !saveData) {
     var FPS = 24;
     var video = document.createElement('video');
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
 
-    video.className = 'hero-source';
+    video.className = 'clip-source';
     video.muted = true;
     video.defaultMuted = true;
     video.playsInline = true;
@@ -285,32 +279,24 @@
     video.preload = 'auto';
     video.setAttribute('aria-hidden', 'true');
     video.setAttribute('tabindex', '-1');
-    video.src = 'assets/video/hero-rotate.mp4';
+    video.src = src;
 
-    canvas.className = 'hero-canvas';
+    canvas.className = 'clip-canvas';
     canvas.setAttribute('aria-hidden', 'true');
 
-    /* In the DOM immediately: iOS starts fetching only once attached, and
-       waiting on loadeddata first is how this failed before. */
-    heroMedia.appendChild(video);
+    /* Attach immediately. iOS starts fetching only once the element is in the
+       document, and gating this on loadeddata is how the hero failed before. */
+    host.appendChild(video);
 
-    var duration = 0;
-    var lastFrame = 0;
-    var seeking = false;
-    var wanted = 0;
-    var shown = -1;
-    var painted = false;
+    var duration = 0, lastFrame = 0, seeking = false, wanted = 0, shown = -1, painted = false;
 
-    var paint = function () {
+    function paint() {
       if (!canvas.width) return;
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      if (!painted) {
-        painted = true;
-        heroMedia.classList.add('has-canvas');   // now safe to hide the still
-      }
-    };
+      if (!painted) { painted = true; host.classList.add('has-canvas'); }
+    }
 
-    var step = function () {
+    function step() {
       if (!duration || seeking) return;
       var frame = Math.max(0, Math.min(lastFrame, Math.round(wanted * FPS)));
       if (frame === shown) return;
@@ -321,67 +307,80 @@
       if (Math.abs(video.currentTime - t) < 0.001) { paint(); return; }
       seeking = true;
       video.currentTime = t;
-    };
+    }
 
-    var settled = function () {
-      seeking = false;
-      paint();
-      step();                        // catch up if scroll moved mid-seek
-    };
-    video.addEventListener('seeked', settled);
+    video.addEventListener('seeked', function () { seeking = false; paint(); step(); });
     video.addEventListener('error', function () { seeking = false; });
 
     var ticking = false;
-    var onHeroScroll = function () {
+    function onScrollTick() {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(function () {
         ticking = false;
-        var hero = heroMedia.closest('.hero');
-        var span = hero.offsetHeight * 0.85;
-        var p = Math.max(0, Math.min(1, window.scrollY / span));
-        wanted = p * duration;
+        wanted = Math.max(0, Math.min(1, progressOf(host))) * duration;
         step();
       });
-    };
+    }
 
-    var ready = function () {
-      if (duration) return;                       // already set up
+    function ready() {
+      if (duration) return;
       if (!video.videoWidth || !video.duration) return;
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       duration = video.duration;
       lastFrame = Math.round(duration * FPS) - 1;
-      heroMedia.appendChild(canvas);
+      host.appendChild(canvas);
       paint();
-      onHeroScroll();
-      window.addEventListener('scroll', onHeroScroll, { passive: true });
-      window.addEventListener('resize', onHeroScroll, { passive: true });
-    };
+      onScrollTick();
+      window.addEventListener('scroll', onScrollTick, { passive: true });
+      window.addEventListener('resize', onScrollTick, { passive: true });
+    }
 
     video.addEventListener('loadeddata', ready);
     video.addEventListener('canplay', ready);
     video.addEventListener('loadedmetadata', function () {
-      /* Nudge iOS into actually buffering. A muted inline play() is allowed;
-         pausing straight away leaves the first frame decoded and ready. */
+      /* Nudge iOS into buffering. A muted inline play() is permitted; pausing
+         immediately leaves the first frame decoded and ready to seek from. */
       var pr = video.play();
-      if (pr && pr.then) {
-        pr.then(function () { video.pause(); ready(); })
-          .catch(function () { ready(); });
-      } else {
-        ready();
-      }
+      if (pr && pr.then) pr.then(function () { video.pause(); ready(); }).catch(ready);
+      else ready();
     });
 
-    /* Low Power Mode blocks even muted autoplay, so use the first gesture. */
-    var nudge = function () {
+    /* Low Power Mode blocks even muted autoplay, so take the first gesture. */
+    window.addEventListener('touchstart', function nudge() {
       if (duration) return;
       var pr = video.play();
       if (pr && pr.then) pr.then(function () { video.pause(); ready(); }).catch(function () {});
-    };
-    window.addEventListener('touchstart', nudge, { passive: true, once: true });
+    }, { passive: true, once: true });
 
     video.load();
+  }
+
+  var conn = navigator.connection;
+  var saveData = Boolean(conn && conn.saveData);
+
+  if (!reduceMotion && !saveData) {
+    /* Hero sits at the top: drive it off absolute scroll through the section. */
+    scrubClip(
+      document.getElementById('heroMedia'),
+      'assets/video/hero-rotate.mp4',
+      function (host) {
+        var hero = host.closest('.hero');
+        return window.scrollY / (hero.offsetHeight * 0.85);
+      }
+    );
+
+    /* The exploded view is mid-page, so it runs on its own travel through the
+       viewport: 0 as it enters from below, 1 as it leaves past the top. */
+    scrubClip(
+      document.getElementById('explodedMedia'),
+      'assets/video/exploded-drift.mp4',
+      function (host) {
+        var r = host.getBoundingClientRect();
+        return (window.innerHeight - r.top) / (window.innerHeight + r.height);
+      }
+    );
   }
 
   /* ---------- footer year ---------- */

@@ -274,13 +274,13 @@ body.menu-open{ overflow:hidden; }
 /* The canvas takes the still's place once a real frame has been painted.
    The video stays in the box, transparent, purely as the decoder: iOS will
    not decode an element that is detached or display:none. */
-.hero-media.has-canvas .hero-still{ visibility:hidden; }
+.has-canvas .clip-still{ visibility:hidden; }
 
-.hero-source{
+.clip-source{
   position:absolute; inset:0; width:100%; height:100%;
   opacity:0; pointer-events:none; animation:none;
 }
-.hero-canvas{
+.clip-canvas{
   position:absolute; inset:0; width:100%; height:100%;
   animation:none;
   /* same edge fade as the still, so the swap is seamless */
@@ -904,3 +904,20 @@ body.menu-open{ overflow:hidden; }
   transition:text-decoration-color .2s var(--ease);
 }
 .footer-mail a:hover{ text-decoration-color:#fff; }
+
+/* exploded view: portrait clip in its own framed panel. Unlike the hero it
+   sits on a full studio scene, so it is contained rather than blended and
+   takes no edge mask. */
+.core-media{ position:relative; }
+.core-media .clip-still,
+.core-media .clip-canvas{
+  border-radius:4px;
+  -webkit-mask-image:none; mask-image:none;
+}
+.core-media .clip-source{ border-radius:4px; }
+@media (min-width: 900px){
+  /* width:100% is required, not decorative: auto inline margins turn a grid
+     item into shrink-to-fit, and the only in-flow child is a lazy image, so
+     the panel would collapse to zero before that image loads. */
+  .core-media{ width:100%; max-width:440px; margin-inline:auto; }
+}

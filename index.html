@@ -106,7 +106,7 @@ setTimeout(function () {
       <!-- The still is what ships. main.js swaps in the scroll-scrubbed
            rotation only when the browser can actually play it. -->
       <div class="hero-media" id="heroMedia">
-        <img class="hero-still" src="assets/img/hero-still.webp" width="1280" height="1640"
+        <img class="clip-still" src="assets/img/hero-still.webp" width="1280" height="1640"
              alt="The OpenPulse wearable band: a woven grey strap with a metal sensor module set into it."
              fetchpriority="high" decoding="async">
       </div>
@@ -148,7 +148,7 @@ setTimeout(function () {
 
     <article class="puck-panel is-ppg reveal" data-puck="ppg" data-slot="body1" data-label="PPG">
       <header class="puck-head">
-        <span class="puck-kicker">PPG <span aria-hidden="true">/</span> <b>At fabrication</b></span>
+        <span class="puck-kicker">PPG <span aria-hidden="true">/</span> <b>Built and tested</b></span>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-ppg.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -164,7 +164,7 @@ setTimeout(function () {
 
     <article class="puck-panel is-eda reveal" data-puck="eda" data-slot="body2" data-label="EDA">
       <header class="puck-head">
-        <span class="puck-kicker">EDA <span aria-hidden="true">/</span> <b>In design</b></span>
+        <span class="puck-kicker">EDA <span aria-hidden="true">/</span> <b>Built and tested</b></span>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-eda.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -180,7 +180,7 @@ setTimeout(function () {
 
     <article class="puck-panel is-env reveal" data-puck="env" data-slot="env" data-label="Air &amp; temp">
       <header class="puck-head">
-        <span class="puck-kicker">Environment <span aria-hidden="true">/</span> <b>Planned</b></span>
+        <span class="puck-kicker">Environment <span aria-hidden="true">/</span> <b>Built and tested</b></span>
       </header>
       <div class="puck-img">
         <img src="assets/img/puck-env.webp" width="508" height="508" loading="lazy" decoding="async"
@@ -211,8 +211,9 @@ setTimeout(function () {
         </dl>
       </div>
 
-      <figure class="core-media reveal">
-        <img src="assets/img/exploded.webp" width="1000" height="1250" loading="lazy" decoding="async"
+      <figure class="core-media reveal" id="explodedMedia">
+        <img class="clip-still" src="assets/img/exploded-still.webp" width="900" height="1600"
+             loading="lazy" decoding="async"
              alt="Exploded view of the OpenPulse core: retaining ring, sensor board, metal shell, main PCB, chassis and two further pucks with gold pogo pins.">
       </figure>
     </div>
@@ -370,28 +371,28 @@ setTimeout(function () {
       <div class="status-head reveal">
         <p class="kicker">Where the hardware is</p>
         <h2 class="display" id="status-h">What works today<span class="dot">,</span><br>and what does not.</h2>
-        <p>We would rather you read this here than discover it midway through a pilot.</p>
+        <p>The platform works. Here is exactly how far that goes, so nothing comes as a surprise midway through a pilot.</p>
       </div>
 
       <ol class="status-list">
         <li class="status-item is-done reveal">
           <span class="status-tag">Working now</span>
-          <h3>The core, on the bench</h3>
-          <p>Multiple working prototypes. Battery powered, over 48 hours on a charge, transmitting sensor data over Bluetooth. The mainboard recognises a connected puck and talks to it over the interface we designed.</p>
+          <h3>Core and pucks, together</h3>
+          <p>All three sensor pucks are built and tested. The mainboard recognises each one over the interface we designed, and the assembled device runs battery powered for over 48 hours, transmitting sensor data over Bluetooth.</p>
         </li>
         <li class="status-item is-now reveal">
           <span class="status-tag">Current milestone</span>
-          <h3>The first puck</h3>
-          <p>A 10 mm optical module for heart rate, variability and blood oxygen, built on the MAXM86161. It is at fabrication. Validating the connection and the on-body signal quality is the work in front of us.</p>
+          <h3>Out of our hands</h3>
+          <p>Getting units onto people who did not build them. External testers wearing configured devices through real days, which is the only way to learn what bench testing cannot tell us.</p>
         </li>
         <li class="status-item is-next reveal">
           <span class="status-tag">Next</span>
-          <h3>Units with external testers</h3>
-          <p>Six testers with working devices, once the puck connection and signal quality are validated and the case and strap are past the prototype stage.</p>
+          <h3>Configured pilots</h3>
+          <p>Devices built around a specific partner question, with the raw stream landing in their systems. The production API is being built alongside them.</p>
         </li>
       </ol>
 
-      <p class="status-note reveal"><span class="rule" aria-hidden="true"></span>The case and strap you see are prototype parts, and the modular puck system is not production hardware yet. Everything above is where it genuinely stands.</p>
+      <p class="status-note reveal"><span class="rule" aria-hidden="true"></span>These are working prototypes, not production units. The case and strap are still prototype parts, and certification is ahead of us. Everything above is where it genuinely stands.</p>
     </div>
   </section>
 
