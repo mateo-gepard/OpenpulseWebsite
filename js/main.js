@@ -6,10 +6,11 @@
 
   window.__openpulseBooted = true;   // tells the <head> guard the script ran
 
-  /* Where the contact form posts. Drop in a Formspree / Basin / own
-     endpoint URL and the form will POST to it; left empty, the form
-     validates and confirms locally without sending anything. */
+  /* Where the contact form posts. Drop in a Formspree / Basin / own endpoint
+     URL and the form will POST to it. Left empty, the form hands the message
+     to the visitor's mail client instead, so nothing is ever discarded. */
   var ENDPOINT = '';
+  var CONTACT_EMAIL = 'contact@openpulse.eu';
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -187,7 +188,48 @@
       btn.textContent = 'Start the conversation';
     };
 
-    if (!ENDPOINT) { confirm(); return; }
+    var fallback = function (lead) {
+      /* Never silently swallow a message. Hand it to the visitor's mail
+         client with everything they typed, and print the address as well so
+         it is recoverable if no mail client opens. The form is NOT reset
+         here, so nothing they wrote is lost either way. */
+      var get = function (id) {
+        var el = document.getElementById(id);
+        return el && el.value.trim();
+      };
+      var body = [
+        'Name: ' + (get('f-name') || ''),
+        'Email: ' + (get('f-email') || ''),
+        'Use case: ' + (get('f-case') || ''),
+        '',
+        'What we want to measure:',
+        get('f-measure') || '',
+        '',
+        'Anything else:',
+        get('f-notes') || '',
+        '',
+        'Configuration: ' + ((configField && configField.value) || 'not set')
+      ].join('\n');
+
+      var href = 'mailto:' + CONTACT_EMAIL +
+        '?subject=' + encodeURIComponent('OpenPulse enquiry from ' + (get('f-name') || 'the website')) +
+        '&body=' + encodeURIComponent(body);
+
+      success.hidden = false;
+      success.innerHTML = '';
+      success.appendChild(document.createTextNode(lead + ' Your message is ready in your mail app. If nothing opened, write to '));
+      var a = document.createElement('a');
+      a.href = 'mailto:' + CONTACT_EMAIL;
+      a.textContent = CONTACT_EMAIL;
+      success.appendChild(a);
+      success.appendChild(document.createTextNode(' and everything above comes with you.'));
+
+      btn.disabled = false;
+      btn.textContent = 'Start the conversation';
+      window.location.href = href;
+    };
+
+    if (!ENDPOINT) { fallback('Almost there.'); return; }
 
     btn.disabled = true;
     btn.textContent = 'Sending…';
@@ -202,10 +244,7 @@
         confirm();
       })
       .catch(function () {
-        success.hidden = false;
-        success.textContent = 'That didn’t send. Email us directly at hello@openpulse.dev and we’ll pick it up.';
-        btn.disabled = false;
-        btn.textContent = 'Start the conversation';
+        fallback('That didn’t send.');
       });
   });
 

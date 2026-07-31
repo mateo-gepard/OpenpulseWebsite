@@ -885,3 +885,22 @@ body.menu-open{ overflow:hidden; }
 .founders b{ font-size:15px; font-weight:600; letter-spacing:-.005em; }
 .founders span{ font-size:12px; letter-spacing:.03em; color:var(--ink-3); }
 .team-note{ margin:22px 0 0; font-size:13px; color:var(--ink-3); max-width:34ch; }
+
+/* direct contact address: the path that works with no JS and no backend */
+.contact-direct{
+  margin:16px 0 0; font-size:14.5px; color:var(--ink-2);
+}
+.contact-direct a{
+  color:var(--ink); text-decoration:underline; text-underline-offset:3px;
+  text-decoration-color:var(--line);
+  transition:text-decoration-color .2s var(--ease);
+}
+.contact-direct a:hover{ text-decoration-color:var(--red); }
+
+.footer-mail{ margin:0; }
+.footer-mail a{
+  font-size:13.5px; color:#fff; text-decoration:underline;
+  text-underline-offset:3px; text-decoration-color:rgba(255,255,255,.35);
+  transition:text-decoration-color .2s var(--ease);
+}
+.footer-mail a:hover{ text-decoration-color:#fff; }
