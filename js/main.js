@@ -209,117 +209,88 @@
       });
   });
 
-  /* ---------- hero: rotation clip ----------
-     Pointer devices scrub the rotation against hero scroll position. Touch
-     devices play it through once when it comes into view instead: iOS Safari
-     throttles seeks during momentum scroll, which makes scrubbing stall and
-     then jump, and a clean one-shot reads far better than that.
-     Either way the still stays in the markup and is only replaced once the
-     clip is actually usable, so a failed or slow load degrades to the image. */
+  /* ---------- hero: scroll-scrubbed rotation ----------
+     The band turns from three-quarter to face-on as you scroll the hero, on
+     every device.
+
+     Frames are painted into a <canvas> rather than showing the <video>
+     directly. A video element repaints on its own schedule, and iOS Safari
+     defers that during momentum scroll, so a scrubbed video stalls and then
+     jumps. A canvas holds whatever was last drawn into it and repaints like
+     any other element, so the worst case is the animation lagging the finger
+     briefly rather than freezing or blanking.
+
+     The video still does the decoding, and stays in the DOM (transparent,
+     behind the canvas) because iOS will not decode a detached or display:none
+     element. The still underneath is only hidden once a real frame has been
+     painted, so any failure leaves the poster image in place.             */
 
   var heroMedia = document.getElementById('heroMedia');
-  var coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   var conn = navigator.connection;
   var saveData = Boolean(conn && conn.saveData);
 
-  if (heroMedia && !reduceMotion && !saveData && coarse) {
-    var clip = document.createElement('video');
-    clip.className = 'hero-video';
-    clip.poster = 'assets/img/hero-still.webp';
-    clip.muted = true;
-    clip.defaultMuted = true;
-    clip.playsInline = true;
-    clip.autoplay = true;
-    /* iOS only honours these as attributes, and only if they are set before
-       the source is attached. autoplay does the real work here: Safari starts
-       a muted inline video on its own once it has data, with no JS timing to
-       get wrong. */
-    clip.setAttribute('muted', '');
-    clip.setAttribute('playsinline', '');
-    clip.setAttribute('webkit-playsinline', '');
-    clip.setAttribute('autoplay', '');
-    clip.preload = 'auto';
-    clip.setAttribute('aria-hidden', 'true');
-    clip.setAttribute('tabindex', '-1');
-    clip.src = 'assets/video/hero-rotate.mp4';
-
-    /* Insert straight away rather than waiting for `loadeddata`. iOS defers
-       loading until it feels like it, so that event may never arrive and the
-       hero would sit on the still forever. The poster IS the still, so this
-       swap is invisible and stays invisible if playback never starts. */
-    heroMedia.classList.add('has-video');
-    heroMedia.appendChild(clip);
-
-    var kick = function () {
-      if (!clip.paused || clip.ended) return;
-      var p = clip.play();
-      if (p && p.catch) p.catch(function () {});   // blocked: poster stands in
-    };
-
-    clip.addEventListener('loadeddata', kick, { once: true });
-    clip.addEventListener('canplay', kick, { once: true });
-
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (!e.isIntersecting) return;
-          io.disconnect();
-          kick();
-        });
-      }, { threshold: 0.25 });
-      io.observe(heroMedia);
-    } else {
-      kick();
-    }
-
-    /* Low Power Mode blocks autoplay outright; the first touch is the only
-       gesture we are going to get, so use it. */
-    var onFirstTouch = function () {
-      kick();
-      window.removeEventListener('touchstart', onFirstTouch);
-    };
-    window.addEventListener('touchstart', onFirstTouch, { passive: true, once: true });
-
-    clip.load();
-  }
-
-  if (heroMedia && !reduceMotion && !saveData && !coarse) {
+  if (heroMedia && !reduceMotion && !saveData) {
+    var FPS = 24;
     var video = document.createElement('video');
-    video.className = 'hero-video';
-    video.src = 'assets/video/hero-rotate.mp4';
-    video.poster = 'assets/img/hero-still.webp';
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+
+    video.className = 'hero-source';
     video.muted = true;
+    video.defaultMuted = true;
     video.playsInline = true;
+    /* iOS only honours these as attributes, set before the source */
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
     video.preload = 'auto';
     video.setAttribute('aria-hidden', 'true');
     video.setAttribute('tabindex', '-1');
+    video.src = 'assets/video/hero-rotate.mp4';
 
-    var FPS = 24;
+    canvas.className = 'hero-canvas';
+    canvas.setAttribute('aria-hidden', 'true');
+
+    /* In the DOM immediately: iOS starts fetching only once attached, and
+       waiting on loadeddata first is how this failed before. */
+    heroMedia.appendChild(video);
+
     var duration = 0;
+    var lastFrame = 0;
     var seeking = false;
     var wanted = 0;
     var shown = -1;
+    var painted = false;
+
+    var paint = function () {
+      if (!canvas.width) return;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      if (!painted) {
+        painted = true;
+        heroMedia.classList.add('has-canvas');   // now safe to hide the still
+      }
+    };
 
     var step = function () {
       if (!duration || seeking) return;
-      var last = Math.round(duration * FPS) - 1;
-      var frame = Math.max(0, Math.min(last, Math.round(wanted * FPS)));
+      var frame = Math.max(0, Math.min(lastFrame, Math.round(wanted * FPS)));
       if (frame === shown) return;
       var t = frame / FPS;
       shown = frame;
-      /* Assigning the time it is already on fires no `seeked`, which would
-         latch `seeking` on forever. Only flag a seek we know will happen. */
-      if (Math.abs(video.currentTime - t) < 0.001) return;
+      /* Assigning the time it already holds fires no `seeked`, which would
+         latch `seeking` on forever. Only flag a seek that will really happen. */
+      if (Math.abs(video.currentTime - t) < 0.001) { paint(); return; }
       seeking = true;
       video.currentTime = t;
     };
 
-    var done = function () {
+    var settled = function () {
       seeking = false;
-      step();                       // catch up if scroll moved mid-seek
+      paint();
+      step();                        // catch up if scroll moved mid-seek
     };
-    video.addEventListener('seeked', done);
-    video.addEventListener('error', done);
+    video.addEventListener('seeked', settled);
+    video.addEventListener('error', function () { seeking = false; });
 
     var ticking = false;
     var onHeroScroll = function () {
@@ -335,18 +306,41 @@
       });
     };
 
-    video.addEventListener('loadeddata', function () {
-      duration = video.duration || 42 / FPS;
-      heroMedia.classList.add('has-video');
-      heroMedia.appendChild(video);
+    var ready = function () {
+      if (duration) return;                       // already set up
+      if (!video.videoWidth || !video.duration) return;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      duration = video.duration;
+      lastFrame = Math.round(duration * FPS) - 1;
+      heroMedia.appendChild(canvas);
+      paint();
       onHeroScroll();
       window.addEventListener('scroll', onHeroScroll, { passive: true });
       window.addEventListener('resize', onHeroScroll, { passive: true });
-    }, { once: true });
+    };
 
-    video.addEventListener('error', function () {
-      heroMedia.classList.remove('has-video');
+    video.addEventListener('loadeddata', ready);
+    video.addEventListener('canplay', ready);
+    video.addEventListener('loadedmetadata', function () {
+      /* Nudge iOS into actually buffering. A muted inline play() is allowed;
+         pausing straight away leaves the first frame decoded and ready. */
+      var pr = video.play();
+      if (pr && pr.then) {
+        pr.then(function () { video.pause(); ready(); })
+          .catch(function () { ready(); });
+      } else {
+        ready();
+      }
     });
+
+    /* Low Power Mode blocks even muted autoplay, so use the first gesture. */
+    var nudge = function () {
+      if (duration) return;
+      var pr = video.play();
+      if (pr && pr.then) pr.then(function () { video.pause(); ready(); }).catch(function () {});
+    };
+    window.addEventListener('touchstart', nudge, { passive: true, once: true });
 
     video.load();
   }
