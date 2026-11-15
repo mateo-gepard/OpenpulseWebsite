@@ -3,544 +3,209 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OpenPulse: One wearable shouldn’t decide what matters</title>
-<meta name="description" content="OpenPulse is a modular wearable sensor platform built around a reusable core and swappable sensor pucks. Two body slots, one environment slot. You decide what each configuration measures.">
-<meta name="theme-color" content="#f4f3f1">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="OpenPulse: One wearable shouldn’t decide what matters">
-<meta property="og:description" content="A modular wearable sensor platform. Reuse the core, change the sensing.">
+<title>OpenPulse</title>
+<meta name="description" content="OpenPulse Gen 2 – a modular wearable platform for research, industry and product teams.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://www.openpulse.eu/">
-<meta property="og:url" content="https://www.openpulse.eu/">
+<meta property="og:type" content="website">
 <meta property="og:site_name" content="OpenPulse">
-<meta property="og:locale" content="en_GB">
-<meta property="og:locale:alternate" content="de_DE">
-<meta property="og:image" content="https://www.openpulse.eu/assets/img/hero-band.webp">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="1200">
-<meta property="og:image:alt" content="The OpenPulse wearable band.">
-<link rel="alternate" hreflang="en" href="https://www.openpulse.eu/">
-<link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/">
-<link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/">
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/styles.css">
-
-<script>
-/* Reveal animations only apply under .js, so content can never be left
-   invisible by a script that fails to load. Set before first paint to avoid
-   a flash, then withdrawn if main.js has not checked in. */
-document.documentElement.className += ' js';
-setTimeout(function () {
-  if (!window.__openpulseBooted) {
-    document.documentElement.className =
-      document.documentElement.className.replace(/\bjs\b/, '');
-  }
-}, 2500);
-</script>
+<meta property="og:url" content="https://www.openpulse.eu/">
+<meta property="og:title" content="OpenPulse – one core, swappable sensor pucks">
+<meta property="og:description" content="A modular wearable for research, industry and product teams. Raw data, and it stays with you.">
+<meta property="og:image" content="https://www.openpulse.eu/assets/video/air.jpg">
+<meta name="theme-color" content="#f8f6f2">
+<link rel="stylesheet" href="css/site.css">
 </head>
-
 <body>
-<a class="skip" href="#main">Skip to content</a>
 
-<header class="site-header" id="siteHeader">
-  <div class="header-inner">
-    <a class="wordmark" href="#top" aria-label="OpenPulse home"><svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M 20.87 65.49 A 33 33 0 0 1 64.98 20.60" stroke="#101f3c" stroke-width="9" stroke-linecap="round"/><circle cx="64.98" cy="20.60" r="6.48" fill="#101f3c"/><path d="M 75.28 28.79 A 33 33 0 0 1 72.08 74.53" stroke="#b08d83" stroke-width="9" stroke-linecap="round"/><circle cx="72.08" cy="74.53" r="6.48" fill="#b08d83"/><path d="M 27.48 74.53 A 33 33 0 0 0 61.28 80.20" stroke="#cf3826" stroke-width="9" stroke-linecap="round"/><circle cx="27.48" cy="74.53" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
-
-    <!-- Live configuration readout: fills as you load pucks in the sensor section -->
-    <nav class="slots" aria-label="Core configuration">
-      <ul class="slots-list" id="slotList">
-        <li class="slot" data-slot="body1">
-          <a href="#sensors">
-            <span class="slot-dot" aria-hidden="true"></span>
-            <span class="slot-name">Body 1</span>
-          </a>
-        </li>
-        <li class="slot" data-slot="body2">
-          <a href="#sensors">
-            <span class="slot-dot" aria-hidden="true"></span>
-            <span class="slot-name">Body 2</span>
-          </a>
-        </li>
-        <li class="slot" data-slot="env">
-          <a href="#sensors">
-            <span class="slot-dot" aria-hidden="true"></span>
-            <span class="slot-name">Environment</span>
-          </a>
-        </li>
-      </ul>
-      <p class="slots-status" id="slotStatus" role="status">Core empty. 3 slots open</p>
-    </nav>
-
-    <a class="btn btn-primary header-cta" href="#contact">Get in touch</a>
-
-    <div class="lang">
-      <a href="/" aria-current="true" hreflang="en">EN</a><span aria-hidden="true">/</span><a href="/de/" hreflang="de">DE</a>
+<header class="nav-wrap">
+  <nav class="pill" aria-label="Main">
+    <div class="pill-start">
+      <div class="lang" role="group" aria-label="Language">
+        <span class="lang-thumb" aria-hidden="true"></span>
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="de" aria-pressed="false">DE</button>
+      </div>
     </div>
-
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">
-      <span class="menu-bars" aria-hidden="true"><i></i><i></i></span>
-      <span class="sr-only">Menu</span>
-    </button>
+    <a class="brand" href="#" aria-label="OpenPulse home">
+      <svg class="mark" viewBox="10 10 80 80" aria-hidden="true">
+        <path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="var(--arcA)"/><circle cx="64.98" cy="20.6" r="6.48" fill="var(--arcA)"/>
+        <path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="var(--arcB)"/><circle cx="67.97" cy="77.68" r="6.48" fill="var(--arcB)"/>
+        <path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="var(--arcE)"/><circle cx="17.05" cy="51.73" r="6.48" fill="var(--arcE)"/>
+      </svg>
+      <span>OpenPulse</span>
+      <span class="ports" aria-hidden="true"><span class="port" data-port="A"><i></i><em></em></span><span class="port" data-port="B"><i></i><em></em></span><span class="port" data-port="E"><i></i><em></em></span></span>
+    </a>
+    <div class="pill-end">
+      <a class="pill-cta" href="#contact" data-i18n="nav.cta">Talk to us</a>
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="menu" id="menu" hidden>
+    <a href="#platform" data-i18n="menu.platform">Platform</a>
+    <a href="#data" data-i18n="menu.data">Data &amp; integration</a>
+    <a href="#air" data-i18n="menu.env">Environment</a>
+    <a href="#pucks" data-i18n="menu.pucks">Sensor pucks</a>
+    <a href="#how" data-i18n="menu.how">How we work together</a>
+    <a href="#contact" data-i18n="menu.contact">Contact</a>
   </div>
 </header>
 
-<div class="menu" id="menu" hidden>
-  <nav class="menu-inner" aria-label="Main">
-    <ul>
-      <li><a href="#problem">The problem</a></li>
-      <li><a href="#sensors">Sensor pucks</a></li>
-      <li><a href="#core">The core</a></li>
-      <li><a href="#data">Your data</a></li>
-      <li><a href="#uses">Configurations</a></li>
-      <li><a href="#status">Where we are</a></li>
-      <li><a href="#team">Who we are</a></li>
-      <li><a href="#contact">Get in touch</a></li>
-      <li class="menu-lang"><a href="/de/" hreflang="de">Auf Deutsch ansehen</a></li>
-    </ul>
-  </nav>
-</div>
-
-<main id="main">
-  <span id="top"></span>
-
-  <!-- hero -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-copy">
-        <h1 class="display">One wearable<br>shouldn’t decide<br>what matters<span class="dot">.</span></h1>
-        <p class="hero-config">Two body slots. One for the environment.</p>
-        <p class="hero-sub">A reusable core. Three swappable sensor pucks. You choose what each configuration measures, and you get the raw data underneath it.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Start the conversation</a>
-          <a class="btn btn-ghost" href="#core">How it works</a>
-        </div>
+<main>
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <h1 aria-label="The wearable for research, factory safety, trading desks, sports science, clinical studies and outdoor apps.">
+        <span class="h-lead" aria-hidden="true" data-i18n="hero.lead">The wearable for</span>
+        <span class="h-word" aria-hidden="true"><span class="typed" id="typed"></span><span class="caret" id="caret"></span></span>
+      </h1>
+      <p class="sub" data-i18n="hero.sub">One core, swappable sensor pucks and a configuration built around your application.
+        You receive the raw data, and it stays with you.</p>
+      <div class="actions">
+        <a class="btn btn-dark" href="#contact" data-i18n="hero.cta">Talk to our team</a>
+        <a class="btn btn-link" href="#platform"><span data-i18n="hero.how">How it works</span> <span class="arr" aria-hidden="true">→</span></a>
       </div>
+    </div>
 
-      <!-- The still is what ships. main.js swaps in the scroll-scrubbed
-           rotation only when the browser can actually play it. -->
-      <div class="hero-media" id="heroMedia">
-        <img class="clip-still" src="assets/img/hero-still.webp" width="1280" height="1640"
-             alt="The OpenPulse wearable band: a woven grey strap with a metal sensor module set into it."
-             fetchpriority="high" decoding="async">
+    <!-- Gerät als vorgerenderte Filme (js/hero-video.js): Standbild rest_<i>.jpg, je Wortwechsel swap_<i>_<j>.mp4 -->
+    <div class="hero-stage" id="stage" role="img" aria-label="OpenPulse Gen 2 with knit band">
+      <div class="hero-media"><img src="assets/video/rest_0.jpg" alt="" width="1296" height="1200" decoding="async" fetchpriority="high"></div>
+    </div>
+  </section>
+
+  <!-- Auszeichnungen: Laufband unter dem Hero (js/awards.js verdoppelt die Reihe für eine nahtlose Schleife) -->
+  <section class="awards" aria-label="Recognition" data-i18n-aria="awards.aria">
+    <div class="marquee">
+      <div class="track">
+        <ul class="award-group">
+          <li class="award"><b class="award-s" data-i18n="awards.bo">1st in Europe</b><span class="lg lg-mask lg-bo" role="img" aria-label="Blue Ocean Student Entrepreneur Competition"></span><span class="award-y">2026</span></li>
+          <li class="award"><b class="award-s" data-i18n="awards.st">1st nationally</b><span class="lg lg-mask lg-st" role="img" aria-label="STARTUP TEENS"></span><span class="award-y">2026</span></li>
+          <li class="award"><b class="award-s" data-i18n="awards.jg">Pitch Event</b><img class="lg lg-jg" src="assets/logos/jugend-gruendet.svg" alt="Jugend gründet"><span class="award-y">2025/26</span></li>
+          <li class="award"><b class="award-s" data-i18n="awards.ms">Innovator Scholarship</b><img class="lg lg-ms" src="assets/logos/makerspace.svg" alt="UnternehmerTUM MakerSpace"></li>
+        </ul>
       </div>
     </div>
   </section>
 
-
-  <!-- the problem -->
-  <section class="problem" id="problem" aria-labelledby="problem-h">
-    <div class="problem-inner">
-      <div class="problem-head reveal">
-        <p class="kicker">The choice today</p>
-        <h2 class="display" id="problem-h">Two bad options<span class="dot">.</span></h2>
-      </div>
-
-      <ol class="problem-list">
-        <li class="problem-opt reveal">
-          <span class="problem-tag">Adapt</span>
-          <h3>Bend a consumer device to fit</h3>
-          <p>It measures what its maker decided to measure and hands back a score instead of a signal. Your question stops where their product roadmap stops.</p>
-        </li>
-        <li class="problem-opt reveal">
-          <span class="problem-tag">Build</span>
-          <h3>Build your own from scratch</h3>
-          <p>Electronics, firmware, enclosure, certification, manufacturing. Years of engineering and a budget most teams do not have, and a fixed sensor set at the end of it.</p>
-        </li>
-        <li class="problem-opt is-us reveal">
-          <span class="problem-tag">Configure</span>
-          <h3>Configure one</h3>
-          <p>Keep the core, the radio, the enclosure and the software. Change only the part that senses. That is the whole of what we are building.</p>
-        </li>
+  <!-- „So funktioniert es“: weißer Bildschirm mit „OpenPulse Gen 2“, der Schriftzug öffnet sich, das Gerät wandert nach
+       links und geht beim Scrollen in die Explosionsansicht auf; rechts erklären fünf Schritte das Prinzip (js/gen2.js) -->
+  <section class="g2" id="platform" aria-labelledby="g2-title">
+    <div class="g2-pin">
+      <h2 class="g2-title" id="g2-title"><span class="g2-w1">OpenPulse</span> <span class="g2-w2">Gen 2</span></h2>
+      <canvas class="g2-stage" id="g2-stage" role="img" aria-label="OpenPulse Gen 2, exploded view"></canvas>
+      <svg class="g2-lead" id="g2-lead" aria-hidden="true"><path class="g2-line"/><circle class="g2-halo" r="9"/><circle class="g2-dot" r="3.2"/></svg>
+      <ol class="g2-steps">
+        <li data-anchor="titan" data-phase="pre"><span class="g2-n">01 · <span data-i18n="g2.c.k">Case</span></span><h3 data-i18n="g2.c.t">Titanium and resin, made to last.</h3><p data-i18n="g2.c.p"></p></li>
+        <li data-anchor="band" data-phase="pre"><span class="g2-n">02 · <span data-i18n="g2.b.k">Band</span></span><h3 data-i18n="g2.b.t">A fine weave from Japan.</h3><p data-i18n="g2.b.p"></p></li>
+        <li data-anchor="core" data-phase="post"><span class="g2-n">03 · <span data-i18n="g2.k.k">Core</span></span><h3 data-i18n="g2.k.t">Everything that stays.</h3><p data-i18n="g2.k.p"></p>
+          <dl class="g2-spec"><div><dt data-i18n="g2.k.l1"></dt><dd data-i18n="g2.k.v1"></dd></div><div><dt data-i18n="g2.k.l2"></dt><dd data-i18n="g2.k.v2"></dd></div><div><dt data-i18n="g2.k.l3"></dt><dd data-i18n="g2.k.v3"></dd></div><div><dt data-i18n="g2.k.l4"></dt><dd data-i18n="g2.k.v4"></dd></div><div><dt data-i18n="g2.k.l5"></dt><dd data-i18n="g2.k.v5"></dd></div></dl><p class="g2-fine" data-i18n="g2.k.n"></p></li>
+        <li data-anchor="portAB" data-phase="post"><span class="g2-n">04 · <span data-i18n="g2.p.k">Pucks</span></span><h3 data-i18n="g2.p.t">Sensors you can swap.</h3><p data-i18n="g2.p.p"></p>
+          <a class="g2-btn" href="#pucks"><span data-i18n="g2.p.b">Explore the pucks</span><i aria-hidden="true">→</i></a></li>
       </ol>
+      <p class="g2-note" data-i18n="g2.note">Design state, rendered from CAD. Not yet built or tested.</p>
     </div>
   </section>
 
-  <!-- sensor pucks / status -->
-  <section class="sensors" id="sensors" aria-labelledby="sensors-h">
-    <h2 class="sr-only" id="sensors-h">Sensor pucks</h2>
-
-    <article class="puck-panel is-ppg reveal" data-puck="ppg" data-slot="body1" data-label="PPG">
-      <header class="puck-head">
-        <p class="puck-name">PPG</p>
-        <p class="puck-state">Built and tested</p>
-      </header>
-      <div class="puck-img">
-        <img src="assets/img/puck-ppg.webp" width="508" height="508" loading="lazy" decoding="async"
-             alt="PPG sensor puck: a circular metal housing with a black optical sensor die at its centre.">
-      </div>
-      <div class="puck-foot">
-        <p class="puck-desc">Optical pulse. Heart rate, variability and perfusion at the wrist.</p>
-        <button class="puck-btn" type="button" data-load>
-          <span class="puck-btn-txt">Load into core</span>
-        </button>
-      </div>
-    </article>
-
-    <article class="puck-panel is-eda reveal" data-puck="eda" data-slot="body2" data-label="EDA">
-      <header class="puck-head">
-        <p class="puck-name">EDA</p>
-        <p class="puck-state">Built and tested</p>
-      </header>
-      <div class="puck-img">
-        <img src="assets/img/puck-eda.webp" width="508" height="508" loading="lazy" decoding="async"
-             alt="EDA sensor puck: a circular metal housing with two gold-plated skin electrodes.">
-      </div>
-      <div class="puck-foot">
-        <p class="puck-desc">Electrodermal activity across two gold electrodes. Arousal and load.</p>
-        <button class="puck-btn" type="button" data-load>
-          <span class="puck-btn-txt">Load into core</span>
-        </button>
-      </div>
-    </article>
-
-    <article class="puck-panel is-env reveal" data-puck="env" data-slot="env" data-label="Air &amp; temp">
-      <header class="puck-head">
-        <p class="puck-name">Environment</p>
-        <p class="puck-state">Built and tested</p>
-      </header>
-      <div class="puck-img">
-        <img src="assets/img/puck-env.webp" width="508" height="508" loading="lazy" decoding="async"
-             alt="Environment sensor puck: a circular metal housing with a brushed steel plate and a central intake port.">
-      </div>
-      <div class="puck-foot">
-        <p class="puck-desc">The air around the wearer. Temperature, humidity and volatiles.</p>
-        <button class="puck-btn" type="button" data-load>
-          <span class="puck-btn-txt">Load into core</span>
-        </button>
-      </div>
-    </article>
+  <!-- Rohdaten über die API: gekippte Karten-Bühne mit sechs realistischen Programmfenstern, in denen die Rohdaten ankommen
+       (Live-Fenster, Python, Tabelle, Terminal, EDF/BDF-Viewer, Assistent per MCP). Kurven auf Canvas (js/api.js). -->
+  <section class="api" id="data" aria-labelledby="api-title">
+    <header class="api-head">
+      <h2 class="api-title" id="api-title" data-i18n="raw.title">Every signal. Raw. Yours.</h2>
+      <p class="api-sub" data-i18n="raw.sub">No cloud in between and no scores laid on top. The API hands you every sample the sensors capture, in the format you work with, whenever you ask.</p>
+    </header>
+    <div class="api-stage" id="api-stage" aria-roledescription="carousel"></div>
+    <div class="api-cap" aria-live="polite">
+      <p class="api-cap-l" id="api-cap-l"></p>
+      <p class="api-cap-t" id="api-cap-t"><span class="typed"></span><span class="caret blink"></span></p>
+    </div>
+    <div class="api-tabs" role="tablist" id="api-tabs"></div>
+    <p class="api-note" data-i18n="raw.note">Example interfaces. The API is in development; channels and rates as specified for Gen 2.</p>
   </section>
-
-  <!-- the core -->
-  <section class="core" id="core" aria-labelledby="core-h">
-    <div class="core-inner">
-      <div class="core-copy reveal">
-        <h2 class="display" id="core-h">Reuse the core.<br>Change the sensing<span class="dot">.</span></h2>
-        <p>OpenPulse is a modular wearable sensor platform built around a reusable core and swappable sensor pucks.</p>
-        <p class="muted">The core carries the battery, the radio and the clock. The pucks carry everything that changes. When the question changes, you swap a puck, not the product.</p>
-
-        <dl class="spec">
-          <div><dt>Sensor slots</dt><dd>2 body, 1 environment</dd></div>
-          <div><dt>Battery life</dt><dd>48 h+ per charge</dd></div>
-          <div><dt>Mainboard</dt><dd>36 × 20 mm</dd></div>
-          <div><dt>Core module</dt><dd>XIAO nRF52840 Sense</dd></div>
-        </dl>
-      </div>
-
-      <figure class="core-media reveal" id="explodedMedia">
-        <img class="clip-still" src="assets/img/exploded-still.webp" width="900" height="1600"
-             loading="lazy" decoding="async"
-             alt="Exploded view of the OpenPulse core: retaining ring, sensor board, metal shell, main PCB, chassis and two further pucks with gold pogo pins.">
-      </figure>
+  <!-- Umgebungs-Port (Port E): ein Bildschirm. Hintergrund = Nahaufnahme des Lufteinlasses mit Gasströmen (render/airshot.py, Schleife).
+       Aussage: Körper und Umgebung in einer Aufzeichnung; der obere Port nimmt den Umgebungs-Puck, den die Anwendung braucht.
+       Pille wählt den Puck (Air verfügbar, andere auf Anfrage), Messwerte und Satz darunter kommen aus js/air.js (Beispielwerte). -->
+  <section class="air" id="air" aria-labelledby="air-title">
+    <video class="air-vid" id="air-vid" src="assets/video/air.mp4" poster="assets/video/air.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+    <div class="air-shade" aria-hidden="true"></div>
+    <header class="air-head">
+      <h2 class="air-title" id="air-title"><span data-i18n="air.t1">Measure the body and the world around it.</span> <span class="g" data-i18n="air.t2">With the environment puck.</span></h2>
+    </header>
+    <div class="air-foot">
+      <div class="air-story" id="air-story" aria-live="polite"></div>
+      <div class="air-tabs" role="tablist" id="air-tabs" aria-label="Examples" data-i18n-aria="air.tabsaria"></div>
+      <p class="air-note" data-i18n="air.note">Examples. Air puck available today, other environment pucks on request. Not a certified gas detector or dosimeter.</p>
     </div>
   </section>
-
-  <!-- connector detail -->
-  <section class="detail" aria-labelledby="detail-h">
-    <div class="detail-inner">
-      <div class="detail-copy reveal">
-        <p class="kicker kicker-light">The interface</p>
-        <h2 class="display" id="detail-h">Every puck lands on the same contacts<span class="dot">.</span></h2>
-        <p>A single mechanical and electrical interface across the whole range. A puck we design next year drops into a core built today.</p>
-
-        <dl class="spec spec-dark">
-          <div><dt>Contacts</dt><dd>Pogo pads, I²C</dd></div>
-          <div><dt>Retention</dt><dd>Neodymium magnets</dd></div>
-          <div><dt>Swap</dt><dd>Tool-free</dd></div>
-        </dl>
-      </div>
-
-      <figure class="detail-media reveal">
-        <img src="assets/img/electrodes-macro.webp" width="1000" height="1000" loading="lazy" decoding="async"
-             alt="Macro photograph of a sensor puck’s two gold-plated electrode pads seated in a black bezel.">
-      </figure>
-    </div>
+  <!-- Sensor-Pucks: endloses Kartenband (selbst laufend, ziehbar mit Schwung, rastet mittig ein; js/pucks.js),
+       fünf vorhandene Pucks (O14, Renderbilder aus render/hero_render.py MODE pucks) und eine Karte „Ihr Sensor“ -->
+  <section class="pk" id="pucks" aria-labelledby="pk-title">
+    <header class="pk-head">
+      <h2 class="pk-title" id="pk-title" data-i18n="pk.title">Five pucks. One core.</h2>
+      <p class="pk-sub" data-i18n="pk.sub">Every port takes any puck. They are swapped in the lab with standard tools, without soldering. And if your application needs a signal we do not cover yet, we build the puck for it.</p>
+    </header>
+    <div class="pk-mq" id="pk-mq" aria-roledescription="carousel" tabindex="0"><div class="pk-track" id="pk-track"></div></div>
+    <p class="pk-hint" aria-hidden="true"><span data-i18n="pk.hint">Drag to explore</span></p>
   </section>
-
-  <!-- data path -->
-  <section class="flow" id="data" aria-labelledby="flow-h">
-    <div class="flow-inner">
-      <header class="flow-head">
-        <p class="kicker">The signal path</p>
-        <h2 class="display flow-h" id="flow-h">Puck <span class="arrow" aria-hidden="true">→</span> Core <span class="arrow" aria-hidden="true">→</span> Your system</h2>
-              <p class="flow-lede">Raw signal, not a score. Most wearables hand back a number their maker invented and keep the measurement behind it. Fine for a consumer app, useless for research or a safety case.</p>
-      </header>
-
-      <ol class="path reveal">
-        <li class="path-stage">
-          <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
-          <h3>Puck</h3>
-          <p class="path-desc">Raw sensor data, straight off the die.</p>
-          <p class="path-spec">Optical AFE, I²C</p>
-        </li>
-
-        <li class="path-stage">
-          <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
-          <h3>Core</h3>
-          <p class="path-desc">Samples, timestamps and buffers every channel.</p>
-          <p class="path-spec">Zephyr RTOS, buffering</p>
-        </li>
-
-        <li class="path-stage">
-          <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
-          <h3>Bluetooth</h3>
-          <p class="path-desc">A reliable link that survives a real work floor.</p>
-          <p class="path-spec">Bluetooth Low Energy</p>
-        </li>
-
-        <li class="path-stage">
-          <div class="path-rail" aria-hidden="true"><span class="path-node"></span></div>
-          <h3>Your system</h3>
-          <p class="path-desc">Your pipeline, your models, your decisions.</p>
-          <p class="path-spec">Raw stream, API in build</p>
-        </li>
-      </ol>
-
-      <ul class="open-list reveal">
-        <li>
-          <h3>The measurement itself</h3>
-          <p>Timestamped signal as the sensor produced it, so your own analysis sits on top of the data rather than on top of somebody else's interpretation of it.</p>
-        </li>
-        <li>
-          <h3>Into your systems</h3>
-          <p>An API into the tools you already run, rather than a dashboard you have to log into. In development, and shaped by the first pilots.</p>
-        </li>
-        <li>
-          <h3>No fee to read your own data</h3>
-          <p>You own the deployment and what it records. Access to your own measurements is not a subscription.</p>
-        </li>
+  <!-- Pucktausch: Video links (KI-Clip aus der Blender-Bewegung, render/puckswap_out/seedance_tests/03_…), rechts vier Punkte;
+       Pille unten im Video: Abspielen/Pause (js/swap.js) -->
+  <section class="sw" id="swap" aria-labelledby="sw-title">
+    <div class="sw-media">
+      <video class="sw-vid" id="sw-vid" src="assets/video/puckswap.mp4" poster="assets/video/puckswap.jpg" muted loop playsinline preload="metadata" aria-label="Hand swaps two sensor pucks in an open OpenPulse" data-i18n-aria="sw.vid"></video>
+      <div class="sw-pill" role="group">
+        <button type="button" class="sw-seg on" data-play="1"><span data-i18n="sw.play">Playing</span></button>
+        <button type="button" class="sw-seg" data-play="0"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2.5" y="2" width="2.2" height="8" rx=".6"/><rect x="7.3" y="2" width="2.2" height="8" rx=".6"/></svg><span data-i18n="sw.pause">Paused</span></button>
+      </div>
+    </div>
+    <div class="sw-text">
+      <h2 class="sw-title" id="sw-title" data-i18n="sw.title">Change the sensor, not the device.</h2>
+      <ul class="sw-list">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12h7M12 8.5v7"/></svg>
+          <div><h3 data-i18n="sw.h1">Four screws. Standard tools.</h3><p data-i18n="sw.p1">Open the clear cover, lift the puck out, press the new one in. No soldering, no glue.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l8 5.8-3 9.2H7l-3-9.2z"/></svg>
+          <div><h3 data-i18n="sw.h2">It only fits the right way.</h3><p data-i18n="sw.p2">Every port is mechanically keyed, so a puck cannot go in rotated or reversed.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2.5"/><path d="M9 2.5v2.5M15 2.5v2.5M9 19v2.5M15 19v2.5M2.5 9h2.5M2.5 15h2.5M19 9h2.5M19 15h2.5"/></svg>
+          <div><h3 data-i18n="sw.h3">Every puck knows what it is.</h3><p data-i18n="sw.p3">Type, serial number and calibration are stored in the puck and travel with every recording.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5M10.5 3.5v6l-5 9a1.5 1.5 0 0 0 1.3 2h10.4a1.5 1.5 0 0 0 1.3-2l-5-9v-6"/><path d="M8 15h8"/></svg>
+          <div><h3 data-i18n="sw.h4">Set up in your lab, not by the wearer.</h3><p data-i18n="sw.p4">One configuration per application, fitted by your team before the study or rollout starts.</p></div></li>
       </ul>
-
-      <p class="flow-note"><span class="rule" aria-hidden="true"></span>You receive the underlying raw data. Production API in development.</p>
+      <p class="sw-note" data-i18n="sw.note">Video generated from our 3D model of Gen 2. Gen 2 is in development; the points above are its design specification.</p>
     </div>
   </section>
-
-
-
-  <!-- example configurations -->
-  <section class="uses" id="uses" aria-labelledby="uses-h">
-    <h2 class="uses-h" id="uses-h">Example configurations</h2>
-
-    <div class="use-grid">
-      <article class="use reveal">
-        <div class="use-media">
-          <img src="assets/img/use-workforce.webp" width="1200" height="800" loading="lazy" decoding="async"
-               alt="A machinist in safety glasses working at a press, wearing an OpenPulse band on his wrist.">
-          <span class="use-badge" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v6c0 4.2 2.9 7.7 7 9 4.1-1.3 7-4.8 7-9V6l-7-3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          </span>
-        </div>
-        <h3>Workforce safety</h3>
-        <span class="use-rule" aria-hidden="true"></span>
-        <p>Monitor strain and environment together, so the picture of a shift is a whole one.</p>
-      </article>
-
-      <article class="use reveal">
-        <div class="use-media">
-          <img src="assets/img/use-lab.webp" width="1200" height="800" loading="lazy" decoding="async"
-               alt="A researcher in a white lab coat inspecting an OpenPulse band at a workbench.">
-          <span class="use-badge" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2.5-6 4 12L16 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </div>
-        <h3>Research &amp; performance</h3>
-        <span class="use-rule" aria-hidden="true"></span>
-        <p>Change the sensing between studies without changing the platform or the pipeline.</p>
-      </article>
-
-      <article class="use reveal">
-        <div class="use-media">
-          <img src="assets/img/use-environment.webp" width="1200" height="800" loading="lazy" decoding="async"
-               alt="A wrist wearing an OpenPulse band, holding a plate with a slice of mouldy bread.">
-          <span class="use-badge" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M10 13.5V5a2 2 0 1 1 4 0v8.5a4 4 0 1 1-4 0Z" stroke="currentColor" stroke-width="1.5"/></svg>
-          </span>
-        </div>
-        <h3>Environment-aware work</h3>
-        <span class="use-rule" aria-hidden="true"></span>
-        <p>Track the conditions that affect people and product, where the work actually happens.</p>
-      </article>
-    </div>
-  </section>
-
-
-  <!-- where the hardware actually is -->
-  <section class="status" id="status" aria-labelledby="status-h">
-    <div class="status-inner">
-      <div class="status-head reveal">
-        <p class="kicker">Where the hardware is</p>
-        <h2 class="display" id="status-h">What works today<span class="dot">,</span><br>and what does not.</h2>
-        <p>The platform works. Here is exactly how far that goes, so nothing comes as a surprise midway through a pilot.</p>
-      </div>
-
-      <ol class="status-list">
-        <li class="status-item is-done reveal">
-          <span class="status-tag">Working now</span>
-          <h3>Core and pucks, together</h3>
-          <p>All three sensor pucks are built and tested. The mainboard recognises each one over the interface we designed, and the assembled device runs battery powered for over 48 hours, transmitting sensor data over Bluetooth.</p>
-        </li>
-        <li class="status-item is-now reveal">
-          <span class="status-tag">Current milestone</span>
-          <h3>Out of our hands</h3>
-          <p>Getting units onto people who did not build them. External testers wearing configured devices through real days, which is the only way to learn what bench testing cannot tell us.</p>
-        </li>
-        <li class="status-item is-next reveal">
-          <span class="status-tag">Next</span>
-          <h3>Configured pilots</h3>
-          <p>Devices built around a specific partner question, with the raw stream landing in their systems. The production API is being built alongside them.</p>
-        </li>
-      </ol>
-
-      <p class="status-note reveal"><span class="rule" aria-hidden="true"></span>These are working prototypes, not production units. The case and strap are still prototype parts, and certification is ahead of us. Everything above is where it genuinely stands.</p>
-    </div>
-  </section>
-
-
-  <!-- mid-page call to action -->
-  <section class="midcta">
-    <div class="midcta-inner reveal">
-      <p class="kicker">Ready when you are</p>
-      <h2 class="display">Tell us what you need to measure<span class="dot">.</span></h2>
-      <p>If a configuration of this platform answers a question you have, we would rather hear it early than late.</p>
-      <a class="btn btn-primary" href="#contact">Start the conversation</a>
-    </div>
-  </section>
-
-  <!-- the team -->
-  <section class="team" id="team" aria-labelledby="team-h">
-    <div class="team-copy reveal">
-      <h2 class="display" id="team-h">Built by<br>people who<br>build<span class="dot">.</span></h2>
-      <p>We’re engineers building the platform we wish we’d had, because we kept hitting the same wall: one wearable, one fixed set of sensors, one set of questions you’re allowed to ask.</p>
-
-      <ul class="founders">
-        <li><b>Mateo Mamaladze</b><span>Co-founder, CEO</span></li>
-        <li><b>Juan Rivera Chopinaud</b><span>Co-founder, CTO</span></li>
-        <li><b>Roman Daugavet</b><span>Co-founder, Head of Software</span></li>
-      </ul>
-
-      <p class="team-note">Based in Munich. Fabrication and prototyping through the UnternehmerTUM MakerSpace at TU Munich.</p>
-    </div>
-    <figure class="team-media reveal">
-      <img src="assets/img/team.webp" width="1600" height="1195" loading="lazy" decoding="async"
-           alt="The three founders of OpenPulse standing together, one wearing the band.">
-    </figure>
-  </section>
-
-
-  <!-- recognition -->
-  <section class="traction" aria-labelledby="traction-h">
-    <div class="traction-inner">
-      <h2 class="kicker" id="traction-h">Recognition</h2>
-      <ul class="traction-list reveal">
-        <li>
-          <b>1st in Europe</b>
-          <span>Blue Ocean Student Entrepreneur Competition, 2026. Over 23,000 students from 173 countries.</span>
-        </li>
-        <li>
-          <b>1st nationally</b>
-          <span>STARTUP TEENS, 2026. One of seven national category winners from 1,482 projects.</span>
-        </li>
-        <li>
-          <b>Top 14 nationally</b>
-          <span>Jugend gr&uuml;ndet, 2025/26. Invited to pitch from 1,461 teams.</span>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- contact -->
-  <section class="contact" id="contact" aria-labelledby="contact-h">
-    <div class="contact-bg" aria-hidden="true">
-      <img src="assets/img/pucks-row.webp" width="1400" height="700" loading="lazy" decoding="async" alt="">
-    </div>
-
-    <div class="contact-inner">
-      <div class="contact-copy reveal">
-        <p class="kicker">Tell us about your workflow</p>
-        <h2 class="display" id="contact-h">What should this configuration measure<span class="dot">?</span></h2>
-        <p class="contact-lede">We’re choosing which pucks to build next based on real workflows. Tell us yours.</p>
-
-        <p class="contact-direct">Or write to us directly at
-          <a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a>.</p>
-
-        <ol class="next-steps">
-          <li>You tell us what you need to measure, and in what setting.</li>
-          <li>We work out whether a configuration of the platform answers it.</li>
-          <li>If it does, we build that configuration and you run it.</li>
-        </ol>
-
-        <div class="config-readout" id="configReadout">
-          <p class="config-label">Your configuration</p>
-          <ul class="config-list">
-            <li data-readout="body1"><b>Body 1</b><span>empty</span></li>
-            <li data-readout="body2"><b>Body 2</b><span>empty</span></li>
-            <li data-readout="env"><b>Environment</b><span>empty</span></li>
-          </ul>
-          <p class="config-hint">Load pucks in the <a href="#sensors">sensor section</a> and they’ll travel with your message.</p>
-        </div>
-      </div>
-
-      <form class="contact-form reveal" id="contactForm" novalidate>
-        <div class="field">
-          <label for="f-name">Your name</label>
-          <input id="f-name" name="name" type="text" autocomplete="name" required>
-          <p class="err" data-err></p>
-        </div>
-
-        <div class="field">
-          <label for="f-email">Work email</label>
-          <input id="f-email" name="email" type="email" autocomplete="email" required>
-          <p class="err" data-err></p>
-        </div>
-
-        <div class="field">
-          <label for="f-case">Use case</label>
-          <input id="f-case" name="usecase" type="text" placeholder="e.g. shift safety on a production line">
-          <p class="err" data-err></p>
-        </div>
-
-        <div class="field field-wide">
-          <label for="f-measure">What do you want to measure?</label>
-          <textarea id="f-measure" name="measure" rows="3" required></textarea>
-          <p class="err" data-err></p>
-        </div>
-
-        <div class="field field-wide">
-          <label for="f-notes">Anything else we should know?</label>
-          <textarea id="f-notes" name="notes" rows="2"></textarea>
-        </div>
-
-        <input type="hidden" name="configuration" id="f-config" value="">
-
-        <div class="form-foot">
-          <button class="btn btn-primary" type="submit">Start the conversation</button>
-          <p class="form-note">We reply to every message. No list, no newsletter.</p>
-        </div>
-
-        <p class="form-success" id="formSuccess" role="status" hidden></p>
-      </form>
-    </div>
-  </section>
+  <!-- So arbeiten wir zusammen: eine Bühne, drei Szenen nacheinander (Gespräch, Konfiguration, Pilot), js/how.js -->
+  <section class="ws" id="how" aria-labelledby="how-title"></section>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <a class="wordmark" href="#top"><svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M 20.87 65.49 A 33 33 0 0 1 64.98 20.60" stroke="#101f3c" stroke-width="9" stroke-linecap="round"/><circle cx="64.98" cy="20.60" r="6.48" fill="#101f3c"/><path d="M 75.28 28.79 A 33 33 0 0 1 72.08 74.53" stroke="#b08d83" stroke-width="9" stroke-linecap="round"/><circle cx="72.08" cy="74.53" r="6.48" fill="#b08d83"/><path d="M 27.48 74.53 A 33 33 0 0 0 61.28 80.20" stroke="#cf3826" stroke-width="9" stroke-linecap="round"/><circle cx="27.48" cy="74.53" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
-    <p class="footer-line">A modular wearable sensor platform. Reuse the core, change the sensing.</p>
-    <p class="footer-mail"><a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a></p>
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#sensors">Pucks</a>
-      <a href="#core">Core</a>
-      <a href="#contact">Contact</a>
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Privacy</a>
+<!-- Fußzeile: liegt fest hinter der Seite und erscheint erst, wenn „So arbeiten wir zusammen“ vorbeigescrollt ist -->
+<footer class="ft" id="footer">
+  <div class="ft-in">
+    <div class="ft-brand">
+      <svg class="mark" viewBox="10 10 80 80" aria-hidden="true">
+        <path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="var(--arcA)"/><path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="var(--arcB)"/><path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="var(--arcE)"/>
+      </svg>
+      <span>OpenPulse</span>
+    </div>
+    <nav class="ft-links" aria-label="Footer">
+      <a href="#contact" data-i18n="foot.contact">Contact</a>
+      <a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a>
+      <a href="impressum.html" data-i18n="foot.imprint">Imprint</a>
+      <a href="datenschutz.html" data-i18n="foot.privacy">Privacy</a>
     </nav>
-    <p class="footer-meta"><span id="year">2026</span> OpenPulse. Hardware shown is pre-production.</p>
+    <p class="ft-copy">© <span id="ft-year">2026</span> OpenPulse · <span data-i18n="foot.loc">Made in Germany</span></p>
   </div>
 </footer>
+<script>document.getElementById('ft-year').textContent = new Date().getFullYear();</script>
 
-<script src="js/main.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/hero.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/awards.js"></script>
+<script src="js/gen2.js"></script>
+<script src="js/api.js"></script>
+<script src="js/air.js"></script>
+<script src="js/pucks.js"></script>
+<script src="js/swap.js"></script>
+<script src="js/how.js"></script>
+<script src="js/hero-video.js"></script>   <!-- js/viewer.js (Echtzeit-3D) bleibt als Referenz, nicht geladen -->
 </body>
 </html>

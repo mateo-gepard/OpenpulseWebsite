@@ -1,0 +1,25 @@
+/* Rechtliche Seiten (Impressum, Datenschutz): ruhig, gut lesbar, gleiche Farben wie die Startseite */
+:root{--bg:#f8f6f2;--text:#121417;--mute:#5e646b;--gut:clamp(16px,4.5vw,64px);--font:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit}
+.lg-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px var(--gut);max-width:960px;margin:0 auto}
+.lg-home{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:500;letter-spacing:-.01em}
+.lg-home svg{width:22px;height:22px;fill:none;stroke-width:9;stroke-linecap:round}
+.lg-lang{display:flex;gap:4px;padding:3px;border-radius:999px;background:#ebe7e0}
+.lg-lang button{border:0;background:none;font:inherit;font-size:13px;padding:5px 12px;border-radius:999px;color:var(--mute);cursor:pointer}
+.lg-lang button[aria-pressed="true"]{background:#fff;color:var(--text)}
+main{max-width:760px;margin:0 auto;padding:30px var(--gut) 80px}
+h1{font-size:clamp(34px,4vw,54px);font-weight:500;letter-spacing:-.04em;line-height:1.05;margin:20px 0 8px}
+h2{font-size:20px;font-weight:500;letter-spacing:-.015em;margin:40px 0 8px}
+h3{font-size:16px;font-weight:500;margin:22px 0 4px}
+p,li{font-size:15.5px;color:#2b2f34}
+ul{padding-left:20px}
+.lg-sub{color:var(--mute);margin:0 0 10px}
+.ph{color:inherit}   /* Platzhalter [ … ] – vor dem Livegang ersetzen */
+.lg-note{font-size:13.5px;color:var(--mute);border-left:2px solid #d9d4cb;padding-left:12px}
+[data-l]{display:none}
+html[lang="de"] [data-l="de"],html[lang="en"] [data-l="en"]{display:block}
+.lg-foot{max-width:760px;margin:0 auto;padding:26px var(--gut) 40px;border-top:1px solid #e3ded6;display:flex;flex-wrap:wrap;gap:8px 24px;font-size:13.5px;color:var(--mute)}
+.lg-foot a{text-decoration:none;color:var(--mute)}.lg-foot a:hover{color:var(--text)}

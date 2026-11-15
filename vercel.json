@@ -1,6 +1,21 @@
 {
   "redirects": [
     {
+      "source": "/de",
+      "destination": "/?lang=de",
+      "permanent": false
+    },
+    {
+      "source": "/de/",
+      "destination": "/?lang=de",
+      "permanent": false
+    },
+    {
+      "source": "/de/index.html",
+      "destination": "/?lang=de",
+      "permanent": false
+    },
+    {
       "source": "/product",
       "destination": "/",
       "permanent": true
