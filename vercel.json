@@ -74,41 +74,97 @@
       "source": "/competitions",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/vote-for-openpulse",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/vote-for-openpulse/",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/Vote-for-Openpulse",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/Vote-for-Openpulse/",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/test-openpulse",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/test-openpulse/",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/test-openpulse.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/dev.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": false
     }
   ],
   "headers": [
-    {
-      "source": "/dev.html",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store"
-        }
-      ]
-    },
-    {
-      "source": "/api/dev-:path*",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store"
-        }
-      ]
-    },
     {
       "source": "/archive/(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "dev.openpulse.eu"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
+      "source": "/org/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    },
+    {
+      "source": "/api/org/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     }
@@ -122,41 +178,11 @@
           "value": "dev.openpulse.eu"
         }
       ],
-      "destination": "/dev.html"
+      "destination": "/org/index.html"
     },
     {
-      "source": "/dashboard",
-      "has": [
-        {
-          "type": "host",
-          "value": "dev.openpulse.eu"
-        }
-      ],
-      "destination": "/dev.html"
-    },
-    {
-      "source": "/test-openpulse",
-      "destination": "/test-openpulse.html"
-    },
-    {
-      "source": "/test-openpulse/",
-      "destination": "/test-openpulse.html"
-    },
-    {
-      "source": "/Vote-for-Openpulse",
-      "destination": "/api/vote-for-openpulse"
-    },
-    {
-      "source": "/Vote-for-Openpulse/",
-      "destination": "/api/vote-for-openpulse"
-    },
-    {
-      "source": "/vote-for-openpulse",
-      "destination": "/api/vote-for-openpulse"
-    },
-    {
-      "source": "/vote-for-openpulse/",
-      "destination": "/api/vote-for-openpulse"
+      "source": "/",
+      "destination": "/home.html"
     }
   ]
 }
