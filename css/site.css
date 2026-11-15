@@ -731,3 +731,15 @@ main{position:relative;z-index:1;background:var(--bg);margin-bottom:var(--ftH,18
 .ft-copy{margin:0;font-size:12.5px;color:#8a9096}
 @media (max-width:760px){ .ft-in{grid-template-columns:1fr;justify-items:start;gap:14px} .ft-links{justify-content:flex-start} }
 .cx-priv{margin:10px 0 0;font-size:12.5px;color:#8a9096}.cx-priv a{color:inherit}
+/* Kopf: nur Pille und Menü fangen Klicks; die leere Fläche darum lässt sie zu den Inhalten darunter durch (Schritte in „So arbeiten wir zusammen“) */
+.nav-wrap{pointer-events:none}.nav-wrap>*{pointer-events:auto}
+/* Menü geschlossen: wirklich weg (display:grid überschrieb das hidden-Attribut; das unsichtbare Menü fing Klicks oben rechts ab) */
+.menu[hidden]{display:none}.menu:not(.open){pointer-events:none}
+/* Puck-Kacheln drehen sich beim Hover (Touch: Tippen) um und zeigen die Rückseite mit Stecker */
+.pm-tile{perspective:700px}
+.pm-flip{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.7,.1,1)}
+.pm-flip img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;-webkit-backface-visibility:hidden;backface-visibility:hidden;pointer-events:none}
+.pm-flip .pm-b{transform:rotateY(180deg)}
+.pm-tile:hover .pm-flip,.pm-tile.flip .pm-flip{transform:rotateY(180deg)}
+@media (prefers-reduced-motion: reduce){ .pm-flip{transition:none} }
+.pm-flip .pm-b{transform:rotateY(180deg) scale(1.1)}

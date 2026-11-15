@@ -19,7 +19,7 @@
   const item = (p, i, k) => {
     const label = p.q ? t_('pk.q') : p.name, grey = (i + k) % 2 === 1, r = rot(i + k * 7).toFixed(2);
     const tile = p.q ? `<a class="pm-tile pm-q" href="#contact" aria-label="${t_('pk.q')}" style="--r:${r}deg"><span>?</span></a>`
-      : `<span class="pm-tile" style="--c:${p.col};--r:${r}deg"><img src="assets/pucks/${p.img}.webp" alt="${p.name} sensor puck" draggable="false"></span>`;
+      : `<span class="pm-tile" style="--c:${p.col};--r:${r}deg"><span class="pm-flip"><img class="pm-f" src="assets/pucks/${p.img}.webp" alt="${p.name} sensor puck" draggable="false"><img class="pm-b" src="assets/pucks/back/${p.img}.webp" alt="" draggable="false" loading="lazy"></span></span>`;
     return `<span class="pm-pair">${tile}<span class="pm-word${grey ? ' g' : ''}">${label}</span></span>`;
   };
   let rows = [];
@@ -40,6 +40,8 @@
     const span = samples.length ? Math.max(16, performance.now() - samples[0][0]) : 16; v = samples.reduce((a, s) => a + s[1], 0) / span * 1000; };
   box.addEventListener('pointerup', up); box.addEventListener('pointercancel', up);
   box.addEventListener('click', e => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+  // Touch hat kein Hover: Tippen auf eine Puck-Kachel dreht sie um (Rückseite mit Stecker), erneutes Tippen zurück
+  box.addEventListener('click', e => { const t = e.target.closest('.pm-tile:not(.pm-q)'); if (t && moved <= 6) t.classList.toggle('flip'); });
   box.addEventListener('mouseenter', () => hover = true); box.addEventListener('mouseleave', () => hover = false);
 
   let prev = 0, raf = 0, visible = false, speed = 1, blurV = 0;
