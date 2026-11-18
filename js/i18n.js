@@ -28,7 +28,7 @@ window.I18N = {
     'g2.p.b': 'Explore the pucks',
     'pk.title': 'Five pucks. One core.',
     'pk.sub': 'Every port takes any puck. They are swapped in the lab with standard tools, without soldering. And if your application needs a signal we do not cover yet, we build the puck for it.',
-    'pk.hint': 'Drag to explore',
+    'pk.hint': 'Drag to explore', 'pk.hintT': 'Swipe to explore · tap a puck to turn it',
     'pk.pulse': 'Raw PPG in green, red and infrared with two photodiodes. For pulse, HRV and oxygen saturation research.',
     'pk.thermo': 'Two skin temperature sensors, one above a defined insulating layer, for a heat-flux trend towards core temperature.',
     'pk.air': 'Temperature, humidity, pressure and gas right next to the body. Faces the air, not the skin.',
@@ -85,7 +85,7 @@ window.I18N = {
     'g2.p.b': 'Zu den Pucks',
     'pk.title': 'Fünf Pucks. Ein Core.',
     'pk.sub': 'Jeder Port nimmt jeden Puck. Getauscht wird im Labor mit Standardwerkzeug, ohne Löten. Und braucht Ihre Anwendung ein Signal, das wir noch nicht abdecken, bauen wir den Puck dafür.',
-    'pk.hint': 'Ziehen zum Erkunden',
+    'pk.hint': 'Ziehen zum Erkunden', 'pk.hintT': 'Wischen zum Erkunden · Puck antippen zum Umdrehen',
     'pk.pulse': 'Rohes PPG in Grün, Rot und Infrarot mit zwei Photodioden. Für Puls-, HRV- und Sauerstoffsättigungs-Forschung.',
     'pk.thermo': 'Zwei Hauttemperatursensoren, einer über einer definierten Isolierschicht, für einen Wärmefluss-Trend zur Kerntemperatur.',
     'pk.air': 'Temperatur, Feuchte, Druck und Gas direkt am Körper. Zeigt zur Luft, nicht zur Haut.',
@@ -126,8 +126,7 @@ window.I18N = {
     document.querySelectorAll('[data-i18n]').forEach(el => { const v = t[el.dataset.i18n]; if (v) el.textContent = v; });
     document.querySelectorAll('[data-i18n-aria]').forEach(el => { const v = t[el.dataset.i18nAria]; if (v) el.setAttribute('aria-label', v); });
     const h1 = document.querySelector('h1'); if (h1) h1.setAttribute('aria-label', t.h1);
-    const box = document.querySelector('.lang');
-    if (box) { box.dataset.active = lang; box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang))); }
+    document.querySelectorAll('.lang').forEach(box => { box.dataset.active = lang; box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang))); });
   }
   window.setLang = function (lang) {
     if (!window.I18N[lang] || lang === window.OP_LANG && document.documentElement.lang === lang) return;

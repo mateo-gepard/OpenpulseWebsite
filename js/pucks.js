@@ -4,6 +4,7 @@
 // Schwung, danach gleiten sie zurück ins Grundtempo. Hover bremst; die „?“-Kachel führt zum Kontakt.
 (function () {
   const box = document.getElementById('pk-mq'); if (!box) return;
+  if (matchMedia('(pointer: coarse)').matches) document.querySelector('.pk-hint [data-i18n]')?.setAttribute('data-i18n', 'pk.hintT');   // Touch: „Wischen“ statt „Ziehen“
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const t_ = k => (window.I18N?.[window.OP_LANG] || window.I18N.en)[k];
   const P = [

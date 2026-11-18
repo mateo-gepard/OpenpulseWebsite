@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OpenPulse</title>
 <meta name="description" content="OpenPulse Gen 2 – a modular wearable platform for research, industry and product teams.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -50,6 +50,8 @@
     <a href="#pucks" data-i18n="menu.pucks">Sensor pucks</a>
     <a href="#how" data-i18n="menu.how">How we work together</a>
     <a href="#contact" data-i18n="menu.contact">Contact</a>
+    <div class="menu-foot"><div class="lang menu-lang" role="group" aria-label="Language"><span class="lang-thumb" aria-hidden="true"></span><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="de" aria-pressed="false">DE</button></div>
+      <a class="menu-cta" href="#contact" data-i18n="nav.cta">Talk to us</a></div>
   </div>
 </header>
 
@@ -175,6 +177,9 @@
   <!-- So arbeiten wir zusammen: eine Bühne, drei Szenen nacheinander (Gespräch, Konfiguration, Pilot), js/how.js -->
   <section class="ws" id="how" aria-labelledby="how-title"></section>
 </main>
+
+<!-- Telefon: Kontakt-Knopf unten in Daumenreichweite, erscheint nach dem Hero, verschwindet bei „So arbeiten wir zusammen“ und im Menü -->
+<a class="m-cta" id="m-cta" href="#contact" aria-hidden="true" tabindex="-1"><span data-i18n="nav.cta">Talk to us</span><i aria-hidden="true">→</i></a>
 
 <!-- Fußzeile: liegt fest hinter der Seite und erscheint erst, wenn „So arbeiten wir zusammen“ vorbeigescrollt ist -->
 <footer class="ft" id="footer">

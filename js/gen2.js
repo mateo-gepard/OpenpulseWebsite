@@ -61,7 +61,22 @@
   }
 
   // Ablauf in Bildschirmhöhen Scrollweg (s = 0 … TOTAL). Jeder Schritt bekommt eine volle Bildschirmhöhe.
-  const T = { open: [.5, 1.7], show: [1.1, 1.7], move: [1.5, 3.3], pre: 3.45, expl: [5.6, 7.4], post: 7.55, per: 1.0 };
+  // Telefon: kürzerer Weg (gleiche Reihenfolge, je Schritt ~0,8 Bildschirme) – sonst elf Bildschirme Daumen-Scrollen
+  const MOB = innerWidth <= 820;
+  const T = MOB ? { open: [.3, 1.1], show: [.7, 1.1], move: [.9, 1.9], pre: 2.0, expl: [3.65, 4.85], post: 4.95, per: .82 }
+               : { open: [.5, 1.7], show: [1.1, 1.7], move: [1.5, 3.3], pre: 3.45, expl: [5.6, 7.4], post: 7.55, per: 1.0 };
+  if (MOB) {
+    sec.classList.add('mob');
+    // Datentabelle aufklappbar (sonst deckt die Karte das Modell zu)
+    sec.querySelectorAll('.g2-steps li').forEach(li => {
+      const dl = li.querySelector('.g2-spec'); if (!dl) return;
+      const bt = document.createElement('button'); bt.type = 'button'; bt.className = 'g2-spec-t'; bt.setAttribute('aria-expanded', 'false');
+      const lab = () => { bt.innerHTML = `<span>${window.OP_LANG === 'de' ? 'Technische Daten' : 'Specifications'}</span><i aria-hidden="true">⌄</i>`; };
+      lab(); addEventListener('langchange', lab);
+      bt.addEventListener('click', () => { const on = li.classList.toggle('spec-open'); bt.setAttribute('aria-expanded', String(on)); });
+      dl.before(bt);
+    });
+  }
   const PRE = steps.filter(li => li.dataset.phase === 'pre'), POST = steps.filter(li => li.dataset.phase === 'post');
   const TOTAL = T.post + POST.length * T.per + .3;
   sec.style.height = (TOTAL + 1) * 100 + 'vh';
@@ -146,7 +161,8 @@
     const desk = innerWidth > 820;
     // 1) Schriftzug öffnet sich: Wörter gleiten nach außen und blenden aus
     const o = ease(seg(T.open, s));
-    w1.style.transform = `translateX(${-o * 42}vw)`; w2.style.transform = `translateX(${o * 42}vw)`;
+    if (MOB) { w1.style.transform = `translateY(${-o * 30}svh)`; w2.style.transform = `translateY(${o * 30}svh)`; }
+    else { w1.style.transform = `translateX(${-o * 42}vw)`; w2.style.transform = `translateX(${o * 42}vw)`; }
     title.style.opacity = 1 - seg([T.open[0] + .5, T.open[1]], s);
     // 2) Gerät erscheint klein in der Lücke, wandert langsam nach links und dreht dabei aus der Frontalansicht
     const a = ease(seg(T.show, s)), m = ease(seg(T.move, s));

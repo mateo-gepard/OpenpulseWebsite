@@ -52,7 +52,7 @@
   const T = { en: { av: 'Available', rq: 'On request', qc: 'Talk to us', ih: 'For example' }, de: { av: 'Verfügbar', rq: 'Auf Anfrage', qc: 'Mit uns sprechen', ih: 'Zum Beispiel' } };
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, DUR = 8000;
   let idx = 0, auto = true, seen = false, t0 = performance.now(), raf = 0;
-  const lang = () => document.documentElement.lang === 'de' ? 'de' : 'en';
+  const lang = () => (window.OP_LANG || document.documentElement.lang) === 'de' ? 'de' : 'en';   // OP_LANG steht schon beim Laden fest, das lang-Attribut erst nach DOMContentLoaded
   const fmt = (v, d) => v.toLocaleString(lang() === 'de' ? 'de-DE' : 'en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
   function curve(s) {
     const W = 360, H = 86, lo = Math.min(...s.y), hi = Math.max(...s.y), pad = (hi - lo) * .12 || 1;
@@ -71,6 +71,7 @@
   function show(i) {
     idx = i; t0 = performance.now(); const s = S[i], g = lang(), t = T[g];
     tabs.querySelectorAll('button').forEach((b, j) => { b.classList.toggle('on', j === i); b.classList.toggle('done', j < i && auto); b.setAttribute('aria-selected', j === i); });
+    const ob = tabs.querySelector('button.on'); if (ob && tabs.scrollWidth > tabs.clientWidth) tabs.scrollTo({ left: ob.offsetLeft - (tabs.clientWidth - ob.offsetWidth) / 2, behavior: 'smooth' });
     const tag = `<span class="air-tag">${s.puck[g]} · ${s.av ? t.av : t.rq}</span>`;
     const right = s.q
       ? `<div class="air-card q"><span class="air-l">${t.ih}</span><span class="air-ideas">${s.i[g].map(x => `<span>${x}</span>`).join('')}</span><a class="air-cta" href="#contact">${t.qc} →</a></div>`
@@ -95,6 +96,13 @@
     seen = e[0].isIntersecting;
     if (seen && !reduce) vid.play().catch(() => {}); else vid.pause();
   }, { threshold: .3 }).observe(sec);
+  // Telefon: Geschichte wischen = nächste / vorige (wie Story-Karten)
+  let sx = null, sy = 0;
+  stage.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  stage.addEventListener('touchend', e => {
+    if (sx == null) return; const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) { auto = false; show((idx + (dx < 0 ? 1 : S.length - 1)) % S.length); }
+  });
   window.addEventListener('langchange', () => { buildTabs(); show(idx); });
   buildTabs(); show(0); requestAnimationFrame(loop);
 })();
