@@ -190,7 +190,7 @@
     let el, head, tl, dayO, stEl, ph, evs, bar, barGB, stats, statsEl, nxt, built;
     const D0 = -10, D1 = 14, x = d => (d - D0) / (D1 - D0), P0 = .9, P1 = 9.4;
     const EV = [['built', 'op', -9, 0], ['test', 'op', -6, 1], ['ship', 'op', -3, 0], ['hand', 'you', 0, 0, 1], ['dock', 'you', 3, 0], ['check', 'op', 7, 1], ['review', 'op', 14, 0, 1]];   // [Text, Spur, Tag, Reihe, links vom Punkt]
-    const DOCKS = [3, 6, 9, 12, 14];
+    const DOCKS = Array.from({ length: 14 }, (_, i) => i + 1);   // jede Nacht ins Dock: 2 Gbit reichen für rund einen Tag Rohdaten
     const ez = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
     const dayAt = t => lerp(D0, D1, ez(seg(t, P0, P1)));
     const dl = d => d > 0 ? '+' + d : d < 0 ? '−' + -d : '0';
@@ -223,7 +223,7 @@
           n.style.opacity = e.toFixed(3);
           n.style.transform = sm ? `translateX(${((1 - e) * -10).toFixed(1)}px)` : `translateY(${((1 - e) * 10).toFixed(1)}px) scale(${lerp(.94, 1, e).toFixed(3)})`;
           n.classList.toggle('ok', on); if (on) l === 'you' ? you++ : op++; });
-        // Rohdaten wachsen nur beim Andocken (alle 3 Tage) – so arbeitet Gen 2: Speicher im Gerät, Download über USB im Dock
+        // Rohdaten wachsen nur beim Andocken (jede Nacht) – so arbeitet Gen 2: Speicher im Gerät, Download über USB im Dock
         const docked = DOCKS.filter(k => d >= k), lastDock = docked.length ? docked[docked.length - 1] : 0, gb = MB_DAY * 5 * lastDock / 1000;
         bar.style.setProperty('--w', cl(d / D1).toFixed(4)); bar.style.setProperty('--f', cl(lastDock / D1).toFixed(4));
         bar.style.opacity = seg(d, -.5, .5).toFixed(3);

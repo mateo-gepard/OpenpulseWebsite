@@ -149,7 +149,7 @@ ${coreSpec(t, 'en')}
 <p>${STATUS.en}</p>
 <p>${NOT_MEDICAL.en}</p>` },
   de: { title: 'OpenPulse Gen 2 Plattform: Core, Ports und austauschbare Sensor-Pucks',
-    desc: 'So ist das modulare Wearable OpenPulse Gen 2 aufgebaut: ein Core mit Funk, IMU, Speicher und Akku, drei Ports für austauschbare Sensor-Pucks, Titangehäuse. Auslegungswerte.',
+    desc: 'So ist das modulare Wearable OpenPulse Gen 2 aufgebaut: Core mit Funk, IMU, Speicher und Akku, drei Ports für Sensor-Pucks, Titangehäuse. Auslegungswerte.',
     h1: 'Die Plattform OpenPulse Gen 2',
     lead: 'OpenPulse Gen 2 ist ein modulares Forschungs-Wearable für das Handgelenk. Ein fester Core trägt Funk, Prozessor, Bewegungssensor, Speicher und Energieversorgung. Zwei Ports auf der Hautseite und einer zur Luft nehmen austauschbare Sensor-Pucks auf, so lässt sich ein Gerät für jede Anwendung konfigurieren.',
     body: t => `
@@ -308,7 +308,7 @@ P.push(puckPage('eda-bioz', { key: 'pk.eda',
     extra: () => `<p>Beispielpilot aus unserem Ablauf: eine Handelsabteilung, 5 Händler, 14 Tage, danach ein Plan für 40 Geräte in derselben Konfiguration.</p>` },
 }));
 P.push(puckPage('air', { key: 'pk.air',
-  en: { title: 'Air Puck: Air Quality and Climate Sensor on the Wrist | OpenPulse Gen 2',
+  en: { title: 'Air Puck: Air Quality Sensor on the Wrist | OpenPulse Gen 2',
     desc: 'The Air puck measures temperature, humidity, air pressure and gas right next to the body, on the same timeline as pulse, skin and motion. In development.',
     h1: 'Air puck: the environment next to the body',
     what: t => `<p>${t['air.sub']}</p>
@@ -431,7 +431,7 @@ const useSection = {
 };
 P.push({ slug: 'use-cases', priority: '0.8',
   en: { title: 'Use Cases for a Modular Research Wearable | OpenPulse Gen 2',
-    desc: 'Example OpenPulse Gen 2 configurations for research, factory safety, trading desks, sports science, clinical studies and outdoor apps: which sensor puck goes in which port.',
+    desc: 'Example OpenPulse Gen 2 configurations for research, factory safety, trading desks, sports science, clinical studies and outdoor apps: which puck goes where.',
     h1: 'Use cases: one configuration per application',
     lead: 'With OpenPulse Gen 2, a configuration is simply which sensor puck goes in which port. Your team fits the pucks in the lab before the study or rollout starts. These are the example configurations shown on our homepage.',
     body: () => `
@@ -446,7 +446,7 @@ ${USES.map(u => `<h2 id="${u.id}">${u.en}</h2>
 </ol>
 <p>All configurations are examples. ${STATUS.en}</p>` },
   de: { title: 'Anwendungen für ein modulares Forschungs-Wearable | OpenPulse Gen 2',
-    desc: 'Beispielkonfigurationen von OpenPulse Gen 2 für Forschung, Arbeitsschutz, Trading-Desks, Sportwissenschaft, klinische Studien und Outdoor-Apps: welcher Sensor-Puck in welchen Port kommt.',
+    desc: 'Beispielkonfigurationen von OpenPulse Gen 2 für Forschung, Arbeitsschutz, Trading-Desks, Sport, klinische Studien und Outdoor: welcher Puck wohin kommt.',
     h1: 'Anwendungen: eine Konfiguration je Anwendung',
     lead: 'Bei OpenPulse Gen 2 ist eine Konfiguration nur die Wahl, welcher Sensor-Puck in welchen Port kommt. Ihr Team setzt die Pucks im Labor ein, bevor Studie oder Einsatz beginnt. Dies sind die Beispielkonfigurationen von unserer Startseite.',
     body: () => `
