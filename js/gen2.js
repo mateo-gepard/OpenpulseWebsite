@@ -10,7 +10,7 @@
   const steps = [...sec.querySelectorAll('.g2-steps li')], note = sec.querySelector('.g2-note');
   const lead = document.getElementById('g2-lead'), line = lead.querySelector('.g2-line'), dot = lead.querySelector('.g2-dot'), halo = lead.querySelector('.g2-halo');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const DIR = 'assets/explode/';
+  const DIR = '/assets/explode/';   // absolut, damit /de/ dieselben Dateien lädt
   let N = 0, NI = 0, imgs = [], anchors = null, last = -1;
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const ease = t => t * t * t * (t * (6 * t - 15) + 10);

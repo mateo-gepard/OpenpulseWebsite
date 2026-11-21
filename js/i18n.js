@@ -56,6 +56,39 @@ window.I18N = {
     'api.q6': 'Show me my raw IR signal from last night around 3 am and mark the motion artefacts.',
     'api.a6': 'Here is the raw ppg.ir.pd1 from 02:55 to 03:05, 60 000 samples at 100 Hz. I marked three stretches where acc.* shows movement and the signal clips; the rest is clean.',
     'g2.note': 'Design state, rendered from CAD. Not yet built or tested.',
+
+    // Statischer Text für Crawler ohne JavaScript (scripts/build.mjs schreibt ihn ins HTML; die Skripte ersetzen ihn im Browser)
+    'hero.kicker': 'OpenPulse Gen 2 · Modular research wearable',
+    'fb.api.cap': 'Channels and rates as specified for Gen 2', 'fb.api.h1': 'Source', 'fb.api.h2': 'Port', 'fb.api.h3': 'Channels', 'fb.api.h4': 'Rate',
+    'fb.api.imu': 'Motion (IMU)', 'fb.api.ab': 'A or B', 'fb.api.core': 'Core', 'fb.api.r3s': 'every 3 s · 20 bit',
+    'fb.api.fmt': 'Exports as CSV, Parquet and EDF/BDF, through a Python library, a local HTTP API and a local MCP server for AI assistants. The API is in development.',
+    'fb.api.more': 'Data and API documentation',
+    'fb.air.1': 'Factory: the Air puck notices volatile gases rising, for example from a solvent leak, before anyone smells them.',
+    'fb.air.2': 'Boiler room: air temperature, humidity and skin temperature together show heat stress before it turns dangerous.',
+    'fb.air.3': 'Mountain: air pressure falling by 4 hPa in three hours means the weather is turning. The same sensor knows the altitude, and the pulse shows how the body copes with both.',
+    'fb.air.4': 'Other environment pucks, for example radiation and UV, on request.',
+    'fb.air.more': 'More about the Air puck', 'fb.pk.more': 'All five sensor pucks',
+    'fb.how.t': 'How we work together',
+    'fb.how.1': 'Talk. Tell us what you want to measure, on whom and for how long. You get a proposal in writing.',
+    'fb.how.2': 'Configure. Pick a puck for each port. Any port can change, any time.',
+    'fb.how.3': 'Pilot. A few devices on real people first. We do the work; your team hands out devices and docks them.',
+    'fb.how.c': 'Let’s talk about your use case. Write to us at',
+    'ov.title': 'OpenPulse Gen 2 at a glance',
+    'ov.lead': 'OpenPulse Gen 2 is a modular research wearable from Munich, Germany. One core with two skin-side ports and one air-facing port takes swappable sensor pucks for PPG, skin temperature, ECG, EDA/bioimpedance and air quality. It records raw, timestamped data on the device and hands it to you locally as CSV, Parquet or EDF/BDF, with no cloud in between.',
+    'ov.cap': 'Design targets for Gen 2, not yet measured',
+    'ov.l.ports': 'Ports', 'ov.v.ports': 'Two on the skin side (A, B) and one facing the air (E). Every port takes any puck.',
+    'ov.l.pucks': 'Sensor pucks', 'ov.v.pucks': 'Pulse (PPG), Thermo+ (skin temperature), EKG (ECG), EDA/BioZ (skin conductance and bioimpedance), Air (environment)',
+    'ov.l.data': 'Data', 'ov.v.data': 'Every raw sample with its timestamp. CSV, Parquet, EDF/BDF, Python, local API, MCP.',
+    'ov.l.case': 'Case and band', 'ov.v.case': 'Printed titanium shell over an SLA resin carrier, 25 mm woven band',
+    'ov.l.status': 'Status', 'ov.v.status': 'In development. Rendered from CAD, not yet built or tested.',
+    'ov.nav': 'Explore OpenPulse Gen 2',
+    'ov.n.platform': 'Platform', 'ov.d.platform': 'Core, ports, case and how pucks are swapped',
+    'ov.n.pucks': 'Sensor pucks', 'ov.d.pucks': 'What each of the five pucks measures',
+    'ov.n.data': 'Data & API', 'ov.d.data': 'Channels, sample rates, file formats and interfaces',
+    'ov.n.uses': 'Use cases', 'ov.d.uses': 'Example configurations for each application',
+    'ov.n.faq': 'FAQ', 'ov.d.faq': 'Status, data ownership, medical use and more',
+    'ov.n.about': 'About', 'ov.d.about': 'The team behind OpenPulse and its awards',
+    'ov.note': 'OpenPulse is not a medical device. Last updated November 2026.',
   },
   de: {
     'nav.cta': 'Kontakt',
@@ -113,25 +146,65 @@ window.I18N = {
     'api.q6': 'Zeig mir mein rohes IR-Signal von letzter Nacht gegen 3 Uhr und markiere die Bewegungsartefakte.',
     'api.a6': 'Hier ist das rohe ppg.ir.pd1 von 02:55 bis 03:05, 60 000 Messwerte bei 100 Hz. Drei Abschnitte, in denen acc.* Bewegung zeigt und das Signal anschlägt, sind markiert; der Rest ist sauber.',
     'g2.note': 'Konstruktionsstand, aus dem CAD gerendert. Noch nicht gebaut oder getestet.',
+
+    'hero.kicker': 'OpenPulse Gen 2 · Modulares Forschungs-Wearable',
+    'fb.api.cap': 'Kanäle und Raten wie für Gen 2 festgelegt', 'fb.api.h1': 'Quelle', 'fb.api.h2': 'Port', 'fb.api.h3': 'Kanäle', 'fb.api.h4': 'Rate',
+    'fb.api.imu': 'Bewegung (IMU)', 'fb.api.ab': 'A oder B', 'fb.api.core': 'Core', 'fb.api.r3s': 'alle 3 s · 20 bit',
+    'fb.api.fmt': 'Export als CSV, Parquet und EDF/BDF, über eine Python-Bibliothek, eine lokale HTTP-API und einen lokalen MCP-Server für KI-Assistenten. Die API ist in Entwicklung.',
+    'fb.api.more': 'Dokumentation zu Daten und API',
+    'fb.air.1': 'Werkhalle: Der Air-Puck bemerkt aufsteigende flüchtige Gase, etwa aus einem Lösungsmittel-Leck, bevor jemand sie riecht.',
+    'fb.air.2': 'Kesselhaus: Lufttemperatur, Luftfeuchte und Hauttemperatur zusammen zeigen Hitzestress, bevor er gefährlich wird.',
+    'fb.air.3': 'Berg: Fällt der Luftdruck um 4 hPa in drei Stunden, kommt ein Wetterumschwung. Derselbe Sensor kennt die Höhe, und der Puls zeigt, wie der Körper mit beidem zurechtkommt.',
+    'fb.air.4': 'Weitere Umgebungs-Pucks, etwa für Strahlung und UV, auf Anfrage.',
+    'fb.air.more': 'Mehr zum Air-Puck', 'fb.pk.more': 'Alle fünf Sensor-Pucks',
+    'fb.how.t': 'So arbeiten wir zusammen',
+    'fb.how.1': 'Gespräch. Sagen Sie uns, was Sie messen wollen, an wem und wie lange. Sie erhalten einen schriftlichen Vorschlag.',
+    'fb.how.2': 'Konfiguration. Wählen Sie für jeden Port einen Puck. Jeder Port lässt sich ändern, jederzeit.',
+    'fb.how.3': 'Pilot. Zuerst wenige Geräte an echten Menschen. Wir erledigen die Arbeit; Ihr Team verteilt die Geräte und legt sie ins Dock.',
+    'fb.how.c': 'Sprechen wir über Ihren Anwendungsfall. Schreiben Sie uns an',
+    'ov.title': 'OpenPulse Gen 2 im Überblick',
+    'ov.lead': 'OpenPulse Gen 2 ist ein modulares Forschungs-Wearable aus München. Ein Core mit zwei Ports auf der Hautseite und einem zur Luft nimmt austauschbare Sensor-Pucks für PPG, Hauttemperatur, EKG, EDA/Bioimpedanz und Luftqualität auf. Es zeichnet rohe, zeitgestempelte Daten im Gerät auf und übergibt sie Ihnen lokal als CSV, Parquet oder EDF/BDF, ohne Cloud dazwischen.',
+    'ov.cap': 'Auslegungswerte für Gen 2, noch nicht gemessen',
+    'ov.l.ports': 'Ports', 'ov.v.ports': 'Zwei auf der Hautseite (A, B) und einer zur Luft (E). Jeder Port nimmt jeden Puck.',
+    'ov.l.pucks': 'Sensor-Pucks', 'ov.v.pucks': 'Pulse (PPG), Thermo+ (Hauttemperatur), EKG, EDA/BioZ (Hautleitfähigkeit und Bioimpedanz), Air (Umgebung)',
+    'ov.l.data': 'Daten', 'ov.v.data': 'Jeder Rohwert mit Zeitstempel. CSV, Parquet, EDF/BDF, Python, lokale API, MCP.',
+    'ov.l.case': 'Gehäuse und Band', 'ov.v.case': 'Gedruckte Titanschale über einem SLA-Harzträger, 25-mm-Webband',
+    'ov.l.status': 'Stand', 'ov.v.status': 'In Entwicklung. Aus dem CAD gerendert, noch nicht gebaut oder getestet.',
+    'ov.nav': 'OpenPulse Gen 2 entdecken',
+    'ov.n.platform': 'Plattform', 'ov.d.platform': 'Core, Ports, Gehäuse und wie Pucks getauscht werden',
+    'ov.n.pucks': 'Sensor-Pucks', 'ov.d.pucks': 'Was jeder der fünf Pucks misst',
+    'ov.n.data': 'Daten & API', 'ov.d.data': 'Kanäle, Abtastraten, Dateiformate und Schnittstellen',
+    'ov.n.uses': 'Anwendungen', 'ov.d.uses': 'Beispielkonfigurationen je Anwendung',
+    'ov.n.faq': 'FAQ', 'ov.d.faq': 'Stand, Datenhoheit, Medizin und mehr',
+    'ov.n.about': 'Über uns', 'ov.d.about': 'Das Team hinter OpenPulse und seine Auszeichnungen',
+    'ov.note': 'OpenPulse ist kein Medizinprodukt. Stand: November 2026.',
   },
 };
 (function () {
+  // Seiten mit fester Sprache (data-page-lang auf <html>: / und /de/ sowie die Unterseiten) zeigen immer ihre Sprache;
+  // die Sprachwahl führt dann auf die andere Fassung (link rel="alternate" hreflang). Ohne data-page-lang wie früher.
+  const root = document.documentElement, fixed = root.dataset.pageLang;
   let saved = null;
   try { saved = localStorage.getItem('op-lang'); } catch (e) {}
-  const q = new URLSearchParams(location.search).get('lang'); if (q === 'de' || q === 'en') saved = q;   // /de/ leitet auf ?lang=de um
-  window.OP_LANG = saved === 'de' || saved === 'en' ? saved : (navigator.language || '').toLowerCase().startsWith('de') ? 'de' : 'en';
+  const q = new URLSearchParams(location.search).get('lang'); if (q === 'de' || q === 'en') saved = q;
+  window.OP_LANG = fixed === 'de' || fixed === 'en' ? fixed
+    : saved === 'de' || saved === 'en' ? saved : (navigator.language || '').toLowerCase().startsWith('de') ? 'de' : 'en';
   function apply(lang) {
     const t = window.I18N[lang];
-    document.documentElement.lang = lang;
+    root.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => { const v = t[el.dataset.i18n]; if (v) el.textContent = v; });
     document.querySelectorAll('[data-i18n-aria]').forEach(el => { const v = t[el.dataset.i18nAria]; if (v) el.setAttribute('aria-label', v); });
-    const h1 = document.querySelector('h1'); if (h1) h1.setAttribute('aria-label', t.h1);
+    const h1 = document.querySelector('.hero h1'); if (h1) h1.setAttribute('aria-label', t.h1);
     document.querySelectorAll('.lang').forEach(box => { box.dataset.active = lang; box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang))); });
   }
   window.setLang = function (lang) {
-    if (!window.I18N[lang] || lang === window.OP_LANG && document.documentElement.lang === lang) return;
-    window.OP_LANG = lang; apply(lang);
+    if (!window.I18N[lang] || lang === window.OP_LANG && root.lang === lang) return;
     try { localStorage.setItem('op-lang', lang); } catch (e) {}
+    if (fixed) {
+      const alt = document.querySelector(`link[rel="alternate"][hreflang="${lang}"]`);
+      if (alt) { location.href = new URL(alt.href).pathname + location.hash; return; }
+    }
+    window.OP_LANG = lang; apply(lang);
     window.dispatchEvent(new CustomEvent('langchange', { detail: lang }));
   };
   document.addEventListener('DOMContentLoaded', () => {
