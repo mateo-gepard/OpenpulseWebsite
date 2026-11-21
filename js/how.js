@@ -7,7 +7,7 @@
 //   3 Pilot: Beispiel-Pilot als Projektzeitplan mit zwei Spuren „OpenPulse“ und „Ihr Team“ – unsere Spur voll, Ihre fast leer.
 // Danach blendet alles aus und ein Kontaktformular erscheint. Links auf #contact führen direkt dorthin.
 // Ehrlich: Beispielsatz, Beispielpilot (Handelsabteilung, 5 Geräte, 14 Tage) und Firmenablauf sind Beispiele, keine Zusagen.
-// Datenweg nach docs/GEN2_SPEC.md 4.4: Gerät speichert ≈ 3 Tage, Download über USB im Dock (≈ 11 min je 3 Tage, Rechnung).
+// Datenweg nach docs/GEN2_SPEC.md 4.4: Speicher im Gerät (2 Gbit seit 08.11.2026, ≈ 1 Tag bei voller Rate), Download über USB im Dock.
 // Datenmenge ≈ 225 MB je Gerät und Tag (Rechnung O5, keine Messung). Preis nach Mateo: ≈ 199 € + ≈ 29 € je Puck.
 // Das Formular sendet über Formspree (Formular xnjeyvzr, dasselbe wie auf www.openpulse.eu) an contact@openpulse.eu.
 (function () {
