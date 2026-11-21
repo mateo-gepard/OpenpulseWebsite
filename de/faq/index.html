@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="de" data-page-lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- head:meta (geschrieben von scripts/build.mjs: Titel, Beschreibung, canonical, hreflang, Open Graph, JSON-LD) -->
+<title>OpenPulse FAQ: Stand, Daten, Sensoren und Medizin</title>
+<meta name="description" content="Antworten zum modularen Forschungs-Wearable OpenPulse Gen 2: Verfügbarkeit, Medizinprodukt, Speicherort der Daten, Formate, Sensor-Pucks, Abtastraten, Akku.">
+<link rel="canonical" href="https://www.openpulse.eu/de/faq/">
+<link rel="alternate" hreflang="en" href="https://www.openpulse.eu/faq/">
+<link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/faq/">
+<link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/faq/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OpenPulse">
+<meta property="og:locale" content="de_DE">
+<meta property="og:url" content="https://www.openpulse.eu/de/faq/">
+<meta property="og:title" content="OpenPulse FAQ: Stand, Daten, Sensoren und Medizin">
+<meta property="og:description" content="Antworten zum modularen Forschungs-Wearable OpenPulse Gen 2: Verfügbarkeit, Medizinprodukt, Speicherort der Daten, Formate, Sensor-Pucks, Abtastraten, Akku.">
+<meta property="og:image" content="https://www.openpulse.eu/assets/og/openpulse-gen2.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Start",
+          "item": "https://www.openpulse.eu/de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Häufige Fragen",
+          "item": "https://www.openpulse.eu/de/faq/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.openpulse.eu/de/faq/#page",
+      "url": "https://www.openpulse.eu/de/faq/",
+      "name": "OpenPulse FAQ: Stand, Daten, Sensoren und Medizin",
+      "description": "Antworten zum modularen Forschungs-Wearable OpenPulse Gen 2: Verfügbarkeit, Medizinprodukt, Speicherort der Daten, Formate, Sensor-Pucks, Abtastraten, Akku.",
+      "inLanguage": "de-DE",
+      "isPartOf": {
+        "@id": "https://www.openpulse.eu/#website"
+      },
+      "publisher": {
+        "@id": "https://www.openpulse.eu/#org"
+      },
+      "dateModified": "2026-11-21",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Was ist OpenPulse Gen 2?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "OpenPulse Gen 2 ist ein modulares Forschungs-Wearable aus München. Ein Core mit zwei Ports auf der Hautseite und einem zur Luft nimmt austauschbare Sensor-Pucks für PPG, Hauttemperatur, EKG, EDA/Bioimpedanz und Luftqualität auf. Es zeichnet rohe, zeitgestempelte Daten im Gerät auf und übergibt sie Ihnen lokal als CSV, Parquet oder EDF/BDF."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kann ich OpenPulse Gen 2 heute kaufen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Noch nicht. Gen 2 ist in Entwicklung: konstruiert und aus dem CAD gerendert, aber noch nicht gebaut oder getestet. Wenn Sie eine Studie oder einen Pilot planen, sagen Sie uns, was Sie messen wollen, an wem und wie lange, und Sie erhalten einen schriftlichen Vorschlag."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist OpenPulse ein Medizinprodukt?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. OpenPulse ist für Forschung und industrielle Anwendungen gebaut, nicht für Diagnose oder Behandlung. Der Air-Puck ist kein zertifizierter Gaswarner und kein Dosimeter."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wo werden meine Daten gespeichert?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Zuerst im Gerät, dann auf Ihrem eigenen Rechner: Im USB-Dock kopiert das Gerät seine Rohdaten auf Ihren Rechner. Ohne Cloud und ohne Konto dazwischen, die Rohdaten bleiben bei Ihnen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Welche Datenformate und Schnittstellen gibt es?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CSV-, Parquet- und EDF/BDF-Dateien, eine Python-Bibliothek, ein Kommandozeilenwerkzeug, eine lokale HTTP-API und einen lokalen MCP-Server für KI-Assistenten. Die API ist in Entwicklung; siehe Daten und API."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Welche Sensoren gibt es?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fünf Sensor-Pucks: Pulse (rohes PPG in Grün, Rot und Infrarot), Thermo+ (Hauttemperatur und Wärmefluss-Trend), EKG (1-Kanal-EKG), EDA/BioZ (Hautleitfähigkeit, Atmung, Bioimpedanz) und Air (Temperatur, Feuchte, Druck, Gas). Alle sind mit Gen 2 in Entwicklung. Siehe Sensor-Pucks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Lassen sich die Pucks tauschen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja, im Labor und durch Ihr Team, nicht durch den Träger. Vier Schrauben und Standardwerkzeug: klaren Deckel öffnen, Puck herausheben, neuen hineindrücken. Ohne Löten, ohne Kleber. Jeder Port ist mechanisch kodiert, ein Puck lässt sich weder verdreht noch falsch herum einsetzen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bauen Sie einen Puck für ein Signal, das Sie noch nicht abdecken?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sagen Sie uns, was Sie messen müssen. Wir prüfen, ob es in einen Puck passt, und bauen ihn für denselben Port und dieselbe API."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mit welchen Abtastraten zeichnet OpenPulse auf?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wie für Gen 2 festgelegt: PPG mit 100 Hz und 24 bit, Bewegung mit 50 Hz, Hauttemperatur mit 1 Hz und der Air-Puck alle 3 Sekunden, jeder Wert mit Zeitstempel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie lange hält der Akku, und wie viele Daten passen ins Gerät?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Auslegungswerte: eine 50-mAh-Lithiumzelle für mindestens einen Tag im Studienbetrieb und 2 Gbit (256 MB) Speicher im Gerät, rund ein Tag Rohdaten bei voller Rate. Die Werte sind noch nicht gemessen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wer steht hinter OpenPulse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ein Gründungsteam von Schülern aus München. Siehe Über uns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hat OpenPulse etwas mit OpenQASM OpenPulse oder openpulse.org zu tun?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. OpenPulse (openpulse.eu) ist ein modulares Forschungs-Wearable. Es hat nichts mit der OpenQASM-Pulsgrammatik „OpenPulse“, mit openpulse.org oder anderen gleichnamigen Projekten zu tun."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- /head:meta -->
+<meta name="theme-color" content="#f8f6f2">
+<link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+<header class="pg-head">
+  <a class="pg-brand" href="/de/"><svg class="mark" viewBox="10 10 80 80" aria-hidden="true"><path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="#101f3c"/><circle cx="64.98" cy="20.6" r="6.48" fill="#101f3c"/><path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="#b08d83"/><circle cx="67.97" cy="77.68" r="6.48" fill="#b08d83"/><path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="#cf3826"/><circle cx="17.05" cy="51.73" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
+  <nav class="pg-nav" aria-label="Seiten">
+    <a href="/de/platform/">Plattform</a>
+    <a href="/de/pucks/">Sensor-Pucks</a>
+    <a href="/de/data/">Daten & API</a>
+    <a href="/de/use-cases/">Anwendungen</a>
+    <a href="/de/faq/" aria-current="page">FAQ</a>
+    <a href="/de/about/">Über uns</a>
+  </nav>
+  <div class="pg-end">
+    <a class="pg-lang" href="/faq/" hreflang="en" lang="en" data-lang-switch="en">English</a>
+    <a class="pg-cta" href="/de/#contact">Mit unserem Team sprechen</a>
+  </div>
+</header>
+<main class="pg">
+  <nav class="pg-crumbs" aria-label="Breadcrumb"><ol>
+    <li><a href="/de/">Start</a></li>
+    <li><span aria-current="page">Häufige Fragen</span></li>
+  </ol></nav>
+  <article class="pg-body">
+    <p class="pg-kicker">OpenPulse Gen 2</p>
+    <h1>Häufige Fragen</h1>
+    <p class="pg-lead">Kurze Antworten zu OpenPulse Gen 2, dem modularen Forschungs-Wearable mit austauschbaren Sensor-Pucks.</p>
+<h2>Was ist OpenPulse Gen 2?</h2>
+<p>OpenPulse Gen 2 ist ein modulares Forschungs-Wearable aus München. Ein Core mit zwei Ports auf der Hautseite und einem zur Luft nimmt austauschbare Sensor-Pucks für PPG, Hauttemperatur, EKG, EDA/Bioimpedanz und Luftqualität auf. Es zeichnet rohe, zeitgestempelte Daten im Gerät auf und übergibt sie Ihnen lokal als CSV, Parquet oder EDF/BDF.</p>
+<h2>Kann ich OpenPulse Gen 2 heute kaufen?</h2>
+<p>Noch nicht. Gen 2 ist in Entwicklung: konstruiert und aus dem CAD gerendert, aber noch nicht gebaut oder getestet. Wenn Sie eine Studie oder einen Pilot planen, sagen Sie uns, was Sie messen wollen, an wem und wie lange, und Sie erhalten einen schriftlichen Vorschlag.</p>
+<h2>Ist OpenPulse ein Medizinprodukt?</h2>
+<p>Nein. OpenPulse ist für Forschung und industrielle Anwendungen gebaut, nicht für Diagnose oder Behandlung. Der Air-Puck ist kein zertifizierter Gaswarner und kein Dosimeter.</p>
+<h2>Wo werden meine Daten gespeichert?</h2>
+<p>Zuerst im Gerät, dann auf Ihrem eigenen Rechner: Im USB-Dock kopiert das Gerät seine Rohdaten auf Ihren Rechner. Ohne Cloud und ohne Konto dazwischen, die Rohdaten bleiben bei Ihnen.</p>
+<h2>Welche Datenformate und Schnittstellen gibt es?</h2>
+<p>CSV-, Parquet- und EDF/BDF-Dateien, eine Python-Bibliothek, ein Kommandozeilenwerkzeug, eine lokale HTTP-API und einen lokalen MCP-Server für KI-Assistenten. Die API ist in Entwicklung; siehe <a href="/de/data/">Daten und API</a>.</p>
+<h2>Welche Sensoren gibt es?</h2>
+<p>Fünf Sensor-Pucks: Pulse (rohes PPG in Grün, Rot und Infrarot), Thermo+ (Hauttemperatur und Wärmefluss-Trend), EKG (1-Kanal-EKG), EDA/BioZ (Hautleitfähigkeit, Atmung, Bioimpedanz) und Air (Temperatur, Feuchte, Druck, Gas). Alle sind mit Gen 2 in Entwicklung. Siehe <a href="/de/pucks/">Sensor-Pucks</a>.</p>
+<h2>Lassen sich die Pucks tauschen?</h2>
+<p>Ja, im Labor und durch Ihr Team, nicht durch den Träger. Vier Schrauben und Standardwerkzeug: klaren Deckel öffnen, Puck herausheben, neuen hineindrücken. Ohne Löten, ohne Kleber. Jeder Port ist mechanisch kodiert, ein Puck lässt sich weder verdreht noch falsch herum einsetzen.</p>
+<h2>Bauen Sie einen Puck für ein Signal, das Sie noch nicht abdecken?</h2>
+<p>Sagen Sie uns, was Sie messen müssen. Wir prüfen, ob es in einen Puck passt, und bauen ihn für denselben Port und dieselbe API.</p>
+<h2>Mit welchen Abtastraten zeichnet OpenPulse auf?</h2>
+<p>Wie für Gen 2 festgelegt: PPG mit 100 Hz und 24 bit, Bewegung mit 50 Hz, Hauttemperatur mit 1 Hz und der Air-Puck alle 3 Sekunden, jeder Wert mit Zeitstempel.</p>
+<h2>Wie lange hält der Akku, und wie viele Daten passen ins Gerät?</h2>
+<p>Auslegungswerte: eine 50-mAh-Lithiumzelle für mindestens einen Tag im Studienbetrieb und 2 Gbit (256 MB) Speicher im Gerät, rund ein Tag Rohdaten bei voller Rate. Die Werte sind noch nicht gemessen.</p>
+<h2>Wer steht hinter OpenPulse?</h2>
+<p>Ein Gründungsteam von Schülern aus München. Siehe <a href="/de/about/">Über uns</a>.</p>
+<h2>Hat OpenPulse etwas mit OpenQASM OpenPulse oder openpulse.org zu tun?</h2>
+<p>Nein. OpenPulse (openpulse.eu) ist ein modulares Forschungs-Wearable. Es hat nichts mit der OpenQASM-Pulsgrammatik „OpenPulse“, mit openpulse.org oder anderen gleichnamigen Projekten zu tun.</p>
+  </article>
+  <aside class="pg-cta-box">
+    <h2>Sagen Sie uns, was Sie messen wollen</h2>
+    <p>Sagen Sie uns, was Sie messen wollen, an wem und wie lange. Sie erhalten einen schriftlichen Vorschlag.</p>
+    <p><a class="pg-btn" href="/de/#contact">Mit unserem Team sprechen</a> <a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a></p>
+  </aside>
+  <p class="pg-updated">Stand: <time datetime="2026-11-21">21. November 2026</time></p>
+</main>
+<footer class="pg-foot">
+  <a class="pg-brand" href="/de/"><svg class="mark" viewBox="10 10 80 80" aria-hidden="true"><path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="#101f3c"/><circle cx="64.98" cy="20.6" r="6.48" fill="#101f3c"/><path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="#b08d83"/><circle cx="67.97" cy="77.68" r="6.48" fill="#b08d83"/><path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="#cf3826"/><circle cx="17.05" cy="51.73" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
+  <nav aria-label="Footer">
+    <a href="/de/platform/">Plattform</a>
+    <a href="/de/pucks/">Sensor-Pucks</a>
+    <a href="/de/data/">Daten & API</a>
+    <a href="/de/use-cases/">Anwendungen</a>
+    <a href="/de/faq/">FAQ</a>
+    <a href="/de/about/">Über uns</a>
+    <a href="/impressum.html">Impressum</a>
+    <a href="/datenschutz.html">Datenschutz</a>
+  </nav>
+  <p>© 2026 OpenPulse · Entwickelt in Deutschland</p>
+</footer>
+<script>document.querySelectorAll('[data-lang-switch]').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('op-lang',a.dataset.langSwitch)}catch(e){}}))</script>
+</body>
+</html>

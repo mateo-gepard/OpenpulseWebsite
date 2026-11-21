@@ -89,7 +89,8 @@ export function localiseLinks(html, lang) {
   if (lang !== 'de') return html;
   return html
     .replace(new RegExp(`href="/(${PAGE_PATHS.join('|')})/`, 'g'), 'href="/de/$1/')
-    .replace(/href="\/"/g, 'href="/de/"');
+    .replace(/href="\/"/g, 'href="/de/"')
+    .replace(/href="\/#/g, 'href="/de/#');
 }
 
 const LANG_REDIRECT = `<!-- head:lang (nur Startseite EN: wer Deutsch gewählt hat oder einen deutschen Browser ohne Wahl nutzt, landet auf /de/) -->

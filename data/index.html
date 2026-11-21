@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" data-page-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- head:meta (geschrieben von scripts/build.mjs: Titel, Beschreibung, canonical, hreflang, Open Graph, JSON-LD) -->
+<title>OpenPulse Data and API: Raw Wearable Data as CSV, Parquet, EDF</title>
+<meta name="description" content="Raw, timestamped wearable data from OpenPulse Gen 2: channel names and sample rates, export as CSV, Parquet or EDF/BDF, Python, local HTTP API and MCP. No cloud.">
+<link rel="canonical" href="https://www.openpulse.eu/data/">
+<link rel="alternate" hreflang="en" href="https://www.openpulse.eu/data/">
+<link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/data/">
+<link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/data/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OpenPulse">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://www.openpulse.eu/data/">
+<meta property="og:title" content="OpenPulse Data and API: Raw Wearable Data as CSV, Parquet, EDF">
+<meta property="og:description" content="Raw, timestamped wearable data from OpenPulse Gen 2: channel names and sample rates, export as CSV, Parquet or EDF/BDF, Python, local HTTP API and MCP. No cloud.">
+<meta property="og:image" content="https://www.openpulse.eu/assets/og/openpulse-gen2.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.openpulse.eu/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Data and API: every sample, not a score",
+          "item": "https://www.openpulse.eu/data/"
+        }
+      ]
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://www.openpulse.eu/data/#page",
+      "url": "https://www.openpulse.eu/data/",
+      "name": "OpenPulse Data and API: Raw Wearable Data as CSV, Parquet, EDF",
+      "description": "Raw, timestamped wearable data from OpenPulse Gen 2: channel names and sample rates, export as CSV, Parquet or EDF/BDF, Python, local HTTP API and MCP. No cloud.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://www.openpulse.eu/#website"
+      },
+      "publisher": {
+        "@id": "https://www.openpulse.eu/#org"
+      },
+      "dateModified": "2026-11-21",
+      "headline": "Data and API: every sample, not a score",
+      "about": {
+        "@id": "https://www.openpulse.eu/#gen2"
+      },
+      "author": {
+        "@id": "https://www.openpulse.eu/#org"
+      }
+    }
+  ]
+}
+</script>
+<!-- /head:meta -->
+<meta name="theme-color" content="#f8f6f2">
+<link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+<header class="pg-head">
+  <a class="pg-brand" href="/"><svg class="mark" viewBox="10 10 80 80" aria-hidden="true"><path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="#101f3c"/><circle cx="64.98" cy="20.6" r="6.48" fill="#101f3c"/><path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="#b08d83"/><circle cx="67.97" cy="77.68" r="6.48" fill="#b08d83"/><path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="#cf3826"/><circle cx="17.05" cy="51.73" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
+  <nav class="pg-nav" aria-label="Pages">
+    <a href="/platform/">Platform</a>
+    <a href="/pucks/">Sensor pucks</a>
+    <a href="/data/" aria-current="page">Data & API</a>
+    <a href="/use-cases/">Use cases</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/about/">About</a>
+  </nav>
+  <div class="pg-end">
+    <a class="pg-lang" href="/de/data/" hreflang="de" lang="de" data-lang-switch="de">Deutsch</a>
+    <a class="pg-cta" href="/#contact">Talk to our team</a>
+  </div>
+</header>
+<main class="pg">
+  <nav class="pg-crumbs" aria-label="Breadcrumb"><ol>
+    <li><a href="/">Home</a></li>
+    <li><span aria-current="page">Data and API: every sample, not a score</span></li>
+  </ol></nav>
+  <article class="pg-body">
+    <p class="pg-kicker">OpenPulse Gen 2</p>
+    <h1>Data and API: every sample, not a score</h1>
+    <p class="pg-lead">OpenPulse Gen 2 records every raw sample with its timestamp on the device. You copy the data to your own computer through the USB dock and work with it as files, in Python or through a local API. No cloud and no account in between. The API is in development; names and examples on this page show the planned interface.</p>
+<h2>Channels and sample rates</h2>
+<p>Pulse light at 100 Hz, motion at 50 Hz, skin and air in between, each with its timestamp. As CSV, Parquet or EDF, or straight into Python and your own tools. No cloud in between.</p>
+<table>
+<thead><tr><th>Source</th><th>Port</th><th>Channels</th><th>Rate</th></tr></thead>
+<tbody>
+<tr><td><a href="/pucks/pulse/">Pulse</a></td><td>A or B</td><td><code>ppg.green.pd1</code>, <code>ppg.green.pd2</code>, <code>ppg.red.pd1</code>, <code>ppg.red.pd2</code>, <code>ppg.ir.pd1</code>, <code>ppg.ir.pd2</code></td><td>100 Hz · 24 bit</td></tr>
+<tr><td>Motion (IMU)</td><td>Core</td><td><code>acc.x</code>, <code>acc.y</code>, <code>acc.z</code>, <code>gyro.x</code>, <code>gyro.y</code>, <code>gyro.z</code></td><td>50 Hz · 16 bit</td></tr>
+<tr><td><a href="/pucks/thermo/">Thermo+</a></td><td>A or B</td><td><code>skin.temp1</code>, <code>skin.temp2</code></td><td>1 Hz · 16 bit</td></tr>
+<tr><td><a href="/pucks/air/">Air</a></td><td>E</td><td><code>air.temp</code>, <code>air.humidity</code>, <code>air.pressure</code>, <code>air.gas</code></td><td>every 3 s · 20 bit</td></tr>
+</tbody>
+</table>
+<p>Channel names follow <code>source.signal.detector</code>: <code>ppg.ir.pd1</code> is the infrared PPG signal from photodiode 1. Every recording also carries the type, serial number and calibration stored in each puck. Channels for the EKG and EDA / BioZ pucks will be published with the API.</p>
+<h2>File formats</h2>
+<ul>
+<li><b>CSV</b>: one row per sample, timestamp in microseconds (<code>t_us</code>) plus one column per channel.</li>
+<li><b>Parquet</b>: one file per source, for example <code>op-2F41_pulse.parquet</code>, <code>op-2F41_imu.parquet</code>.</li>
+<li><b>EDF / BDF</b>: for clinical and physiology tools and EDF viewers.</li>
+</ul>
+<h2>Interfaces</h2>
+<h3>Python</h3>
+<pre><code>import openpulse as op
+dev = op.Device.usb()                # local, no account, no upload
+df = dev.raw(["ppg.green.pd1", "ppg.ir.pd1", "acc.z"],
+             start="2026-11-13 22:00", end="2026-11-14 06:00")</code></pre>
+<h3>Command line</h3>
+<pre><code>op devices
+op export op-2F41 --from 2026-11-13 --format parquet,bdf --out ./raw</code></pre>
+<h3>Local HTTP API</h3>
+<pre><code>curl "localhost:8473/v1/devices/op-2F41/raw?channels=ppg.ir.pd1&amp;format=csv"</code></pre>
+<h3>MCP server for AI assistants</h3>
+<p>A local MCP server lets an AI assistant on your computer read the raw data, for example: “Show me my raw IR signal from last night around 3 am and mark the motion artefacts.” The assistant calls the tool <code>openpulse.raw</code> with the channels and time range; the data stays on your computer.</p>
+<h2>Getting data off the device</h2>
+<p>The device stores raw data in its onboard memory (design target: 2 Gbit, about one day of raw data at full rate). Docked over USB, it charges and copies the data to your machine.</p>
+<p>Example interfaces. The API is in development; channels and rates as specified for Gen 2.</p>
+  </article>
+  <aside class="pg-cta-box">
+    <h2>Tell us what you want to measure</h2>
+    <p>Tell us what you want to measure, on whom and for how long. You get a proposal in writing.</p>
+    <p><a class="pg-btn" href="/#contact">Talk to our team</a> <a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a></p>
+  </aside>
+  <p class="pg-updated">Last updated: <time datetime="2026-11-21">21 November 2026</time></p>
+</main>
+<footer class="pg-foot">
+  <a class="pg-brand" href="/"><svg class="mark" viewBox="10 10 80 80" aria-hidden="true"><path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="#101f3c"/><circle cx="64.98" cy="20.6" r="6.48" fill="#101f3c"/><path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="#b08d83"/><circle cx="67.97" cy="77.68" r="6.48" fill="#b08d83"/><path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="#cf3826"/><circle cx="17.05" cy="51.73" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
+  <nav aria-label="Footer">
+    <a href="/platform/">Platform</a>
+    <a href="/pucks/">Sensor pucks</a>
+    <a href="/data/">Data & API</a>
+    <a href="/use-cases/">Use cases</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/about/">About</a>
+    <a href="/impressum.html">Imprint</a>
+    <a href="/datenschutz.html">Privacy</a>
+  </nav>
+  <p>© 2026 OpenPulse · Designed in Germany</p>
+</footer>
+<script>document.querySelectorAll('[data-lang-switch]').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('op-lang',a.dataset.langSwitch)}catch(e){}}))</script>
+</body>
+</html>

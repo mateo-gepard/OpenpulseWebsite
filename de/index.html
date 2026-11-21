@@ -19,10 +19,127 @@
 <meta property="og:url" content="https://www.openpulse.eu/de/">
 <meta property="og:title" content="OpenPulse Gen 2: Modulares Forschungs-Wearable mit Sensor-Pucks">
 <meta property="og:description" content="Modulares Forschungs-Wearable aus München: ein Core, austauschbare Sensor-Pucks für PPG, Temperatur, EKG, EDA und Luftqualität. Rohdaten bleiben lokal.">
-<meta property="og:image" content="https://www.openpulse.eu/assets/video/air.jpg">
+<meta property="og:image" content="https://www.openpulse.eu/assets/og/openpulse-gen2.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.openpulse.eu/#org",
+      "name": "OpenPulse",
+      "alternateName": "OpenPulse modular wearable",
+      "url": "https://www.openpulse.eu/",
+      "logo": "https://www.openpulse.eu/assets/logo-512.png",
+      "email": "contact@openpulse.eu",
+      "description": "Munich-based student team developing OpenPulse Gen 2, a modular research wearable with swappable sensor pucks that keeps raw data local.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "München",
+        "addressCountry": "DE"
+      },
+      "award": [
+        "Blue Ocean Student Entrepreneur Competition 2026: 1st place, Europe region",
+        "STARTUP TEENS Business Plan Challenge 2026: 1st place, Health & Lifestyle category"
+      ],
+      "knowsAbout": [
+        "wearable sensors",
+        "photoplethysmography",
+        "electrodermal activity",
+        "bioimpedance",
+        "raw physiological data"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.openpulse.eu/#website",
+      "url": "https://www.openpulse.eu/",
+      "name": "OpenPulse",
+      "inLanguage": [
+        "en",
+        "de-DE"
+      ],
+      "publisher": {
+        "@id": "https://www.openpulse.eu/#org"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.openpulse.eu/de/#page",
+      "url": "https://www.openpulse.eu/de/",
+      "name": "OpenPulse Gen 2: Modulares Forschungs-Wearable mit Sensor-Pucks",
+      "description": "Modulares Forschungs-Wearable aus München: ein Core, austauschbare Sensor-Pucks für PPG, Temperatur, EKG, EDA und Luftqualität. Rohdaten bleiben lokal.",
+      "inLanguage": "de-DE",
+      "isPartOf": {
+        "@id": "https://www.openpulse.eu/#website"
+      },
+      "about": {
+        "@id": "https://www.openpulse.eu/#gen2"
+      },
+      "dateModified": "2026-11-21"
+    },
+    {
+      "@type": "Product",
+      "@id": "https://www.openpulse.eu/#gen2",
+      "name": "OpenPulse Gen 2",
+      "brand": {
+        "@id": "https://www.openpulse.eu/#org"
+      },
+      "manufacturer": {
+        "@id": "https://www.openpulse.eu/#org"
+      },
+      "category": "Research wearable / modular wearable sensor platform",
+      "description": "Modulares Forschungs-Wearable für das Handgelenk, in Entwicklung. Ein Core mit zwei Ports auf der Hautseite und einem zur Luft für austauschbare Sensor-Pucks: Pulse (PPG), Thermo+, EKG, EDA/BioZ und Air. Rohdaten bleiben lokal; Export als CSV, Parquet oder EDF/BDF. Kein Medizinprodukt.",
+      "image": "https://www.openpulse.eu/assets/video/rest_0.jpg",
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Status",
+          "value": "In development; specifications are design targets, not yet built or tested"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Radio and processor",
+          "value": "Bluetooth 5 LE, Arm Cortex-M4F (nRF52840)"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Motion",
+          "value": "6-axis IMU, 50 Hz"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "PPG sample rate",
+          "value": "100 Hz, 24 bit"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "On-device memory",
+          "value": "2 Gbit (256 MB), about one day of raw data at full rate"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Battery",
+          "value": "50 mAh lithium cell, at least one day in study use"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Ports",
+          "value": "Two skin-side ports (A, B), one air-facing port (E)"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Data formats",
+          "value": "CSV, Parquet, EDF/BDF, Python, local HTTP API, local MCP server"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <!-- /head:meta -->
 <meta name="theme-color" content="#f8f6f2">
 <link rel="stylesheet" href="/css/site.css">
