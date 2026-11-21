@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="de" data-page-lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- head:meta (geschrieben von scripts/build.mjs: Titel, Beschreibung, canonical, hreflang, Open Graph, JSON-LD) -->
+<title>OpenPulse Gen 2: Modulares Forschungs-Wearable mit Sensor-Pucks</title>
+<meta name="description" content="Modulares Forschungs-Wearable aus München: ein Core, austauschbare Sensor-Pucks für PPG, Temperatur, EKG, EDA und Luftqualität. Rohdaten bleiben lokal.">
+<link rel="canonical" href="https://www.openpulse.eu/de/">
+<link rel="alternate" hreflang="en" href="https://www.openpulse.eu/">
+<link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/">
+<link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OpenPulse">
+<meta property="og:locale" content="de_DE">
+<meta property="og:url" content="https://www.openpulse.eu/de/">
+<meta property="og:title" content="OpenPulse Gen 2: Modulares Forschungs-Wearable mit Sensor-Pucks">
+<meta property="og:description" content="Modulares Forschungs-Wearable aus München: ein Core, austauschbare Sensor-Pucks für PPG, Temperatur, EKG, EDA und Luftqualität. Rohdaten bleiben lokal.">
+<meta property="og:image" content="https://www.openpulse.eu/assets/og/openpulse-gen2.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.openpulse.eu/#org",
+      "name": "OpenPulse",
+      "alternateName": "OpenPulse modular wearable",
+      "url": "https://www.openpulse.eu/",
+      "logo": "https://www.openpulse.eu/assets/logo-512.png",
+      "email": "contact@openpulse.eu",
+      "description": "Munich-based student team developing OpenPulse Gen 2, a modular research wearable with swappable sensor pucks that keeps raw data local.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "München",
+        "addressCountry": "DE"
+      },
+      "award": [
+        "Blue Ocean Student Entrepreneur Competition 2026: 1st place, Europe region",
+        "STARTUP TEENS Business Plan Challenge 2026: 1st place, Health & Lifestyle category"
+      ],
+      "knowsAbout": [
+        "wearable sensors",
+        "photoplethysmography",
+        "electrodermal activity",
+        "bioimpedance",
+        "raw physiological data"
+      ],
+      "founder": {
+        "@id": "https://www.openpulse.eu/#mateo-mamaladze"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.openpulse.eu/#mateo-mamaladze",
+      "name": "Mateo Mamaladze",
+      "sameAs": [
+        "https://www.linkedin.com/in/mateo-mamaladze-46994034b"
+      ],
+      "worksFor": {
+        "@id": "https://www.openpulse.eu/#org"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.openpulse.eu/#website",
+      "url": "https://www.openpulse.eu/",
+      "name": "OpenPulse",
+      "inLanguage": [
+        "en",
+        "de-DE"
+      ],
+      "publisher": {
+        "@id": "https://www.openpulse.eu/#org"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.openpulse.eu/de/#page",
+      "url": "https://www.openpulse.eu/de/",
+      "name": "OpenPulse Gen 2: Modulares Forschungs-Wearable mit Sensor-Pucks",
+      "description": "Modulares Forschungs-Wearable aus München: ein Core, austauschbare Sensor-Pucks für PPG, Temperatur, EKG, EDA und Luftqualität. Rohdaten bleiben lokal.",
+      "inLanguage": "de-DE",
+      "isPartOf": {
+        "@id": "https://www.openpulse.eu/#website"
+      },
+      "about": {
+        "@id": "https://www.openpulse.eu/#gen2"
+      },
+      "dateModified": "2026-11-21"
+    },
+    {
+      "@type": "Product",
+      "@id": "https://www.openpulse.eu/#gen2",
+      "name": "OpenPulse Gen 2",
+      "brand": {
+        "@id": "https://www.openpulse.eu/#org"
+      },
+      "manufacturer": {
+        "@id": "https://www.openpulse.eu/#org"
+      },
+      "category": "Research wearable / modular wearable sensor platform",
+      "description": "Modulares Forschungs-Wearable für das Handgelenk, in Entwicklung. Ein Core mit zwei Ports auf der Hautseite und einem zur Luft für austauschbare Sensor-Pucks: Pulse (PPG), Thermo+, EKG, EDA/BioZ und Air. Rohdaten bleiben lokal; Export als CSV, Parquet oder EDF/BDF. Kein Medizinprodukt.",
+      "image": "https://www.openpulse.eu/assets/video/rest_0.jpg",
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Status",
+          "value": "In development; specifications are design targets, not yet built or tested"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Radio and processor",
+          "value": "Bluetooth 5 LE, Arm Cortex-M4F (nRF52840)"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Motion",
+          "value": "6-axis IMU, 50 Hz"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "PPG sample rate",
+          "value": "100 Hz, 24 bit"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "On-device memory",
+          "value": "2 Gbit (256 MB), about one day of raw data at full rate"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Battery",
+          "value": "50 mAh lithium cell, at least one day in study use"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Ports",
+          "value": "Two skin-side ports (A, B), one air-facing port (E)"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Data formats",
+          "value": "CSV, Parquet, EDF/BDF, Python, local HTTP API, local MCP server"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- /head:meta -->
+<meta name="theme-color" content="#f8f6f2">
+<link rel="stylesheet" href="/css/site.css">
+<script>document.documentElement.classList.add('js')</script>
+<!-- head:lang (nur Startseite EN: wer Deutsch gewählt hat oder einen deutschen Browser ohne Wahl nutzt, landet auf /de/) -->
+<!-- /head:lang -->
+</head>
+<body>
+
+<header class="nav-wrap">
+  <nav class="pill" aria-label="Main">
+    <div class="pill-start">
+      <div class="lang" role="group" aria-label="Language">
+        <span class="lang-thumb" aria-hidden="true"></span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang="de" aria-pressed="true">DE</button>
+      </div>
+    </div>
+    <a class="brand" href="/de/" aria-label="OpenPulse home">
+      <svg class="mark" viewBox="10 10 80 80" aria-hidden="true">
+        <path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="var(--arcA)"/><circle cx="64.98" cy="20.6" r="6.48" fill="var(--arcA)"/>
+        <path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="var(--arcB)"/><circle cx="67.97" cy="77.68" r="6.48" fill="var(--arcB)"/>
+        <path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="var(--arcE)"/><circle cx="17.05" cy="51.73" r="6.48" fill="var(--arcE)"/>
+      </svg>
+      <span>OpenPulse</span>
+      <span class="ports" aria-hidden="true"><span class="port" data-port="A"><i></i><em></em></span><span class="port" data-port="B"><i></i><em></em></span><span class="port" data-port="E"><i></i><em></em></span></span>
+    </a>
+    <div class="pill-end">
+      <a class="pill-cta" href="#contact" data-i18n="nav.cta">Kontakt</a>
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="menu" id="menu" hidden>
+    <a href="#platform" data-i18n="menu.platform">Plattform</a>
+    <a href="#data" data-i18n="menu.data">Daten &amp; Integration</a>
+    <a href="#air" data-i18n="menu.env">Umgebung</a>
+    <a href="#pucks" data-i18n="menu.pucks">Sensor-Pucks</a>
+    <a href="#how" data-i18n="menu.how">So arbeiten wir zusammen</a>
+    <a href="#contact" data-i18n="menu.contact">Kontakt</a>
+    <div class="menu-foot"><div class="lang menu-lang" role="group" aria-label="Language"><span class="lang-thumb" aria-hidden="true"></span><button type="button" data-lang="en" aria-pressed="false">EN</button><button type="button" data-lang="de" aria-pressed="true">DE</button></div>
+      <a class="menu-cta" href="#contact" data-i18n="nav.cta">Kontakt</a></div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <h1 class="h-kicker" data-i18n="hero.kicker">OpenPulse Gen 2 · Modulares Forschungs-Wearable</h1>
+      <p class="hero-title" role="heading" aria-level="2" aria-label="Das Wearable für Forschung, Arbeitsschutz, Trading-Desks, Sportwissenschaft, klinische Studien und Outdoor-Apps.">
+        <span class="h-lead" aria-hidden="true" data-i18n="hero.lead">Das Wearable für</span>
+        <span class="h-word" aria-hidden="true"><span class="typed" id="typed">Forschung</span><span class="caret" id="caret"></span></span>
+      </p>
+      <p class="sub" data-i18n="hero.sub">Ein Core, austauschbare Sensor-Pucks und eine Konfiguration, die auf Ihre Anwendung zugeschnitten ist. Sie erhalten die Rohdaten, und sie bleiben bei Ihnen.</p>
+      <div class="actions">
+        <a class="btn btn-dark" href="#contact" data-i18n="hero.cta">Mit unserem Team sprechen</a>
+        <a class="btn btn-link" href="#platform"><span data-i18n="hero.how">So funktioniert es</span> <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <!-- Gerät als vorgerenderte Filme (js/hero-video.js): Standbild rest_<i>.jpg, je Wortwechsel swap_<i>_<j>.mp4 -->
+    <div class="hero-stage" id="stage" role="img" aria-label="OpenPulse Gen 2 with knit band">
+      <div class="hero-media"><img src="/assets/video/rest_0.jpg" alt="" width="1296" height="1200" decoding="async" fetchpriority="high"></div>
+    </div>
+  </section>
+
+  <!-- Auszeichnungen: Laufband unter dem Hero (js/awards.js verdoppelt die Reihe für eine nahtlose Schleife) -->
+  <section class="awards" aria-label="Auszeichnungen" data-i18n-aria="awards.aria">
+    <div class="marquee">
+      <div class="track">
+        <ul class="award-group">
+          <li class="award"><b class="award-s" data-i18n="awards.bo">1. Platz Europa</b><span class="lg lg-mask lg-bo" role="img" aria-label="Blue Ocean Student Entrepreneur Competition"></span><span class="award-y">2026</span></li>
+          <li class="award"><b class="award-s" data-i18n="awards.st">1. Platz Health &amp; Lifestyle</b><span class="lg lg-mask lg-st" role="img" aria-label="STARTUP TEENS"></span><span class="award-y">2026</span></li>
+          <li class="award"><b class="award-s" data-i18n="awards.jg">Pitch-Event</b><img class="lg lg-jg" src="/assets/logos/jugend-gruendet.svg" alt="Jugend gründet"><span class="award-y">2025/26</span></li>
+          <li class="award"><b class="award-s" data-i18n="awards.ms">Innovator-Stipendium</b><img class="lg lg-ms" src="/assets/logos/makerspace.svg" alt="UnternehmerTUM MakerSpace"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- „So funktioniert es“: weißer Bildschirm mit „OpenPulse Gen 2“, der Schriftzug öffnet sich, das Gerät wandert nach
+       links und geht beim Scrollen in die Explosionsansicht auf; rechts erklären fünf Schritte das Prinzip (js/gen2.js) -->
+  <section class="g2" id="platform" aria-labelledby="g2-title">
+    <div class="g2-pin">
+      <h2 class="g2-title" id="g2-title"><span class="g2-w1">OpenPulse</span> <span class="g2-w2">Gen 2</span></h2>
+      <canvas class="g2-stage" id="g2-stage" role="img" aria-label="OpenPulse Gen 2, exploded view"></canvas>
+      <svg class="g2-lead" id="g2-lead" aria-hidden="true"><path class="g2-line"/><circle class="g2-halo" r="9"/><circle class="g2-dot" r="3.2"/></svg>
+      <ol class="g2-steps">
+        <li data-anchor="titan" data-phase="pre"><span class="g2-n">01 · <span data-i18n="g2.c.k">Gehäuse</span></span><h3 data-i18n="g2.c.t">Titan und Harz, gebaut für lange.</h3><p data-i18n="g2.c.p">Eine gedruckte Titanschale steckt die Stöße weg und gibt dem Gerät sein Gesicht. Darunter dichtet ein präziser SLA-Harzträger die Elektronik allein ab. Fest, wo es zählt, leicht überall sonst.</p></li>
+        <li data-anchor="band" data-phase="pre"><span class="g2-n">02 · <span data-i18n="g2.b.k">Band</span></span><h3 data-i18n="g2.b.t">Ein feines Gewebe aus Japan.</h3><p data-i18n="g2.b.p">Das 25-mm-Band ist aus hauchfeinem Garn gewebt, von einem japanischen Textilhersteller. Weich und leicht am Handgelenk, gemacht, um es rund um die Uhr zu tragen.</p></li>
+        <li data-anchor="core" data-phase="post"><span class="g2-n">03 · <span data-i18n="g2.k.k">Core</span></span><h3 data-i18n="g2.k.t">Alles, was bleibt.</h3><p data-i18n="g2.k.p">Eine starre Platine mit Funk, Prozessor, Bewegungssensor, Speicher und Energieversorgung. Sie ist in jeder Konfiguration dieselbe.</p>
+          <dl class="g2-spec"><div><dt data-i18n="g2.k.l1">Funk</dt><dd data-i18n="g2.k.v1">Bluetooth 5 LE, Arm Cortex-M4F (nRF52840)</dd></div><div><dt data-i18n="g2.k.l2">Bewegung</dt><dd data-i18n="g2.k.v2">6-Achsen-IMU, aufgezeichnet mit 50 Hz</dd></div><div><dt data-i18n="g2.k.l3">Speicher</dt><dd data-i18n="g2.k.v3">2 Gbit (256 MB) im Gerät, rund ein Tag Rohdaten bei voller Rate</dd></div><div><dt data-i18n="g2.k.l4">Akku</dt><dd data-i18n="g2.k.v4">50-mAh-Lithiumzelle, mindestens ein Tag im Studienbetrieb</dd></div><div><dt data-i18n="g2.k.l5">Laden &amp; Daten</dt><dd data-i18n="g2.k.v5">Dock mit USB zum Laden und Auslesen</dd></div></dl><p class="g2-fine" data-i18n="g2.k.n">Auslegungswerte, noch nicht gemessen.</p></li>
+        <li data-anchor="portAB" data-phase="post"><span class="g2-n">04 · <span data-i18n="g2.p.k">Pucks</span></span><h3 data-i18n="g2.p.t">Sensoren zum Tauschen.</h3><p data-i18n="g2.p.p">Zwei Ports auf der Hautseite und einer zur Luft nehmen die Sensor-Pucks auf: Pulse, Thermo+, EKG, EDA/BioZ und Air. Eine Konfiguration ist nur die Wahl, welcher Puck wohin kommt, im Labor mit dem Schraubendreher getauscht, ohne Löten.</p>
+          <a class="g2-btn" href="#pucks"><span data-i18n="g2.p.b">Zu den Pucks</span><i aria-hidden="true">→</i></a></li>
+      </ol>
+      <p class="g2-note" data-i18n="g2.note">Konstruktionsstand, aus dem CAD gerendert. Noch nicht gebaut oder getestet.</p>
+    </div>
+  </section>
+
+  <!-- Rohdaten über die API: gekippte Karten-Bühne mit sechs realistischen Programmfenstern, in denen die Rohdaten ankommen
+       (Live-Fenster, Python, Tabelle, Terminal, EDF/BDF-Viewer, Assistent per MCP). Kurven auf Canvas (js/api.js). -->
+  <section class="api" id="data" aria-labelledby="api-title">
+    <header class="api-head">
+      <h2 class="api-title" id="api-title" data-i18n="raw.title">Die API liefert jeden Messwert, keinen Score.</h2>
+      <p class="api-sub" data-i18n="raw.sub">Pulslicht mit 100 Hz, Bewegung mit 50 Hz, Haut und Luft dazwischen, jeder Wert mit Zeitstempel. Als CSV, Parquet oder EDF, oder direkt in Python und Ihre eigenen Werkzeuge. Ohne Cloud dazwischen.</p>
+    </header>
+    <div class="api-stage" id="api-stage" aria-roledescription="carousel">
+      <div class="fb fb-api">
+        <table>
+          <caption data-i18n="fb.api.cap">Kanäle und Raten wie für Gen 2 festgelegt</caption>
+          <thead><tr><th data-i18n="fb.api.h1">Quelle</th><th data-i18n="fb.api.h2">Port</th><th data-i18n="fb.api.h3">Kanäle</th><th data-i18n="fb.api.h4">Rate</th></tr></thead>
+          <tbody>
+            <tr><td>Pulse</td><td data-i18n="fb.api.ab">A oder B</td><td>ppg.green.pd1, ppg.green.pd2, ppg.red.pd1, ppg.red.pd2, ppg.ir.pd1, ppg.ir.pd2</td><td>100 Hz · 24 bit</td></tr>
+            <tr><td data-i18n="fb.api.imu">Bewegung (IMU)</td><td data-i18n="fb.api.core">Core</td><td>acc.x, acc.y, acc.z, gyro.x, gyro.y, gyro.z</td><td>50 Hz · 16 bit</td></tr>
+            <tr><td>Thermo+</td><td data-i18n="fb.api.ab">A oder B</td><td>skin.temp1, skin.temp2</td><td>1 Hz · 16 bit</td></tr>
+            <tr><td>Air</td><td>E</td><td>air.temp, air.humidity, air.pressure, air.gas</td><td data-i18n="fb.api.r3s">alle 3 s · 20 bit</td></tr>
+          </tbody>
+        </table>
+        <p><span data-i18n="fb.api.fmt">Export als CSV, Parquet und EDF/BDF, über eine Python-Bibliothek, eine lokale HTTP-API und einen lokalen MCP-Server für KI-Assistenten. Die API ist in Entwicklung.</span> <a href="/de/data/" data-i18n="fb.api.more">Dokumentation zu Daten und API</a></p>
+      </div>
+    </div>
+    <div class="api-cap" aria-live="polite">
+      <p class="api-cap-l" id="api-cap-l"></p>
+      <p class="api-cap-t" id="api-cap-t"><span class="typed"></span><span class="caret blink"></span></p>
+    </div>
+    <div class="api-tabs" role="tablist" id="api-tabs"></div>
+    <p class="api-note" data-i18n="raw.note">Beispielansichten. Die API ist in Entwicklung; Kanäle und Raten wie für Gen 2 festgelegt.</p>
+  </section>
+  <!-- Umgebungs-Port (Port E): ein Bildschirm. Hintergrund = Nahaufnahme des Lufteinlasses mit Gasströmen (render/airshot.py, Schleife).
+       Aussage: Körper und Umgebung in einer Aufzeichnung; der obere Port nimmt den Umgebungs-Puck, den die Anwendung braucht.
+       Pille wählt den Puck (Air in Entwicklung, andere auf Anfrage), Messwerte und Satz darunter kommen aus js/air.js (Beispielwerte). -->
+  <section class="air" id="air" aria-labelledby="air-title">
+    <video class="air-vid" id="air-vid" src="/assets/video/air.mp4" poster="/assets/video/air.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+    <div class="air-shade" aria-hidden="true"></div>
+    <header class="air-head">
+      <h2 class="air-title" id="air-title"><span data-i18n="air.t1">Den Körper messen und die Welt um ihn herum.</span> <span class="g" data-i18n="air.t2">Mit dem Umgebungs-Puck.</span></h2>
+    </header>
+    <div class="air-foot">
+      <div class="air-story" id="air-story" aria-live="polite">
+        <div class="fb fb-air">
+          <p data-i18n="air.sub">Der obere Port schaut nach außen und nimmt den Umgebungs-Puck, den Ihre Anwendung braucht. Seine Werte teilen eine Zeitachse mit Puls, Haut und Bewegung: Sie sehen, wie der Körper reagiert, und worauf.</p>
+          <ul><li data-i18n="fb.air.1">Werkhalle: Der Air-Puck bemerkt aufsteigende flüchtige Gase, etwa aus einem Lösungsmittel-Leck, bevor jemand sie riecht.</li><li data-i18n="fb.air.2">Kesselhaus: Lufttemperatur, Luftfeuchte und Hauttemperatur zusammen zeigen Hitzestress, bevor er gefährlich wird.</li><li data-i18n="fb.air.3">Berg: Fällt der Luftdruck um 4 hPa in drei Stunden, kommt ein Wetterumschwung. Derselbe Sensor kennt die Höhe, und der Puls zeigt, wie der Körper mit beidem zurechtkommt.</li><li data-i18n="fb.air.4">Weitere Umgebungs-Pucks, etwa für Strahlung und UV, auf Anfrage.</li></ul>
+          <p><a href="/de/pucks/air/" data-i18n="fb.air.more">Mehr zum Air-Puck</a></p>
+        </div>
+      </div>
+      <div class="air-tabs" role="tablist" id="air-tabs" aria-label="Beispiele" data-i18n-aria="air.tabsaria"></div>
+      <p class="air-note" data-i18n="air.note">Beispiele. Der Air-Puck ist zusammen mit Gen 2 in Entwicklung; weitere Umgebungs-Pucks auf Anfrage. Kein zertifizierter Gaswarner, kein Dosimeter.</p>
+    </div>
+  </section>
+  <!-- Sensor-Pucks: endloses Kartenband (selbst laufend, ziehbar mit Schwung, rastet mittig ein; js/pucks.js),
+       fünf vorhandene Pucks (O14, Renderbilder aus render/hero_render.py MODE pucks) und eine Karte „Ihr Sensor“ -->
+  <section class="pk" id="pucks" aria-labelledby="pk-title">
+    <header class="pk-head">
+      <h2 class="pk-title" id="pk-title" data-i18n="pk.title">Fünf Pucks. Ein Core.</h2>
+      <p class="pk-sub" data-i18n="pk.sub">Jeder Port nimmt jeden Puck. Getauscht wird im Labor mit Standardwerkzeug, ohne Löten. Und braucht Ihre Anwendung ein Signal, das wir noch nicht abdecken, bauen wir den Puck dafür.</p>
+    </header>
+    <div class="pk-mq" id="pk-mq" aria-roledescription="carousel" tabindex="0">
+      <div class="fb fb-pk">
+        <ul>
+          <li><a href="/de/pucks/pulse/"><img src="/assets/pucks/mod-pulse.webp" alt="Pulse (PPG) sensor puck for OpenPulse Gen 2" width="766" height="740" loading="lazy" decoding="async"><h3>Pulse</h3></a><p data-i18n="pk.pulse">Rohes PPG in Grün, Rot und Infrarot mit zwei Photodioden. Für Puls-, HRV- und Sauerstoffsättigungs-Forschung.</p></li>
+          <li><a href="/de/pucks/thermo/"><img src="/assets/pucks/mod-thermo.webp" alt="Thermo+ skin temperature sensor puck for OpenPulse Gen 2" width="767" height="744" loading="lazy" decoding="async"><h3>Thermo+</h3></a><p data-i18n="pk.thermo">Zwei Hauttemperatursensoren, einer über einer definierten Isolierschicht, für einen Wärmefluss-Trend zur Kerntemperatur.</p></li>
+          <li><a href="/de/pucks/ekg/"><img src="/assets/pucks/mod-ekg.webp" alt="EKG (ECG) sensor puck for OpenPulse Gen 2" width="768" height="748" loading="lazy" decoding="async"><h3>EKG</h3></a><p data-i18n="pk.ekg">Biopotential-Frontend für 1-Kanal-EKG und R-Zacken als Zeitreferenz für die Pulswelle.</p></li>
+          <li><a href="/de/pucks/eda-bioz/"><img src="/assets/pucks/mod-eda.webp" alt="EDA / BioZ skin conductance and bioimpedance sensor puck for OpenPulse Gen 2" width="768" height="748" loading="lazy" decoding="async"><h3>EDA / BioZ</h3></a><p data-i18n="pk.eda">Hautleitfähigkeit, Atmung und Bioimpedanz von 1 bis 806 kHz auf einem Frontend.</p></li>
+          <li><a href="/de/pucks/air/"><img src="/assets/pucks/mod-air.webp" alt="Air environment sensor puck for OpenPulse Gen 2" width="767" height="743" loading="lazy" decoding="async"><h3>Air</h3></a><p data-i18n="pk.air">Temperatur, Feuchte, Druck und Gas direkt am Körper. Zeigt zur Luft, nicht zur Haut.</p></li>
+        </ul>
+        <p><a href="/de/pucks/" data-i18n="fb.pk.more">Alle fünf Sensor-Pucks</a></p>
+      </div>
+    </div>
+    <p class="pk-hint" aria-hidden="true"><span data-i18n="pk.hint">Ziehen zum Erkunden</span></p>
+  </section>
+  <!-- Pucktausch: Video links (KI-Clip aus der Blender-Bewegung, render/puckswap_out/seedance_tests/03_…), rechts vier Punkte;
+       Pille unten im Video: Abspielen/Pause (js/swap.js) -->
+  <section class="sw" id="swap" aria-labelledby="sw-title">
+    <div class="sw-media">
+      <video class="sw-vid" id="sw-vid" src="/assets/video/puckswap.mp4" poster="/assets/video/puckswap.jpg" muted loop playsinline preload="metadata" aria-label="Eine Hand tauscht zwei Sensor-Pucks in einem geöffneten OpenPulse" data-i18n-aria="sw.vid"></video>
+      <div class="sw-pill" role="group">
+        <button type="button" class="sw-seg on" data-play="1"><span data-i18n="sw.play">Läuft</span></button>
+        <button type="button" class="sw-seg" data-play="0"><svg viewBox="0 0 12 12" aria-hidden="true"><rect x="2.5" y="2" width="2.2" height="8" rx=".6"/><rect x="7.3" y="2" width="2.2" height="8" rx=".6"/></svg><span data-i18n="sw.pause">Pause</span></button>
+      </div>
+    </div>
+    <div class="sw-text">
+      <h2 class="sw-title" id="sw-title" data-i18n="sw.title">Den Sensor tauschen, nicht das Gerät.</h2>
+      <ul class="sw-list">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12h7M12 8.5v7"/></svg>
+          <div><h3 data-i18n="sw.h1">Vier Schrauben. Standardwerkzeug.</h3><p data-i18n="sw.p1">Klaren Deckel öffnen, Puck herausheben, neuen hineindrücken. Ohne Löten, ohne Kleber.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l8 5.8-3 9.2H7l-3-9.2z"/></svg>
+          <div><h3 data-i18n="sw.h2">Passt nur richtig herum.</h3><p data-i18n="sw.p2">Jeder Port ist mechanisch kodiert, ein Puck lässt sich weder verdreht noch falsch herum einsetzen.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2.5"/><path d="M9 2.5v2.5M15 2.5v2.5M9 19v2.5M15 19v2.5M2.5 9h2.5M2.5 15h2.5M19 9h2.5M19 15h2.5"/></svg>
+          <div><h3 data-i18n="sw.h3">Jeder Puck weiß, was er ist.</h3><p data-i18n="sw.p3">Typ, Seriennummer und Kalibrierung liegen im Puck und gehen mit jeder Aufzeichnung mit.</p></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5M10.5 3.5v6l-5 9a1.5 1.5 0 0 0 1.3 2h10.4a1.5 1.5 0 0 0 1.3-2l-5-9v-6"/><path d="M8 15h8"/></svg>
+          <div><h3 data-i18n="sw.h4">Eingerichtet im Labor, nicht vom Träger.</h3><p data-i18n="sw.p4">Eine Konfiguration je Anwendung, von Ihrem Team bestückt, bevor Studie oder Einsatz beginnt.</p></div></li>
+      </ul>
+      <p class="sw-note" data-i18n="sw.note">Video aus unserem 3D-Modell von Gen 2 generiert. Gen 2 ist in Entwicklung; die Punkte oben sind die Auslegung.</p>
+    </div>
+  </section>
+  <!-- So arbeiten wir zusammen: eine Bühne, drei Szenen nacheinander (Gespräch, Konfiguration, Pilot), js/how.js -->
+  <!-- Überblick: sichtbarer Klartext mit Auslegungswerten und Links auf die Unterseiten (auch für Suchmaschinen und KI-Crawler) -->
+  <section class="ov" id="overview" aria-labelledby="ov-title">
+    <div class="ov-in">
+      <h2 class="ov-title" id="ov-title" data-i18n="ov.title">OpenPulse Gen 2 im Überblick</h2>
+      <p class="ov-lead" data-i18n="ov.lead">OpenPulse Gen 2 ist ein modulares Forschungs-Wearable aus München. Ein Core mit zwei Ports auf der Hautseite und einem zur Luft nimmt austauschbare Sensor-Pucks für PPG, Hauttemperatur, EKG, EDA/Bioimpedanz und Luftqualität auf. Es zeichnet rohe, zeitgestempelte Daten im Gerät auf und übergibt sie Ihnen lokal als CSV, Parquet oder EDF/BDF, ohne Cloud dazwischen.</p>
+      <div class="ov-grid">
+        <table class="ov-spec">
+          <caption data-i18n="ov.cap">Auslegungswerte für Gen 2, noch nicht gemessen</caption>
+          <tbody>
+            <tr><th scope="row" data-i18n="g2.k.l1">Funk</th><td data-i18n="g2.k.v1">Bluetooth 5 LE, Arm Cortex-M4F (nRF52840)</td></tr>
+            <tr><th scope="row" data-i18n="g2.k.l2">Bewegung</th><td data-i18n="g2.k.v2">6-Achsen-IMU, aufgezeichnet mit 50 Hz</td></tr>
+            <tr><th scope="row" data-i18n="g2.k.l3">Speicher</th><td data-i18n="g2.k.v3">2 Gbit (256 MB) im Gerät, rund ein Tag Rohdaten bei voller Rate</td></tr>
+            <tr><th scope="row" data-i18n="g2.k.l4">Akku</th><td data-i18n="g2.k.v4">50-mAh-Lithiumzelle, mindestens ein Tag im Studienbetrieb</td></tr>
+            <tr><th scope="row" data-i18n="g2.k.l5">Laden &amp; Daten</th><td data-i18n="g2.k.v5">Dock mit USB zum Laden und Auslesen</td></tr>
+            <tr><th scope="row" data-i18n="ov.l.ports">Ports</th><td data-i18n="ov.v.ports">Zwei auf der Hautseite (A, B) und einer zur Luft (E). Jeder Port nimmt jeden Puck.</td></tr>
+            <tr><th scope="row" data-i18n="ov.l.pucks">Sensor-Pucks</th><td data-i18n="ov.v.pucks">Pulse (PPG), Thermo+ (Hauttemperatur), EKG, EDA/BioZ (Hautleitfähigkeit und Bioimpedanz), Air (Umgebung)</td></tr>
+            <tr><th scope="row" data-i18n="ov.l.data">Daten</th><td data-i18n="ov.v.data">Jeder Rohwert mit Zeitstempel. CSV, Parquet, EDF/BDF, Python, lokale API, MCP.</td></tr>
+            <tr><th scope="row" data-i18n="ov.l.case">Gehäuse und Band</th><td data-i18n="ov.v.case">Gedruckte Titanschale über einem SLA-Harzträger, 25-mm-Webband</td></tr>
+            <tr><th scope="row" data-i18n="ov.l.status">Stand</th><td data-i18n="ov.v.status">In Entwicklung. Aus dem CAD gerendert, noch nicht gebaut oder getestet.</td></tr>
+          </tbody>
+        </table>
+        <nav class="ov-links" aria-labelledby="ov-nav">
+          <h3 id="ov-nav" data-i18n="ov.nav">OpenPulse Gen 2 entdecken</h3>
+          <ul>
+            <li><a href="/de/platform/"><b data-i18n="ov.n.platform">Plattform</b><span data-i18n="ov.d.platform">Core, Ports, Gehäuse und wie Pucks getauscht werden</span></a></li>
+            <li><a href="/de/pucks/"><b data-i18n="ov.n.pucks">Sensor-Pucks</b><span data-i18n="ov.d.pucks">Was jeder der fünf Pucks misst</span></a></li>
+            <li><a href="/de/data/"><b data-i18n="ov.n.data">Daten &amp; API</b><span data-i18n="ov.d.data">Kanäle, Abtastraten, Dateiformate und Schnittstellen</span></a></li>
+            <li><a href="/de/use-cases/"><b data-i18n="ov.n.uses">Anwendungen</b><span data-i18n="ov.d.uses">Beispielkonfigurationen je Anwendung</span></a></li>
+            <li><a href="/de/faq/"><b data-i18n="ov.n.faq">FAQ</b><span data-i18n="ov.d.faq">Stand, Datenhoheit, Medizin und mehr</span></a></li>
+            <li><a href="/de/about/"><b data-i18n="ov.n.about">Über uns</b><span data-i18n="ov.d.about">Das Team hinter OpenPulse und seine Auszeichnungen</span></a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="ov-note" data-i18n="ov.note">OpenPulse ist kein Medizinprodukt. Stand: November 2026.</p>
+    </div>
+  </section>
+  <section class="ws" id="how" aria-labelledby="how-title">
+    <div class="fb fb-how">
+      <h2 id="how-title" data-i18n="fb.how.t">So arbeiten wir zusammen</h2>
+      <ol><li data-i18n="fb.how.1">Gespräch. Sagen Sie uns, was Sie messen wollen, an wem und wie lange. Sie erhalten einen schriftlichen Vorschlag.</li><li data-i18n="fb.how.2">Konfiguration. Wählen Sie für jeden Port einen Puck. Jeder Port lässt sich ändern, jederzeit.</li><li data-i18n="fb.how.3">Pilot. Zuerst wenige Geräte an echten Menschen. Wir erledigen die Arbeit; Ihr Team verteilt die Geräte und legt sie ins Dock.</li></ol>
+      <p id="contact"><span data-i18n="fb.how.c">Sprechen wir über Ihren Anwendungsfall. Schreiben Sie uns an</span> <a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a></p>
+    </div>
+  </section>
+</main>
+
+<!-- Telefon: Kontakt-Knopf unten in Daumenreichweite, erscheint nach dem Hero, verschwindet bei „So arbeiten wir zusammen“ und im Menü -->
+<a class="m-cta" id="m-cta" href="#contact" aria-hidden="true" tabindex="-1"><span data-i18n="nav.cta">Kontakt</span><i aria-hidden="true">→</i></a>
+
+<!-- Fußzeile: liegt fest hinter der Seite und erscheint erst, wenn „So arbeiten wir zusammen“ vorbeigescrollt ist -->
+<footer class="ft" id="footer">
+  <div class="ft-in">
+    <div class="ft-brand">
+      <svg class="mark" viewBox="10 10 80 80" aria-hidden="true">
+        <path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="var(--arcA)"/><path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="var(--arcB)"/><path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="var(--arcE)"/>
+      </svg>
+      <span>OpenPulse</span>
+    </div>
+    <nav class="ft-links" aria-label="Footer">
+      <a href="/de/platform/" data-i18n="ov.n.platform">Plattform</a>
+      <a href="/de/pucks/" data-i18n="ov.n.pucks">Sensor-Pucks</a>
+      <a href="/de/data/" data-i18n="ov.n.data">Daten &amp; API</a>
+      <a href="/de/use-cases/" data-i18n="ov.n.uses">Anwendungen</a>
+      <a href="/de/faq/" data-i18n="ov.n.faq">FAQ</a>
+      <a href="/de/about/" data-i18n="ov.n.about">Über uns</a>
+      <a href="#contact" data-i18n="foot.contact">Kontakt</a>
+      <a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a>
+      <a href="/impressum.html" data-i18n="foot.imprint">Impressum</a>
+      <a href="/datenschutz.html" data-i18n="foot.privacy">Datenschutz</a>
+    </nav>
+    <p class="ft-copy">© <span id="ft-year">2026</span> OpenPulse · <span data-i18n="foot.loc">Entwickelt in Deutschland</span></p>
+  </div>
+</footer>
+<script>document.getElementById('ft-year').textContent = new Date().getFullYear();</script>
+
+<script src="/js/i18n.js"></script>
+<script src="/js/hero.js"></script>
+<script src="/js/nav.js"></script>
+<script src="/js/awards.js"></script>
+<script src="/js/gen2.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/air.js"></script>
+<script src="/js/pucks.js"></script>
+<script src="/js/swap.js"></script>
+<script src="/js/how.js"></script>
+<script src="/js/hero-video.js"></script>   <!-- js/viewer.js (Echtzeit-3D) bleibt als Referenz, nicht geladen -->
+</body>
+</html>

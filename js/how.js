@@ -7,7 +7,7 @@
 //   3 Pilot: Beispiel-Pilot als Projektzeitplan mit zwei Spuren „OpenPulse“ und „Ihr Team“ – unsere Spur voll, Ihre fast leer.
 // Danach blendet alles aus und ein Kontaktformular erscheint. Links auf #contact führen direkt dorthin.
 // Ehrlich: Beispielsatz, Beispielpilot (Handelsabteilung, 5 Geräte, 14 Tage) und Firmenablauf sind Beispiele, keine Zusagen.
-// Datenweg nach docs/GEN2_SPEC.md 4.4: Gerät speichert ≈ 3 Tage, Download über USB im Dock (≈ 11 min je 3 Tage, Rechnung).
+// Datenweg nach docs/GEN2_SPEC.md 4.4: Speicher im Gerät (2 Gbit seit 08.11.2026, ≈ 1 Tag bei voller Rate), Download über USB im Dock.
 // Datenmenge ≈ 225 MB je Gerät und Tag (Rechnung O5, keine Messung). Preis nach Mateo: ≈ 199 € + ≈ 29 € je Puck.
 // Das Formular sendet über Formspree (Formular xnjeyvzr, dasselbe wie auf www.openpulse.eu) an contact@openpulse.eu.
 (function () {
@@ -22,7 +22,7 @@
   const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
   const lerp = (a, b, e) => a + (b - a) * e;
   const FORM = 'https://formspree.io/f/xnjeyvzr';   // Formspree-Formular der Live-Seite www.openpulse.eu, Empfänger contact@openpulse.eu
-  const BASE = 199, PUCK = 29, MB_DAY = 225, PIMG = p => `assets/pucks/top/${PUCKS[p][1]}.webp`;
+  const BASE = 199, PUCK = 29, MB_DAY = 225, PIMG = p => `/assets/pucks/top/${PUCKS[p][1]}.webp`;
   const MARK = `<svg viewBox="10 10 80 80" aria-hidden="true"><path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="#101f3c"/><path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="#b08d83"/><path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="#cf3826"/></svg>`;
   const CHECK = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3 5 8.6 9.6 3.6"/></svg>';
   const TXT = {
@@ -43,7 +43,7 @@
         next: 'Next: 40 devices, same configuration.' },
       c: { t: 'Let’s talk about your use case.', s: 'Tell us what you want to measure. You get a written proposal, like the one above.',
         name: 'Name', org: 'Company', mail: 'Email', msg: 'What do you want to measure?', cfg: 'Your configuration', send: 'Send',
-        done: 'Thank you. We will reply with a proposal.', again: 'Watch again', sending: 'Sending…', err: 'That did not go through. Please write to contact@openpulse.eu.', priv: 'We use your details only to reply to you. More in our <a href="datenschutz.html">privacy policy</a>.' } },
+        done: 'Thank you. We will reply with a proposal.', again: 'Watch again', sending: 'Sending…', err: 'That did not go through. Please write to contact@openpulse.eu.', priv: 'We use your details only to reply to you. More in our <a href="/datenschutz.html">privacy policy</a>.' } },
     de: { h1: 'Sie haben einen Anwendungsfall?', h2: 'Dann arbeiten wir zusammen.',
       steps: [['Gespräch', 'Sagen Sie uns, was Sie messen wollen, an wem und wie lange. Sie erhalten einen schriftlichen Vorschlag.'],
         ['Konfiguration', 'Wählen Sie für jeden Port einen Puck. Jeder Port lässt sich ändern, jederzeit.'],
@@ -61,7 +61,7 @@
         next: 'Als Nächstes: 40 Geräte, gleiche Konfiguration.' },
       c: { t: 'Sprechen wir über Ihren Anwendungsfall.', s: 'Sagen Sie uns, was Sie messen wollen. Sie erhalten einen schriftlichen Vorschlag wie oben.',
         name: 'Name', org: 'Firma', mail: 'E-Mail', msg: 'Was möchten Sie messen?', cfg: 'Ihre Konfiguration', send: 'Senden',
-        done: 'Danke. Wir antworten mit einem Vorschlag.', again: 'Noch einmal ansehen', sending: 'Wird gesendet …', err: 'Das hat nicht geklappt. Bitte schreiben Sie an contact@openpulse.eu.', priv: 'Wir nutzen Ihre Angaben nur, um Ihnen zu antworten. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.' } },
+        done: 'Danke. Wir antworten mit einem Vorschlag.', again: 'Noch einmal ansehen', sending: 'Wird gesendet …', err: 'Das hat nicht geklappt. Bitte schreiben Sie an contact@openpulse.eu.', priv: 'Wir nutzen Ihre Angaben nur, um Ihnen zu antworten. Mehr in der <a href="/datenschutz.html">Datenschutzerklärung</a>.' } },
   };
   const PUCKS = { pulse: ['Pulse', 'mod-pulse'], thermo: ['Thermo+', 'mod-thermo'], ekg: ['EKG', 'mod-ekg'], eda: ['EDA / BioZ', 'mod-eda'], air: ['Air', 'mod-air'] };
   const OPTS = { A: ['pulse', 'thermo', 'ekg', 'eda', null], B: ['pulse', 'thermo', 'ekg', 'eda', null], E: ['air', null] };
@@ -152,7 +152,7 @@
       (function step(now) { const e = reduce ? 1 : eio(cl((now - t0) / 450)); price(lerp(a, b, e), count()); if (e < 1) tw = requestAnimationFrame(step); })(t0); }
     return { id: 'cfg', dur: 5.2,
       html: () => `<div class="k">
-        <div class="k-left"><div class="k-dev"><img src="assets/video/rest_4.jpg" alt="OpenPulse Gen 2" draggable="false"></div>
+        <div class="k-left"><div class="k-dev"><img src="/assets/video/rest_4.jpg" alt="OpenPulse Gen 2" draggable="false"></div>
           <div class="k-in"><p>${T.k.inside}</p><div class="k-slots">${['A', 'B', 'E'].map(k => `<div class="k-slot" data-k="${k}"><i><img alt=""></i><span></span></div>`).join('')}</div></div></div>
         <div class="k-right"><h3 class="k-title">${T.k.title} <span>${T.k.sub}</span></h3>
           ${['A', 'B', 'E'].map(k => `<div class="k-g" data-k="${k}"><p class="k-gh"><b>${T.k.gh[k][0]}</b> ${T.k.gh[k][1]}</p>
@@ -190,7 +190,7 @@
     let el, head, tl, dayO, stEl, ph, evs, bar, barGB, stats, statsEl, nxt, built;
     const D0 = -10, D1 = 14, x = d => (d - D0) / (D1 - D0), P0 = .9, P1 = 9.4;
     const EV = [['built', 'op', -9, 0], ['test', 'op', -6, 1], ['ship', 'op', -3, 0], ['hand', 'you', 0, 0, 1], ['dock', 'you', 3, 0], ['check', 'op', 7, 1], ['review', 'op', 14, 0, 1]];   // [Text, Spur, Tag, Reihe, links vom Punkt]
-    const DOCKS = [3, 6, 9, 12, 14];
+    const DOCKS = Array.from({ length: 14 }, (_, i) => i + 1);   // jede Nacht ins Dock: 2 Gbit reichen für rund einen Tag Rohdaten
     const ez = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
     const dayAt = t => lerp(D0, D1, ez(seg(t, P0, P1)));
     const dl = d => d > 0 ? '+' + d : d < 0 ? '−' + -d : '0';
@@ -223,7 +223,7 @@
           n.style.opacity = e.toFixed(3);
           n.style.transform = sm ? `translateX(${((1 - e) * -10).toFixed(1)}px)` : `translateY(${((1 - e) * 10).toFixed(1)}px) scale(${lerp(.94, 1, e).toFixed(3)})`;
           n.classList.toggle('ok', on); if (on) l === 'you' ? you++ : op++; });
-        // Rohdaten wachsen nur beim Andocken (alle 3 Tage) – so arbeitet Gen 2: Speicher im Gerät, Download über USB im Dock
+        // Rohdaten wachsen nur beim Andocken (jede Nacht) – so arbeitet Gen 2: Speicher im Gerät, Download über USB im Dock
         const docked = DOCKS.filter(k => d >= k), lastDock = docked.length ? docked[docked.length - 1] : 0, gb = MB_DAY * 5 * lastDock / 1000;
         bar.style.setProperty('--w', cl(d / D1).toFixed(4)); bar.style.setProperty('--f', cl(lastDock / D1).toFixed(4));
         bar.style.opacity = seg(d, -.5, .5).toFixed(3);

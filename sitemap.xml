@@ -1,6 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.openpulse.eu/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.openpulse.eu/impressum.html</loc><priority>0.3</priority></url>
-  <url><loc>https://www.openpulse.eu/datenschutz.html</loc><priority>0.3</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.openpulse.eu/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/platform/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/platform/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/platform/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/platform/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/platform/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/platform/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/platform/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/platform/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/pucks/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/pucks/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/pucks/pulse/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/pulse/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/pulse/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/pulse/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/pucks/pulse/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/pulse/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/pulse/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/pulse/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/pucks/thermo/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/thermo/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/thermo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/thermo/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/pucks/thermo/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/thermo/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/thermo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/thermo/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/pucks/ekg/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/ekg/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/ekg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/ekg/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/pucks/ekg/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/ekg/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/ekg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/ekg/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/pucks/eda-bioz/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/eda-bioz/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/eda-bioz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/eda-bioz/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/pucks/eda-bioz/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/eda-bioz/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/eda-bioz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/eda-bioz/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/pucks/air/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/air/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/air/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/air/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/pucks/air/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/pucks/air/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/pucks/air/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/pucks/air/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/data/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/data/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/data/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/data/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/data/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/data/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/use-cases/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/use-cases/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/use-cases/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/use-cases/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/use-cases/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/use-cases/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/use-cases/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/use-cases/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/faq/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/faq/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/faq/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/faq/"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/about/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/about/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/about/"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.openpulse.eu/de/about/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.openpulse.eu/about/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/about/"/>
+    <priority>0.6</priority>
+  </url>
+  <url><loc>https://www.openpulse.eu/impressum.html</loc><lastmod>2026-11-21</lastmod><priority>0.2</priority></url>
+  <url><loc>https://www.openpulse.eu/datenschutz.html</loc><lastmod>2026-11-21</lastmod><priority>0.2</priority></url>
 </urlset>

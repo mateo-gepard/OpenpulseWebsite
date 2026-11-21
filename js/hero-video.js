@@ -27,7 +27,7 @@
   const O0 = A.turn - A.lead, I0 = O0 + A.out + A.gap, I1 = I0 + A.inn, B1 = I1 + A.hold + A.back;
   const CUE = { out: O0, swap: I0, in: I1 - 0.12 };   // 1,12 s Bogen blass · 1,68 s Umgebung · 2,26 s Bogen färbt sich
 
-  const DIR = 'assets/video/';
+  const DIR = '/assets/video/';   // absolut, damit /de/ dieselben Dateien lädt
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const lang = () => window.OP_LANG || 'en';
   const sensorName = id => id ? SENSOR[id].name : EMPTY.name[lang()];

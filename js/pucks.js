@@ -20,7 +20,7 @@
   const item = (p, i, k) => {
     const label = p.q ? t_('pk.q') : p.name, grey = (i + k) % 2 === 1, r = rot(i + k * 7).toFixed(2);
     const tile = p.q ? `<a class="pm-tile pm-q" href="#contact" aria-label="${t_('pk.q')}" style="--r:${r}deg"><span>?</span></a>`
-      : `<span class="pm-tile" style="--c:${p.col};--r:${r}deg"><span class="pm-flip"><img class="pm-f" src="assets/pucks/${p.img}.webp" alt="${p.name} sensor puck" draggable="false"><img class="pm-b" src="assets/pucks/back/${p.img}.webp" alt="" draggable="false" loading="lazy"></span></span>`;
+      : `<span class="pm-tile" style="--c:${p.col};--r:${r}deg"><span class="pm-flip"><img class="pm-f" src="/assets/pucks/${p.img}.webp" alt="${p.name} sensor puck" draggable="false"><img class="pm-b" src="/assets/pucks/back/${p.img}.webp" alt="" draggable="false" loading="lazy"></span></span>`;
     return `<span class="pm-pair">${tile}<span class="pm-word${grey ? ' g' : ''}">${label}</span></span>`;
   };
   let rows = [];

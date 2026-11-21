@@ -151,20 +151,20 @@ df.loc[<q>"03:00"</q>:].head(<n>6</n>)</pre></div>
         </tbody></table></div>
         <div class="xl-st"><span class="xl-tab on">op-2F41_2026-11-14_pulse</span><span class="xl-tab">+</span><span class="xl-s">Ready</span><span class="xl-s r">Count: 8 640 000 · 100 rows per second</span></div></div>`; } },
 
-    { key: 'term', tab: 'api.t4', lab: 'api.l4', mono: true, q: () => 'op export op-2F41 --from 2026-11-11 --format parquet,bdf --out ./raw',
+    { key: 'term', tab: 'api.t4', lab: 'api.l4', mono: true, q: () => 'op export op-2F41 --from 2026-11-13 --format parquet,bdf --out ./raw',
       html: () => `<div class="ui ui-term">${bar('study — zsh — 104×30')}
         <pre class="tm"><span class="tl"><u>~/study</u> <b>$</b> op devices</span>
-<span class="tl"><s>op-2F41</s>  Gen 2   USB-C   Pulse·A  Thermo+·B  Air·E   stored 2 d 19 h  <g>●</g></span>
-<span class="tl"><u>~/study</u> <b>$</b> op export op-2F41 --from 2026-11-11 --format parquet,bdf --out ./raw</span>
-<span class="tl">  pulse    ppg.* ×6      100 Hz  24 bit  <span class="pb"><span></span></span>  24 120 000 / ch</span>
-<span class="tl">  imu      acc,gyro ×6    50 Hz  16 bit  <span class="pb"><span></span></span>  12 060 000 / ch</span>
-<span class="tl">  thermo   skin ×2         1 Hz  16 bit  <span class="pb"><span></span></span>     241 200 / ch</span>
-<span class="tl">  air      ×4            1/3 Hz  20 bit  <span class="pb"><span></span></span>      80 400 / ch</span>
-<span class="tl">  <g>✓</g> written to ./raw in 41 s     <i>local only · no network used</i></span>
+<span class="tl"><s>op-2F41</s>  Gen 2   USB-C   Pulse·A  Thermo+·B  Air·E   stored 21 h  <g>●</g></span>
+<span class="tl"><u>~/study</u> <b>$</b> op export op-2F41 --from 2026-11-13 --format parquet,bdf --out ./raw</span>
+<span class="tl">  pulse    ppg.* ×6      100 Hz  24 bit  <span class="pb"><span></span></span>  7 560 000 / ch</span>
+<span class="tl">  imu      acc,gyro ×6    50 Hz  16 bit  <span class="pb"><span></span></span>  3 780 000 / ch</span>
+<span class="tl">  thermo   skin ×2         1 Hz  16 bit  <span class="pb"><span></span></span>      75 600 / ch</span>
+<span class="tl">  air      ×4            1/3 Hz  20 bit  <span class="pb"><span></span></span>      25 200 / ch</span>
+<span class="tl">  <g>✓</g> written to ./raw in 13 s     <i>local only · no network used</i></span>
 <span class="tl"><u>~/study</u> <b>$</b> ls -lh raw/</span>
-<span class="tl">-rw-r--r--  1 lab  staff   312M 14 Nov 09:40  op-2F41_pulse.parquet</span>
-<span class="tl">-rw-r--r--  1 lab  staff    83M 14 Nov 09:40  op-2F41_imu.parquet</span>
-<span class="tl">-rw-r--r--  1 lab  staff   1.9M 14 Nov 09:40  op-2F41_thermo_air.parquet</span>
+<span class="tl">-rw-r--r--  1 lab  staff    98M 14 Nov 09:40  op-2F41_pulse.parquet</span>
+<span class="tl">-rw-r--r--  1 lab  staff    26M 14 Nov 09:40  op-2F41_imu.parquet</span>
+<span class="tl">-rw-r--r--  1 lab  staff   0.6M 14 Nov 09:40  op-2F41_thermo_air.parquet</span>
 <span class="tl">-rw-r--r--  1 lab  staff    96M 14 Nov 09:41  op-2F41_night.bdf</span>
 <span class="tl"><u>~/study</u> <b>$</b> curl -s "localhost:8473/v1/devices/op-2F41/raw?channels=ppg.ir.pd1&amp;format=csv" | head -5</span>
 <span class="tl">t_us,ppg.ir.pd1</span>

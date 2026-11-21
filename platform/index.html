@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" data-page-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- head:meta (geschrieben von scripts/build.mjs: Titel, Beschreibung, canonical, hreflang, Open Graph, JSON-LD) -->
+<title>OpenPulse Gen 2 Platform: Core, Ports and Swappable Sensor Pucks</title>
+<meta name="description" content="How the OpenPulse Gen 2 modular wearable is built: one core with radio, IMU, memory and battery, three ports for swappable sensor pucks, titanium case. Design targets.">
+<link rel="canonical" href="https://www.openpulse.eu/platform/">
+<link rel="alternate" hreflang="en" href="https://www.openpulse.eu/platform/">
+<link rel="alternate" hreflang="de" href="https://www.openpulse.eu/de/platform/">
+<link rel="alternate" hreflang="x-default" href="https://www.openpulse.eu/platform/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OpenPulse">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://www.openpulse.eu/platform/">
+<meta property="og:title" content="OpenPulse Gen 2 Platform: Core, Ports and Swappable Sensor Pucks">
+<meta property="og:description" content="How the OpenPulse Gen 2 modular wearable is built: one core with radio, IMU, memory and battery, three ports for swappable sensor pucks, titanium case. Design targets.">
+<meta property="og:image" content="https://www.openpulse.eu/assets/og/openpulse-gen2.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.openpulse.eu/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "The OpenPulse Gen 2 platform",
+          "item": "https://www.openpulse.eu/platform/"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.openpulse.eu/platform/#page",
+      "url": "https://www.openpulse.eu/platform/",
+      "name": "OpenPulse Gen 2 Platform: Core, Ports and Swappable Sensor Pucks",
+      "description": "How the OpenPulse Gen 2 modular wearable is built: one core with radio, IMU, memory and battery, three ports for swappable sensor pucks, titanium case. Design targets.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://www.openpulse.eu/#website"
+      },
+      "publisher": {
+        "@id": "https://www.openpulse.eu/#org"
+      },
+      "dateModified": "2026-11-21",
+      "about": {
+        "@id": "https://www.openpulse.eu/#gen2"
+      }
+    }
+  ]
+}
+</script>
+<!-- /head:meta -->
+<meta name="theme-color" content="#f8f6f2">
+<link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+<header class="pg-head">
+  <a class="pg-brand" href="/"><svg class="mark" viewBox="10 10 80 80" aria-hidden="true"><path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="#101f3c"/><circle cx="64.98" cy="20.6" r="6.48" fill="#101f3c"/><path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="#b08d83"/><circle cx="67.97" cy="77.68" r="6.48" fill="#b08d83"/><path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="#cf3826"/><circle cx="17.05" cy="51.73" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
+  <nav class="pg-nav" aria-label="Pages">
+    <a href="/platform/" aria-current="page">Platform</a>
+    <a href="/pucks/">Sensor pucks</a>
+    <a href="/data/">Data & API</a>
+    <a href="/use-cases/">Use cases</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/about/">About</a>
+  </nav>
+  <div class="pg-end">
+    <a class="pg-lang" href="/de/platform/" hreflang="de" lang="de" data-lang-switch="de">Deutsch</a>
+    <a class="pg-cta" href="/#contact">Talk to our team</a>
+  </div>
+</header>
+<main class="pg">
+  <nav class="pg-crumbs" aria-label="Breadcrumb"><ol>
+    <li><a href="/">Home</a></li>
+    <li><span aria-current="page">The OpenPulse Gen 2 platform</span></li>
+  </ol></nav>
+  <article class="pg-body">
+    <p class="pg-kicker">OpenPulse Gen 2</p>
+    <h1>The OpenPulse Gen 2 platform</h1>
+    <p class="pg-lead">OpenPulse Gen 2 is a modular research wearable worn on the wrist. A fixed core carries radio, processor, motion sensing, memory and power. Two ports on the skin side and one facing the air take swappable sensor pucks, so one device can be configured for each application.</p>
+<h2>The core: everything that stays</h2>
+<p>One rigid board with radio, processor, motion sensing, memory and power. It is the same in every configuration.</p>
+<table class="spec">
+<caption>Design targets, not yet measured</caption>
+<tbody>
+<tr><th scope="row">Radio</th><td>Bluetooth 5 LE, Arm Cortex-M4F (nRF52840)</td></tr>
+<tr><th scope="row">Motion</th><td>6-axis IMU, recorded at 50 Hz</td></tr>
+<tr><th scope="row">Memory</th><td>2 Gbit (256 MB) onboard, about one day of raw data at full rate</td></tr>
+<tr><th scope="row">Battery</th><td>50 mAh lithium cell, at least one day in study use</td></tr>
+<tr><th scope="row">Charging & data</th><td>Dock with USB for charging and data download</td></tr>
+</tbody>
+</table>
+<h2>Three ports, five sensor pucks</h2>
+<p>Two ports on the skin side and one facing the air take the sensor pucks: Pulse, Thermo+, EKG, EDA/BioZ and Air. A configuration is simply which puck goes where, changed in the lab with a screwdriver, no soldering.</p>
+<ul>
+<li><b>Port A</b> and <b>port B</b> sit on the skin side and take the body pucks: <a href="/pucks/pulse/">Pulse</a>, <a href="/pucks/thermo/">Thermo+</a>, <a href="/pucks/ekg/">EKG</a> and <a href="/pucks/eda-bioz/">EDA / BioZ</a>.</li>
+<li><b>Port E</b> faces outward and takes the environment puck your application needs, for example the <a href="/pucks/air/">Air puck</a>. Its readings share one timeline with pulse, skin and motion.</li>
+</ul>
+<p>Every port takes any puck. They are swapped in the lab with standard tools, without soldering. And if your application needs a signal we do not cover yet, we build the puck for it.</p>
+<h2>Swapping a puck</h2>
+<ul>
+<li><b>Four screws. Standard tools.</b> Open the clear cover, lift the puck out, press the new one in. No soldering, no glue.</li>
+<li><b>It only fits the right way.</b> Every port is mechanically keyed, so a puck cannot go in rotated or reversed.</li>
+<li><b>Every puck knows what it is.</b> Type, serial number and calibration are stored in the puck and travel with every recording.</li>
+<li><b>Set up in your lab, not by the wearer.</b> One configuration per application, fitted by your team before the study or rollout starts.</li>
+</ul>
+<h2>Case and band</h2>
+<p><b>Titanium and resin, made to last.</b> A printed titanium shell takes the knocks and gives the device its look. Underneath, a precision SLA resin carrier seals the electronics on its own. Strong where it matters, light everywhere else.</p>
+<p><b>A fine weave from Japan.</b> The 25 mm band is woven from ultra-fine yarn by a Japanese textile maker. Soft and light on the wrist, made to be worn around the clock.</p>
+<h2>Where the data goes</h2>
+<p>Pulse light at 100 Hz, motion at 50 Hz, skin and air in between, each with its timestamp. As CSV, Parquet or EDF, or straight into Python and your own tools. No cloud in between. Channels, formats and interfaces are on the <a href="/data/">data and API page</a>.</p>
+<h2>Status</h2>
+<p>In development. Gen 2 and its pucks are designed and rendered from CAD; they have not yet been built or tested. Values on this page are design targets.</p>
+<p>OpenPulse is not a medical device. It is built for research and industrial use, not for diagnosis or treatment.</p>
+  </article>
+  <aside class="pg-cta-box">
+    <h2>Tell us what you want to measure</h2>
+    <p>Tell us what you want to measure, on whom and for how long. You get a proposal in writing.</p>
+    <p><a class="pg-btn" href="/#contact">Talk to our team</a> <a href="mailto:contact@openpulse.eu">contact@openpulse.eu</a></p>
+  </aside>
+  <p class="pg-updated">Last updated: <time datetime="2026-11-21">21 November 2026</time></p>
+</main>
+<footer class="pg-foot">
+  <a class="pg-brand" href="/"><svg class="mark" viewBox="10 10 80 80" aria-hidden="true"><path d="M 18.8 39.26 A 33 33 0 0 1 64.98 20.6" stroke="#101f3c"/><circle cx="64.98" cy="20.6" r="6.48" fill="#101f3c"/><path d="M 74.91 28.35 A 33 33 0 0 1 67.97 77.68" stroke="#b08d83"/><circle cx="67.97" cy="77.68" r="6.48" fill="#b08d83"/><path d="M 56.3 82.39 A 33 33 0 0 1 17.05 51.73" stroke="#cf3826"/><circle cx="17.05" cy="51.73" r="6.48" fill="#cf3826"/></svg><span>OpenPulse</span></a>
+  <nav aria-label="Footer">
+    <a href="/platform/">Platform</a>
+    <a href="/pucks/">Sensor pucks</a>
+    <a href="/data/">Data & API</a>
+    <a href="/use-cases/">Use cases</a>
+    <a href="/faq/">FAQ</a>
+    <a href="/about/">About</a>
+    <a href="/impressum.html">Imprint</a>
+    <a href="/datenschutz.html">Privacy</a>
+  </nav>
+  <p>© 2026 OpenPulse · Designed in Germany</p>
+</footer>
+<script>document.querySelectorAll('[data-lang-switch]').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('op-lang',a.dataset.langSwitch)}catch(e){}}))</script>
+</body>
+</html>

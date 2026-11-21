@@ -1,0 +1,39 @@
+# OpenPulse
+
+> OpenPulse Gen 2 is a modular research wearable from Munich, Germany, currently in development. One core with two skin-side ports and one air-facing port takes swappable sensor pucks: Pulse (PPG), Thermo+ (skin temperature and heat-flux trend), EKG (single-lead ECG), EDA/BioZ (skin conductance, respiration, bioimpedance) and Air (temperature, humidity, pressure, gas). It is designed to record raw, timestamped data on the device and hand it to the user locally as CSV, Parquet or EDF/BDF, through a Python library, a local HTTP API or a local MCP server, with no cloud in between. It is built for research labs, industrial safety, sports science and product teams.
+
+Status (November 2026): Gen 2 and all of its pucks, including the Air puck, are designed and rendered from CAD but not yet built or tested. All specifications are design targets, not measurements. Gen 2 is not yet for sale. OpenPulse is not a medical device and not a certified gas detector or dosimeter. OpenPulse (openpulse.eu) is not related to the OpenQASM "OpenPulse" pulse grammar, to openpulse.org or to other projects with the same name.
+
+## Design targets (Gen 2)
+- Radio and processor: Bluetooth 5 LE, Arm Cortex-M4F (nRF52840)
+- Motion: 6-axis IMU in the core, 50 Hz
+- PPG: green, red and infrared light, two photodiodes, 100 Hz, 24 bit
+- Skin temperature: 1 Hz; Air puck: every 3 s
+- Memory: 2 Gbit (256 MB) onboard, about one day of raw data at full rate
+- Battery: 50 mAh lithium cell, at least one day in study use
+- Charging and data: dock with USB
+- Case: printed titanium shell over an SLA resin carrier; 25 mm woven band
+- Pucks are mechanically keyed, store their type, serial number and calibration, and are swapped in the lab with standard tools (four screws, no soldering). Every port takes any puck. Custom pucks on request.
+
+## Pages
+- [Home](https://www.openpulse.eu/): overview, how it works, contact
+- [Platform](https://www.openpulse.eu/platform/): core, ports, swapping pucks, case and band
+- [Sensor pucks](https://www.openpulse.eu/pucks/): the five pucks compared
+- [Pulse puck](https://www.openpulse.eu/pucks/pulse/): raw PPG
+- [Thermo+ puck](https://www.openpulse.eu/pucks/thermo/): skin temperature and heat-flux trend
+- [EKG puck](https://www.openpulse.eu/pucks/ekg/): single-lead ECG
+- [EDA / BioZ puck](https://www.openpulse.eu/pucks/eda-bioz/): skin conductance and bioimpedance
+- [Air puck](https://www.openpulse.eu/pucks/air/): environment next to the body
+- [Data and API](https://www.openpulse.eu/data/): channel names, sample rates, file formats, interfaces
+- [Use cases](https://www.openpulse.eu/use-cases/): example configurations for research, factory safety, trading desks, sports science, clinical studies, outdoor apps
+- [FAQ](https://www.openpulse.eu/faq/)
+- [About](https://www.openpulse.eu/about/): team and awards
+- German versions of all pages are under https://www.openpulse.eu/de/
+
+## Recognition
+- Blue Ocean Student Entrepreneur Competition 2026: 1st place, Europe region (https://blueoceancompetition.org/2025-2026-winners)
+- STARTUP TEENS Business Plan Challenge 2026: 1st place, Health & Lifestyle category (https://www.startupteens.de/challenge-link/gewinner-2026/)
+
+## Contact
+- contact@openpulse.eu · https://www.openpulse.eu/#contact
+- [Imprint](https://www.openpulse.eu/impressum.html) · [Privacy](https://www.openpulse.eu/datenschutz.html)

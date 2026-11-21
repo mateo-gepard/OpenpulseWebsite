@@ -1,5 +1,5 @@
 // Umgebungs-Port: Geschichten, eine nach der anderen. Je Geschichte ein Satz als Aufhänger, ein Messwert mit kleiner Kurve,
-// die das Ereignis zeigt (Gasanstieg, Druckabfall …), ein Satz zur Bedeutung und welcher Puck es braucht (verfügbar / auf Anfrage).
+// die das Ereignis zeigt (Gasanstieg, Druckabfall …), ein Satz zur Bedeutung und welcher Puck es braucht (in Entwicklung / auf Anfrage).
 // Reiter mit Fortschrittslinie, wechselt selbst alle 8 s, bis jemand klickt. Video spielt nur sichtbar. Werte sind Beispiele.
 (function () {
   const sec = document.getElementById('air'); if (!sec) return;
@@ -49,7 +49,7 @@
       i: { en: ['CO₂', 'Fine dust', 'Ozone', 'Pollen', 'Magnetic field', 'Water contact'], de: ['CO₂', 'Feinstaub', 'Ozon', 'Pollen', 'Magnetfeld', 'Wasserkontakt'] },
       puck: { en: 'Your puck', de: 'Ihr Puck' } },
   ];
-  const T = { en: { av: 'Available', rq: 'On request', qc: 'Talk to us', ih: 'For example' }, de: { av: 'Verfügbar', rq: 'Auf Anfrage', qc: 'Mit uns sprechen', ih: 'Zum Beispiel' } };
+  const T = { en: { av: 'In development', rq: 'On request', qc: 'Talk to us', ih: 'For example' }, de: { av: 'In Entwicklung', rq: 'Auf Anfrage', qc: 'Mit uns sprechen', ih: 'Zum Beispiel' } };
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, DUR = 8000;
   let idx = 0, auto = true, seen = false, t0 = performance.now(), raf = 0;
   const lang = () => (window.OP_LANG || document.documentElement.lang) === 'de' ? 'de' : 'en';   // OP_LANG steht schon beim Laden fest, das lang-Attribut erst nach DOMContentLoaded

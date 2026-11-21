@@ -1,78 +1,63 @@
 {
   "redirects": [
     {
-      "source": "/de",
-      "destination": "/?lang=de",
-      "permanent": false
-    },
-    {
-      "source": "/de/",
-      "destination": "/?lang=de",
-      "permanent": false
-    },
-    {
       "source": "/de/index.html",
-      "destination": "/?lang=de",
-      "permanent": false
+      "destination": "/de/",
+      "permanent": true
     },
     {
       "source": "/product",
-      "destination": "/",
+      "destination": "/platform/",
       "permanent": true
     },
     {
       "source": "/product.html",
-      "destination": "/",
+      "destination": "/platform/",
       "permanent": true
     },
     {
       "source": "/hardware.html",
-      "destination": "/",
+      "destination": "/platform/",
       "permanent": true
     },
     {
       "source": "/hardware",
-      "destination": "/",
+      "destination": "/platform/",
       "permanent": true
     },
     {
       "source": "/software.html",
-      "destination": "/",
+      "destination": "/data/",
       "permanent": true
     },
     {
       "source": "/software",
-      "destination": "/",
+      "destination": "/data/",
       "permanent": true
     },
     {
       "source": "/team.html",
-      "destination": "/",
+      "destination": "/about/",
       "permanent": true
     },
     {
       "source": "/team",
-      "destination": "/",
+      "destination": "/about/",
       "permanent": true
     },
     {
       "source": "/use-cases.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/use-cases",
-      "destination": "/",
+      "destination": "/use-cases/",
       "permanent": true
     },
     {
       "source": "/competitions.html",
-      "destination": "/",
+      "destination": "/about/",
       "permanent": true
     },
     {
       "source": "/competitions",
-      "destination": "/",
+      "destination": "/about/",
       "permanent": true
     },
     {
