@@ -541,7 +541,7 @@ ${AWARDS.map(a => `<li><a href="${a.url}" rel="noopener">${a.de}</a></li>`).join
 export const PAGES = P;
 
 // ---------- strukturierte Daten ----------
-const ORG_ID = `${SITE}/#org`, SITE_ID = `${SITE}/#website`, PRODUCT_ID = `${SITE}/#gen2`;
+const ORG_ID = `${SITE}/#org`, FOUNDER_ID = `${SITE}/#mateo-mamaladze`, SITE_ID = `${SITE}/#website`, PRODUCT_ID = `${SITE}/#gen2`;
 const org = () => ({
   '@type': 'Organization', '@id': ORG_ID, name: 'OpenPulse', alternateName: 'OpenPulse modular wearable',
   url: `${SITE}/`, logo: `${SITE}/assets/logo-512.png`, email: 'contact@openpulse.eu',
@@ -549,6 +549,13 @@ const org = () => ({
   address: { '@type': 'PostalAddress', addressLocality: 'München', addressCountry: 'DE' },
   award: AWARDS.map(a => a.en),
   knowsAbout: ['wearable sensors', 'photoplethysmography', 'electrodermal activity', 'bioimpedance', 'raw physiological data'],
+  founder: { '@id': FOUNDER_ID },
+});
+// Gründer: LinkedIn-Profil von Mateo bestätigt (21.11.2026). Weitere Personen nur mit ihrer Zustimmung ergänzen.
+const founder = () => ({
+  '@type': 'Person', '@id': FOUNDER_ID, name: 'Mateo Mamaladze',
+  sameAs: ['https://www.linkedin.com/in/mateo-mamaladze-46994034b'],
+  worksFor: { '@id': ORG_ID },
 });
 const product = lang => ({
   '@type': 'Product', '@id': PRODUCT_ID, name: 'OpenPulse Gen 2', brand: { '@id': ORG_ID }, manufacturer: { '@id': ORG_ID },
@@ -579,6 +586,7 @@ export function jsonLd(kind, lang, page) {
   const inLanguage = lang === 'de' ? 'de-DE' : 'en';
   if (kind === 'home') return { '@context': 'https://schema.org', '@graph': [
     org(),
+    founder(),
     { '@type': 'WebSite', '@id': SITE_ID, url: `${SITE}/`, name: 'OpenPulse', inLanguage: ['en', 'de-DE'], publisher: { '@id': ORG_ID } },
     { '@type': 'WebPage', '@id': SITE + HOME_META[lang].path + '#page', url: SITE + HOME_META[lang].path, name: HOME_META[lang].title,
       description: HOME_META[lang].desc, inLanguage, isPartOf: { '@id': SITE_ID }, about: { '@id': PRODUCT_ID }, dateModified: UPDATED },
@@ -591,7 +599,7 @@ export function jsonLd(kind, lang, page) {
   if (page.ld === 'faq') graph.push({ '@type': 'FAQPage', ...base,
     mainEntity: FAQ[lang].map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a.replace(/<[^>]+>/g, '') } })) });
   else if (page.ld === 'tech') graph.push({ '@type': 'TechArticle', ...base, headline: page[lang].h1, about: { '@id': PRODUCT_ID }, author: { '@id': ORG_ID } });
-  else if (page.slug === 'about') graph.push({ '@type': 'AboutPage', ...base, about: { '@id': ORG_ID } }, org());
+  else if (page.slug === 'about') graph.push({ '@type': 'AboutPage', ...base, about: { '@id': ORG_ID } }, org(), founder());
   else graph.push({ '@type': 'WebPage', ...base, about: { '@id': PRODUCT_ID } });
   return { '@context': 'https://schema.org', '@graph': graph };
 }
