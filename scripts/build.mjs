@@ -76,7 +76,7 @@ function prerender(html, lang) {
     const a = /\saria-label="[^"]*"/.test(attrs) ? attrs.replace(/\saria-label="[^"]*"/, ` aria-label="${esc(t[key])}"`) : `${attrs} aria-label="${esc(t[key])}"`;
     return `<${tag}${a}>`;
   });
-  html = html.replace(/(<section class="hero"[\s\S]*?<h1 aria-label=")[^"]*"/, `$1${esc(t.h1)}"`);
+  html = html.replace(/(<p class="hero-title"[^>]*? aria-label=")[^"]*"/, `$1${esc(t.h1)}"`);
   html = html.replace(/(<span class="typed" id="typed">)[^<]*(<\/span>)/, `$1${esc(t.words[0])}$2`);
   html = html.replace(/<button type="button" data-lang="(en|de)" aria-pressed="(true|false)">/g, (m, l) =>
     `<button type="button" data-lang="${l}" aria-pressed="${l === lang}">`);

@@ -194,7 +194,7 @@ window.I18N = {
     root.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => { const v = t[el.dataset.i18n]; if (v) el.textContent = v; });
     document.querySelectorAll('[data-i18n-aria]').forEach(el => { const v = t[el.dataset.i18nAria]; if (v) el.setAttribute('aria-label', v); });
-    const h1 = document.querySelector('.hero h1'); if (h1) h1.setAttribute('aria-label', t.h1);
+    const h1 = document.querySelector('.hero .hero-title'); if (h1) h1.setAttribute('aria-label', t.h1);   // große getippte Zeile; die <h1> ist die Zeile darüber
     document.querySelectorAll('.lang').forEach(box => { box.dataset.active = lang; box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang))); });
   }
   window.setLang = function (lang) {

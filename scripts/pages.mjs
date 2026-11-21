@@ -23,8 +23,8 @@ export const HOME_META = {
 
 export const pageUrl = (slug, lang) => (lang === 'de' ? '/de/' : '/') + slug + '/';
 
-// Belegte Auszeichnungen (Seite des Veranstalters). Jugend gründet und das MakerSpace-Stipendium stehen auf der Startseite,
-// sind hier aber nicht aufgeführt, bis ein Beleg verlinkt werden kann.
+// Auszeichnungen mit Link auf die Ergebnisseite des Veranstalters. Weitere Einträge der Startseite hier ergänzen,
+// sobald es eine solche Seite zum Verlinken gibt.
 export const AWARDS = [
   { en: 'Blue Ocean Student Entrepreneur Competition 2026: 1st place, Europe region',
     de: 'Blue Ocean Student Entrepreneur Competition 2026: 1. Platz, Region Europa',
@@ -84,8 +84,8 @@ ${rows.map(r => `<tr><td><code>${r[0]}</code></td><td>${r[1][lang]}</td><td>${r[
 const PPG_ROWS = ['green', 'red', 'ir'].flatMap(c => ['pd1', 'pd2'].map(pd => [`ppg.${c}.${pd}`,
   { en: `${{ green: 'Green', red: 'Red', ir: 'Infrared' }[c]} light, photodiode ${pd.slice(2)}`, de: `${{ green: 'Grünes', red: 'Rotes', ir: 'Infrarotes' }[c]} Licht, Photodiode ${pd.slice(2)}` },
   '100 Hz · 24 bit']));
-const THERMO_ROWS = [['skin.temp1', { en: 'Skin temperature at the skin disc', de: 'Hauttemperatur an der Hautscheibe' }, '1 Hz · 16 bit'],
-  ['skin.temp2', { en: 'Temperature above a defined insulating layer', de: 'Temperatur über einer definierten Isolierschicht' }, '1 Hz · 16 bit']];
+const THERMO_ROWS = [['skin.temp1', { en: 'Temperature sensor 1', de: 'Temperatursensor 1' }, '1 Hz · 16 bit'],
+  ['skin.temp2', { en: 'Temperature sensor 2', de: 'Temperatursensor 2' }, '1 Hz · 16 bit']];
 const AIR_ROWS = [['air.temp', { en: 'Air temperature', de: 'Lufttemperatur' }, { en: 'every 3 s · 20 bit', de: 'alle 3 s · 20 bit' }],
   ['air.humidity', { en: 'Relative humidity', de: 'Relative Luftfeuchte' }, { en: 'every 3 s · 20 bit', de: 'alle 3 s · 20 bit' }],
   ['air.pressure', { en: 'Air pressure', de: 'Luftdruck' }, { en: 'every 3 s · 20 bit', de: 'alle 3 s · 20 bit' }],
@@ -130,7 +130,7 @@ ${coreSpec(t, 'en')}
 <p>${t['g2.p.p']}</p>
 <ul>
 <li><b>Port A</b> and <b>port B</b> sit on the skin side and take the body pucks: <a href="/pucks/pulse/">Pulse</a>, <a href="/pucks/thermo/">Thermo+</a>, <a href="/pucks/ekg/">EKG</a> and <a href="/pucks/eda-bioz/">EDA / BioZ</a>.</li>
-<li><b>Port E</b> faces outward and takes the environment puck, today the <a href="/pucks/air/">Air puck</a>. Its readings share one timeline with pulse, skin and motion.</li>
+<li><b>Port E</b> faces outward and takes the environment puck your application needs, for example the <a href="/pucks/air/">Air puck</a>. Its readings share one timeline with pulse, skin and motion.</li>
 </ul>
 <p>${t['pk.sub']}</p>
 <h2>Swapping a puck</h2>
@@ -160,7 +160,7 @@ ${coreSpec(t, 'de')}
 <p>${t['g2.p.p']}</p>
 <ul>
 <li><b>Port A</b> und <b>Port B</b> liegen auf der Hautseite und nehmen die Körper-Pucks auf: <a href="/pucks/pulse/">Pulse</a>, <a href="/pucks/thermo/">Thermo+</a>, <a href="/pucks/ekg/">EKG</a> und <a href="/pucks/eda-bioz/">EDA / BioZ</a>.</li>
-<li><b>Port E</b> schaut nach außen und nimmt den Umgebungs-Puck auf, heute den <a href="/pucks/air/">Air-Puck</a>. Seine Werte teilen eine Zeitachse mit Puls, Haut und Bewegung.</li>
+<li><b>Port E</b> schaut nach außen und nimmt den Umgebungs-Puck auf, den Ihre Anwendung braucht, zum Beispiel den <a href="/pucks/air/">Air-Puck</a>. Seine Werte teilen eine Zeitachse mit Puls, Haut und Bewegung.</li>
 </ul>
 <p>${t['pk.sub']}</p>
 <h2>Einen Puck tauschen</h2>
@@ -229,7 +229,7 @@ const puckPage = (slug, o) => ({ slug: `pucks/${slug}`, parent: 'pucks', priorit
 <h2>What it measures</h2>
 ${o.en.what(t)}
 <h2>Port</h2>
-<p>${PUCKS[slug].port.en}. ${slug === 'air' ? 'Port E faces outward, so this puck reads the air, not the skin.' : 'Every skin-side port takes any body puck, and two pucks of the same type can run at the same time.'}</p>
+<p>${PUCKS[slug].port.en}. ${slug === 'air' ? 'Port E faces outward, so this puck reads the air, not the skin.' : 'Every port takes any puck; a configuration is simply which puck goes where.'}</p>
 ${o.en.channels ? `<h2>Channels</h2>\n${o.en.channels}` : ''}
 <h2>Example configurations</h2>
 <p>Used in these example configurations: ${usesWith(slug, 'en')}.</p>
@@ -244,7 +244,7 @@ ${o.en.extra ? o.en.extra(t) : ''}
 <h2>Was er misst</h2>
 ${o.de.what(t)}
 <h2>Port</h2>
-<p>${PUCKS[slug].port.de}. ${slug === 'air' ? 'Port E schaut nach außen, dieser Puck misst also die Luft, nicht die Haut.' : 'Jeder Port auf der Hautseite nimmt jeden Körper-Puck, und zwei Pucks desselben Typs können gleichzeitig laufen.'}</p>
+<p>${PUCKS[slug].port.de}. ${slug === 'air' ? 'Port E schaut nach außen, dieser Puck misst also die Luft, nicht die Haut.' : 'Jeder Port nimmt jeden Puck; eine Konfiguration ist nur die Wahl, welcher Puck wohin kommt.'}</p>
 ${o.de.channels ? `<h2>Kanäle</h2>\n${o.de.channels}` : ''}
 <h2>Beispielkonfigurationen</h2>
 <p>Enthalten in diesen Beispielkonfigurationen: ${usesWith(slug, 'de')}.</p>
