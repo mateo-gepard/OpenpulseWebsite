@@ -18,7 +18,9 @@ It writes:
 The script is idempotent. Commit its output together with the source change.
 
 Rules (also at the top of `scripts/pages.mjs`):
-- Gen 2 is in development. Every spec is a design target. No prices, no `offers` in JSON-LD until something can be ordered.
+- Gen 2 is in development. Every spec is a design target. No prices, no `offers` and no `Product` node in JSON-LD until
+  something can be ordered at a fixed price (Google's product snippets require `offers.price`; the configurator's ≈ figure
+  is an estimate, not an offer price). Pages may still point to `#gen2` via `about`.
 - No "open source" wording until a repository with a licence is public.
 - Awards only with a link to the organiser's results page.
 - Keep "not a medical device" and "not a certified gas detector or dosimeter".

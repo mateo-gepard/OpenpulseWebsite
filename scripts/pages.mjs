@@ -3,7 +3,8 @@
 // Regeln für alle Texte hier:
 // - Nur Aussagen, die auch auf der Startseite stehen (js/i18n.js, js/api.js, js/air.js, js/how.js, js/hero-video.js)
 //   oder dort als Auslegung gekennzeichnet sind. Gen 2 ist in Entwicklung: aus dem CAD gerendert, nicht gebaut, nicht
-//   getestet. Werte sind Auslegungswerte. Nichts ist bestellbar, daher keine Preise und kein „offers“ im JSON-LD.
+//   getestet. Werte sind Auslegungswerte. Nichts ist bestellbar, daher keine Preise, kein „offers“
+//   und kein Product-Knoten im JSON-LD (Google verlangt für Product-Snippets einen festen Preis; entfernt 22.11.2026).
 // - Keine Aussage „Open Source“, solange kein Repository mit Lizenz veröffentlicht ist.
 // - Auszeichnungen nur mit Beleg auf der Seite des Veranstalters (siehe AWARDS).
 // - Kein Medizinprodukt, kein zertifizierter Gaswarner oder Dosimeter.
@@ -557,34 +558,6 @@ const founder = () => ({
   sameAs: ['https://www.linkedin.com/in/mateo-mamaladze-46994034b'],
   worksFor: { '@id': ORG_ID },
 });
-const product = lang => ({
-  '@type': 'Product', '@id': PRODUCT_ID, name: 'OpenPulse Gen 2', brand: { '@id': ORG_ID }, manufacturer: { '@id': ORG_ID },
-  category: 'Research wearable / modular wearable sensor platform',
-  description: lang === 'de'
-    ? 'Modulares Forschungs-Wearable für das Handgelenk, in Entwicklung. Ein Core mit zwei Ports auf der Hautseite und einem zur Luft für austauschbare Sensor-Pucks: Pulse (PPG), Thermo+, EKG, EDA/BioZ und Air. Rohdaten bleiben lokal; Export als CSV, Parquet oder EDF/BDF. Kein Medizinprodukt.'
-    : 'Modular wrist-worn research wearable, in development. One core with two skin-side ports and one air-facing port for swappable sensor pucks: Pulse (PPG), Thermo+, EKG, EDA/BioZ and Air. Raw data stays local and exports as CSV, Parquet or EDF/BDF. Not a medical device.',
-  image: `${SITE}/assets/video/rest_0.jpg`,
-  additionalProperty: [
-    ['Status', 'In development; specifications are design targets, not yet built or tested'],
-    ['Radio and processor', 'Bluetooth 5 LE, Arm Cortex-M4F (nRF52840)'],
-    ['Motion', '6-axis IMU, 50 Hz'],
-    ['PPG sample rate', '100 Hz, 24 bit'],
-    ['On-device memory', '2 Gbit (256 MB), about one day of raw data at full rate'],
-    ['Battery', '50 mAh lithium cell, at least one day in study use'],
-    ['Ports', 'Two skin-side ports (A, B), one air-facing port (E)'],
-    ['Data formats', 'CSV, Parquet, EDF/BDF, Python, local HTTP API, local MCP server'],
-  ].map(([name, value]) => ({ '@type': 'PropertyValue', name, value })),
-  offers: {
-    '@type': 'Offer',
-    url: lang === 'de' ? `${SITE}/de/#contact` : `${SITE}/#contact`,
-    availability: 'https://schema.org/PreOrder',
-    itemCondition: 'https://schema.org/NewCondition',
-    seller: { '@id': ORG_ID },
-    description: lang === 'de'
-      ? 'Entwicklungs- und Piloteinheiten für Forschungspartner auf Anfrage: schriftliches Angebot nach einem Gespräch zum Anwendungsfall.'
-      : 'Development and pilot units for research partners on request: written proposal after a call about the use case.',
-  },
-});
 const crumbs = (page, lang, L) => {
   const items = [[L.home, lang === 'de' ? '/de/' : '/']];
   if (page.parent) items.push([L[page.parent], pageUrl(page.parent, lang)]);
@@ -600,7 +573,6 @@ export function jsonLd(kind, lang, page) {
     { '@type': 'WebSite', '@id': SITE_ID, url: `${SITE}/`, name: 'OpenPulse', inLanguage: ['en', 'de-DE'], publisher: { '@id': ORG_ID } },
     { '@type': 'WebPage', '@id': SITE + HOME_META[lang].path + '#page', url: SITE + HOME_META[lang].path, name: HOME_META[lang].title,
       description: HOME_META[lang].desc, inLanguage, isPartOf: { '@id': SITE_ID }, about: { '@id': PRODUCT_ID }, dateModified: UPDATED },
-    product(lang),
   ] };
   const L = LABELS[lang], url = SITE + pageUrl(page.slug, lang);
   const graph = [crumbs(page, lang, L)];
