@@ -574,6 +574,16 @@ const product = lang => ({
     ['Ports', 'Two skin-side ports (A, B), one air-facing port (E)'],
     ['Data formats', 'CSV, Parquet, EDF/BDF, Python, local HTTP API, local MCP server'],
   ].map(([name, value]) => ({ '@type': 'PropertyValue', name, value })),
+  offers: {
+    '@type': 'Offer',
+    url: lang === 'de' ? `${SITE}/de/#contact` : `${SITE}/#contact`,
+    availability: 'https://schema.org/PreOrder',
+    itemCondition: 'https://schema.org/NewCondition',
+    seller: { '@id': ORG_ID },
+    description: lang === 'de'
+      ? 'Entwicklungs- und Piloteinheiten für Forschungspartner auf Anfrage: schriftliches Angebot nach einem Gespräch zum Anwendungsfall.'
+      : 'Development and pilot units for research partners on request: written proposal after a call about the use case.',
+  },
 });
 const crumbs = (page, lang, L) => {
   const items = [[L.home, lang === 'de' ? '/de/' : '/']];
